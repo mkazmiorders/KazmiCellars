@@ -3,10 +3,9 @@ backend:
   repo: mkazmiorders/KazmiCellars
   branch: main
   base_url: https://kazmicellars.com
-
+  auth_endpoint: api/auth
 media_folder: images/uploads
 public_folder: /images/uploads
-
 collections:
   - name: "wineries"
     label: "Winery Reviews"
@@ -25,7 +24,6 @@ collections:
               - {label: "Full Review", name: "review", widget: "text", required: false}
               - {label: "Rating (out of 100)", name: "rating", widget: "string", required: false}
               - {label: "Photo", name: "image", widget: "image", required: false}
-
   - name: "regions"
     label: "Region Experiences"
     files:
@@ -42,7 +40,6 @@ collections:
               - {label: "Short Excerpt", name: "excerpt", widget: "text"}
               - {label: "Full Review", name: "review", widget: "text", required: false}
               - {label: "Photo", name: "image", widget: "image", required: false}
-
   - name: "restaurants"
     label: "Restaurant Reviews"
     files:
@@ -60,7 +57,6 @@ collections:
               - {label: "Full Review", name: "review", widget: "text", required: false}
               - {label: "Rating (out of 100)", name: "rating", widget: "string", required: false}
               - {label: "Photo", name: "image", widget: "image", required: false}
-
   - name: "bottles"
     label: "This Week's Bottles"
     files:
