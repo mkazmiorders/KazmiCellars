@@ -22,10 +22,6 @@ export async function onRequest(context) {
     const content = `
       <script>
         (function() {
-          function receiveMessage(e) {
-            console.log('receiveMessage %o', e);
-          }
-          window.addEventListener('message', receiveMessage, false);
           window.opener.postMessage(
             'authorization:github:success:{"token":"${token}","provider":"github"}',
             '*'
@@ -42,10 +38,6 @@ export async function onRequest(context) {
   const params = new URLSearchParams({
     client_id: env.GITHUB_CLIENT_ID,
     scope: "repo,user",
-    redirect_uri: "https://kazmicellars.com/api/auth/callback",
   });
   return Response.redirect(
-    `https://github.com/login/oauth/authorize?${params}`,
-    302
-  );
-}
+    `https://github.
