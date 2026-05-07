@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>The Cellar — Kazmi Cellars</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <header class="site-header">
+    <div class="nav-top">
+      <div class="logo">
+        <a href="index.html" class="logo-mark"><img src="image-6.png" style="height:50px;width:auto;vertical-align:middle;margin-right:0.5rem;" alt="Kazmi Cellars"> Kazmi Cellars</a>
+        <span class="logo-tagline">Journey Through Wine With Us</span>
+      </div>
+    </div>
+    <nav>
+      <ul class="nav-links">
+        <li><a href="wineries.html">Wineries</a></li>
+        <li><a href="regions.html">Regions</a></li>
+        <li><a href="restaurants.html">Restaurants</a></li>
+        <li><a href="cellar.html" class="active">The Cellar</a></li>
+        <li><a href="bottles.html">This Week's Bottles</a></li>
+        <li><a href="goods.html">Cellar Goods</a></li>
+        <li><a href="newsletter.html">Newsletter</a></li>
+        <li><a href="contact.html">Contact</a></li>
+        <li><a href="glossary.html">Wine Glossary</a></li>
+        <li><a href="wine-labels.html">Reading Labels</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <div class="dark-section" style="padding-top:4rem;padding-bottom:4rem;">
+    <div style="max-width:700px;margin:0 auto;">
+      <p class="section-label" style="color:rgba(255,255,255,0.4);">A Living Archive of Great Bottles</p>
+      <h1 class="section-title" style="color:white;">What's in <em>The Cellar</em></h1>
+      <p class="section-subtitle" style="color:rgba(255,255,255,0.5);">Collected over years, organized by grape and country. Search, filter, and explore the full collection.</p>
+    </div>
+    <div class="stats-grid">
+      <div class="stat-box"><div class="stat-number">430</div><div class="stat-label">Unique Selections</div></div>
+      <div class="stat-box"><div class="stat-number">12+</div><div class="stat-label">Countries</div></div>
+      <div class="stat-box"><div class="stat-number">30+</div><div class="stat-label">Grape Varieties</div></div>
+      <div class="stat-box"><div class="stat-number" style="font-size:2rem;">2001—<br>2022</div><div class="stat-label">Vintage Range</div></div>
+    </div>
+  </div>
+
+  <div class="section" style="padding-top:3rem;">
+    <div class="filter-bar">
+      <div class="search-wrap">
+        <span class="search-icon">🔍</span>
+        <input type="text" class="search-input" id="cellarSearch" placeholder="Search producer, wine, region..." oninput="filterCellar()"/>
+      </div>
+      <div class="filter-buttons">
+        <button class="filter-btn active" onclick="setFilter('all', this)">All</button>
+        <button class="filter-btn" onclick="setFilter('sparkling', this)">Sparkling</button>
+        <button class="filter-btn" onclick="setFilter('white', this)">White</button>
+        <button class="filter-btn" onclick="setFilter('red', this)">Red</button>
+        <button class="filter-btn" onclick="setFilter('rosé', this)">Rosé</button>
+      </div>
+    </div>
+
+    <div id="cellar-list">
+      <p style="color:var(--text-light);font-size:0.9rem;text-align:center;padding:3rem 0;">The cellar collection is being catalogued. Check back soon.</p>
+    </div>
+  </div>
+
+  <footer class="site-footer">
+    <span class="footer-logo">Kazmi Cellars</span>
+    <ul class="footer-links">
+      <li><a href="terms.html">Terms &amp; Conditions</a></li>
+      <li><a href="privacy.html">Privacy Policy</a></li>
+      <li><a href="editorial.html">Editorial Policy</a></li>
+    </ul>
+    <hr class="footer-divider">
+    <div class="footer-bottom">
+      <span class="footer-copy">© 2026 Kazmi Cellars · All Rights Reserved</span>
+      <span class="footer-social">kazmicellars@gmail.com &nbsp;·&nbsp; @kazmicellars</span>
+    </div>
+  </footer>
+
+  <script>
+    let activeFilter = 'all';
+
+    function setFilter(filter, btn) {
+      activeFilter = filter;
+      document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      filterCellar();
+    }
+
+    function filterCellar() {
+      const query = document.getElementById('cellarSearch').value.toLowerCase();
+      const items = document.querySelectorAll('.cellar-item');
+      items.forEach(item => {
+        const text = item.textContent.toLowerCase();
+        const type = item.dataset.type || '';
+        const matchesSearch = !query || text.includes(query);
+        const matchesFilter = activeFilter === 'all' || type === activeFilter;
+        item.style.display = matchesSearch && matchesFilter ? '' : 'none';
+      });
+    }
+  </script>
+
+</body>
+</html>
