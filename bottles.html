@@ -11,7 +11,7 @@
   <header class="site-header">
     <div class="nav-top">
       <div class="logo">
-        <a href="index.html" class="logo-mark">Kazmi Cellars</a>
+        <a href="index.html" class="logo-mark"><img src="image-6.png" style="height:50px;width:auto;vertical-align:middle;margin-right:0.5rem;" alt="Kazmi Cellars"> Kazmi Cellars</a>
         <span class="logo-tagline">Journey Through Wine With Us</span>
       </div>
     </div>
@@ -25,6 +25,8 @@
         <li><a href="goods.html">Cellar Goods</a></li>
         <li><a href="newsletter.html">Newsletter</a></li>
         <li><a href="contact.html">Contact</a></li>
+        <li><a href="glossary.html">Wine Glossary</a></li>
+        <li><a href="wine-labels.html">Reading Labels</a></li>
       </ul>
     </nav>
   </header>
@@ -46,9 +48,9 @@
   <footer class="site-footer">
     <span class="footer-logo">Kazmi Cellars</span>
     <ul class="footer-links">
-      <li><a href="#">Terms &amp; Conditions</a></li>
-      <li><a href="#">Privacy Policy</a></li>
-      <li><a href="#">Editorial Policy</a></li>
+      <li><a href="terms.html">Terms &amp; Conditions</a></li>
+      <li><a href="privacy.html">Privacy Policy</a></li>
+      <li><a href="editorial.html">Editorial Policy</a></li>
     </ul>
     <hr class="footer-divider">
     <div class="footer-bottom">
@@ -67,14 +69,11 @@
           container.innerHTML = '<p style="color:var(--text-light);font-size:0.9rem;">No tasting notes yet. Check back soon.</p>';
           return;
         }
-
-        // Group by week
         const weeks = {};
         items.forEach(b => {
           if (!weeks[b.week]) weeks[b.week] = [];
           weeks[b.week].push(b);
         });
-
         container.innerHTML = Object.entries(weeks).map(([week, bottles]) => `
           <div class="card" style="margin-bottom:2rem;">
             <p class="bottle-week">${week}</p>
@@ -82,6 +81,7 @@
             ${bottles.map((b, i) => `
               <div style="${i > 0 ? 'border-top:1px solid var(--border);margin-top:1.5rem;padding-top:1.5rem;' : ''}">
                 <p style="font-size:0.62rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--text-light);margin-bottom:0.5rem;">Bottle ${String(i+1).padStart(2,'0')} of ${String(bottles.length).padStart(2,'0')}</p>
+                ${b.image ? `<img src="${b.image}" style="width:100%;height:200px;object-fit:cover;margin-bottom:1rem;" alt="${b.name}">` : ''}
                 <h3 class="bottle-title">${b.name}</h3>
                 <p class="bottle-meta">${b.vintage} · ${b.region}</p>
                 <p class="bottle-notes">${b.notes}</p>
