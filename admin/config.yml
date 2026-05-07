@@ -8,12 +8,70 @@ media_folder: images/uploads
 public_folder: /images/uploads
 
 collections:
-  - name: "pages"
-    label: "Pages"
+  - name: "wineries"
+    label: "Winery Reviews"
     files:
-      - label: "Home Page"
-        name: "home"
-        file: "index.html"
+      - label: "All Wineries"
+        name: "wineries"
+        file: "data/wineries.json"
         fields:
-          - {label: "Title", name: "title", widget: "string"}
-          - {label: "Body", name: "body", widget: "markdown"}
+          - label: "Wineries"
+            name: "wineries"
+            widget: "list"
+            fields:
+              - {label: "Winery Name", name: "name", widget: "string"}
+              - {label: "Location", name: "location", widget: "string"}
+              - {label: "Short Excerpt", name: "excerpt", widget: "text"}
+              - {label: "Full Review", name: "review", widget: "text", required: false}
+              - {label: "Rating (out of 100)", name: "rating", widget: "string", required: false}
+
+  - name: "regions"
+    label: "Region Experiences"
+    files:
+      - label: "All Regions"
+        name: "regions"
+        file: "data/regions.json"
+        fields:
+          - label: "Regions"
+            name: "regions"
+            widget: "list"
+            fields:
+              - {label: "Region Name", name: "name", widget: "string"}
+              - {label: "Country", name: "country", widget: "string"}
+              - {label: "Short Excerpt", name: "excerpt", widget: "text"}
+              - {label: "Full Review", name: "review", widget: "text", required: false}
+
+  - name: "restaurants"
+    label: "Restaurant Reviews"
+    files:
+      - label: "All Restaurants"
+        name: "restaurants"
+        file: "data/restaurants.json"
+        fields:
+          - label: "Restaurants"
+            name: "restaurants"
+            widget: "list"
+            fields:
+              - {label: "Restaurant Name", name: "name", widget: "string"}
+              - {label: "Location", name: "location", widget: "string"}
+              - {label: "Short Excerpt", name: "excerpt", widget: "text"}
+              - {label: "Full Review", name: "review", widget: "text", required: false}
+              - {label: "Rating (out of 100)", name: "rating", widget: "string", required: false}
+
+  - name: "bottles"
+    label: "This Week's Bottles"
+    files:
+      - label: "All Bottles"
+        name: "bottles"
+        file: "data/bottles.json"
+        fields:
+          - label: "Bottles"
+            name: "bottles"
+            widget: "list"
+            fields:
+              - {label: "Week", name: "week", widget: "string"}
+              - {label: "Wine Name", name: "name", widget: "string"}
+              - {label: "Vintage", name: "vintage", widget: "string"}
+              - {label: "Region", name: "region", widget: "string"}
+              - {label: "Tasting Notes", name: "notes", widget: "text"}
+              - {label: "Score (out of 100)", name: "score", widget: "string"}
