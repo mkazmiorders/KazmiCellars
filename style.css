@@ -1,0 +1,631 @@
+/* ============================================
+   KAZMI CELLARS — SHARED DESIGN SYSTEM
+   ============================================ */
+
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=Raleway:wght@300;400;500;600&display=swap');
+
+:root {
+  --cream: #f5f0e8;
+  --cream-dark: #ede8dc;
+  --tan: #e8dfd0;
+  --gold: #b8860b;
+  --gold-light: #c9a96e;
+  --brown-dark: #2c1810;
+  --brown-mid: #4a2c1a;
+  --brown-light: #6b3f26;
+  --text-dark: #1a1008;
+  --text-mid: #4a3728;
+  --text-light: #7a6558;
+  --border: #d4c4a8;
+  --white: #faf8f4;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: 'Raleway', sans-serif;
+  background-color: var(--cream);
+  color: var(--text-dark);
+  font-weight: 300;
+  line-height: 1.7;
+}
+
+/* ============================================
+   TYPOGRAPHY
+   ============================================ */
+
+h1, h2, h3, h4 {
+  font-family: 'Cormorant Garamond', serif;
+  font-weight: 400;
+  line-height: 1.2;
+}
+
+.section-label {
+  font-family: 'Raleway', sans-serif;
+  font-size: 0.65rem;
+  font-weight: 500;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--text-light);
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.section-label::before {
+  content: '';
+  display: inline-block;
+  width: 2rem;
+  height: 1px;
+  background: var(--gold-light);
+}
+
+.section-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(2.2rem, 5vw, 3.2rem);
+  font-weight: 400;
+  color: var(--text-dark);
+  margin-bottom: 1rem;
+  line-height: 1.15;
+}
+
+.section-title em {
+  font-style: italic;
+  color: var(--gold-light);
+}
+
+.section-subtitle {
+  font-size: 0.95rem;
+  color: var(--text-mid);
+  line-height: 1.8;
+  max-width: 560px;
+  margin-bottom: 2.5rem;
+}
+
+/* ============================================
+   NAVIGATION
+   ============================================ */
+
+.site-header {
+  background: var(--cream);
+  border-bottom: 1px solid var(--border);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.nav-top {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 1.2rem 2rem;
+  gap: 1rem;
+}
+
+.logo {
+  text-align: center;
+}
+
+.logo-mark {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.8rem;
+  font-weight: 500;
+  color: var(--text-dark);
+  text-decoration: none;
+  letter-spacing: 0.05em;
+}
+
+.logo-tagline {
+  font-size: 0.6rem;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--text-light);
+  display: block;
+  margin-top: 0.1rem;
+}
+
+.nav-links {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 0.2rem 2rem;
+  padding: 0.6rem 2rem;
+  border-top: 1px solid var(--border);
+  list-style: none;
+}
+
+.nav-links a {
+  font-size: 0.65rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--text-mid);
+  text-decoration: none;
+  font-weight: 500;
+  transition: color 0.2s;
+  padding: 0.3rem 0;
+}
+
+.nav-links a:hover,
+.nav-links a.active {
+  color: var(--gold);
+}
+
+/* ============================================
+   HERO
+   ============================================ */
+
+.hero {
+  position: relative;
+  height: 85vh;
+  min-height: 500px;
+  overflow: hidden;
+  display: flex;
+  align-items: flex-end;
+}
+
+.hero-bg {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to bottom, rgba(30,15,5,0.3) 0%, rgba(20,10,3,0.7) 100%),
+              var(--brown-dark);
+  background-size: cover;
+  background-position: center;
+}
+
+.hero-content {
+  position: relative;
+  z-index: 1;
+  padding: 3rem 2rem;
+  max-width: 600px;
+}
+
+.hero-label {
+  font-size: 0.6rem;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.6);
+  margin-bottom: 1rem;
+  display: block;
+}
+
+.hero-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(2.8rem, 8vw, 4.5rem);
+  font-weight: 300;
+  color: white;
+  line-height: 1.1;
+  margin-bottom: 2rem;
+}
+
+.hero-title em {
+  font-style: italic;
+  color: var(--gold-light);
+}
+
+.hero-cta {
+  display: inline-block;
+  border: 1px solid rgba(255,255,255,0.6);
+  color: white;
+  text-decoration: none;
+  font-size: 0.65rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  padding: 0.9rem 1.8rem;
+  transition: all 0.3s;
+}
+
+.hero-cta:hover {
+  background: white;
+  color: var(--text-dark);
+}
+
+.hero-est {
+  position: absolute;
+  bottom: 2rem;
+  right: 2rem;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 0.75rem;
+  letter-spacing: 0.15em;
+  color: rgba(255,255,255,0.4);
+  z-index: 1;
+}
+
+/* ============================================
+   SECTION LAYOUTS
+   ============================================ */
+
+.section {
+  padding: 5rem 2rem;
+  max-width: 700px;
+  margin: 0 auto;
+}
+
+.section-header {
+  margin-bottom: 3rem;
+}
+
+/* ============================================
+   CARDS
+   ============================================ */
+
+.card {
+  border: 1px solid var(--border);
+  background: var(--white);
+  padding: 2rem;
+  margin-bottom: 0;
+}
+
+.card + .card {
+  border-top: none;
+}
+
+.card-location {
+  font-size: 0.62rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--gold);
+  font-weight: 500;
+  margin-bottom: 0.8rem;
+  display: block;
+}
+
+.card-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.9rem;
+  font-weight: 400;
+  color: var(--text-dark);
+  margin-bottom: 1rem;
+  line-height: 1.2;
+}
+
+.card-text {
+  font-size: 0.9rem;
+  color: var(--text-mid);
+  line-height: 1.8;
+  margin-bottom: 1.5rem;
+}
+
+.card-link {
+  font-size: 0.65rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--text-dark);
+  text-decoration: none;
+  font-weight: 500;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.card-link:hover {
+  color: var(--gold);
+}
+
+/* Bottle card specific */
+.bottle-week {
+  font-size: 0.62rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--gold);
+  font-weight: 500;
+  margin-bottom: 0.8rem;
+}
+
+.bottle-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 2rem;
+  font-weight: 400;
+  color: var(--text-dark);
+  margin-bottom: 0.4rem;
+}
+
+.bottle-meta {
+  font-size: 0.75rem;
+  color: var(--gold-light);
+  letter-spacing: 0.08em;
+  margin-bottom: 1rem;
+}
+
+.bottle-notes {
+  font-size: 0.9rem;
+  color: var(--text-mid);
+  line-height: 1.8;
+  margin-bottom: 1.2rem;
+}
+
+.bottle-score {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 2.8rem;
+  font-weight: 300;
+  color: var(--text-dark);
+  line-height: 1;
+}
+
+.bottle-score span {
+  font-size: 0.65rem;
+  font-family: 'Raleway', sans-serif;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--text-light);
+  vertical-align: middle;
+  margin-left: 0.3rem;
+}
+
+/* ============================================
+   DARK SECTION (Cellar stats)
+   ============================================ */
+
+.dark-section {
+  background: var(--brown-dark);
+  padding: 4rem 2rem;
+}
+
+.stats-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  max-width: 700px;
+  margin: 0 auto;
+}
+
+.stat-box {
+  padding: 2.5rem;
+  border: 1px solid rgba(255,255,255,0.1);
+}
+
+.stat-number {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 3rem;
+  font-weight: 300;
+  color: var(--gold-light);
+  line-height: 1;
+  margin-bottom: 0.5rem;
+}
+
+.stat-label {
+  font-size: 0.6rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.4);
+}
+
+/* ============================================
+   COMING SOON BADGE
+   ============================================ */
+
+.badge-coming-soon {
+  display: inline-block;
+  background: var(--brown-mid);
+  color: rgba(255,255,255,0.85);
+  font-size: 0.58rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  padding: 0.35rem 0.75rem;
+  margin-bottom: 1.2rem;
+}
+
+/* ============================================
+   CONTACT
+   ============================================ */
+
+.contact-email {
+  display: block;
+  width: 100%;
+  border: 1px solid var(--border);
+  padding: 1.1rem 1.5rem;
+  text-align: center;
+  font-size: 0.68rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--text-dark);
+  text-decoration: none;
+  font-weight: 500;
+  transition: all 0.3s;
+  background: transparent;
+}
+
+.contact-email:hover {
+  background: var(--text-dark);
+  color: var(--cream);
+}
+
+/* ============================================
+   FOOTER
+   ============================================ */
+
+.site-footer {
+  background: var(--brown-dark);
+  padding: 3rem 2rem;
+  text-align: left;
+}
+
+.footer-logo {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.8rem;
+  font-style: italic;
+  color: rgba(255,255,255,0.85);
+  margin-bottom: 2rem;
+  display: block;
+}
+
+.footer-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem 2rem;
+  list-style: none;
+  margin-bottom: 2rem;
+}
+
+.footer-links a {
+  font-size: 0.62rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.4);
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+.footer-links a:hover {
+  color: rgba(255,255,255,0.8);
+}
+
+.footer-divider {
+  border: none;
+  border-top: 1px solid rgba(255,255,255,0.1);
+  margin-bottom: 1.5rem;
+}
+
+.footer-bottom {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.footer-copy,
+.footer-social {
+  font-size: 0.6rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.3);
+}
+
+/* ============================================
+   PAGE HEADER (for inner pages)
+   ============================================ */
+
+.page-header {
+  background: var(--cream-dark);
+  padding: 4rem 2rem 3rem;
+  border-bottom: 1px solid var(--border);
+}
+
+.page-header .section-label {
+  margin-bottom: 0.8rem;
+}
+
+/* ============================================
+   SEARCH & FILTER (Cellar page)
+   ============================================ */
+
+.filter-bar {
+  background: var(--white);
+  border: 1px solid var(--border);
+  padding: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.search-input {
+  width: 100%;
+  border: 1px solid var(--border);
+  background: transparent;
+  padding: 0.8rem 1rem 0.8rem 2.5rem;
+  font-family: 'Raleway', sans-serif;
+  font-size: 0.85rem;
+  color: var(--text-dark);
+  outline: none;
+  margin-bottom: 1rem;
+  position: relative;
+}
+
+.search-wrap {
+  position: relative;
+  margin-bottom: 1rem;
+}
+
+.search-icon {
+  position: absolute;
+  left: 0.8rem;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--text-light);
+  font-size: 0.9rem;
+}
+
+.filter-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.filter-btn {
+  border: 1px solid var(--border);
+  background: transparent;
+  padding: 0.4rem 0.9rem;
+  font-family: 'Raleway', sans-serif;
+  font-size: 0.62rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  cursor: pointer;
+  color: var(--text-mid);
+  transition: all 0.2s;
+}
+
+.filter-btn.active,
+.filter-btn:hover {
+  background: var(--brown-dark);
+  color: white;
+  border-color: var(--brown-dark);
+}
+
+.sort-select {
+  border: 1px solid var(--border);
+  background: transparent;
+  padding: 0.4rem 0.9rem;
+  font-family: 'Raleway', sans-serif;
+  font-size: 0.62rem;
+  letter-spacing: 0.1em;
+  color: var(--text-mid);
+  outline: none;
+  cursor: pointer;
+}
+
+/* ============================================
+   CELLAR BOTTLE ROW
+   ============================================ */
+
+.cellar-item {
+  border-bottom: 1px solid var(--border);
+  padding: 1.2rem 0;
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 1rem;
+  align-items: start;
+}
+
+.cellar-item-name {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.1rem;
+  color: var(--text-dark);
+  margin-bottom: 0.2rem;
+}
+
+.cellar-item-meta {
+  font-size: 0.72rem;
+  color: var(--text-light);
+  letter-spacing: 0.05em;
+}
+
+.cellar-item-vintage {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.4rem;
+  color: var(--gold-light);
+  text-align: right;
+}
+
+.cellar-item-grape {
+  font-size: 0.6rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--text-light);
+  text-align: right;
+}
