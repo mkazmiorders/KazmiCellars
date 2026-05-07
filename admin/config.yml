@@ -3,6 +3,7 @@ backend:
   repo: mkazmiorders/KazmiCellars
   branch: main
   base_url: https://kazmicellars.com
+  auth_endpoint: /api/auth
 
 media_folder: images/uploads
 public_folder: /images/uploads
