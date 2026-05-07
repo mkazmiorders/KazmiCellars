@@ -2,7 +2,7 @@ backend:
   name: github
   repo: mkazmiorders/KazmiCellars
   branch: main
-  base_url: https://kazmicellars.com
+  base_url: https://kazmicellars.pages.dev
 
 media_folder: images/uploads
 public_folder: /images/uploads
