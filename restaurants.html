@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Restaurant Reviews — Kazmi Cellars</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <header class="site-header">
+    <div class="nav-top">
+      <div class="logo">
+        <a href="index.html" class="logo-mark">Kazmi Cellars</a>
+        <span class="logo-tagline">Journey Through Wine With Us</span>
+      </div>
+    </div>
+    <nav>
+      <ul class="nav-links">
+        <li><a href="wineries.html">Wineries</a></li>
+        <li><a href="regions.html">Regions</a></li>
+        <li><a href="restaurants.html" class="active">Restaurants</a></li>
+        <li><a href="cellar.html">The Cellar</a></li>
+        <li><a href="bottles.html">This Week's Bottles</a></li>
+        <li><a href="goods.html">Cellar Goods</a></li>
+        <li><a href="newsletter.html">Newsletter</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <div class="page-header">
+    <div style="max-width:700px;margin:0 auto;">
+      <p class="section-label">Where the Wine Program Matters</p>
+      <h1 class="section-title">Restaurant <em>Reviews</em></h1>
+      <p class="section-subtitle">Only restaurants where the wine program is as serious as the kitchen. These are the rooms worth building an evening around.</p>
+    </div>
+  </div>
+
+  <div class="section" style="padding-top:3rem;">
+    <div id="restaurant-list">
+      <p style="color:var(--text-light);font-size:0.9rem;">Loading restaurants...</p>
+    </div>
+  </div>
+
+  <footer class="site-footer">
+    <span class="footer-logo">Kazmi Cellars</span>
+    <ul class="footer-links">
+      <li><a href="#">Terms &amp; Conditions</a></li>
+      <li><a href="#">Privacy Policy</a></li>
+      <li><a href="#">Editorial Policy</a></li>
+    </ul>
+    <hr class="footer-divider">
+    <div class="footer-bottom">
+      <span class="footer-copy">© 2026 Kazmi Cellars · All Rights Reserved</span>
+      <span class="footer-social">kazmicellars@gmail.com &nbsp;·&nbsp; @kazmicellars</span>
+    </div>
+  </footer>
+
+  <script>
+    async function loadRestaurants() {
+      const container = document.getElementById('restaurant-list');
+      try {
+        const res = await fetch('data/restaurants.json');
+        const items = await res.json();
+        if (items.length === 0) {
+          container.innerHTML = '<p style="color:var(--text-light);font-size:0.9rem;">No restaurant reviews yet. Check back soon.</p>';
+          return;
+        }
+        container.innerHTML = items.map(r => `
+          <div class="card">
+            <span class="card-location">${r.location}</span>
+            <h2 class="card-title">${r.name}</h2>
+            <p class="card-text">${r.excerpt}</p>
+            ${r.review ? `<div style="margin-top:1rem;padding-top:1rem;border-top:1px solid var(--border);">
+              <p class="card-text">${r.review}</p>
+            </div>` : ''}
+            ${r.rating ? `<p style="font-family:'Cormorant Garamond',serif;font-size:2rem;color:var(--gold-light);margin-top:1rem;">${r.rating}<span style="font-size:0.65rem;font-family:Raleway,sans-serif;letter-spacing:0.15em;text-transform:uppercase;color:var(--text-light);margin-left:0.3rem;">/ 100</span></p>` : ''}
+          </div>
+        `).join('');
+      } catch(e) {
+        container.innerHTML = '<p style="color:var(--text-light);font-size:0.9rem;">No restaurant reviews yet. Check back soon.</p>';
+      }
+    }
+    loadRestaurants();
+  </script>
+
+</body>
+</html>

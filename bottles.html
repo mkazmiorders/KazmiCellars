@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>This Week's Bottles — Kazmi Cellars</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <header class="site-header">
+    <div class="nav-top">
+      <div class="logo">
+        <a href="index.html" class="logo-mark">Kazmi Cellars</a>
+        <span class="logo-tagline">Journey Through Wine With Us</span>
+      </div>
+    </div>
+    <nav>
+      <ul class="nav-links">
+        <li><a href="wineries.html">Wineries</a></li>
+        <li><a href="regions.html">Regions</a></li>
+        <li><a href="restaurants.html">Restaurants</a></li>
+        <li><a href="cellar.html">The Cellar</a></li>
+        <li><a href="bottles.html" class="active">This Week's Bottles</a></li>
+        <li><a href="goods.html">Cellar Goods</a></li>
+        <li><a href="newsletter.html">Newsletter</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <div class="page-header">
+    <div style="max-width:700px;margin:0 auto;">
+      <p class="section-label">Weekly Tasting Notes</p>
+      <h1 class="section-title">This Week's <em>Bottles</em></h1>
+      <p class="section-subtitle">Every week I open one to three bottles and share honest, unfiltered notes. No scores from press releases — just what I tasted, with whom, and why it mattered.</p>
+    </div>
+  </div>
+
+  <div class="section" style="padding-top:3rem;">
+    <div id="bottles-list">
+      <p style="color:var(--text-light);font-size:0.9rem;">Loading bottles...</p>
+    </div>
+  </div>
+
+  <footer class="site-footer">
+    <span class="footer-logo">Kazmi Cellars</span>
+    <ul class="footer-links">
+      <li><a href="#">Terms &amp; Conditions</a></li>
+      <li><a href="#">Privacy Policy</a></li>
+      <li><a href="#">Editorial Policy</a></li>
+    </ul>
+    <hr class="footer-divider">
+    <div class="footer-bottom">
+      <span class="footer-copy">© 2026 Kazmi Cellars · All Rights Reserved</span>
+      <span class="footer-social">kazmicellars@gmail.com &nbsp;·&nbsp; @kazmicellars</span>
+    </div>
+  </footer>
+
+  <script>
+    async function loadBottles() {
+      const container = document.getElementById('bottles-list');
+      try {
+        const res = await fetch('data/bottles.json');
+        const items = await res.json();
+        if (items.length === 0) {
+          container.innerHTML = '<p style="color:var(--text-light);font-size:0.9rem;">No tasting notes yet. Check back soon.</p>';
+          return;
+        }
+
+        // Group by week
+        const weeks = {};
+        items.forEach(b => {
+          if (!weeks[b.week]) weeks[b.week] = [];
+          weeks[b.week].push(b);
+        });
+
+        container.innerHTML = Object.entries(weeks).map(([week, bottles]) => `
+          <div class="card" style="margin-bottom:2rem;">
+            <p class="bottle-week">${week}</p>
+            <h2 style="font-family:'Cormorant Garamond',serif;font-size:1.6rem;margin-bottom:2rem;color:var(--text-dark);">${bottles.length === 1 ? 'One bottle.' : bottles.length === 2 ? 'Two bottles.' : 'Three bottles.'} One great week.</h2>
+            ${bottles.map((b, i) => `
+              <div style="${i > 0 ? 'border-top:1px solid var(--border);margin-top:1.5rem;padding-top:1.5rem;' : ''}">
+                <p style="font-size:0.62rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--text-light);margin-bottom:0.5rem;">Bottle ${String(i+1).padStart(2,'0')} of ${String(bottles.length).padStart(2,'0')}</p>
+                <h3 class="bottle-title">${b.name}</h3>
+                <p class="bottle-meta">${b.vintage} · ${b.region}</p>
+                <p class="bottle-notes">${b.notes}</p>
+                <div class="bottle-score">${b.score}<span>Points</span></div>
+              </div>
+            `).join('')}
+          </div>
+        `).join('');
+      } catch(e) {
+        container.innerHTML = '<p style="color:var(--text-light);font-size:0.9rem;">No tasting notes yet. Check back soon.</p>';
+      }
+    }
+    loadBottles();
+  </script>
+
+</body>
+</html>
