@@ -17,15 +17,15 @@ export async function onRequest(context) {
 
   const script = `<!DOCTYPE html><html><body><script>
     (function() {
-      if (window.opener) {
+      function receiveMessage(e) {
         window.opener.postMessage(
           'authorization:github:success:{"token":"${token}","provider":"github"}',
-          '*'
+          e.origin
         );
-        setTimeout(function() { window.close(); }, 1000);
-      } else {
-        document.body.innerText = 'No opener found. Please close this window.';
+        window.close();
       }
+      window.addEventListener("message", receiveMessage, false);
+      window.opener.postMessage("authorizing:github", "*");
     })();
   <\/script></body></html>`;
 
