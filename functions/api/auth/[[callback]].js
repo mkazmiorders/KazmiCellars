@@ -19,20 +19,30 @@ export async function onRequest(context) {
     });
     const data = await response.json();
     const token = data.access_token;
-    return new Response(
-      `<script>
-        window.opener.postMessage(
-          'authorization:github:success:{"token":"${token}","provider":"github"}',
-          '*'
-        );
-      </script>`,
-      { headers: { "Content-Type": "text/html" } }
-    );
+    const content = `
+      <script>
+        (function() {
+          function receiveMessage(e) {
+            console.log('receiveMessage %o', e);
+          }
+          window.addEventListener('message', receiveMessage, false);
+          window.opener.postMessage(
+            'authorization:github:success:{"token":"${token}","provider":"github"}',
+            '*'
+          );
+        })();
+      </script>
+      <p>Authorized. You may close this window.</p>
+    `;
+    return new Response(content, {
+      headers: { "Content-Type": "text/html" },
+    });
   }
 
   const params = new URLSearchParams({
     client_id: env.GITHUB_CLIENT_ID,
-    scope: "repo",
+    scope: "repo,user",
+    redirect_uri: "https://kazmicellars.com/api/auth/callback",
   });
   return Response.redirect(
     `https://github.com/login/oauth/authorize?${params}`,
