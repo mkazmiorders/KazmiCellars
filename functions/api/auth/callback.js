@@ -2,7 +2,11 @@ export async function onRequest(context) {
   const { request, env } = context;
   const url = new URL(request.url);
   const code = url.searchParams.get("code");
-  
+
+  if (!code) {
+    return new Response("No code provided", { status: 400 });
+  }
+
   const response = await fetch("https://github.com/login/oauth/access_token", {
     method: "POST",
     headers: {
@@ -13,23 +17,33 @@ export async function onRequest(context) {
       client_id: env.GITHUB_CLIENT_ID,
       client_secret: env.GITHUB_CLIENT_SECRET,
       code,
+      redirect_uri: "https://kazmicellars.com/api/auth/callback",
     }),
   });
-  
+
   const data = await response.json();
   const token = data.access_token;
-  
-  return new Response(`
+  const provider = "github";
+
+  return new Response(
+    `<!DOCTYPE html>
+    <html>
+    <head><title>Authorizing...</title></head>
+    <body>
     <script>
       (function() {
+        function receiveMessage(e) {}
+        window.addEventListener("message", receiveMessage, false);
         window.opener.postMessage(
-          'authorization:github:success:{"token":"${token}","provider":"github"}',
-          '*'
+          "authorization:${provider}:success:${JSON.stringify({token, provider})}",
+          "https://kazmicellars.com"
         );
+        setTimeout(function() { window.close(); }, 1000);
       })();
     </script>
-    <p>Authorized. You may close this window.</p>
-  `, {
-    headers: { "Content-Type": "text/html" },
-  });
+    <p>Authorization complete. This window will close automatically.</p>
+    </body>
+    </html>`,
+    { headers: { "Content-Type": "text/html" } }
+  );
 }
