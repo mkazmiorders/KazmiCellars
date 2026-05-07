@@ -3,7 +3,7 @@ export async function onRequest(context) {
   const url = new URL(request.url);
   const path = url.pathname;
 
-  if (path.endsWith("/callback")) {
+  if (path.includes("/callback")) {
     const code = url.searchParams.get("code");
     const response = await fetch("https://github.com/login/oauth/access_token", {
       method: "POST",
@@ -19,7 +19,7 @@ export async function onRequest(context) {
     });
     const data = await response.json();
     const token = data.access_token;
-    const content = `
+    return new Response(`
       <script>
         (function() {
           window.opener.postMessage(
@@ -29,10 +29,7 @@ export async function onRequest(context) {
         })();
       </script>
       <p>Authorized. You may close this window.</p>
-    `;
-    return new Response(content, {
-      headers: { "Content-Type": "text/html" },
-    });
+    `, { headers: { "Content-Type": "text/html" } });
   }
 
   const params = new URLSearchParams({
@@ -40,4 +37,7 @@ export async function onRequest(context) {
     scope: "repo,user",
   });
   return Response.redirect(
-    `https://github.
+    `https://github.com/login/oauth/authorize?${params}`,
+    302
+  );
+}
