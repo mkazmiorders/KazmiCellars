@@ -15,18 +15,15 @@ export async function onRequest(context) {
   const data = await response.json();
   const token = data.access_token;
 
-  const script = `<script>
+  const script = `<!DOCTYPE html><html><body><script>
     (function() {
-      function receiveMessage(e) {
-        window.opener.postMessage(
-          'authorization:github:success:{"token":"${token}","provider":"github"}',
-          e.origin
-        );
-      }
-      window.addEventListener("message", receiveMessage, false);
-      window.opener.postMessage("authorizing:github", "*");
-    })()
-  <\/script>`;
+      window.opener.postMessage(
+        'authorization:github:success:{"token":"${token}","provider":"github"}',
+        '*'
+      );
+      window.close();
+    })();
+  <\/script></body></html>`;
 
   return new Response(script, { headers: { 'Content-Type': 'text/html' } });
 }
