@@ -24,6 +24,7 @@ collections:
               - {label: "Short Excerpt", name: "excerpt", widget: "text"}
               - {label: "Full Review", name: "review", widget: "text", required: false}
               - {label: "Rating (out of 100)", name: "rating", widget: "string", required: false}
+              - {label: "Photo", name: "image", widget: "image", required: false}
 
   - name: "regions"
     label: "Region Experiences"
@@ -40,6 +41,7 @@ collections:
               - {label: "Country", name: "country", widget: "string"}
               - {label: "Short Excerpt", name: "excerpt", widget: "text"}
               - {label: "Full Review", name: "review", widget: "text", required: false}
+              - {label: "Photo", name: "image", widget: "image", required: false}
 
   - name: "restaurants"
     label: "Restaurant Reviews"
@@ -57,6 +59,7 @@ collections:
               - {label: "Short Excerpt", name: "excerpt", widget: "text"}
               - {label: "Full Review", name: "review", widget: "text", required: false}
               - {label: "Rating (out of 100)", name: "rating", widget: "string", required: false}
+              - {label: "Photo", name: "image", widget: "image", required: false}
 
   - name: "bottles"
     label: "This Week's Bottles"
@@ -75,3 +78,4 @@ collections:
               - {label: "Region", name: "region", widget: "string"}
               - {label: "Tasting Notes", name: "notes", widget: "text"}
               - {label: "Score (out of 100)", name: "score", widget: "string"}
+              - {label: "Bottle Photo", name: "image", widget: "image", required: false}
