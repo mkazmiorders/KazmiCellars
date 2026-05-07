@@ -17,11 +17,15 @@ export async function onRequest(context) {
 
   const script = `<!DOCTYPE html><html><body><script>
     (function() {
-      window.opener.postMessage(
-        'authorization:github:success:{"token":"${token}","provider":"github"}',
-        '*'
-      );
-      window.close();
+      if (window.opener) {
+        window.opener.postMessage(
+          'authorization:github:success:{"token":"${token}","provider":"github"}',
+          '*'
+        );
+        setTimeout(function() { window.close(); }, 1000);
+      } else {
+        document.body.innerText = 'No opener found. Please close this window.';
+      }
     })();
   <\/script></body></html>`;
 
