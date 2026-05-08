@@ -1,0 +1,133 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Gallery — Kazmi Cellars</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <header class="site-header">
+    <div class="nav-top">
+      <div class="logo">
+        <a href="index.html" class="logo-mark"><img src="image-6.png" style="height:50px;width:auto;vertical-align:middle;margin-right:0.5rem;" alt="Kazmi Cellars"> Kazmi Cellars</a>
+        <span class="logo-tagline">Journey Through Wine With Us</span>
+      </div>
+    </div>
+    <nav>
+      <ul class="nav-links">
+        <li><a href="our-story.html">Our Story</a></li>
+        <li><a href="wineries.html">Wineries</a></li>
+        <li><a href="regions.html">Regions</a></li>
+        <li><a href="restaurants.html">Restaurants</a></li>
+        <li><a href="bottles.html">This Week's Bottles</a></li>
+        <li><a href="posts.html">Posts</a></li>
+        <li><a href="gallery.html" class="active">Gallery</a></li>
+        <li><a href="cellar.html">The Cellar</a></li>
+        <li><a href="goods.html">Cellar Goods</a></li>
+        <li><a href="newsletter.html">Newsletter</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <div class="page-header">
+    <div style="max-width:700px;margin:0 auto;">
+      <p class="section-label">Moments In The Glass &amp; Beyond</p>
+      <h1 class="section-title">Photo <em>Gallery</em></h1>
+      <p class="section-subtitle">A visual journal of wineries, bottles, scenery, and the everyday beauty we've collected along the way.</p>
+    </div>
+  </div>
+
+  <div class="section" style="padding-top:3rem;">
+    <div id="gallery-filters" style="text-align:center;margin-bottom:2rem;"></div>
+    <div id="gallery-grid" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:1rem;">
+      <p style="color:var(--text-light);font-size:0.9rem;">Loading gallery...</p>
+    </div>
+  </div>
+
+  <footer class="site-footer">
+    <span class="footer-logo">Kazmi Cellars</span>
+    <ul class="footer-links">
+      <li><a href="terms.html">Terms &amp; Conditions</a></li>
+      <li><a href="privacy.html">Privacy Policy</a></li>
+      <li><a href="editorial.html">Editorial Policy</a></li>
+    </ul>
+    <hr class="footer-divider">
+    <div class="footer-bottom">
+      <span class="footer-copy">© 2026 Kazmi Cellars · All Rights Reserved</span>
+      <span class="footer-social">kazmicellars@gmail.com &nbsp;·&nbsp; @kazmicellars</span>
+    </div>
+  </footer>
+
+  <script>
+    let allPhotos = [];
+    let currentFilter = 'All';
+
+    function renderGallery() {
+      const grid = document.getElementById('gallery-grid');
+      const filtered = currentFilter === 'All'
+        ? allPhotos
+        : allPhotos.filter(p => p.category === currentFilter);
+
+      if (filtered.length === 0) {
+        grid.innerHTML = '<p style="color:var(--text-light);font-size:0.9rem;grid-column:1/-1;text-align:center;">No photos in this category yet.</p>';
+        return;
+      }
+
+      grid.innerHTML = filtered.map(p => `
+        <div style="display:flex;flex-direction:column;">
+          <img src="${p.image}" style="width:100%;height:220px;object-fit:cover;cursor:pointer;" alt="${p.caption || ''}" onclick="openLightbox('${p.image}','${(p.caption || '').replace(/'/g,"\\'")}')">
+          ${p.caption ? `<p style="font-size:0.8rem;color:var(--text-light);margin-top:0.4rem;text-align:center;">${p.caption}</p>` : ''}
+        </div>
+      `).join('');
+    }
+
+    function setFilter(cat) {
+      currentFilter = cat;
+      document.querySelectorAll('#gallery-filters button').forEach(b => {
+        b.style.background = b.dataset.cat === cat ? 'var(--gold-light, #b08d57)' : 'transparent';
+        b.style.color = b.dataset.cat === cat ? '#fff' : 'var(--text-light)';
+      });
+      renderGallery();
+    }
+
+    function openLightbox(src, caption) {
+      const overlay = document.createElement('div');
+      overlay.style.cssText = 'position:fixed;inset:0;background:rgba(0,0,0,0.92);display:flex;flex-direction:column;align-items:center;justify-content:center;z-index:9999;cursor:pointer;padding:2rem;';
+      overlay.innerHTML = `
+        <img src="${src}" style="max-width:90%;max-height:80vh;object-fit:contain;">
+        ${caption ? `<p style="color:#fff;margin-top:1rem;font-size:0.95rem;text-align:center;max-width:600px;">${caption}</p>` : ''}
+        <p style="color:#999;margin-top:1rem;font-size:0.75rem;">Tap anywhere to close</p>
+      `;
+      overlay.onclick = () => overlay.remove();
+      document.body.appendChild(overlay);
+    }
+
+    async function loadGallery() {
+      try {
+        const res = await fetch('data/gallery.json');
+        const data = await res.json();
+        allPhotos = (data.photos || []).filter(p => p.image);
+
+        if (allPhotos.length === 0) {
+          document.getElementById('gallery-grid').innerHTML = '<p style="color:var(--text-light);font-size:0.9rem;grid-column:1/-1;text-align:center;">No photos yet. Check back soon.</p>';
+          return;
+        }
+
+        const cats = ['All', ...new Set(allPhotos.map(p => p.category).filter(Boolean))];
+        document.getElementById('gallery-filters').innerHTML = cats.map(c => `
+          <button data-cat="${c}" onclick="setFilter('${c}')" style="padding:0.5rem 1rem;margin:0.2rem;border:1px solid var(--border, #ddd);background:${c==='All'?'var(--gold-light, #b08d57)':'transparent'};color:${c==='All'?'#fff':'var(--text-light)'};font-family:Raleway,sans-serif;font-size:0.75rem;letter-spacing:0.1em;text-transform:uppercase;cursor:pointer;">${c}</button>
+        `).join('');
+
+        renderGallery();
+      } catch(e) {
+        document.getElementById('gallery-grid').innerHTML = '<p style="color:var(--text-light);font-size:0.9rem;grid-column:1/-1;text-align:center;">No photos yet. Check back soon.</p>';
+      }
+    }
+    loadGallery();
+  </script>
+
+</body>
+</html>
