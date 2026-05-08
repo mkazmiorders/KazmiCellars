@@ -39,13 +39,7 @@ collections:
               - {label: "Location", name: "location", widget: "string"}
               - {label: "Short Excerpt", name: "excerpt", widget: "text"}
               - {label: "Full Experience", name: "review", widget: "text", required: false}
-              - label: "Photos"
-                name: "photos"
-                widget: "list"
-                required: false
-                fields:
-                  - {label: "Image", name: "image", widget: "image"}
-                  - {label: "Caption", name: "caption", widget: "string", required: false}
+              - {label: "Photos", name: "photos", widget: "image", multiple: true, required: false}
   - name: "regions"
     label: "Region Experiences"
     files:
@@ -61,13 +55,7 @@ collections:
               - {label: "Country", name: "country", widget: "string"}
               - {label: "Short Excerpt", name: "excerpt", widget: "text"}
               - {label: "Full Experience", name: "review", widget: "text", required: false}
-              - label: "Photos"
-                name: "photos"
-                widget: "list"
-                required: false
-                fields:
-                  - {label: "Image", name: "image", widget: "image"}
-                  - {label: "Caption", name: "caption", widget: "string", required: false}
+              - {label: "Photos", name: "photos", widget: "image", multiple: true, required: false}
   - name: "restaurants"
     label: "Restaurant Experiences"
     files:
@@ -83,13 +71,7 @@ collections:
               - {label: "Location", name: "location", widget: "string"}
               - {label: "Short Excerpt", name: "excerpt", widget: "text"}
               - {label: "Full Experience", name: "review", widget: "text", required: false}
-              - label: "Photos"
-                name: "photos"
-                widget: "list"
-                required: false
-                fields:
-                  - {label: "Image", name: "image", widget: "image"}
-                  - {label: "Caption", name: "caption", widget: "string", required: false}
+              - {label: "Photos", name: "photos", widget: "image", multiple: true, required: false}
   - name: "bottles"
     label: "This Week's Bottles"
     files:
