@@ -1,0 +1,124 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Our Story — Kazmi Cellars</title>
+  <link rel="stylesheet" href="style.css" />
+  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+</head>
+<body>
+
+  <header class="site-header">
+    <div class="nav-top">
+      <div class="logo">
+        <a href="index.html" class="logo-mark"><img src="image-6.png" style="height:50px;width:auto;vertical-align:middle;margin-right:0.5rem;" alt="Kazmi Cellars"> Kazmi Cellars</a>
+        <span class="logo-tagline">Journey Through Wine With Us</span>
+      </div>
+    </div>
+    <nav>
+      <ul class="nav-links">
+        <li><a href="our-story.html" class="active">Our Story</a></li>
+        <li><a href="wineries.html">Wineries</a></li>
+        <li><a href="regions.html">Regions</a></li>
+        <li><a href="restaurants.html">Restaurants</a></li>
+        <li><a href="bottles.html">This Week's Bottles</a></li>
+        <li><a href="posts.html">Posts</a></li>
+        <li><a href="gallery.html">Gallery</a></li>
+        <li><a href="cellar.html">The Cellar</a></li>
+        <li><a href="goods.html">Cellar Goods</a></li>
+        <li><a href="newsletter.html">Newsletter</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <div class="page-header">
+    <div style="max-width:700px;margin:0 auto;">
+      <p class="section-label">The People Behind The Glass</p>
+      <h1 class="section-title">Our <em>Story</em></h1>
+    </div>
+  </div>
+
+  <div class="section" style="padding-top:3rem;">
+    <div id="bio-content" style="max-width:800px;margin:0 auto;">
+      <p style="color:var(--text-light);font-size:0.9rem;text-align:center;">Loading our story...</p>
+    </div>
+  </div>
+
+  <footer class="site-footer">
+    <span class="footer-logo">Kazmi Cellars</span>
+    <ul class="footer-links">
+      <li><a href="terms.html">Terms &amp; Conditions</a></li>
+      <li><a href="privacy.html">Privacy Policy</a></li>
+      <li><a href="editorial.html">Editorial Policy</a></li>
+    </ul>
+    <hr class="footer-divider">
+    <div class="footer-bottom">
+      <span class="footer-copy">© 2026 Kazmi Cellars · All Rights Reserved</span>
+      <span class="footer-social">kazmicellars@gmail.com &nbsp;·&nbsp; @kazmicellars</span>
+    </div>
+  </footer>
+
+  <script>
+    function openLightbox(src, caption) {
+      const overlay = document.createElement('div');
+      overlay.style.cssText = 'position:fixed;inset:0;background:rgba(0,0,0,0.92);display:flex;flex-direction:column;align-items:center;justify-content:center;z-index:9999;cursor:pointer;padding:2rem;';
+      overlay.innerHTML = `
+        <img src="${src}" style="max-width:90%;max-height:80vh;object-fit:contain;">
+        ${caption ? `<p style="color:#fff;margin-top:1rem;font-size:0.95rem;text-align:center;max-width:600px;">${caption}</p>` : ''}
+        <p style="color:#999;margin-top:1rem;font-size:0.75rem;">Tap anywhere to close</p>
+      `;
+      overlay.onclick = () => overlay.remove();
+      document.body.appendChild(overlay);
+    }
+
+    async function loadBio() {
+      const container = document.getElementById('bio-content');
+      try {
+        const res = await fetch('data/bio.json');
+        const bio = await res.json();
+
+        let html = '';
+
+        if (bio.image) {
+          html += `<img src="${bio.image}" style="width:100%;max-height:500px;object-fit:cover;margin-bottom:2.5rem;" alt="${bio.title || 'Our Story'}">`;
+        }
+
+        if (bio.story) {
+          html += `<div class="story-body" style="font-family:'Cormorant Garamond',serif;font-size:1.15rem;line-height:1.7;color:var(--text);">${marked.parse(bio.story)}</div>`;
+        }
+
+        if (bio.photos && bio.photos.length > 0) {
+          const validPhotos = bio.photos.filter(p => p.image);
+          if (validPhotos.length > 0) {
+            html += `
+              <div style="margin-top:3rem;padding-top:2rem;border-top:1px solid var(--border, #ddd);">
+                <p class="section-label" style="text-align:center;margin-bottom:1.5rem;">Moments Together</p>
+                <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:1rem;">
+                  ${validPhotos.map(p => `
+                    <div>
+                      <img src="${p.image}" style="width:100%;height:180px;object-fit:cover;cursor:pointer;" alt="${p.caption || ''}" onclick="openLightbox('${p.image}','${(p.caption || '').replace(/'/g,"\\'")}')">
+                      ${p.caption ? `<p style="font-size:0.75rem;color:var(--text-light);margin-top:0.4rem;text-align:center;">${p.caption}</p>` : ''}
+                    </div>
+                  `).join('')}
+                </div>
+              </div>
+            `;
+          }
+        }
+
+        if (!html) {
+          html = '<p style="color:var(--text-light);font-size:0.9rem;text-align:center;">Our story is coming soon.</p>';
+        }
+
+        container.innerHTML = html;
+      } catch(e) {
+        container.innerHTML = '<p style="color:var(--text-light);font-size:0.9rem;text-align:center;">Our story is coming soon.</p>';
+      }
+    }
+    loadBio();
+  </script>
+
+</body>
+</html>
