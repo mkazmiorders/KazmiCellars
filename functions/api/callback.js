@@ -14,28 +14,26 @@ export async function onRequest(context) {
 
   const data = await response.json();
   const token = data.access_token;
+  const payload = JSON.stringify({ token, provider: 'github' });
 
-  const script = `<!DOCTYPE html><html><body>
-    <p id="status">Processing...</p>
-    <script>
-    (function() {
-      var token = "${token}";
-      if (!token || token === "undefined") {
-        document.getElementById('status').innerText = 'ERROR: No token. GitHub returned: ${JSON.stringify(data)}';
-        return;
-      }
-      if (!window.opener) {
-        document.getElementById('status').innerText = 'ERROR: window.opener is null. Token was: ' + token.substring(0,10) + '...';
-        return;
-      }
-      window.opener.postMessage(
-        'authorization:github:success:{"token":"' + token + '","provider":"github"}',
-        '*'
+  const html = `<!doctype html>
+<html>
+<body>
+<script>
+(() => {
+  window.addEventListener('message', ({ data, origin }) => {
+    if (data === 'authorizing:github') {
+      window.opener?.postMessage(
+        'authorization:github:success:${payload}',
+        origin
       );
-      document.getElementById('status').innerText = 'SUCCESS: Token sent! Closing...';
-      setTimeout(function() { window.close(); }, 2000);
-    })();
-    <\/script></body></html>`;
+    }
+  });
+  window.opener?.postMessage('authorizing:github', '*');
+})();
+<\/script>
+</body>
+</html>`;
 
-  return new Response(script, { headers: { 'Content-Type': 'text/html' } });
+  return new Response(html, { headers: { 'Content-Type': 'text/html' } });
 }
