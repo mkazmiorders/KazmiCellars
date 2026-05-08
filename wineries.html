@@ -17,16 +17,17 @@
     </div>
     <nav>
       <ul class="nav-links">
+        <li><a href="our-story.html">Our Story</a></li>
         <li><a href="wineries.html" class="active">Wineries</a></li>
         <li><a href="regions.html">Regions</a></li>
         <li><a href="restaurants.html">Restaurants</a></li>
-        <li><a href="cellar.html">The Cellar</a></li>
         <li><a href="bottles.html">This Week's Bottles</a></li>
+        <li><a href="posts.html">Posts</a></li>
+        <li><a href="gallery.html">Gallery</a></li>
+        <li><a href="cellar.html">The Cellar</a></li>
         <li><a href="goods.html">Cellar Goods</a></li>
         <li><a href="newsletter.html">Newsletter</a></li>
         <li><a href="contact.html">Contact</a></li>
-        <li><a href="glossary.html">Wine Glossary</a></li>
-        <li><a href="wine-labels.html">Reading Labels</a></li>
       </ul>
     </nav>
   </header>
@@ -71,26 +72,21 @@
           return;
         }
         container.innerHTML = items.map(w => {
+          const photoUrls = (w.photos || [])
+            .map(p => typeof p === 'string' ? p : (p && p.image))
+            .filter(Boolean);
+          if (!photoUrls.length && w.image) photoUrls.push(w.image);
+
           let photosHTML = '';
-          if (w.photos && w.photos.length > 0) {
-            const validPhotos = w.photos.filter(p => p.image);
-            if (validPhotos.length === 1) {
-              photosHTML = `<img src="${validPhotos[0].image}" style="width:100%;height:220px;object-fit:cover;margin-bottom:1.5rem;" alt="${w.name}">`;
-            } else if (validPhotos.length > 1) {
-              photosHTML = `
-                <img src="${validPhotos[0].image}" style="width:100%;height:220px;object-fit:cover;margin-bottom:1rem;" alt="${w.name}">
-                <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:0.5rem;margin-bottom:1.5rem;">
-                  ${validPhotos.slice(1).map(p => `
-                    <div>
-                      <img src="${p.image}" style="width:100%;height:120px;object-fit:cover;" alt="${p.caption || w.name}">
-                      ${p.caption ? `<p style="font-size:0.75rem;color:var(--text-light);margin-top:0.25rem;text-align:center;">${p.caption}</p>` : ''}
-                    </div>
-                  `).join('')}
-                </div>
-              `;
-            }
-          } else if (w.image) {
-            photosHTML = `<img src="${w.image}" style="width:100%;height:220px;object-fit:cover;margin-bottom:1.5rem;" alt="${w.name}">`;
+          if (photoUrls.length === 1) {
+            photosHTML = `<img src="${photoUrls[0]}" style="width:100%;height:220px;object-fit:cover;margin-bottom:1.5rem;" alt="${w.name}">`;
+          } else if (photoUrls.length > 1) {
+            photosHTML = `
+              <img src="${photoUrls[0]}" style="width:100%;height:220px;object-fit:cover;margin-bottom:1rem;" alt="${w.name}">
+              <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:0.5rem;margin-bottom:1.5rem;">
+                ${photoUrls.slice(1).map(url => `<img src="${url}" style="width:100%;height:120px;object-fit:cover;" alt="${w.name}">`).join('')}
+              </div>
+            `;
           }
           return `
             <div class="card">
