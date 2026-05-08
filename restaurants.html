@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Restaurant Reviews — Kazmi Cellars</title>
+  <title>Restaurant Experiences — Kazmi Cellars</title>
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
@@ -33,9 +33,9 @@
 
   <div class="page-header">
     <div style="max-width:700px;margin:0 auto;">
-      <p class="section-label">Where the Wine Program Matters</p>
-      <h1 class="section-title">Restaurant <em>Reviews</em></h1>
-      <p class="section-subtitle">Only restaurants where the wine program is as serious as the kitchen. These are the rooms worth building an evening around.</p>
+      <p class="section-label">Tables We've Loved</p>
+      <h1 class="section-title">Restaurant <em>Experiences</em></h1>
+      <p class="section-subtitle">Restaurants where the food, the wine list, and the atmosphere all came together — places we want to remember and share.</p>
     </div>
   </div>
 
@@ -64,23 +64,46 @@
       const container = document.getElementById('restaurant-list');
       try {
         const res = await fetch('data/restaurants.json');
-        const items = await res.json();
+        const data = await res.json();
+        const items = data.restaurants || [];
         if (items.length === 0) {
-          container.innerHTML = '<p style="color:var(--text-light);font-size:0.9rem;">No restaurant reviews yet. Check back soon.</p>';
+          container.innerHTML = '<p style="color:var(--text-light);font-size:0.9rem;">No restaurant experiences yet. Check back soon.</p>';
           return;
         }
-        container.innerHTML = items.map(r => `
-          <div class="card">
-            ${r.image ? `<img src="${r.image}" style="width:100%;height:220px;object-fit:cover;margin-bottom:1.5rem;" alt="${r.name}">` : ''}
-            <span class="card-location">${r.location}</span>
-            <h2 class="card-title">${r.name}</h2>
-            <p class="card-text">${r.excerpt}</p>
-            ${r.review ? `<div style="margin-top:1rem;padding-top:1rem;border-top:1px solid var(--border);"><p class="card-text">${r.review}</p></div>` : ''}
-            ${r.rating ? `<p style="font-family:'Cormorant Garamond',serif;font-size:2rem;color:var(--gold-light);margin-top:1rem;">${r.rating}<span style="font-size:0.65rem;font-family:Raleway,sans-serif;letter-spacing:0.15em;text-transform:uppercase;color:var(--text-light);margin-left:0.3rem;">/ 100</span></p>` : ''}
-          </div>
-        `).join('');
+        container.innerHTML = items.map(r => {
+          let photosHTML = '';
+          if (r.photos && r.photos.length > 0) {
+            const validPhotos = r.photos.filter(p => p.image);
+            if (validPhotos.length === 1) {
+              photosHTML = `<img src="${validPhotos[0].image}" style="width:100%;height:220px;object-fit:cover;margin-bottom:1.5rem;" alt="${r.name}">`;
+            } else if (validPhotos.length > 1) {
+              photosHTML = `
+                <img src="${validPhotos[0].image}" style="width:100%;height:220px;object-fit:cover;margin-bottom:1rem;" alt="${r.name}">
+                <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:0.5rem;margin-bottom:1.5rem;">
+                  ${validPhotos.slice(1).map(p => `
+                    <div>
+                      <img src="${p.image}" style="width:100%;height:120px;object-fit:cover;" alt="${p.caption || r.name}">
+                      ${p.caption ? `<p style="font-size:0.75rem;color:var(--text-light);margin-top:0.25rem;text-align:center;">${p.caption}</p>` : ''}
+                    </div>
+                  `).join('')}
+                </div>
+              `;
+            }
+          } else if (r.image) {
+            photosHTML = `<img src="${r.image}" style="width:100%;height:220px;object-fit:cover;margin-bottom:1.5rem;" alt="${r.name}">`;
+          }
+          return `
+            <div class="card">
+              ${photosHTML}
+              ${r.location ? `<span class="card-location">${r.location}</span>` : ''}
+              <h2 class="card-title">${r.name}</h2>
+              ${r.excerpt ? `<p class="card-text">${r.excerpt}</p>` : ''}
+              ${r.review ? `<div style="margin-top:1rem;padding-top:1rem;border-top:1px solid var(--border);"><p class="card-text">${r.review}</p></div>` : ''}
+            </div>
+          `;
+        }).join('');
       } catch(e) {
-        container.innerHTML = '<p style="color:var(--text-light);font-size:0.9rem;">No restaurant reviews yet. Check back soon.</p>';
+        container.innerHTML = '<p style="color:var(--text-light);font-size:0.9rem;">No restaurant experiences yet. Check back soon.</p>';
       }
     }
     loadRestaurants();
