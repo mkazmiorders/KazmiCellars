@@ -7,8 +7,25 @@ backend:
 media_folder: images/uploads
 public_folder: /images/uploads
 collections:
+  - name: "bio"
+    label: "Our Story"
+    files:
+      - label: "Bio"
+        name: "bio"
+        file: "data/bio.json"
+        fields:
+          - {label: "Title", name: "title", widget: "string"}
+          - {label: "Featured Photo", name: "image", widget: "image", required: false}
+          - {label: "Story", name: "story", widget: "markdown"}
+          - label: "Additional Photos"
+            name: "photos"
+            widget: "list"
+            required: false
+            fields:
+              - {label: "Image", name: "image", widget: "image"}
+              - {label: "Caption", name: "caption", widget: "string", required: false}
   - name: "wineries"
-    label: "Winery Reviews"
+    label: "Winery Experiences"
     files:
       - label: "All Wineries"
         name: "wineries"
@@ -21,9 +38,14 @@ collections:
               - {label: "Winery Name", name: "name", widget: "string"}
               - {label: "Location", name: "location", widget: "string"}
               - {label: "Short Excerpt", name: "excerpt", widget: "text"}
-              - {label: "Full Review", name: "review", widget: "text", required: false}
-              - {label: "Rating (out of 100)", name: "rating", widget: "string", required: false}
-              - {label: "Photo", name: "image", widget: "image", required: false}
+              - {label: "Full Experience", name: "review", widget: "text", required: false}
+              - label: "Photos"
+                name: "photos"
+                widget: "list"
+                required: false
+                fields:
+                  - {label: "Image", name: "image", widget: "image"}
+                  - {label: "Caption", name: "caption", widget: "string", required: false}
   - name: "regions"
     label: "Region Experiences"
     files:
@@ -38,10 +60,16 @@ collections:
               - {label: "Region Name", name: "name", widget: "string"}
               - {label: "Country", name: "country", widget: "string"}
               - {label: "Short Excerpt", name: "excerpt", widget: "text"}
-              - {label: "Full Review", name: "review", widget: "text", required: false}
-              - {label: "Photo", name: "image", widget: "image", required: false}
+              - {label: "Full Experience", name: "review", widget: "text", required: false}
+              - label: "Photos"
+                name: "photos"
+                widget: "list"
+                required: false
+                fields:
+                  - {label: "Image", name: "image", widget: "image"}
+                  - {label: "Caption", name: "caption", widget: "string", required: false}
   - name: "restaurants"
-    label: "Restaurant Reviews"
+    label: "Restaurant Experiences"
     files:
       - label: "All Restaurants"
         name: "restaurants"
@@ -54,9 +82,14 @@ collections:
               - {label: "Restaurant Name", name: "name", widget: "string"}
               - {label: "Location", name: "location", widget: "string"}
               - {label: "Short Excerpt", name: "excerpt", widget: "text"}
-              - {label: "Full Review", name: "review", widget: "text", required: false}
-              - {label: "Rating (out of 100)", name: "rating", widget: "string", required: false}
-              - {label: "Photo", name: "image", widget: "image", required: false}
+              - {label: "Full Experience", name: "review", widget: "text", required: false}
+              - label: "Photos"
+                name: "photos"
+                widget: "list"
+                required: false
+                fields:
+                  - {label: "Image", name: "image", widget: "image"}
+                  - {label: "Caption", name: "caption", widget: "string", required: false}
   - name: "bottles"
     label: "This Week's Bottles"
     files:
@@ -73,5 +106,37 @@ collections:
               - {label: "Vintage", name: "vintage", widget: "string"}
               - {label: "Region", name: "region", widget: "string"}
               - {label: "Tasting Notes", name: "notes", widget: "text"}
-              - {label: "Score (out of 100)", name: "score", widget: "string"}
               - {label: "Bottle Photo", name: "image", widget: "image", required: false}
+  - name: "posts"
+    label: "Posts"
+    files:
+      - label: "All Posts"
+        name: "posts"
+        file: "data/posts.json"
+        fields:
+          - label: "Posts"
+            name: "posts"
+            widget: "list"
+            fields:
+              - {label: "Title", name: "title", widget: "string"}
+              - {label: "Date", name: "date", widget: "datetime"}
+              - {label: "Featured Image", name: "image", widget: "image", required: false}
+              - {label: "Body", name: "body", widget: "markdown"}
+  - name: "gallery"
+    label: "Photo Gallery"
+    files:
+      - label: "All Photos"
+        name: "gallery"
+        file: "data/gallery.json"
+        fields:
+          - label: "Photos"
+            name: "photos"
+            widget: "list"
+            fields:
+              - {label: "Image", name: "image", widget: "image"}
+              - {label: "Caption", name: "caption", widget: "string", required: false}
+              - label: "Category"
+                name: "category"
+                widget: "select"
+                required: false
+                options: ["Wineries", "Restaurants", "Scenery", "Bottles", "Other"]
