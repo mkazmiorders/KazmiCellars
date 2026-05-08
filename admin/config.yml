@@ -2,8 +2,8 @@ backend:
   name: github
   repo: mkazmiorders/KazmiCellars
   branch: main
-  base_url: https://kazmicellars.com
-  auth_endpoint: api/auth
+  base_url: https://sveltia-cms-auth.mkazmiorders.workers.dev
+  auth_endpoint: auth
 media_folder: images/uploads
 public_folder: /images/uploads
 collections:
