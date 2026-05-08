@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Winery Reviews — Kazmi Cellars</title>
+  <title>Winery Experiences — Kazmi Cellars</title>
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
@@ -34,8 +34,8 @@
   <div class="page-header">
     <div style="max-width:700px;margin:0 auto;">
       <p class="section-label">Firsthand Visits &amp; Tastings</p>
-      <h1 class="section-title">Winery <em>Reviews</em></h1>
-      <p class="section-subtitle">My personal experiences visiting wineries around the world — the people, the pours, the stories, and whether it's worth the drive.</p>
+      <h1 class="section-title">Winery <em>Experiences</em></h1>
+      <p class="section-subtitle">Our personal experiences visiting wineries around the world — the people, the pours, and the stories.</p>
     </div>
   </div>
 
@@ -64,23 +64,46 @@
       const container = document.getElementById('winery-list');
       try {
         const res = await fetch('data/wineries.json');
-        const items = await res.json();
+        const data = await res.json();
+        const items = data.wineries || [];
         if (items.length === 0) {
-          container.innerHTML = '<p style="color:var(--text-light);font-size:0.9rem;">No winery reviews yet. Check back soon.</p>';
+          container.innerHTML = '<p style="color:var(--text-light);font-size:0.9rem;">No winery experiences yet. Check back soon.</p>';
           return;
         }
-        container.innerHTML = items.map(w => `
-          <div class="card">
-            ${w.image ? `<img src="${w.image}" style="width:100%;height:220px;object-fit:cover;margin-bottom:1.5rem;" alt="${w.name}">` : ''}
-            <span class="card-location">${w.location}</span>
-            <h2 class="card-title">${w.name}</h2>
-            <p class="card-text">${w.excerpt}</p>
-            ${w.review ? `<div style="margin-top:1rem;padding-top:1rem;border-top:1px solid var(--border);"><p class="card-text">${w.review}</p></div>` : ''}
-            ${w.rating ? `<p style="font-family:'Cormorant Garamond',serif;font-size:2rem;color:var(--gold-light);margin-top:1rem;">${w.rating}<span style="font-size:0.65rem;font-family:Raleway,sans-serif;letter-spacing:0.15em;text-transform:uppercase;color:var(--text-light);margin-left:0.3rem;">/ 100</span></p>` : ''}
-          </div>
-        `).join('');
+        container.innerHTML = items.map(w => {
+          let photosHTML = '';
+          if (w.photos && w.photos.length > 0) {
+            const validPhotos = w.photos.filter(p => p.image);
+            if (validPhotos.length === 1) {
+              photosHTML = `<img src="${validPhotos[0].image}" style="width:100%;height:220px;object-fit:cover;margin-bottom:1.5rem;" alt="${w.name}">`;
+            } else if (validPhotos.length > 1) {
+              photosHTML = `
+                <img src="${validPhotos[0].image}" style="width:100%;height:220px;object-fit:cover;margin-bottom:1rem;" alt="${w.name}">
+                <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:0.5rem;margin-bottom:1.5rem;">
+                  ${validPhotos.slice(1).map(p => `
+                    <div>
+                      <img src="${p.image}" style="width:100%;height:120px;object-fit:cover;" alt="${p.caption || w.name}">
+                      ${p.caption ? `<p style="font-size:0.75rem;color:var(--text-light);margin-top:0.25rem;text-align:center;">${p.caption}</p>` : ''}
+                    </div>
+                  `).join('')}
+                </div>
+              `;
+            }
+          } else if (w.image) {
+            photosHTML = `<img src="${w.image}" style="width:100%;height:220px;object-fit:cover;margin-bottom:1.5rem;" alt="${w.name}">`;
+          }
+          return `
+            <div class="card">
+              ${photosHTML}
+              ${w.location ? `<span class="card-location">${w.location}</span>` : ''}
+              <h2 class="card-title">${w.name}</h2>
+              ${w.excerpt ? `<p class="card-text">${w.excerpt}</p>` : ''}
+              ${w.review ? `<div style="margin-top:1rem;padding-top:1rem;border-top:1px solid var(--border);"><p class="card-text">${w.review}</p></div>` : ''}
+            </div>
+          `;
+        }).join('');
       } catch(e) {
-        container.innerHTML = '<p style="color:var(--text-light);font-size:0.9rem;">No winery reviews yet. Check back soon.</p>';
+        container.innerHTML = '<p style="color:var(--text-light);font-size:0.9rem;">No winery experiences yet. Check back soon.</p>';
       }
     }
     loadWineries();
