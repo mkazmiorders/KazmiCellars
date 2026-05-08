@@ -1,14 +1,11 @@
-[
-  {
-    "name": "Burgundy",
-    "country": "France",
-    "excerpt": "The most complex wine region on earth. Every village, every climat tells a different story. Spending time here reframes how you think about terroir forever.",
-    "review": ""
-  },
-  {
-    "name": "Santa Barbara County",
-    "country": "California, USA",
-    "excerpt": "One of California's most exciting and diverse wine regions. From the cool Sta. Rita Hills to Happy Canyon's powerful Cabernet country — this region rewards deep exploration.",
-    "review": ""
-  }
-]
+{
+  "regions": [
+    {
+      "name": "Northern Rhone",
+      "country": "France",
+      "excerpt": "Vacqueras for the win!",
+      "review": "",
+      "image": ""
+    }
+  ]
+}
