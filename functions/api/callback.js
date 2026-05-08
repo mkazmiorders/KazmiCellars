@@ -18,18 +18,22 @@ export async function onRequest(context) {
 
   const html = `<!doctype html>
 <html>
-<body>
+<body style="font-family: sans-serif; padding: 20px;">
+<h2>Auth Status</h2>
+<div id="status">Loading...</div>
 <script>
 (() => {
-  window.addEventListener('message', ({ data, origin }) => {
-    if (data === 'authorizing:github') {
-      window.opener?.postMessage(
-        'authorization:github:success:${payload}',
-        origin
-      );
+  const s = document.getElementById('status');
+  if (!window.opener) { s.innerText = 'ERROR: No opener window'; return; }
+  s.innerText = 'Step 1: Sending authorizing:github to opener...';
+  window.addEventListener('message', (e) => {
+    s.innerText += '\\nStep 2: Received from ' + e.origin + ': ' + e.data;
+    if (e.data === 'authorizing:github') {
+      window.opener.postMessage('authorization:github:success:${payload}', e.origin);
+      s.innerText += '\\nStep 3: Token sent to ' + e.origin;
     }
   });
-  window.opener?.postMessage('authorizing:github', '*');
+  window.opener.postMessage('authorizing:github', '*');
 })();
 <\/script>
 </body>
