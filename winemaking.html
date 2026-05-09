@@ -1,0 +1,227 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Winemaking Terms — Kazmi Cellars</title>
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    .glossary-intro{font-size:.95rem;color:var(--text-mid);line-height:1.8;max-width:560px;margin-bottom:2.5rem}
+    .search-wrap{position:relative;margin-bottom:1rem}
+    .glossary-search{width:100%;border:1px solid var(--border);background:var(--white);padding:.9rem 1rem .9rem 2.8rem;font-family:'Raleway',sans-serif;font-size:.9rem;color:var(--text-dark);outline:none}
+    .glossary-search:focus{border-color:var(--gold-light)}
+    .search-icon{position:absolute;left:.9rem;top:50%;transform:translateY(-50%);color:var(--text-light);pointer-events:none}
+    .result-count{font-size:.72rem;letter-spacing:.1em;color:var(--text-light);margin-bottom:1.5rem}
+    .filter-buttons{display:flex;flex-wrap:wrap;gap:.5rem;margin-bottom:2.5rem}
+    .filter-btn{border:1px solid var(--border);background:transparent;padding:.45rem 1rem;font-family:'Raleway',sans-serif;font-size:.62rem;letter-spacing:.15em;text-transform:uppercase;cursor:pointer;color:var(--text-mid)}
+    .filter-btn.active,.filter-btn:hover{background:var(--brown-dark);color:white;border-color:var(--brown-dark)}
+    .glossary-term{border:1px solid var(--border);background:var(--white);padding:1.6rem 1.8rem;margin-bottom:-1px}
+    .glossary-term:hover{background:#fdf9f3;position:relative;z-index:1}
+    .glossary-term.hidden{display:none}
+    .term-header{display:flex;align-items:baseline;justify-content:space-between;flex-wrap:wrap;gap:.5rem;margin-bottom:.7rem}
+    .term-name{font-family:'Cormorant Garamond',serif;font-size:1.5rem;font-weight:500;color:var(--text-dark);line-height:1}
+    .term-category{font-size:.58rem;letter-spacing:.18em;text-transform:uppercase;color:var(--gold);font-weight:500;border:1px solid var(--gold-light);padding:.25rem .6rem;white-space:nowrap}
+    .term-definition{font-size:.9rem;color:var(--text-dark);line-height:1.75;margin-bottom:.7rem}
+    .term-plain{font-size:.85rem;color:var(--text-mid);line-height:1.7;font-style:italic;margin-bottom:.7rem;padding-left:1rem;border-left:2px solid var(--gold-light)}
+    .term-example{font-size:.8rem;color:var(--text-light);line-height:1.6}
+    .term-example strong{color:var(--text-mid);font-weight:500;font-style:normal}
+    .no-results{text-align:center;padding:3rem 2rem;color:var(--text-light);display:none}
+    .no-results.visible{display:block}
+  </style>
+</head>
+<body>
+
+  <header class="site-header">
+    <div class="nav-top">
+      <div class="logo">
+        <a href="index.html" class="logo-mark"><img src="image-6.png" style="height:50px;width:auto;vertical-align:middle;margin-right:0.5rem;" alt="Kazmi Cellars"> Kazmi Cellars</a>
+        <span class="logo-tagline">Journey Through Wine With Us</span>
+      </div>
+    </div>
+    <nav>
+      <ul class="nav-links">
+        <li><a href="our-story.html">Our Story</a></li>
+        <li><a href="wineries.html">Wineries</a></li>
+        <li><a href="regions.html">Regions</a></li>
+        <li><a href="restaurants.html">Restaurants</a></li>
+        <li><a href="bottles.html">This Week's Bottles</a></li>
+        <li><a href="posts.html">Posts</a></li>
+        <li><a href="gallery.html">Gallery</a></li>
+        <li><a href="cellar.html">The Cellar</a></li>
+        <li><a href="education.html" class="active">Education</a></li>
+        <li><a href="goods.html">Cellar Goods</a></li>
+        <li><a href="newsletter.html">Newsletter</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <div class="page-header">
+    <div style="max-width:700px;margin:0 auto;">
+      <p class="section-label">How Wine Is Made</p>
+      <h1 class="section-title"><em>Winemaking Terms</em></h1>
+      <p class="glossary-intro">The vocabulary of how wine actually gets made — from the vineyard to the cellar to the bottle. From Old Vines and Botrytis to Carbonic Maceration and Pet-Nat, defined in plain English with real examples.</p>
+      <p style="font-size:.8rem;color:var(--text-light);"><a href="education.html" style="color:var(--gold);">← Back to Education</a></p>
+    </div>
+  </div>
+
+  <div class="section" style="padding-top:2.5rem;">
+
+    <div class="search-wrap">
+      <span class="search-icon">🔍</span>
+      <input type="text" class="glossary-search" id="glossarySearch" placeholder="Search winemaking terms..." />
+    </div>
+    <p class="result-count" id="resultCount">30 terms</p>
+
+    <div class="filter-buttons">
+      <button class="filter-btn active" data-filter="all">All Terms</button>
+      <button class="filter-btn" data-filter="vineyard">Vineyard &amp; Production</button>
+      <button class="filter-btn" data-filter="cellar">Cellar &amp; Oak</button>
+      <button class="filter-btn" data-filter="sparkling">Sparkling &amp; Fortified</button>
+    </div>
+
+    <div id="glossaryList">
+
+      <div class="glossary-term" data-category="vineyard" data-term="old vines vieilles vignes"><div class="term-header"><span class="term-name">Old Vines / Vieilles Vignes</span><span class="term-category">Vineyard</span></div><p class="term-definition">A term used (without strict legal definition in most places) for grapevines typically over 35–50 years old. Old vines produce fewer grapes per plant, but those grapes tend to be more concentrated and complex. Many regions are aggressively replanting, making remaining old vines increasingly precious.</p><p class="term-plain">"Old grapevines — usually over 35 years old. Lower yields, more concentrated fruit. A quality marker, even if not legally defined."</p><p class="term-example"><strong>Example:</strong> The "Vieilles Vignes" designation on a French wine label often signals vines 50+ years old. Some California Zinfandel vineyards have vines over 100 years old — they make some of the most distinctive wines in the country.</p></div>
+
+      <div class="glossary-term" data-category="vineyard" data-term="organic"><div class="term-header"><span class="term-name">Organic</span><span class="term-category">Vineyard</span></div><p class="term-definition">A certification confirming that grapes were grown without synthetic pesticides, herbicides, or fertilizers. In the US, "Made with organic grapes" differs from "Organic Wine" (which also restricts sulfites). In Europe, certification rules vary by country but generally focus on the vineyard.</p><p class="term-plain">"Grapes grown without synthetic pesticides or chemicals. The certification has different rules in different countries."</p><p class="term-example"><strong>Example:</strong> Many great Burgundy and Loire producers farm organically without bothering to certify. Look for "ecocert" (European) or "USDA Organic" — but absence of certification doesn't mean conventional farming.</p></div>
+
+      <div class="glossary-term" data-category="vineyard" data-term="biodynamic"><div class="term-header"><span class="term-name">Biodynamic</span><span class="term-category">Vineyard</span></div><p class="term-definition">An approach to farming that goes beyond organic — incorporating lunar cycles, herbal preparations, and a holistic view of the vineyard as a self-sustaining ecosystem. Rooted in the philosophy of Rudolf Steiner. Demeter is the main certifying body.</p><p class="term-plain">"Organic farming plus lunar timing and herbal preparations. Sounds wild, but many top producers swear by it."</p><p class="term-example"><strong>Example:</strong> Domaine de la Romanée-Conti, Lafon, and many of Burgundy's most celebrated estates farm biodynamically. Whether you believe in the cosmic side or not, the wines speak for themselves.</p></div>
+
+      <div class="glossary-term" data-category="vineyard" data-term="botrytis noble rot"><div class="term-header"><span class="term-name">Botrytis / Noble Rot</span><span class="term-category">Vineyard</span></div><p class="term-definition">A fungus (Botrytis cinerea) that, under perfect conditions, can shrivel grapes on the vine in a way that concentrates their sugar and develops unique honey-like flavors. The "noble" version makes some of the world's greatest sweet wines. The "gray rot" version ruins crops.</p><p class="term-plain">"The 'good rot' — a fungus that, when it shows up at exactly the right time, makes grapes shrivel and concentrate their sugars. It's how the world's greatest sweet wines are made."</p><p class="term-example"><strong>Example:</strong> Sauternes (Bordeaux), Tokaji Aszú (Hungary), and Trockenbeerenauslese (Germany) are all botrytized. They're labor-intensive and the results are unforgettable.</p></div>
+
+      <div class="glossary-term" data-category="vineyard" data-term="late harvest"><div class="term-header"><span class="term-name">Late Harvest</span><span class="term-category">Vineyard</span></div><p class="term-definition">Grapes picked weeks or months after the normal harvest, when they've started to dehydrate on the vine. This concentrates sugar and flavor, producing wines that range from off-dry to fully sweet. Different from botrytized wines (which involve the noble rot fungus).</p><p class="term-plain">"Grapes left on the vine longer than usual to concentrate sugar and flavor. Often produces sweet or dessert wines."</p><p class="term-example"><strong>Example:</strong> Late Harvest Riesling from California or Germany's Spätlese (literally "late harvest") — riper, richer, often with residual sugar that balances against high acidity.</p></div>
+
+      <div class="glossary-term" data-category="vineyard" data-term="vintage non-vintage"><div class="term-header"><span class="term-name">Vintage vs. Non-Vintage</span><span class="term-category">Production</span></div><p class="term-definition">A vintage wine is made from grapes harvested in a single year — that year is on the label. Non-vintage (NV) blends grapes from multiple years to maintain a consistent house style. Most wines are vintage-dated. NV is most common in Champagne and Sherry.</p><p class="term-plain">"Vintage = one year's grapes (year on the label). NV = a blend across years for consistency. Both can be great."</p><p class="term-example"><strong>Example:</strong> Most Champagne is NV — the houses blend across years to keep their style consistent. Vintage Champagne is only made in exceptional years and ages much longer. NV doesn't mean lesser; it means consistent.</p></div>
+
+      <div class="glossary-term" data-category="vineyard" data-term="single vineyard"><div class="term-header"><span class="term-name">Single Vineyard</span><span class="term-category">Production</span></div><p class="term-definition">A wine made entirely from grapes grown in one specific named vineyard, rather than blended from multiple vineyards. Considered a quality marker — single vineyard wines express the unique character (terroir) of one piece of land.</p><p class="term-plain">"All the grapes came from one specific vineyard plot — not blended across multiple sites."</p><p class="term-example"><strong>Example:</strong> A Burgundy "Chambolle-Musigny Les Amoureuses" is a single-vineyard wine — every grape came from the Les Amoureuses plot. That specificity is why some bottles command thousands of dollars.</p></div>
+
+      <div class="glossary-term" data-category="vineyard" data-term="field blend"><div class="term-header"><span class="term-name">Field Blend</span><span class="term-category">Production</span></div><p class="term-definition">A traditional vineyard practice where multiple grape varieties are planted, harvested, and fermented together — rather than being grown separately and blended later. Field blends are how vineyards were often planted before the modern era of single-grape vineyards.</p><p class="term-plain">"Multiple grape varieties planted and harvested together in the same vineyard, fermented as one. The old-school way."</p><p class="term-example"><strong>Example:</strong> Some of California's oldest Zinfandel vineyards are field blends — Zinfandel mixed with Petite Sirah, Carignan, Mourvèdre, and others planted side by side. The result is a wine of place, not a wine of grape.</p></div>
+
+      <div class="glossary-term" data-category="vineyard" data-term="estate estate-bottled"><div class="term-header"><span class="term-name">Estate / Estate-Bottled</span><span class="term-category">Production</span></div><p class="term-definition">A designation indicating that the wine was made from grapes grown by the producer themselves (not purchased) and bottled at the producer's facility. A quality and authenticity marker — you're getting the producer's own work, start to finish.</p><p class="term-plain">"The producer grew the grapes AND made the wine AND bottled it themselves. Soil to bottle, no outside grapes."</p><p class="term-example"><strong>Example:</strong> A French wine labeled "Mis en Bouteille au Domaine" or "Mis en Bouteille au Château" is the equivalent. In the US, "Estate Bottled" is a federally regulated term requiring vineyard ownership and on-site production.</p></div>
+
+      <div class="glossary-term" data-category="vineyard" data-term="negociant négociant"><div class="term-header"><span class="term-name">Négociant</span><span class="term-category">Production</span></div><p class="term-definition">A wine merchant who buys grapes, grape juice, or finished wine from growers and bottles it under their own label. Distinct from estate producers who farm their own grapes. Some négociants are excellent (Louis Jadot, Joseph Drouhin); others are simply commercial.</p><p class="term-plain">"A merchant who buys grapes or wine from growers and bottles it under their own name. Different from a vigneron, who farms their own grapes."</p><p class="term-example"><strong>Example:</strong> In Burgundy, négociants like Joseph Drouhin and Louis Jadot make some of the region's most reliable wines by sourcing carefully from many growers. The model isn't lesser — it just requires a great négociant.</p></div>
+
+      <div class="glossary-term" data-category="cellar" data-term="cuvée cuvee"><div class="term-header"><span class="term-name">Cuvée</span><span class="term-category">Cellar</span></div><p class="term-definition">A French term for a specific blend or batch of wine. It can refer to a winemaker's flagship blend, a blend of multiple grape varieties, or a specific barrel selection — the winemaker's intentional creation.</p><p class="term-plain">"A winemaker's chosen recipe — their considered blend, picked from everything they had available."</p><p class="term-example"><strong>Example:</strong> A Champagne house might release a "Prestige Cuvée" — their finest blend of grapes from their best vineyards, representing the pinnacle of their craft.</p></div>
+
+      <div class="glossary-term" data-category="cellar" data-term="lees"><div class="term-header"><span class="term-name">Lees</span><span class="term-category">Cellar</span></div><p class="term-definition">The dead yeast cells and grape solids that settle at the bottom of a wine vessel after fermentation. Winemakers sometimes choose to age wine on its lees to add texture, richness, and complexity.</p><p class="term-plain">"The sediment left behind after fermentation — the yeast that did its job and settled to the bottom."</p><p class="term-example"><strong>Example:</strong> Many fine Chardonnays and Champagnes are aged on their lees for months or years, giving them that distinctive creamy, bready texture.</p></div>
+
+      <div class="glossary-term" data-category="cellar" data-term="sur lie"><div class="term-header"><span class="term-name">Sur Lie</span><span class="term-category">Cellar</span></div><p class="term-definition">French for "on the lees." A winemaking technique where wine is left in contact with its lees for an extended period after fermentation. Adds richness, creamy mouthfeel, and subtle yeasty complexity.</p><p class="term-plain">"Letting the wine sit with its own sediment longer than usual — like steeping tea — to extract more flavor and texture."</p><p class="term-example"><strong>Example:</strong> Muscadet from the Loire Valley is famous for its Sur Lie aging, which transforms a simple, acidic white wine into something with depth, saline character, and slight effervescence.</p></div>
+
+      <div class="glossary-term" data-category="cellar" data-term="battonage lees stirring"><div class="term-header"><span class="term-name">Battonage (Lees Stirring)</span><span class="term-category">Cellar</span></div><p class="term-definition">The practice of periodically stirring up the dead yeast cells (lees) at the bottom of a fermentation vessel back into the wine. This adds body, creaminess, and a yeasty richness — most famously to Burgundy's white wines.</p><p class="term-plain">"Stirring the dead yeast back into the wine while it ages. Adds body and creaminess — the source of buttery Chardonnay."</p><p class="term-example"><strong>Example:</strong> A great white Burgundy like Meursault often gets battonage every week or two during barrel aging. The result is extra weight, creamy texture, and that subtle hazelnut-bread quality that defines fine Chardonnay.</p></div>
+
+      <div class="glossary-term" data-category="cellar" data-term="maceration"><div class="term-header"><span class="term-name">Maceration</span><span class="term-category">Cellar</span></div><p class="term-definition">The process of letting grape juice sit in contact with skins, seeds, and sometimes stems to extract color, tannin, and flavor. Length of maceration varies — a few hours for light rosé, weeks for full-bodied reds.</p><p class="term-plain">"Letting grape juice sit on its skins to pull out color, tannin, and flavor. The longer it sits, the deeper the wine."</p><p class="term-example"><strong>Example:</strong> A pale Provence rosé might have only 2–4 hours of maceration. A structured Cabernet might have 3–4 weeks. The duration is one of the winemaker's most important decisions.</p></div>
+
+      <div class="glossary-term" data-category="cellar" data-term="whole cluster"><div class="term-header"><span class="term-name">Whole Cluster</span><span class="term-category">Cellar</span></div><p class="term-definition">Fermenting wine with the grape clusters intact — meaning the stems are included along with the grapes. Adds spice, structure, and an herbal-savory edge. A traditional technique for Pinot Noir and Syrah, currently having a renaissance.</p><p class="term-plain">"Fermenting with the stems on, not just the grapes. Adds spice, structure, and an earthy edge."</p><p class="term-example"><strong>Example:</strong> Many top Burgundy producers (Domaine Dujac, Romanée-Conti) use whole cluster fermentation. The result is Pinot Noir with extra spice and savory complexity.</p></div>
+
+      <div class="glossary-term" data-category="cellar" data-term="carbonic maceration"><div class="term-header"><span class="term-name">Carbonic Maceration</span><span class="term-category">Cellar</span></div><p class="term-definition">A unique fermentation method where whole, uncrushed grapes are placed in a sealed tank filled with CO2. Fermentation begins INSIDE each grape, producing very fruity, low-tannin wines with characteristic banana, bubblegum, and bright cherry notes. The signature method of Beaujolais.</p><p class="term-plain">"Fermenting whole grapes in a sealed CO2 tank — the fermentation happens inside each grape. Creates juicy, fruit-forward wine."</p><p class="term-example"><strong>Example:</strong> Beaujolais Nouveau (released the third Thursday of November each year) is the most famous example. It's why the wine tastes so fruity, almost like banana or strawberry candy.</p></div>
+
+      <div class="glossary-term" data-category="cellar" data-term="skin contact"><div class="term-header"><span class="term-name">Skin Contact</span><span class="term-category">Cellar</span></div><p class="term-definition">Letting white grape juice sit in contact with the grape skins during fermentation — the standard method for red wines, but unusual for whites. Skin contact in white wines extracts color (turning them orange), tannin, and richer texture. Defines orange wine.</p><p class="term-plain">"Fermenting white grapes with their skins on — the technique that creates orange wine. Adds color, tannin, and grip."</p><p class="term-example"><strong>Example:</strong> Most white wine has minimal skin contact (a few hours at most). Orange wines have days, weeks, or even months. Producers in Friuli and Slovenia have been making skin-contact whites for centuries.</p></div>
+
+      <div class="glossary-term" data-category="cellar" data-term="malolactic fermentation mlf"><div class="term-header"><span class="term-name">Malolactic Fermentation (MLF)</span><span class="term-category">Cellar</span></div><p class="term-definition">A secondary fermentation that converts harsh, tart malic acid (think green apples) into softer, creamier lactic acid (think milk). Almost universal for red wines. For whites, it's a stylistic choice — MLF gives Chardonnay its buttery character; skipping it preserves crisp acidity.</p><p class="term-plain">"A second fermentation that converts apple-like malic acid into creamy lactic acid. It's what makes Chardonnay buttery."</p><p class="term-example"><strong>Example:</strong> A buttery California Chardonnay went through MLF. A crisp Chablis Chardonnay had MLF blocked or partial. Same grape, dramatically different wines because of one decision.</p></div>
+
+      <div class="glossary-term" data-category="cellar" data-term="new oak neutral"><div class="term-header"><span class="term-name">New Oak vs. Neutral Oak</span><span class="term-category">Oak</span></div><p class="term-definition">New oak barrels (used for the first time) impart strong flavors of vanilla, toast, coconut, and spice. Neutral oak (used barrels) holds wine without adding much flavor, allowing the wine itself to show through. Producers choose based on grape variety, style goals, and house philosophy.</p><p class="term-plain">"New barrels add lots of flavor (vanilla, toast). Neutral barrels — used 3+ times — add almost no flavor and just hold the wine. Both are useful."</p><p class="term-example"><strong>Example:</strong> A Napa Cabernet might be aged in 100% new French oak for 18 months. A delicate Pinot Noir might use only 20% new oak to avoid overwhelming the fruit.</p></div>
+
+      <div class="glossary-term" data-category="cellar" data-term="french american oak"><div class="term-header"><span class="term-name">French vs. American Oak</span><span class="term-category">Oak</span></div><p class="term-definition">The two most common woods used for wine barrels. French oak is denser and tighter-grained, imparting subtle vanilla, spice, and refined aromatics. American oak is looser-grained, giving bolder vanilla, dill, coconut, and sweet baking spices.</p><p class="term-plain">"French oak = subtle and spicy. American oak = bolder and sweeter (think vanilla and coconut). Different woods, different character."</p><p class="term-example"><strong>Example:</strong> Top Bordeaux uses French oak almost exclusively. Classic Rioja uses American oak (which gives Spanish reds their characteristic vanilla-coconut sweetness). Many California producers blend both.</p></div>
+
+      <div class="glossary-term" data-category="cellar" data-term="stainless steel"><div class="term-header"><span class="term-name">Stainless Steel</span><span class="term-category">Vessels</span></div><p class="term-definition">An alternative to oak — fermenting and aging wine in stainless steel tanks. No oak flavor is added, no oxygen exchange happens, and the pure fruit and freshness of the grape are preserved. Common for crisp whites like Sauvignon Blanc, Pinot Grigio, and unoaked Chardonnay.</p><p class="term-plain">"No oak, no oxygen. Just preserves the fresh fruit and acidity of the grape. Great for crisp whites."</p><p class="term-example"><strong>Example:</strong> A Sancerre or a New Zealand Sauvignon Blanc is almost always made in stainless steel — it's why those wines taste so vivid, citrusy, and pure.</p></div>
+
+      <div class="glossary-term" data-category="cellar" data-term="reserve riserva"><div class="term-header"><span class="term-name">Reserve</span><span class="term-category">Cellar</span></div><p class="term-definition">A label term whose meaning depends entirely on where you are. In Italy and Spain, it's legally defined (Riserva, Reserva) — requiring extended aging before release. In the US, it has no legal meaning at all — it's just marketing.</p><p class="term-plain">"In Italy or Spain, 'Riserva/Reserva' = legally aged longer. In the US, it means whatever the producer wants. Trust the country of origin."</p><p class="term-example"><strong>Example:</strong> A Rioja Reserva is legally required to age 3 years (1 in oak). A Brunello Riserva must age 6 years total. A "Reserve" California Cabernet might just mean "the producer thinks this is their best one."</p></div>
+
+      <div class="glossary-term" data-category="cellar" data-term="angel's share"><div class="term-header"><span class="term-name">Angel's Share</span><span class="term-category">Cellar</span></div><p class="term-definition">The portion of wine or spirits that evaporates from a barrel during aging. In a typical wine cellar, a barrel can lose 2–5% of its volume each year to evaporation through the wood.</p><p class="term-plain">"The wine that quietly disappears into thin air while it's sleeping in the barrel."</p><p class="term-example"><strong>Example:</strong> A winemaker aging Pinot Noir for 18 months might lose nearly a full bottle per barrel to the angel's share — a beautiful, poetic loss that concentrates what remains.</p></div>
+
+      <div class="glossary-term" data-category="cellar" data-term="devil's cut"><div class="term-header"><span class="term-name">Devil's Cut</span><span class="term-category">Cellar</span></div><p class="term-definition">The portion of wine absorbed into the wood of the barrel during aging — the opposite of the Angel's Share. While the angel takes what evaporates, the devil keeps what soaks in.</p><p class="term-plain">"The wine the barrel itself drinks and holds onto, deep in the wood grain."</p><p class="term-example"><strong>Example:</strong> When you crack open a used wine barrel, you can sometimes extract the devil's cut by adding water — it carries intense oak, vanilla, and caramel flavors.</p></div>
+
+      <div class="glossary-term" data-category="sparkling" data-term="methode champenoise traditional"><div class="term-header"><span class="term-name">Méthode Champenoise / Traditional Method</span><span class="term-category">Sparkling</span></div><p class="term-definition">The classic method for making true Champagne and high-quality sparkling wines worldwide. The base wine goes through a SECOND fermentation inside the bottle itself — adding yeast and sugar, sealing the bottle, letting CO2 build up over months or years, then disgorging the dead yeast before final corking.</p><p class="term-plain">"How real Champagne is made — bubbles created inside the bottle through a second fermentation. Slow, expensive, worth it."</p><p class="term-example"><strong>Example:</strong> Every bottle of Champagne uses this method. So does Cava (Spain), top-tier Crémant (France), Franciacorta (Italy), and the best California sparklers like Schramsberg.</p></div>
+
+      <div class="glossary-term" data-category="sparkling" data-term="charmat method"><div class="term-header"><span class="term-name">Charmat Method</span><span class="term-category">Sparkling</span></div><p class="term-definition">A faster, less expensive alternative to Méthode Champenoise. The second fermentation happens in a large stainless steel tank rather than individual bottles. Produces fresher, fruitier sparkling wines that are usually meant to be drunk young. The standard method for Prosecco.</p><p class="term-plain">"Tank-fermented sparkling wine. Faster and cheaper than the bottle method — and what makes Prosecco taste fresh and fruity."</p><p class="term-example"><strong>Example:</strong> Prosecco, Asti Spumante, and many German Sekts use the Charmat method. The result is typically lighter and more affordable than Champagne, with bigger bubbles and fresher fruit.</p></div>
+
+      <div class="glossary-term" data-category="sparkling" data-term="pet-nat petillant naturel"><div class="term-header"><span class="term-name">Pet-Nat (Pétillant Naturel)</span><span class="term-category">Sparkling</span></div><p class="term-definition">The oldest and most rustic sparkling wine method — predating Champagne. The wine is bottled before primary fermentation finishes, so the remaining sugar continues fermenting in the bottle, naturally creating bubbles. Often cloudy, sometimes funky, almost always interesting.</p><p class="term-plain">"The original sparkling wine — bottled while still fermenting so the bubbles happen naturally. Cloudy, rustic, and very of-the-moment."</p><p class="term-example"><strong>Example:</strong> Pet-Nats are everywhere on natural wine lists right now. Often sealed with a crown cap, they offer a totally different sparkling experience than Champagne — cloudier, often tarter, more "alive."</p></div>
+
+      <div class="glossary-term" data-category="sparkling" data-term="fortified"><div class="term-header"><span class="term-name">Fortified</span><span class="term-category">Fortified</span></div><p class="term-definition">A wine that has had a neutral spirit (typically grape brandy) added during or after fermentation. The added alcohol stops fermentation, leaving residual sugar — and pushes the wine to 17–22% ABV. Includes Sherry, Port, Madeira, Marsala, and Vermouth.</p><p class="term-plain">"Wine that's had brandy added — pushes alcohol to 17-22% and often leaves it sweet. Sherry, Port, and Madeira are the classics."</p><p class="term-example"><strong>Example:</strong> Port wine starts as red wine in the Douro Valley of Portugal. Mid-fermentation, neutral grape spirit is added — killing the yeast and locking in the natural grape sugars. Rich, sweet, and shelf-stable for decades.</p></div>
+
+      <div class="glossary-term" data-category="sparkling" data-term="solera"><div class="term-header"><span class="term-name">Solera</span><span class="term-category">Fortified</span></div><p class="term-definition">A traditional aging system used for Sherry and Madeira. Wines from different vintages are blended in a series of barrels (the "solera"), with the oldest barrel used for bottling and topped up from the next-oldest. Some soleras have been running continuously for 100+ years.</p><p class="term-plain">"A rolling blend across many years of barrels. When you bottle a Sherry, it might contain microscopic amounts of every vintage going back a century."</p><p class="term-example"><strong>Example:</strong> A bottle of Lustau Solera Reserva Sherry might contain wine traceable back to soleras started in the 1800s. That's not marketing — it's literally how the system works.</p></div>
+
+    </div>
+
+    <div class="no-results" id="noResults">
+      <p style="font-family:'Cormorant Garamond',serif;font-size:1.8rem;margin-bottom:.5rem;">No terms found</p>
+      <p>Try a different search or browse all terms.</p>
+    </div>
+
+  </div>
+
+  <footer class="site-footer">
+    <span class="footer-logo">Kazmi Cellars</span>
+    <ul class="footer-links">
+      <li><a href="terms.html">Terms &amp; Conditions</a></li>
+      <li><a href="privacy.html">Privacy Policy</a></li>
+      <li><a href="editorial.html">Editorial Policy</a></li>
+    </ul>
+    <hr class="footer-divider">
+    <div class="footer-bottom">
+      <span class="footer-copy">© 2026 Kazmi Cellars · All Rights Reserved</span>
+      <span class="footer-social">kazmicellars@gmail.com &nbsp;·&nbsp; @kazmicellars</span>
+    </div>
+  </footer>
+
+  <script>
+    const terms = document.querySelectorAll('.glossary-term');
+    const searchInput = document.getElementById('glossarySearch');
+    const resultCount = document.getElementById('resultCount');
+    const noResults = document.getElementById('noResults');
+    const filterBtns = document.querySelectorAll('.filter-btn');
+    let activeFilter = 'all';
+
+    function updateResults() {
+      const query = searchInput.value.toLowerCase().trim();
+      const matches = [];
+      terms.forEach(term => {
+        const termName = term.dataset.term.toLowerCase();
+        const termText = term.innerText.toLowerCase();
+        const termCat = term.dataset.category;
+        const matchesFilter = activeFilter === 'all' || termCat === activeFilter;
+        if (!matchesFilter) {
+          term.classList.add('hidden');
+          return;
+        }
+        let score = 0;
+        if (!query) {
+          score = 1;
+        } else if (termName === query) {
+          score = 100;
+        } else if (termName.startsWith(query)) {
+          score = 80;
+        } else if (termName.includes(query)) {
+          score = 60;
+        } else if (termText.includes(query)) {
+          score = 20;
+        }
+        if (score > 0) {
+          term.classList.remove('hidden');
+          matches.push({term, score});
+        } else {
+          term.classList.add('hidden');
+        }
+      });
+      matches.sort((a, b) => b.score - a.score);
+      const list = document.getElementById('glossaryList');
+      matches.forEach(m => list.appendChild(m.term));
+      resultCount.textContent = matches.length + ' term' + (matches.length !== 1 ? 's' : '') + (query ? ' found' : '');
+      noResults.classList.toggle('visible', matches.length === 0);
+    }
+
+    searchInput.addEventListener('input', updateResults);
+    filterBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        filterBtns.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        activeFilter = btn.dataset.filter;
+        updateResults();
+      });
+    });
+    updateResults();
+  </script>
+
+</body>
+</html>
