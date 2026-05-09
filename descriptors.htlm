@@ -1,0 +1,244 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Descriptors — Kazmi Cellars</title>
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    .glossary-intro{font-size:.95rem;color:var(--text-mid);line-height:1.8;max-width:560px;margin-bottom:2.5rem}
+    .search-wrap{position:relative;margin-bottom:1rem}
+    .glossary-search{width:100%;border:1px solid var(--border);background:var(--white);padding:.9rem 1rem .9rem 2.8rem;font-family:'Raleway',sans-serif;font-size:.9rem;color:var(--text-dark);outline:none}
+    .glossary-search:focus{border-color:var(--gold-light)}
+    .search-icon{position:absolute;left:.9rem;top:50%;transform:translateY(-50%);color:var(--text-light);pointer-events:none}
+    .result-count{font-size:.72rem;letter-spacing:.1em;color:var(--text-light);margin-bottom:1.5rem}
+    .filter-buttons{display:flex;flex-wrap:wrap;gap:.5rem;margin-bottom:2.5rem}
+    .filter-btn{border:1px solid var(--border);background:transparent;padding:.45rem 1rem;font-family:'Raleway',sans-serif;font-size:.62rem;letter-spacing:.15em;text-transform:uppercase;cursor:pointer;color:var(--text-mid)}
+    .filter-btn.active,.filter-btn:hover{background:var(--brown-dark);color:white;border-color:var(--brown-dark)}
+    .glossary-term{border:1px solid var(--border);background:var(--white);padding:1.6rem 1.8rem;margin-bottom:-1px}
+    .glossary-term:hover{background:#fdf9f3;position:relative;z-index:1}
+    .glossary-term.hidden{display:none}
+    .term-header{display:flex;align-items:baseline;justify-content:space-between;flex-wrap:wrap;gap:.5rem;margin-bottom:.7rem}
+    .term-name{font-family:'Cormorant Garamond',serif;font-size:1.5rem;font-weight:500;color:var(--text-dark);line-height:1}
+    .term-category{font-size:.58rem;letter-spacing:.18em;text-transform:uppercase;color:var(--gold);font-weight:500;border:1px solid var(--gold-light);padding:.25rem .6rem;white-space:nowrap}
+    .term-definition{font-size:.9rem;color:var(--text-dark);line-height:1.75;margin-bottom:.7rem}
+    .term-plain{font-size:.85rem;color:var(--text-mid);line-height:1.7;font-style:italic;margin-bottom:.7rem;padding-left:1rem;border-left:2px solid var(--gold-light)}
+    .term-example{font-size:.8rem;color:var(--text-light);line-height:1.6}
+    .term-example strong{color:var(--text-mid);font-weight:500;font-style:normal}
+    .no-results{text-align:center;padding:3rem 2rem;color:var(--text-light);display:none}
+    .no-results.visible{display:block}
+  </style>
+</head>
+<body>
+
+  <header class="site-header">
+    <div class="nav-top">
+      <div class="logo">
+        <a href="index.html" class="logo-mark"><img src="image-6.png" style="height:50px;width:auto;vertical-align:middle;margin-right:0.5rem;" alt="Kazmi Cellars"> Kazmi Cellars</a>
+        <span class="logo-tagline">Journey Through Wine With Us</span>
+      </div>
+    </div>
+    <nav>
+      <ul class="nav-links">
+        <li><a href="our-story.html">Our Story</a></li>
+        <li><a href="wineries.html">Wineries</a></li>
+        <li><a href="regions.html">Regions</a></li>
+        <li><a href="restaurants.html">Restaurants</a></li>
+        <li><a href="bottles.html">This Week's Bottles</a></li>
+        <li><a href="posts.html">Posts</a></li>
+        <li><a href="gallery.html">Gallery</a></li>
+        <li><a href="cellar.html">The Cellar</a></li>
+        <li><a href="education.html" class="active">Education</a></li>
+        <li><a href="goods.html">Cellar Goods</a></li>
+        <li><a href="newsletter.html">Newsletter</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <div class="page-header">
+    <div style="max-width:700px;margin:0 auto;">
+      <p class="section-label">How Wine Tastes</p>
+      <h1 class="section-title"><em>Descriptors</em></h1>
+      <p class="glossary-intro">Every word you'll see on a tasting note — from foundational structure terms like Acidity and Body, to texture words like Silky and Velvety, to character terms like Elegant and Complex. Defined in plain English with real-world examples.</p>
+      <p style="font-size:.8rem;color:var(--text-light);"><a href="education.html" style="color:var(--gold);">← Back to Education</a></p>
+    </div>
+  </div>
+
+  <div class="section" style="padding-top:2.5rem;">
+
+    <div class="search-wrap">
+      <span class="search-icon">🔍</span>
+      <input type="text" class="glossary-search" id="glossarySearch" placeholder="Search descriptors..." />
+    </div>
+    <p class="result-count" id="resultCount">38 terms</p>
+
+    <div class="filter-buttons">
+      <button class="filter-btn active" data-filter="all">All Terms</button>
+      <button class="filter-btn" data-filter="structure">Structure</button>
+      <button class="filter-btn" data-filter="texture">Texture</button>
+      <button class="filter-btn" data-filter="flavor">Flavor &amp; Aroma</button>
+      <button class="filter-btn" data-filter="character">Character</button>
+    </div>
+
+    <div id="glossaryList">
+
+      <div class="glossary-term" data-category="structure" data-term="acidity"><div class="term-header"><span class="term-name">Acidity</span><span class="term-category">Structure</span></div><p class="term-definition">The natural tartness in wine that comes from acids in grapes — primarily tartaric, malic, and citric. Acidity gives wine freshness, brightness, and the ability to age. It's what makes your mouth water after a sip.</p><p class="term-plain">"The zip and brightness you feel — like a squeeze of lemon. It's what makes wine feel alive and refreshing."</p><p class="term-example"><strong>Example:</strong> A crisp Sauvignon Blanc from New Zealand has high acidity — fresh, almost electric, and pairs beautifully with seafood because that brightness cuts through richness.</p></div>
+
+      <div class="glossary-term" data-category="structure" data-term="tannin"><div class="term-header"><span class="term-name">Tannin</span><span class="term-category">Structure</span></div><p class="term-definition">Natural compounds found in grape skins, seeds, and stems (and in oak barrels) that create a drying, gripping sensation in your mouth. Tannins are a key structural element in red wines and act as a natural preservative, allowing wines to age.</p><p class="term-plain">"That drying feeling on your gums and tongue after a sip of red wine — like strong black tea or the inside of a walnut skin."</p><p class="term-example"><strong>Example:</strong> A young Barolo or Cabernet Sauvignon can feel almost harsh from tannins — but those same tannins soften beautifully with 10–20 years of aging.</p></div>
+
+      <div class="glossary-term" data-category="structure" data-term="body"><div class="term-header"><span class="term-name">Body</span><span class="term-category">Structure</span></div><p class="term-definition">The weight and texture of wine in your mouth — how heavy or light it feels. Body is primarily determined by alcohol content, tannin, and residual sugar. Wines are described as light-, medium-, or full-bodied.</p><p class="term-plain">"The weight of the wine on your tongue. Compare to the difference between skim milk (light), whole milk (medium), and cream (full-bodied)."</p><p class="term-example"><strong>Example:</strong> Pinot Noir is typically light-bodied, Merlot is medium, Cabernet Sauvignon and Syrah tend to be full-bodied — each feeling distinctly different.</p></div>
+
+      <div class="glossary-term" data-category="structure" data-term="finish"><div class="term-header"><span class="term-name">Finish</span><span class="term-category">Structure</span></div><p class="term-definition">The taste and sensation that lingers in your mouth after you swallow a wine. A great wine's finish can last 30 seconds to several minutes. Length, complexity, and pleasantness of the finish are key quality indicators.</p><p class="term-plain">"What the wine says on its way out — and how long it keeps talking."</p><p class="term-example"><strong>Example:</strong> An exceptional Burgundy might leave a finish of dried flowers, earth, and red fruit lasting a full minute. A simple table wine vanishes in seconds.</p></div>
+
+      <div class="glossary-term" data-category="structure" data-term="balance"><div class="term-header"><span class="term-name">Balance</span><span class="term-category">Structure</span></div><p class="term-definition">The harmony between a wine's key components — acidity, tannin, alcohol, sweetness, and fruit. A balanced wine has no single element dominating. The most important quality marker in a fine wine.</p><p class="term-plain">"No one part is shouting louder than the others. Everything is in conversation — nothing is out of place."</p><p class="term-example"><strong>Example:</strong> Too much alcohol feels hot. Too much acidity feels sharp. When everything is in balance with fruit and tannin, the wine feels effortless and elegant.</p></div>
+
+      <div class="glossary-term" data-category="structure" data-term="structure"><div class="term-header"><span class="term-name">Structure</span><span class="term-category">Structure</span></div><p class="term-definition">The framework of a wine — built from acidity, tannin, alcohol, and sometimes sweetness. Structure is what gives a wine its shape, backbone, and potential to age. A wine without structure feels flat and formless.</p><p class="term-plain">"The skeleton of the wine. Just like a building needs a frame, a wine needs structure to hold everything together and stand the test of time."</p><p class="term-example"><strong>Example:</strong> A young Napa Cabernet may taste almost too intense — but its strong structure means it will age magnificently for 20+ years as that framework softens.</p></div>
+
+      <div class="glossary-term" data-category="structure" data-term="dry"><div class="term-header"><span class="term-name">Dry</span><span class="term-category">Structure</span></div><p class="term-definition">A wine with little to no residual sugar — meaning fermentation converted nearly all the grape sugars into alcohol. The opposite of sweet. Most red wines and many whites are dry. Dry does not mean lacking fruit flavor.</p><p class="term-plain">"Not sweet. The sugar was eaten up during fermentation — what's left is alcohol and flavor, not sweetness."</p><p class="term-example"><strong>Example:</strong> A dry Cabernet can have rich blackcurrant aromas, but the actual taste isn't sweet — the absence of sugar is what makes it feel savory and food-friendly.</p></div>
+
+      <div class="glossary-term" data-category="structure" data-term="off-dry"><div class="term-header"><span class="term-name">Off-Dry</span><span class="term-category">Structure</span></div><p class="term-definition">A wine with a small amount of residual sugar — not fully dry but not sweet either. The sugar is present but subtle, often balanced by high acidity so the wine doesn't taste overtly sweet.</p><p class="term-plain">"Just a whisper of sweetness — you might not even notice it consciously, but it rounds out the wine and makes it easier to drink."</p><p class="term-example"><strong>Example:</strong> Many German Rieslings labeled "Kabinett" or "Spätlese" are off-dry — a touch of residual sugar balances their piercing acidity, making them feel lush rather than tart.</p></div>
+
+      <div class="glossary-term" data-category="structure" data-term="sweet"><div class="term-header"><span class="term-name">Sweet</span><span class="term-category">Structure</span></div><p class="term-definition">A wine with significant residual sugar remaining after fermentation — either because fermentation was stopped early, or because very ripe or botrytized grapes were used. Sweetness ranges from gently honeyed to intensely syrupy.</p><p class="term-plain">"Sugar you can actually taste and feel — the wine coats your mouth with sweetness rather than just fruit flavor."</p><p class="term-example"><strong>Example:</strong> Sauternes from Bordeaux is one of the world's great sweet wines — made from grapes affected by noble rot, with honey, apricot, and marmalade flavors balanced by enough acidity to prevent it from feeling cloying.</p></div>
+
+      <div class="glossary-term" data-category="texture" data-term="full-bodied"><div class="term-header"><span class="term-name">Full-Bodied</span><span class="term-category">Texture</span></div><p class="term-definition">A wine with a heavy, rich, weighty presence on the palate — typically high in alcohol (13.5%+), tannin, and extract. Full-bodied wines feel substantial and chewy, coating the mouth with flavor and texture.</p><p class="term-plain">"Heavy and rich — like cream compared to water. You feel it filling your whole mouth."</p><p class="term-example"><strong>Example:</strong> Napa Cabernet, Châteauneuf-du-Pape, and Amarone are all full-bodied reds — dense, powerful wines that pair best with red meat and aged cheeses.</p></div>
+
+      <div class="glossary-term" data-category="texture" data-term="light-bodied"><div class="term-header"><span class="term-name">Light-Bodied</span><span class="term-category">Texture</span></div><p class="term-definition">A wine with a lighter, more delicate presence — typically lower in alcohol (under 12.5%) and tannin, with a thinner texture. Light-bodied wines feel elegant and easy rather than heavy.</p><p class="term-plain">"Light and airy — like water or skim milk on your tongue. Elegant, not heavy."</p><p class="term-example"><strong>Example:</strong> Beaujolais, Burgundy Pinot Noir, and Vinho Verde are typically light-bodied — bright, fresh, and versatile at the table, pairing easily with everything from salads to salmon.</p></div>
+
+      <div class="glossary-term" data-category="texture" data-term="silky"><div class="term-header"><span class="term-name">Silky</span><span class="term-category">Texture</span></div><p class="term-definition">A texture descriptor for wines with a smooth, fine-grained mouthfeel — like silk fabric. Tannins are present but polished and seamless. Often praised in Pinot Noir, fine Burgundy, and elegant Bordeaux.</p><p class="term-plain">"Smooth as silk. The tannins are there but you barely notice them — they're polished into the wine."</p><p class="term-example"><strong>Example:</strong> A great Volnay from Burgundy or a top-tier Margaux can feel silky — the tannins give the wine structure, but they slip across your tongue without any roughness.</p></div>
+
+      <div class="glossary-term" data-category="texture" data-term="velvety"><div class="term-header"><span class="term-name">Velvety</span><span class="term-category">Texture</span></div><p class="term-definition">A texture descriptor close to silky but richer — wines that feel plush and luxurious in the mouth, like velvet or cashmere. The tannins are completely integrated, the fruit is generous, and the whole wine feels weighted but smooth.</p><p class="term-plain">"Silky's richer cousin. Plush and luxurious — like velvet on your tongue."</p><p class="term-example"><strong>Example:</strong> A mature Napa Cabernet or a top-tier Saint-Émilion can be velvety — tannins from a decade of aging have softened completely, leaving a wine that drapes across your palate.</p></div>
+
+      <div class="glossary-term" data-category="texture" data-term="plush"><div class="term-header"><span class="term-name">Plush</span><span class="term-category">Texture</span></div><p class="term-definition">A texture descriptor for wines that feel soft, full, and cushioned in the mouth — often with ripe fruit, low or polished tannins, and a sense of generosity. Plush wines feel hedonistic and approachable.</p><p class="term-plain">"Soft, full, and cushioned — the wine feels like it's wrapping around your palate."</p><p class="term-example"><strong>Example:</strong> A modern Argentine Malbec or a New World Merlot can be plush — soft, ripe, and immediately pleasant, with no rough edges to navigate.</p></div>
+
+      <div class="glossary-term" data-category="texture" data-term="round"><div class="term-header"><span class="term-name">Round</span><span class="term-category">Texture</span></div><p class="term-definition">A texture descriptor for wines that feel smooth and well-integrated, with no sharp edges from acidity or tannin. Round wines feel soft and complete on the palate. Often a sign of careful winemaking and good aging.</p><p class="term-plain">"Smooth and full, with no sharp angles. Everything's softened and integrated."</p><p class="term-example"><strong>Example:</strong> A well-aged Merlot from Pomerol is the picture of round — silky, plush, with tannins fully resolved into the wine. Nothing pokes out.</p></div>
+
+      <div class="glossary-term" data-category="texture" data-term="lean"><div class="term-header"><span class="term-name">Lean</span><span class="term-category">Texture</span></div><p class="term-definition">A descriptor for wines that feel narrow, focused, and stripped-down — high acidity, lower body, less fruit weight. Lean isn't a flaw — many great wines are intentionally lean. The opposite of plush or full-bodied.</p><p class="term-plain">"Narrow and focused — no extra weight or fruit padding. All bones, no fluff."</p><p class="term-example"><strong>Example:</strong> A Muscadet from the Loire or a young Chablis is intentionally lean — high-acid, lower-alcohol whites that feel sharp and refreshing rather than rich and round.</p></div>
+
+      <div class="glossary-term" data-category="texture" data-term="austere"><div class="term-header"><span class="term-name">Austere</span><span class="term-category">Texture</span></div><p class="term-definition">A descriptor for wines that are lean and restrained, often with high acidity, firm tannins, and minimal fruit. Austere wines can be challenging when young, but often age into something profound. Praised in classic Bordeaux, Barolo, and aged Riesling.</p><p class="term-plain">"Lean and restrained — almost severe. Not easy to drink young, but often turns into something special with age."</p><p class="term-example"><strong>Example:</strong> A young Barolo can taste austere — high acid, gripping tannins, almost forbidding. Give it 15 years and the same wine becomes complex and giving. Austerity often hides depth.</p></div>
+
+      <div class="glossary-term" data-category="texture" data-term="hot"><div class="term-header"><span class="term-name">Hot</span><span class="term-category">Texture</span></div><p class="term-definition">A descriptor for wines where the alcohol is too prominent — you feel a burning sensation in your throat or notice the alcohol dominating the aroma. Usually a sign that the wine is unbalanced, with alcohol overpowering fruit and acidity.</p><p class="term-plain">"When the alcohol is showing too much. You feel a burn instead of fruit and balance."</p><p class="term-example"><strong>Example:</strong> A 16% Zinfandel that hasn't been carefully made can taste hot — the alcohol burns through the fruit. Balance, not power, is what saves these wines.</p></div>
+
+      <div class="glossary-term" data-category="flavor" data-term="crisp"><div class="term-header"><span class="term-name">Crisp</span><span class="term-category">Flavor</span></div><p class="term-definition">A tasting term describing a wine with noticeable, refreshing acidity that creates a clean, bright sensation on the palate. Crisp wines feel energetic and mouth-watering. Used almost exclusively for white wines and sparkling wines.</p><p class="term-plain">"That snap of freshness — like biting into a cold, tart apple. It wakes your palate up."</p><p class="term-example"><strong>Example:</strong> A well-made Pinot Grigio from Alto Adige or a Chablis Chardonnay is typically crisp — clean, fresh, with acidity that makes it the perfect aperitif wine.</p></div>
+
+      <div class="glossary-term" data-category="flavor" data-term="bright"><div class="term-header"><span class="term-name">Bright</span><span class="term-category">Flavor</span></div><p class="term-definition">A descriptor for wines with vivid, lively character — usually driven by fresh acidity and clean fruit. Bright wines feel energetic and lifted, the opposite of heavy or dull. Often used for whites and lighter reds.</p><p class="term-plain">"Lively and lifted — the wine has energy. Fresh fruit, snap of acidity, no heaviness."</p><p class="term-example"><strong>Example:</strong> A young Beaujolais or a chilled Riesling tastes bright — the fruit is lit up, the acidity is dancing, and the wine feels alive in the glass.</p></div>
+
+      <div class="glossary-term" data-category="flavor" data-term="jammy"><div class="term-header"><span class="term-name">Jammy</span><span class="term-category">Flavor</span></div><p class="term-definition">A tasting descriptor for wines with very ripe, concentrated fruit flavors that evoke cooked or preserved fruit — like strawberry jam, blackberry compote, or plum preserve. Jammy wines often come from warm climates.</p><p class="term-plain">"Fruit flavor that tastes cooked and concentrated — more like jam than fresh berries."</p><p class="term-example"><strong>Example:</strong> Many big California Zinfandels and Australian Shirazes are described as jammy — intense, cooked berry flavors, high alcohol, and a plush, almost syrupy texture.</p></div>
+
+      <div class="glossary-term" data-category="flavor" data-term="minerality"><div class="term-header"><span class="term-name">Minerality</span><span class="term-category">Flavor</span></div><p class="term-definition">A tasting descriptor for flavors evoking stones, slate, chalk, flint, or wet rock — non-fruit characteristics that seem to come from the soil itself. One of the most debated and evocative terms in wine description.</p><p class="term-plain">"The taste of the earth the vine grew in — like licking a wet stone or smelling the air just before rain."</p><p class="term-example"><strong>Example:</strong> Great Chablis Chardonnay is famous for its minerality — a flinty, almost saline quality from the ancient oyster-shell limestone soils of the region.</p></div>
+
+      <div class="glossary-term" data-category="flavor" data-term="oaky"><div class="term-header"><span class="term-name">Oaky</span><span class="term-category">Flavor</span></div><p class="term-definition">A descriptor for wines that show prominent flavors derived from oak barrel aging — vanilla, toast, coconut, cedar, smoke, or baking spices. When well-integrated, oak adds complexity. When overdone, it can overwhelm the wine's natural character.</p><p class="term-plain">"That vanilla and toasty wood flavor — like smelling the inside of a wooden cabinet or a piece of toasted bread."</p><p class="term-example"><strong>Example:</strong> A heavily oaked Chardonnay — the "butter bomb" — might taste of vanilla, butter, and toasted oak. Compare to an unoaked Chablis, which is lean, mineral, and purely about the grape.</p></div>
+
+      <div class="glossary-term" data-category="flavor" data-term="earthy"><div class="term-header"><span class="term-name">Earthy</span><span class="term-category">Flavor</span></div><p class="term-definition">A descriptor for wines with non-fruit aromas evoking soil, mushroom, forest floor, leather, or wet leaves. Earthy notes are typical of Old World wines, mature bottles, and certain grapes like Pinot Noir, Nebbiolo, and Syrah.</p><p class="term-plain">"The smell of a forest floor in autumn — wet leaves, mushrooms, damp earth. The opposite of fruity."</p><p class="term-example"><strong>Example:</strong> An older Burgundy Pinot Noir is famously earthy — by year ten, the bright cherry has faded and notes of mushroom, truffle, and forest floor take center stage.</p></div>
+
+      <div class="glossary-term" data-category="flavor" data-term="fruit-forward"><div class="term-header"><span class="term-name">Fruit-Forward</span><span class="term-category">Flavor</span></div><p class="term-definition">A descriptor for wines where ripe fruit flavors are the dominant impression — the wine smells and tastes primarily of cherry, blackberry, plum, citrus, or peach rather than earth, herbs, or oak. Common in New World wines from warm climates.</p><p class="term-plain">"A wine that's all about the fruit — bright, ripe, juicy. The fruit takes center stage."</p><p class="term-example"><strong>Example:</strong> A California Zinfandel or a New Zealand Sauvignon Blanc are textbook fruit-forward — pour them and the fruit hits you immediately, before anything else.</p></div>
+
+      <div class="glossary-term" data-category="flavor" data-term="nose bouquet"><div class="term-header"><span class="term-name">Nose / Bouquet</span><span class="term-category">Flavor</span></div><p class="term-definition">The smell of a wine. "Nose" usually refers to a young wine's primary aromas (fruit, floral, herbal). "Bouquet" traditionally describes the more complex, evolved aromas of an aged wine (earth, leather, dried fruit, tobacco). Smell is responsible for ~80% of what we perceive as taste.</p><p class="term-plain">"What the wine smells like. 'Nose' for young wines, 'bouquet' for aged ones — same idea, different vocabulary."</p><p class="term-example"><strong>Example:</strong> A young Cabernet has a nose of blackcurrant, cedar, and tobacco. A 30-year-old Cabernet has a bouquet of dried fig, leather, cigar box, and forest floor. Same wine, decades apart.</p></div>
+
+      <div class="glossary-term" data-category="flavor" data-term="floral"><div class="term-header"><span class="term-name">Floral</span><span class="term-category">Flavor</span></div><p class="term-definition">A descriptor for wines with aromas of flowers — violet, rose, honeysuckle, jasmine, lavender, or orange blossom. Floral notes are common in certain white grapes (Viognier, Riesling, Gewürztraminer) and in delicate reds like Pinot Noir.</p><p class="term-plain">"Flowers in the glass — violet, rose, jasmine. Often delicate, never aggressive."</p><p class="term-example"><strong>Example:</strong> A great Côte-Rôtie Syrah famously has notes of violet woven through its black fruit. A Gewürztraminer can smell like a bouquet of roses and lychee.</p></div>
+
+      <div class="glossary-term" data-category="flavor" data-term="herbaceous"><div class="term-header"><span class="term-name">Herbaceous</span><span class="term-category">Flavor</span></div><p class="term-definition">A descriptor for wines with green, vegetal, or herbal aromas — bell pepper, jalapeño, fresh grass, mint, basil, eucalyptus, or asparagus. Common in Sauvignon Blanc, Cabernet Franc, and Cabernet Sauvignon from cooler climates.</p><p class="term-plain">"Green and herbal — bell pepper, fresh grass, mint. Either a feature or a flaw, depending on the wine."</p><p class="term-example"><strong>Example:</strong> A Loire Valley Cabernet Franc almost always has a green pepper and herb edge — the grape and place showing through. In some Cabernets from warm regions, herbaceous notes signal underripe grapes — context matters.</p></div>
+
+      <div class="glossary-term" data-category="flavor" data-term="smoky"><div class="term-header"><span class="term-name">Smoky</span><span class="term-category">Flavor</span></div><p class="term-definition">A descriptor for wines with aromas evoking smoke, charred wood, gunflint, or grilled meat. Can come from heavily toasted oak barrels, certain grape varieties (Syrah is naturally smoky), or specific terroirs (the flinty soils of Pouilly-Fumé give smoky white wines).</p><p class="term-plain">"Like smoke from a campfire or grilled meat. Can come from oak, the grape, or even the soil."</p><p class="term-example"><strong>Example:</strong> A Northern Rhône Syrah from Cornas often smells of smoked meat and burnt wood. Pouilly-Fumé literally takes its name from "fumé" (smoky) — the flinty soils give it a distinctive smoky edge.</p></div>
+
+      <div class="glossary-term" data-category="flavor" data-term="savory"><div class="term-header"><span class="term-name">Savory</span><span class="term-category">Flavor</span></div><p class="term-definition">A descriptor for wines with non-fruit, umami-rich aromas — soy sauce, miso, dried meat, mushroom, or roasted vegetables. Savory wines feel meaty and food-friendly. Common in mature reds and certain Old World styles.</p><p class="term-plain">"Meaty, umami-rich, food-friendly. The opposite of sweet or fruity. Like soy sauce or roasted mushrooms."</p><p class="term-example"><strong>Example:</strong> A mature Rioja Reserva often shows savory notes — leather, dried meat, soy, mushroom — alongside its fruit. These are the wines that pair magically with a Sunday roast.</p></div>
+
+      <div class="glossary-term" data-category="flavor" data-term="buttery"><div class="term-header"><span class="term-name">Buttery</span><span class="term-category">Flavor</span></div><p class="term-definition">A descriptor for wines (almost always Chardonnay) that smell and taste of butter, cream, or popcorn. The buttery character comes primarily from malolactic fermentation, where harsh malic acid is converted to softer lactic acid — creating that creamy, dairy-like quality.</p><p class="term-plain">"Tastes like butter or cream. Almost always Chardonnay, almost always from a winemaking step called malolactic fermentation."</p><p class="term-example"><strong>Example:</strong> A classic California Chardonnay from the 1990s — sometimes called a "butter bomb" — was deliberately rich, creamy, and buttery. Many modern producers have stepped back from the style, but plenty still make it on purpose.</p></div>
+
+      <div class="glossary-term" data-category="character" data-term="concentrated"><div class="term-header"><span class="term-name">Concentrated</span><span class="term-category">Character</span></div><p class="term-definition">A descriptor for wines with packed-in flavor — intense, deep, and substantial rather than thin or watery. Often comes from low yields, old vines, or careful winemaking that preserves intensity. A quality marker.</p><p class="term-plain">"Packed with flavor. Nothing's diluted — every sip carries weight."</p><p class="term-example"><strong>Example:</strong> A great Brunello di Montalcino or a top Napa Cabernet feels concentrated — flavors don't fade or thin out, they keep delivering from the first sip to the last drop.</p></div>
+
+      <div class="glossary-term" data-category="character" data-term="elegant"><div class="term-header"><span class="term-name">Elegant</span><span class="term-category">Character</span></div><p class="term-definition">One of wine's highest compliments. An elegant wine is balanced, refined, and never showy — it doesn't overwhelm with power, oak, or fruit. Instead, it feels effortless and graceful. Often used for top Burgundy, refined Bordeaux, and wines from cooler climates.</p><p class="term-plain">"Refined and balanced — never trying too hard. The wine equivalent of someone who looks great without obvious effort."</p><p class="term-example"><strong>Example:</strong> A great Volnay or a top Margaux is elegant — structure, depth, and complexity, but nothing dominates. Power and refinement in equal measure.</p></div>
+
+      <div class="glossary-term" data-category="character" data-term="complex"><div class="term-header"><span class="term-name">Complex</span><span class="term-category">Character</span></div><p class="term-definition">A descriptor for wines with multiple layers of flavor that keep evolving — in the glass, on the palate, and on the finish. Complex wines aren't just "good" — they're interesting, revealing new aromas the longer you sit with them. A hallmark of fine wine.</p><p class="term-plain">"Many layers of flavor that keep changing. The wine isn't just one note — it's a whole conversation."</p><p class="term-example"><strong>Example:</strong> A fully mature Bordeaux can show complex aromas of cassis, leather, tobacco, cedar, dried herbs, graphite, and forest floor — all in one glass. The longer you sit with it, the more you find.</p></div>
+
+      <div class="glossary-term" data-category="character" data-term="layered"><div class="term-header"><span class="term-name">Layered</span><span class="term-category">Character</span></div><p class="term-definition">Closely related to complex, but more about structural depth — a layered wine reveals one set of flavors on the front of the palate, another in the middle, and another on the finish. The flavors arrive in sequence, not all at once.</p><p class="term-plain">"Flavors that arrive in stages — front, middle, finish. The wine unfolds rather than hitting you all at once."</p><p class="term-example"><strong>Example:</strong> A great Côte-Rôtie shows layers: black fruit on the front, smoked meat and pepper in the middle, floral violet and earthy finish. The wine moves through your palate like a story.</p></div>
+
+      <div class="glossary-term" data-category="character" data-term="closed"><div class="term-header"><span class="term-name">Closed</span><span class="term-category">Character</span></div><p class="term-definition">A descriptor for wines that aren't showing their full potential — they smell muted, tight, or shut down. Often happens with young, structured wines that need more time, or with wines that just came out of cold storage. Usually opens up with air or aging.</p><p class="term-plain">"The wine is hiding. Not showing much yet. Either too young, or just needs time in the glass."</p><p class="term-example"><strong>Example:</strong> A 2020 Brunello opened today might smell almost mute — that's because it's closed. Decant it for an hour and you'll start to see what's inside. Or just wait five years.</p></div>
+
+      <div class="glossary-term" data-category="character" data-term="hollow"><div class="term-header"><span class="term-name">Hollow</span><span class="term-category">Character</span></div><p class="term-definition">A descriptor for wines that have flavor on the front of the palate and the finish but seem to disappear in the middle — there's a gap, a missing piece. Hollow wines feel incomplete or lopsided.</p><p class="term-plain">"The wine has fruit on the front and a finish, but nothing in the middle — like skipping a line in a song."</p><p class="term-example"><strong>Example:</strong> A poorly made Cabernet from a hot vintage can taste hollow — fruit at the start, tannin at the end, but nothing connects them. Good winemaking fills that middle.</p></div>
+
+      <div class="glossary-term" data-category="character" data-term="flabby"><div class="term-header"><span class="term-name">Flabby</span><span class="term-category">Character</span></div><p class="term-definition">A descriptor for wines lacking acidity. Without acidity, the wine feels heavy, lifeless, and limp on the palate — there's nothing to give it lift or freshness. Common in over-ripe wines from very hot climates.</p><p class="term-plain">"No backbone. The wine is missing its acidity — it feels heavy, dull, and tired."</p><p class="term-example"><strong>Example:</strong> A poorly made Chardonnay from a hot region can be flabby — rich, ripe fruit but no acidity to balance it. The wine sits heavily on your tongue and doesn't refresh.</p></div>
+
+    </div>
+
+    <div class="no-results" id="noResults">
+      <p style="font-family:'Cormorant Garamond',serif;font-size:1.8rem;margin-bottom:.5rem;">No descriptors found</p>
+      <p>Try a different search or browse all terms.</p>
+    </div>
+
+  </div>
+
+  <footer class="site-footer">
+    <span class="footer-logo">Kazmi Cellars</span>
+    <ul class="footer-links">
+      <li><a href="terms.html">Terms &amp; Conditions</a></li>
+      <li><a href="privacy.html">Privacy Policy</a></li>
+      <li><a href="editorial.html">Editorial Policy</a></li>
+    </ul>
+    <hr class="footer-divider">
+    <div class="footer-bottom">
+      <span class="footer-copy">© 2026 Kazmi Cellars · All Rights Reserved</span>
+      <span class="footer-social">kazmicellars@gmail.com &nbsp;·&nbsp; @kazmicellars</span>
+    </div>
+  </footer>
+
+  <script>
+    const terms = document.querySelectorAll('.glossary-term');
+    const searchInput = document.getElementById('glossarySearch');
+    const resultCount = document.getElementById('resultCount');
+    const noResults = document.getElementById('noResults');
+    const filterBtns = document.querySelectorAll('.filter-btn');
+    let activeFilter = 'all';
+
+    function updateResults() {
+      const query = searchInput.value.toLowerCase().trim();
+      const matches = [];
+      terms.forEach(term => {
+        const termName = term.dataset.term.toLowerCase();
+        const termText = term.innerText.toLowerCase();
+        const termCat = term.dataset.category;
+        const matchesFilter = activeFilter === 'all' || termCat === activeFilter;
+        if (!matchesFilter) {
+          term.classList.add('hidden');
+          return;
+        }
+        let score = 0;
+        if (!query) {
+          score = 1;
+        } else if (termName === query) {
+          score = 100;
+        } else if (termName.startsWith(query)) {
+          score = 80;
+        } else if (termName.includes(query)) {
+          score = 60;
+        } else if (termText.includes(query)) {
+          score = 20;
+        }
+        if (score > 0) {
+          term.classList.remove('hidden');
+          matches.push({term, score});
+        } else {
+          term.classList.add('hidden');
+        }
+      });
+      matches.sort((a, b) => b.score - a.score);
+      const list = document.getElementById('glossaryList');
+      matches.forEach(m => list.appendChild(m.term));
+      resultCount.textContent = matches.length + ' term' + (matches.length !== 1 ? 's' : '') + (query ? ' found' : '');
+      noResults.classList.toggle('visible', matches.length === 0);
+    }
+
+    searchInput.addEventListener('input', updateResults);
+    filterBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        filterBtns.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        activeFilter = btn.dataset.filter;
+        updateResults();
+      });
+    });
+    updateResults();
+  </script>
+
+</body>
+</html>
