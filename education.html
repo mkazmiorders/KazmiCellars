@@ -1,370 +1,91 @@
 <!doctype html>
 <html lang="en">
 <head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Education — Kazmi Cellars</title>
-<link rel="stylesheet" href="style.css" />
-<style>
-.edu-tabs{max-width:700px;margin:0 auto;padding:0 2rem;display:flex;gap:1.5rem;border-bottom:1px solid var(--border);flex-wrap:wrap}
-.edu-tab-btn{background:none;border:none;padding:1.1rem 0;font-family:'Raleway',sans-serif;font-size:.7rem;letter-spacing:.18em;text-transform:uppercase;color:var(--text-light);cursor:pointer;border-bottom:2px solid transparent;margin-bottom:-1px;font-weight:500}
-.edu-tab-btn.active{color:var(--text-dark);border-bottom-color:var(--gold)}
-.edu-tab-btn:hover{color:var(--text-dark)}
-.edu-tab-content{display:none}
-.edu-tab-content.active{display:block}
-.glossary-intro,.intro-text{font-size:.95rem;color:var(--text-mid);line-height:1.8;max-width:560px;margin-bottom:2rem}
-.search-wrap{position:relative;margin-bottom:1rem}
-.glossary-search{width:100%;border:1px solid var(--border);background:var(--white);padding:.9rem 1rem .9rem 2.8rem;font-family:'Raleway',sans-serif;font-size:.9rem;color:var(--text-dark);outline:none}
-.glossary-search:focus{border-color:var(--gold-light)}
-.search-icon{position:absolute;left:.9rem;top:50%;transform:translateY(-50%);color:var(--text-light);pointer-events:none}
-.result-count{font-size:.72rem;letter-spacing:.1em;color:var(--text-light);margin-bottom:1.5rem}
-.filter-buttons{display:flex;flex-wrap:wrap;gap:.5rem;margin-bottom:2.5rem}
-.filter-btn{border:1px solid var(--border);background:transparent;padding:.45rem 1rem;font-family:'Raleway',sans-serif;font-size:.62rem;letter-spacing:.15em;text-transform:uppercase;cursor:pointer;color:var(--text-mid)}
-.filter-btn.active,.filter-btn:hover{background:var(--brown-dark);color:white;border-color:var(--brown-dark)}
-.glossary-term{border:1px solid var(--border);background:var(--white);padding:1.6rem 1.8rem;margin-bottom:-1px}
-.glossary-term:hover{background:#fdf9f3;position:relative;z-index:1}
-.glossary-term.hidden{display:none}
-.term-header{display:flex;align-items:baseline;justify-content:space-between;flex-wrap:wrap;gap:.5rem;margin-bottom:.7rem}
-.term-name{font-family:'Cormorant Garamond',serif;font-size:1.5rem;font-weight:500;color:var(--text-dark);line-height:1}
-.term-category{font-size:.58rem;letter-spacing:.18em;text-transform:uppercase;color:var(--gold);font-weight:500;border:1px solid var(--gold-light);padding:.25rem .6rem;white-space:nowrap}
-.term-definition{font-size:.9rem;color:var(--text-dark);line-height:1.75;margin-bottom:.7rem}
-.term-plain{font-size:.85rem;color:var(--text-mid);line-height:1.7;font-style:italic;margin-bottom:.7rem;padding-left:1rem;border-left:2px solid var(--gold-light)}
-.term-example{font-size:.8rem;color:var(--text-light);line-height:1.6}
-.term-example strong{color:var(--text-mid);font-weight:500;font-style:normal}
-.term-related{margin-top:.7rem;font-size:.72rem;color:var(--text-light)}
-.term-related span{color:var(--gold);cursor:pointer;text-decoration:underline}
-.no-results{text-align:center;padding:3rem 2rem;color:var(--text-light);display:none}
-.no-results.visible{display:block}
-.country-section{padding:3rem 2rem;max-width:700px;margin:0 auto}
-.alt-bg{background:var(--cream-dark)}
-.country-flag{font-size:2rem;margin-bottom:.5rem;display:block}
-.country-title{font-family:'Cormorant Garamond',serif;font-size:clamp(1.8rem,5vw,2.6rem);font-weight:400;color:var(--text-dark);margin-bottom:.3rem}
-.country-subtitle{font-size:.7rem;letter-spacing:.18em;text-transform:uppercase;color:var(--gold);margin-bottom:1.5rem;display:block}
-.country-intro{font-size:.92rem;color:var(--text-mid);line-height:1.85;margin-bottom:2rem;padding-bottom:1.5rem;border-bottom:1px solid var(--border)}
-.varietal-header{background:var(--brown-dark);padding:1.1rem 1.3rem;display:flex;align-items:center;gap:.8rem;margin-top:1.5rem}
-.varietal-header h3{font-family:'Cormorant Garamond',serif;font-size:1.2rem;color:white;font-weight:400}
-.varietal-header p{font-size:.7rem;color:rgba(255,255,255,.5);margin-top:.2rem}
-.lock-icon{font-size:1.4rem}
-.varietal-row{display:grid;grid-template-columns:1fr auto 1fr;gap:.8rem;padding:.9rem 1.3rem;background:var(--white);border:1px solid var(--border);border-top:none;align-items:center}
-.varietal-label-name{font-family:'Cormorant Garamond',serif;font-size:1rem;color:var(--text-dark)}
-.varietal-label-sub{font-size:.62rem;color:var(--text-light)}
-.varietal-arrow{color:var(--gold-light);text-align:center}
-.varietal-grape-name{font-family:'Cormorant Garamond',serif;font-size:1rem;color:var(--gold);text-align:right}
-.varietal-grape-note{font-size:.62rem;color:var(--text-light);text-align:right}
-.sub-header{background:var(--white);border:1px solid var(--border);border-top:none;padding:.6rem 1.3rem}
-.sub-header-label{font-size:.58rem;letter-spacing:.18em;text-transform:uppercase;color:var(--gold);font-weight:500}
-.sub-header-mt{margin-top:1rem}
-.tip-box{background:var(--cream-dark);border-left:3px solid var(--gold-light);padding:1.1rem 1.3rem;margin:1.8rem 0}
-.tip-box-label{font-size:.58rem;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);font-weight:500;margin-bottom:.5rem}
-.tip-box-text{font-size:.85rem;color:var(--text-mid);line-height:1.75}
-.aging-card{background:var(--white);border:1px solid var(--border);border-top:none;padding:1.1rem 1.3rem;display:grid;grid-template-columns:auto 1fr;gap:1rem;align-items:start}
-.aging-card:first-child{border-top:1px solid var(--border)}
-.aging-term{font-family:'Cormorant Garamond',serif;font-size:1.15rem;color:var(--text-dark);min-width:100px}
-.aging-detail{font-size:.82rem;color:var(--text-mid);line-height:1.7}
-.aging-years{font-size:.62rem;letter-spacing:.12em;text-transform:uppercase;color:var(--gold);margin-bottom:.3rem}
-.cheat-sheet{background:var(--brown-dark);padding:3rem 2rem}
-.cheat-sheet-inner{max-width:700px;margin:0 auto}
-.cheat-sheet h2{font-family:'Cormorant Garamond',serif;font-size:2rem;color:white;font-weight:400;margin-bottom:.5rem}
-.cheat-sheet h2 em{color:var(--gold-light);font-style:italic}
-.cheat-sheet-intro{font-size:.85rem;color:rgba(255,255,255,.5);margin-bottom:2rem;line-height:1.7}
-.cheat-country{margin-bottom:1.8rem}
-.cheat-country-label{font-size:.6rem;letter-spacing:.2em;text-transform:uppercase;color:var(--gold-light);margin-bottom:.7rem;display:flex;align-items:center;gap:.7rem}
-.cheat-country-label::after{content:'';flex:1;height:1px;background:rgba(255,255,255,.1)}
-.cheat-row{display:flex;justify-content:space-between;align-items:center;padding:.55rem 0;border-bottom:1px solid rgba(255,255,255,.07);gap:1rem}
-.cheat-region{font-family:'Cormorant Garamond',serif;font-size:.95rem;color:rgba(255,255,255,.85)}
-.cheat-grape{font-size:.75rem;color:var(--gold-light);text-align:right}
-.cheat-note{font-size:.62rem;color:rgba(255,255,255,.3);text-align:right}
-</style>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Education — Kazmi Cellars</title>
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
 
-<header class="site-header">
-<div class="nav-top"><div class="logo"><a href="index.html" class="logo-mark"><img src="image-6.png" style="height:50px;width:auto;vertical-align:middle;margin-right:.5rem" alt="Kazmi Cellars"> Kazmi Cellars</a><span class="logo-tagline">Journey Through Wine With Us</span></div></div>
-<nav><ul class="nav-links">
-<li><a href="our-story.html">Our Story</a></li>
-<li><a href="wineries.html">Wineries</a></li>
-<li><a href="regions.html">Regions</a></li>
-<li><a href="restaurants.html">Restaurants</a></li>
-<li><a href="bottles.html">This Week's Bottles</a></li>
-<li><a href="posts.html">Posts</a></li>
-<li><a href="gallery.html">Gallery</a></li>
-<li><a href="cellar.html">The Cellar</a></li>
-<li><a href="education.html" class="active">Education</a></li>
-<li><a href="goods.html">Cellar Goods</a></li>
-<li><a href="newsletter.html">Newsletter</a></li>
-<li><a href="contact.html">Contact</a></li>
-</ul></nav>
-</header>
+  <header class="site-header">
+    <div class="nav-top">
+      <div class="logo">
+        <a href="index.html" class="logo-mark"><img src="image-6.png" style="height:50px;width:auto;vertical-align:middle;margin-right:0.5rem;" alt="Kazmi Cellars"> Kazmi Cellars</a>
+        <span class="logo-tagline">Journey Through Wine With Us</span>
+      </div>
+    </div>
+    <nav>
+      <ul class="nav-links">
+        <li><a href="our-story.html">Our Story</a></li>
+        <li><a href="wineries.html">Wineries</a></li>
+        <li><a href="regions.html">Regions</a></li>
+        <li><a href="restaurants.html">Restaurants</a></li>
+        <li><a href="bottles.html">This Week's Bottles</a></li>
+        <li><a href="posts.html">Posts</a></li>
+        <li><a href="gallery.html">Gallery</a></li>
+        <li><a href="cellar.html">The Cellar</a></li>
+        <li><a href="education.html" class="active">Education</a></li>
+        <li><a href="goods.html">Cellar Goods</a></li>
+        <li><a href="newsletter.html">Newsletter</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+    </nav>
+  </header>
 
-<div class="page-header"><div style="max-width:700px;margin:0 auto"><p class="section-label">Learn</p><h1 class="section-title">Wine <em>Education</em></h1><p style="color:var(--text-light);font-size:1rem;margin-top:1rem">Approachable guides to help you understand, taste, and enjoy wine with confidence.</p></div></div>
+  <div class="page-header">
+    <div style="max-width:700px;margin:0 auto;">
+      <p class="section-label">Learn</p>
+      <h1 class="section-title">Wine <em>Education</em></h1>
+      <p style="color:var(--text-light);font-size:1rem;margin-top:1rem;">Approachable guides to help you understand, taste, and enjoy wine with confidence. Pick where you'd like to start.</p>
+    </div>
+  </div>
 
-<div class="edu-tabs">
-<button class="edu-tab-btn active" data-tab="glossary">Glossary</button>
-<button class="edu-tab-btn" data-tab="labels">Wine Labels &amp; Grape Cheat Sheet</button>
-</div>
+  <div class="section" style="padding-top:3rem;">
 
-<div id="glossary-tab" class="edu-tab-content active">
-<div class="section" style="padding-top:2.5rem">
-<p class="glossary-intro">A beginner-friendly guide to the words you'll encounter on wine lists, labels, and tasting notes. Every term defined in plain English, with real-world examples to make it stick.</p>
-<div class="search-wrap"><span class="search-icon">🔍</span><input type="text" class="glossary-search" id="glossarySearch" placeholder="Search wine terms..." /></div>
-<p class="result-count" id="resultCount">23 terms</p>
-<div class="filter-buttons">
-<button class="filter-btn active" data-filter="all">All Terms</button>
-<button class="filter-btn" data-filter="storytelling">Storytelling Terms</button>
-<button class="filter-btn" data-filter="tasting">Core Tasting Terms</button>
-</div>
-<div id="glossaryList">
+    <div class="card" style="margin-bottom:0;">
+      <p class="section-label">Reference</p>
+      <h3 class="card-title">Glossary</h3>
+      <p class="card-text">General wine terms — from Terroir and Sommelier to Rosé, Natural Wine, and the most common faults like Corked or Brett. The vocabulary of wine, defined in plain English.</p>
+      <a href="glossary.html" class="card-link">Browse the Glossary →</a>
+    </div>
 
-<div class="glossary-term" data-category="storytelling" data-term="angel's share"><div class="term-header"><span class="term-name">Angel's Share</span><span class="term-category">Storytelling</span></div><p class="term-definition">The portion of wine or spirits that evaporates from a barrel during aging. In a typical wine cellar, a barrel can lose 2–5% of its volume each year to evaporation through the wood.</p><p class="term-plain">"The wine that quietly disappears into thin air while it's sleeping in the barrel."</p><p class="term-example"><strong>Example:</strong> A winemaker aging Pinot Noir for 18 months might lose nearly a full bottle per barrel to the angel's share — a beautiful, poetic loss that concentrates what remains.</p><p class="term-related">Related: <span onclick="filterByTerm('devil\'s cut')">Devil's Cut</span>, <span onclick="filterByTerm('lees')">Lees</span></p></div>
+    <div class="card">
+      <p class="section-label">How Wine Tastes</p>
+      <h3 class="card-title">Descriptors</h3>
+      <p class="card-text">Every word you'll see on a tasting note — Buttery, Silky, Earthy, Austere, Concentrated. With searchable definitions and real-world examples to make them stick.</p>
+      <a href="descriptors.html" class="card-link">Explore Descriptors →</a>
+    </div>
 
-<div class="glossary-term" data-category="storytelling" data-term="devil's cut"><div class="term-header"><span class="term-name">Devil's Cut</span><span class="term-category">Storytelling</span></div><p class="term-definition">The portion of wine absorbed into the wood of the barrel during aging — the opposite of the Angel's Share. While the angel takes what evaporates, the devil keeps what soaks in.</p><p class="term-plain">"The wine the barrel itself drinks and holds onto, deep in the wood grain."</p><p class="term-example"><strong>Example:</strong> When you crack open a used wine barrel, you can sometimes extract the devil's cut by adding water — it carries intense oak, vanilla, and caramel flavors.</p><p class="term-related">Related: <span onclick="filterByTerm('angel\'s share')">Angel's Share</span>, <span onclick="filterByTerm('oaky')">Oaky</span></p></div>
+    <div class="card">
+      <p class="section-label">How Wine Is Made</p>
+      <h3 class="card-title">Winemaking Terms</h3>
+      <p class="card-text">From Old Vines and Botrytis to Carbonic Maceration and Pet-Nat — the practical vocabulary of how wine actually gets made, and why it matters in your glass.</p>
+      <a href="winemaking.html" class="card-link">Explore Winemaking →</a>
+    </div>
 
-<div class="glossary-term" data-category="storytelling" data-term="terroir"><div class="term-header"><span class="term-name">Terroir</span><span class="term-category">Storytelling</span></div><p class="term-definition">A French concept describing the complete natural environment where a wine is produced — the soil, climate, topography, and even the micro-organisms of a specific place — and how that environment expresses itself in the wine.</p><p class="term-plain">"The taste of where a wine was born. Two vineyards side by side can produce completely different wines because of terroir."</p><p class="term-example"><strong>Example:</strong> A Pinot Noir from Burgundy's Chambolle-Musigny tastes different from one made a mile away in Gevrey-Chambertin — same grape, same producer, different terroir.</p><p class="term-related">Related: <span onclick="filterByTerm('minerality')">Minerality</span>, <span onclick="filterByTerm('vigneron')">Vigneron</span></p></div>
+    <div class="card">
+      <p class="section-label">Visual Guide</p>
+      <h3 class="card-title">Wine Labels &amp; Grape Cheat Sheet</h3>
+      <p class="card-text">How to decode labels from the US, France, Italy, and Spain — with bottle diagrams, hidden varietal decoders, and a complete region-to-grape cheat sheet.</p>
+      <a href="wine-labels.html" class="card-link">Read the Guide →</a>
+    </div>
 
-<div class="glossary-term" data-category="storytelling" data-term="cuvée"><div class="term-header"><span class="term-name">Cuvée</span><span class="term-category">Storytelling</span></div><p class="term-definition">A French term for a specific blend or batch of wine. It can refer to a winemaker's flagship blend, a blend of multiple grape varieties, or a specific barrel selection — the winemaker's intentional creation.</p><p class="term-plain">"A winemaker's chosen recipe — their considered blend, picked from everything they had available."</p><p class="term-example"><strong>Example:</strong> A Champagne house might release a "Prestige Cuvée" — their finest blend of grapes from their best vineyards, representing the pinnacle of their craft.</p><p class="term-related">Related: <span onclick="filterByTerm('vigneron')">Vigneron</span>, <span onclick="filterByTerm('balance')">Balance</span></p></div>
+  </div>
 
-<div class="glossary-term" data-category="storytelling" data-term="lees"><div class="term-header"><span class="term-name">Lees</span><span class="term-category">Storytelling</span></div><p class="term-definition">The dead yeast cells and grape solids that settle at the bottom of a wine vessel after fermentation. Winemakers sometimes choose to age wine on its lees to add texture, richness, and complexity.</p><p class="term-plain">"The sediment left behind after fermentation — the yeast that did its job and settled to the bottom."</p><p class="term-example"><strong>Example:</strong> Many fine Chardonnays and Champagnes are aged on their lees for months or years, giving them that distinctive creamy, bready texture.</p><p class="term-related">Related: <span onclick="filterByTerm('sur lie')">Sur Lie</span>, <span onclick="filterByTerm('body')">Body</span></p></div>
-
-<div class="glossary-term" data-category="storytelling" data-term="sur lie"><div class="term-header"><span class="term-name">Sur Lie</span><span class="term-category">Storytelling</span></div><p class="term-definition">French for "on the lees." A winemaking technique where wine is left in contact with its lees for an extended period after fermentation. Adds richness, creamy mouthfeel, and subtle yeasty complexity.</p><p class="term-plain">"Letting the wine sit with its own sediment longer than usual — like steeping tea — to extract more flavor and texture."</p><p class="term-example"><strong>Example:</strong> Muscadet from the Loire Valley is famous for its Sur Lie aging, which transforms a simple, acidic white wine into something with depth, saline character, and a slight effervescence.</p><p class="term-related">Related: <span onclick="filterByTerm('lees')">Lees</span>, <span onclick="filterByTerm('body')">Body</span></p></div>
-
-<div class="glossary-term" data-category="storytelling" data-term="vigneron"><div class="term-header"><span class="term-name">Vigneron</span><span class="term-category">Storytelling</span></div><p class="term-definition">A French term for a person who cultivates a vineyard and makes wine from those grapes. Unlike a négociant (who buys grapes or wine from others), a vigneron controls the entire process from vine to bottle.</p><p class="term-plain">"A farmer-winemaker. Someone who grows the grapes and makes the wine themselves — soil to glass."</p><p class="term-example"><strong>Example:</strong> The legendary Henri Jayer of Burgundy is considered one of the greatest vignerons of the 20th century — he farmed his plots with obsessive care and crafted wines that reshaped how the world thought about Pinot Noir.</p><p class="term-related">Related: <span onclick="filterByTerm('terroir')">Terroir</span>, <span onclick="filterByTerm('cuvée')">Cuvée</span></p></div>
-
-<div class="glossary-term" data-category="storytelling" data-term="oenophile"><div class="term-header"><span class="term-name">Oenophile</span><span class="term-category">Storytelling</span></div><p class="term-definition">A person who loves and appreciates wine, often with a deep knowledge of viticulture, winemaking, and tasting. From the Greek "oinos" (wine) and "philos" (lover). Essentially: a serious wine enthusiast.</p><p class="term-plain">"A wine lover who goes beyond casual enjoyment — someone who studies, collects, and thinks deeply about wine."</p><p class="term-example"><strong>Example:</strong> If you're reading a wine glossary at 10pm just to understand a label better, you might already be an oenophile and not know it yet.</p><p class="term-related">Related: <span onclick="filterByTerm('terroir')">Terroir</span>, <span onclick="filterByTerm('finish')">Finish</span></p></div>
-
-<div class="glossary-term" data-category="tasting" data-term="acidity"><div class="term-header"><span class="term-name">Acidity</span><span class="term-category">Core Tasting</span></div><p class="term-definition">The natural tartness in wine that comes from acids present in grapes — primarily tartaric, malic, and citric acid. Acidity gives wine freshness, brightness, and the ability to age. It's what makes your mouth water after a sip.</p><p class="term-plain">"The zip and brightness you feel — like a squeeze of lemon. It's what makes wine feel alive and refreshing."</p><p class="term-example"><strong>Example:</strong> A crisp Sauvignon Blanc from New Zealand has high acidity — it tastes fresh, almost electric, and pairs beautifully with seafood because that brightness cuts through richness.</p><p class="term-related">Related: <span onclick="filterByTerm('crisp')">Crisp</span>, <span onclick="filterByTerm('balance')">Balance</span></p></div>
-
-<div class="glossary-term" data-category="tasting" data-term="tannin"><div class="term-header"><span class="term-name">Tannin</span><span class="term-category">Core Tasting</span></div><p class="term-definition">Natural compounds found in grape skins, seeds, and stems (and in oak barrels) that create a drying, gripping sensation in your mouth. Tannins are a key structural element in red wines and act as a natural preservative.</p><p class="term-plain">"That drying feeling on your gums and tongue after a sip of red wine — like strong black tea or the inside of a walnut skin."</p><p class="term-example"><strong>Example:</strong> A young Barolo or Cabernet Sauvignon can feel almost harsh from tannins — but those same tannins soften beautifully with 10–20 years of aging, making the wine silky and complex.</p><p class="term-related">Related: <span onclick="filterByTerm('structure')">Structure</span>, <span onclick="filterByTerm('body')">Body</span></p></div>
-
-<div class="glossary-term" data-category="tasting" data-term="body"><div class="term-header"><span class="term-name">Body</span><span class="term-category">Core Tasting</span></div><p class="term-definition">The weight and texture of wine in your mouth — how heavy or light it feels. Body is primarily determined by alcohol content, tannin, and residual sugar. Wines are described as light-, medium-, or full-bodied.</p><p class="term-plain">"The weight of the wine on your tongue. Compare to the difference between skim milk (light), whole milk (medium), and cream (full-bodied)."</p><p class="term-example"><strong>Example:</strong> Pinot Noir is typically light-bodied, Merlot is medium, and Cabernet Sauvignon or Syrah tend to be full-bodied — each feeling distinctly different in your mouth.</p><p class="term-related">Related: <span onclick="filterByTerm('full-bodied')">Full-Bodied</span>, <span onclick="filterByTerm('light-bodied')">Light-Bodied</span></p></div>
-
-<div class="glossary-term" data-category="tasting" data-term="finish"><div class="term-header"><span class="term-name">Finish</span><span class="term-category">Core Tasting</span></div><p class="term-definition">The taste and sensation that lingers in your mouth after you swallow a wine. A great wine's finish can last 30 seconds to several minutes. Length, complexity, and pleasantness of the finish are key quality indicators.</p><p class="term-plain">"What the wine says on its way out — and how long it keeps talking."</p><p class="term-example"><strong>Example:</strong> An exceptional Burgundy might leave a finish of dried flowers, earth, and red fruit that lasts a full minute after swallowing. A simple table wine might vanish in seconds.</p><p class="term-related">Related: <span onclick="filterByTerm('balance')">Balance</span>, <span onclick="filterByTerm('structure')">Structure</span></p></div>
-
-<div class="glossary-term" data-category="tasting" data-term="balance"><div class="term-header"><span class="term-name">Balance</span><span class="term-category">Core Tasting</span></div><p class="term-definition">The harmony between a wine's key components — acidity, tannin, alcohol, sweetness, and fruit. A balanced wine has no single element dominating. It is the most important quality marker in a fine wine.</p><p class="term-plain">"No one part is shouting louder than the others. Everything is in conversation — nothing is out of place."</p><p class="term-example"><strong>Example:</strong> A wine with too much alcohol feels hot and burns. Too much acidity feels sharp and sour. When both are in balance with fruit and tannin, the wine feels effortless and elegant.</p><p class="term-related">Related: <span onclick="filterByTerm('structure')">Structure</span>, <span onclick="filterByTerm('finish')">Finish</span></p></div>
-
-<div class="glossary-term" data-category="tasting" data-term="structure"><div class="term-header"><span class="term-name">Structure</span><span class="term-category">Core Tasting</span></div><p class="term-definition">The framework of a wine — built from its acidity, tannin, alcohol, and sometimes sweetness. Structure is what gives a wine its shape, backbone, and potential to age. A wine without structure feels flat and formless.</p><p class="term-plain">"The skeleton of the wine. Just like a building needs a frame, a wine needs structure to hold everything together and stand the test of time."</p><p class="term-example"><strong>Example:</strong> A young Napa Cabernet may taste almost too intense and grippy — but its strong structure means it will age magnificently for 20+ years as that framework softens.</p><p class="term-related">Related: <span onclick="filterByTerm('tannin')">Tannin</span>, <span onclick="filterByTerm('balance')">Balance</span></p></div>
-
-<div class="glossary-term" data-category="tasting" data-term="dry"><div class="term-header"><span class="term-name">Dry</span><span class="term-category">Core Tasting</span></div><p class="term-definition">A wine with little to no residual sugar — meaning fermentation converted nearly all the grape sugars into alcohol. The opposite of sweet. Most red wines and many whites are dry. Dry does not mean lacking fruit flavor.</p><p class="term-plain">"Not sweet. The sugar was eaten up during fermentation — what's left is alcohol and flavor, not sweetness."</p><p class="term-example"><strong>Example:</strong> A dry Cabernet Sauvignon can have rich blackcurrant and cherry aromas, but the actual taste isn't sweet — it's the absence of sugar that makes it feel savory and food-friendly.</p><p class="term-related">Related: <span onclick="filterByTerm('off-dry')">Off-Dry</span>, <span onclick="filterByTerm('sweet')">Sweet</span></p></div>
-
-<div class="glossary-term" data-category="tasting" data-term="off-dry"><div class="term-header"><span class="term-name">Off-Dry</span><span class="term-category">Core Tasting</span></div><p class="term-definition">A wine with a small amount of residual sugar — not fully dry but not sweet either. The sugar is present but subtle, often balanced by high acidity so the wine doesn't taste overtly sweet.</p><p class="term-plain">"Just a whisper of sweetness — you might not even notice it consciously, but it rounds out the wine and makes it easier to drink."</p><p class="term-example"><strong>Example:</strong> Many German Rieslings labeled "Kabinett" or "Spätlese" are off-dry — they have a touch of residual sugar that balances their piercing acidity, making them feel lush rather than tart.</p><p class="term-related">Related: <span onclick="filterByTerm('dry')">Dry</span>, <span onclick="filterByTerm('sweet')">Sweet</span></p></div>
-
-<div class="glossary-term" data-category="tasting" data-term="sweet"><div class="term-header"><span class="term-name">Sweet</span><span class="term-category">Core Tasting</span></div><p class="term-definition">A wine with significant residual sugar remaining after fermentation — either because fermentation was stopped early, or because very ripe or botrytized grapes were used. Sweetness ranges from gently honeyed to intensely syrupy.</p><p class="term-plain">"Sugar you can actually taste and feel — the wine coats your mouth with sweetness rather than just fruit flavor."</p><p class="term-example"><strong>Example:</strong> Sauternes from Bordeaux is one of the world's great sweet wines — made from grapes affected by noble rot, it has flavors of honey, apricot, and marmalade with enough acidity to prevent it from feeling cloying.</p><p class="term-related">Related: <span onclick="filterByTerm('dry')">Dry</span>, <span onclick="filterByTerm('off-dry')">Off-Dry</span></p></div>
-
-<div class="glossary-term" data-category="tasting" data-term="crisp"><div class="term-header"><span class="term-name">Crisp</span><span class="term-category">Core Tasting</span></div><p class="term-definition">A tasting term describing a wine with noticeable, refreshing acidity that creates a clean, bright sensation on the palate. Crisp wines feel energetic and mouth-watering. Used almost exclusively for white wines and sparkling wines.</p><p class="term-plain">"That snap of freshness — like biting into a cold, tart apple. It wakes your palate up."</p><p class="term-example"><strong>Example:</strong> A well-made Pinot Grigio from Alto Adige or a Chablis Chardonnay is typically described as crisp — clean, fresh, with acidity that makes it the perfect aperitif wine.</p><p class="term-related">Related: <span onclick="filterByTerm('acidity')">Acidity</span>, <span onclick="filterByTerm('minerality')">Minerality</span></p></div>
-
-<div class="glossary-term" data-category="tasting" data-term="jammy"><div class="term-header"><span class="term-name">Jammy</span><span class="term-category">Core Tasting</span></div><p class="term-definition">A tasting descriptor for wines with very ripe, concentrated fruit flavors that evoke cooked or preserved fruit — like strawberry jam, blackberry compote, or plum preserve. Jammy wines often come from warm climates.</p><p class="term-plain">"Fruit flavor that tastes cooked and concentrated — more like jam than fresh berries. Rich, thick, and sweet-smelling."</p><p class="term-example"><strong>Example:</strong> Many big California Zinfandels and Australian Shirazes are described as jammy — they have intense, cooked berry flavors, high alcohol, and a plush, almost syrupy texture.</p><p class="term-related">Related: <span onclick="filterByTerm('full-bodied')">Full-Bodied</span>, <span onclick="filterByTerm('body')">Body</span></p></div>
-
-<div class="glossary-term" data-category="tasting" data-term="minerality"><div class="term-header"><span class="term-name">Minerality</span><span class="term-category">Core Tasting</span></div><p class="term-definition">A tasting descriptor for flavors and sensations that evoke stones, slate, chalk, flint, or wet rock — non-fruit characteristics that seem to come from the soil itself. One of the most debated and evocative terms in wine description.</p><p class="term-plain">"The taste of the earth the vine grew in — like licking a wet stone or smelling the air just before rain."</p><p class="term-example"><strong>Example:</strong> Great Chablis Chardonnay is famous for its minerality — a flinty, almost saline quality that has nothing to do with fruit and everything to do with the ancient oyster-shell limestone soils of the region.</p><p class="term-related">Related: <span onclick="filterByTerm('terroir')">Terroir</span>, <span onclick="filterByTerm('crisp')">Crisp</span></p></div>
-
-<div class="glossary-term" data-category="tasting" data-term="full-bodied"><div class="term-header"><span class="term-name">Full-Bodied</span><span class="term-category">Core Tasting</span></div><p class="term-definition">A wine with a heavy, rich, and weighty presence on the palate — typically high in alcohol (13.5%+), tannin, and extract. Full-bodied wines feel substantial and chewy, coating the mouth with flavor and texture.</p><p class="term-plain">"Heavy and rich — like cream compared to water. You feel it filling your whole mouth."</p><p class="term-example"><strong>Example:</strong> Napa Valley Cabernet Sauvignon, Châteauneuf-du-Pape, and Amarone are all full-bodied reds — dense, powerful wines that pair best with rich, hearty foods like red meat and aged cheeses.</p><p class="term-related">Related: <span onclick="filterByTerm('body')">Body</span>, <span onclick="filterByTerm('tannin')">Tannin</span></p></div>
-
-<div class="glossary-term" data-category="tasting" data-term="light-bodied"><div class="term-header"><span class="term-name">Light-Bodied</span><span class="term-category">Core Tasting</span></div><p class="term-definition">A wine with a lighter, more delicate presence on the palate — typically lower in alcohol (under 12.5%) and tannin, with a thinner texture. Light-bodied wines feel elegant and easy rather than heavy or dense.</p><p class="term-plain">"Light and airy — like water or skim milk on your tongue. Elegant, not heavy."</p><p class="term-example"><strong>Example:</strong> Beaujolais, Pinot Noir from Burgundy, and Vinho Verde are typically light-bodied — they're bright, fresh, and versatile at the table, pairing easily with everything from salads to salmon.</p><p class="term-related">Related: <span onclick="filterByTerm('body')">Body</span>, <span onclick="filterByTerm('full-bodied')">Full-Bodied</span></p></div>
-
-<div class="glossary-term" data-category="tasting" data-term="oaky"><div class="term-header"><span class="term-name">Oaky</span><span class="term-category">Core Tasting</span></div><p class="term-definition">A descriptor for wines that show prominent flavors derived from oak barrel aging — vanilla, toast, coconut, cedar, smoke, or baking spices. When well-integrated, oak adds complexity. When overdone, it can overwhelm the wine's natural character.</p><p class="term-plain">"That vanilla and toasty wood flavor you sometimes get — like smelling the inside of a wooden cabinet or a piece of toasted bread."</p><p class="term-example"><strong>Example:</strong> A heavily oaked Chardonnay — often called "butter bomb" — might taste of vanilla cream, butter, and toasted oak. Compare that to an unoaked Chablis, which is lean, mineral, and purely about the grape.</p><p class="term-related">Related: <span onclick="filterByTerm('devil\'s cut')">Devil's Cut</span>, <span onclick="filterByTerm('balance')">Balance</span></p></div>
-
-</div>
-<div class="no-results" id="noResults"><p style="font-family:'Cormorant Garamond',serif;font-size:1.6rem">No terms found</p><p>Try a different search or browse all terms.</p></div>
-</div>
-</div>
-
-<div id="labels-tab" class="edu-tab-content">
-
-<div class="country-section">
-<span class="country-flag">🇺🇸</span><h2 class="country-title">United States</h2><span class="country-subtitle">The Most Beginner-Friendly Labels in the World</span>
-<p class="country-intro">American wine labels are the easiest to read — the grape variety is almost always front and center. If you're new to wine, US labels are the perfect starting point for building your vocabulary before tackling European bottles.</p>
-<div class="tip-box"><p class="tip-box-label">Beginner Tip</p><p class="tip-box-text">Start with US wines. Because the grape is always on the label, you'll quickly learn what Cabernet tastes like vs. Pinot Noir vs. Chardonnay — a foundation that makes European labels much easier to decode.</p></div>
-</div>
-
-<div class="alt-bg"><div class="country-section">
-<span class="country-flag">🇫🇷</span><h2 class="country-title">France</h2><span class="country-subtitle">The Region Is the Message — But You Have to Know the Code</span>
-<p class="country-intro">French wine labels almost never name the grape. Instead they name the region — and you're expected to know what grows there. The philosophy: <em>where</em> it comes from matters more than <em>what grape</em> is in it.</p>
-
-<div class="varietal-header"><span class="lock-icon">🔓</span><div><h3>The Hidden Varietal Decoder — France</h3><p>When the label shows this region, the grape is actually...</p></div></div>
-<div class="sub-header"><p class="sub-header-label">Burgundy</p></div>
-<div class="varietal-row"><div><p class="varietal-label-name">Any Red Burgundy</p><p class="varietal-label-sub">Gevrey-Chambertin, Chambolle-Musigny, Vosne-Romanée…</p></div><span class="varietal-arrow">→</span><div><p class="varietal-grape-name">Pinot Noir</p><p class="varietal-grape-note">Always. No exceptions.</p></div></div>
-<div class="varietal-row"><div><p class="varietal-label-name">Any White Burgundy</p><p class="varietal-label-sub">Meursault, Puligny-Montrachet, Chassagne…</p></div><span class="varietal-arrow">→</span><div><p class="varietal-grape-name">Chardonnay</p><p class="varietal-grape-note">Always. No exceptions.</p></div></div>
-<div class="varietal-row"><div><p class="varietal-label-name">Chablis</p><p class="varietal-label-sub">Northern Burgundy</p></div><span class="varietal-arrow">→</span><div><p class="varietal-grape-name">Chardonnay</p><p class="varietal-grape-note">Lean, flinty, mineral</p></div></div>
-<div class="varietal-row"><div><p class="varietal-label-name">Beaujolais</p><p class="varietal-label-sub">Southern Burgundy</p></div><span class="varietal-arrow">→</span><div><p class="varietal-grape-name">Gamay</p><p class="varietal-grape-note">Light, juicy, bright cherry</p></div></div>
-
-<div class="sub-header sub-header-mt"><p class="sub-header-label">Bordeaux</p></div>
-<div class="varietal-row"><div><p class="varietal-label-name">Pauillac / Margaux / St-Julien</p><p class="varietal-label-sub">Left Bank Bordeaux</p></div><span class="varietal-arrow">→</span><div><p class="varietal-grape-name">Cabernet Sauvignon blend</p><p class="varietal-grape-note">Structured &amp; powerful</p></div></div>
-<div class="varietal-row"><div><p class="varietal-label-name">Pomerol / Saint-Émilion</p><p class="varietal-label-sub">Right Bank Bordeaux</p></div><span class="varietal-arrow">→</span><div><p class="varietal-grape-name">Merlot-dominant blend</p><p class="varietal-grape-note">Soft &amp; plummy</p></div></div>
-<div class="varietal-row"><div><p class="varietal-label-name">Sauternes / Barsac</p><p class="varietal-label-sub">Sweet White Bordeaux</p></div><span class="varietal-arrow">→</span><div><p class="varietal-grape-name">Sémillon &amp; Sauvignon Blanc</p><p class="varietal-grape-note">Honeyed &amp; lush</p></div></div>
-
-<div class="sub-header sub-header-mt"><p class="sub-header-label">Loire Valley</p></div>
-<div class="varietal-row"><div><p class="varietal-label-name">Sancerre / Pouilly-Fumé</p><p class="varietal-label-sub">Upper Loire</p></div><span class="varietal-arrow">→</span><div><p class="varietal-grape-name">Sauvignon Blanc</p><p class="varietal-grape-note">Crisp, grassy, citrus</p></div></div>
-<div class="varietal-row"><div><p class="varietal-label-name">Vouvray / Montlouis</p><p class="varietal-label-sub">Middle Loire</p></div><span class="varietal-arrow">→</span><div><p class="varietal-grape-name">Chenin Blanc</p><p class="varietal-grape-note">Dry to sweet, honeyed</p></div></div>
-<div class="varietal-row"><div><p class="varietal-label-name">Chinon / Bourgueil</p><p class="varietal-label-sub">Loire Reds</p></div><span class="varietal-arrow">→</span><div><p class="varietal-grape-name">Cabernet Franc</p><p class="varietal-grape-note">Earthy, pepper, violet</p></div></div>
-
-<div class="sub-header sub-header-mt"><p class="sub-header-label">Rhône Valley</p></div>
-<div class="varietal-row"><div><p class="varietal-label-name">Côte-Rôtie / Hermitage</p><p class="varietal-label-sub">Northern Rhône Red</p></div><span class="varietal-arrow">→</span><div><p class="varietal-grape-name">Syrah</p><p class="varietal-grape-note">Dark, peppery, powerful</p></div></div>
-<div class="varietal-row"><div><p class="varietal-label-name">Condrieu</p><p class="varietal-label-sub">Northern Rhône White</p></div><span class="varietal-arrow">→</span><div><p class="varietal-grape-name">Viognier</p><p class="varietal-grape-note">Floral, peach, rich</p></div></div>
-<div class="varietal-row"><div><p class="varietal-label-name">Châteauneuf-du-Pape</p><p class="varietal-label-sub">Southern Rhône</p></div><span class="varietal-arrow">→</span><div><p class="varietal-grape-name">Grenache-dominant blend</p><p class="varietal-grape-note">Rich, spiced, full</p></div></div>
-
-<div class="tip-box"><p class="tip-box-label">The Two Rules That Unlock France</p><p class="tip-box-text"><strong>Rule 1:</strong> Red Burgundy = Pinot Noir. White Burgundy = Chardonnay. <strong>Rule 2:</strong> Left Bank Bordeaux = Cabernet Sauvignon. Right Bank = Merlot.</p></div>
-</div></div>
-
-<div class="country-section">
-<span class="country-flag">🇮🇹</span><h2 class="country-title">Italy</h2><span class="country-subtitle">20 Regions, 500+ Grapes, One Beautiful Puzzle</span>
-<p class="country-intro">Italy is the most complex wine country in the world — but also one of the most rewarding. Most wines are named after places, not grapes, and the DOC/DOCG classification tells you how seriously a wine is regulated.</p>
-
-<div class="varietal-header"><span class="lock-icon">🔓</span><div><h3>The Hidden Varietal Decoder — Italy</h3><p>When the label shows this region, the grape is actually...</p></div></div>
-<div class="sub-header"><p class="sub-header-label">Piedmont</p></div>
-<div class="varietal-row"><div><p class="varietal-label-name">Barolo</p><p class="varietal-label-sub">"The King of Italian Wine"</p></div><span class="varietal-arrow">→</span><div><p class="varietal-grape-name">Nebbiolo</p><p class="varietal-grape-note">Powerful, roses &amp; tar</p></div></div>
-<div class="varietal-row"><div><p class="varietal-label-name">Barbaresco</p><p class="varietal-label-sub">"The Queen"</p></div><span class="varietal-arrow">→</span><div><p class="varietal-grape-name">Nebbiolo</p><p class="varietal-grape-note">Refined &amp; silky</p></div></div>
-<div class="varietal-row"><div><p class="varietal-label-name">Barbera d'Asti / d'Alba</p><p class="varietal-label-sub">Piedmont everyday</p></div><span class="varietal-arrow">→</span><div><p class="varietal-grape-name">Barbera</p><p class="varietal-grape-note">Juicy, high acid</p></div></div>
-
-<div class="sub-header sub-header-mt"><p class="sub-header-label">Tuscany</p></div>
-<div class="varietal-row"><div><p class="varietal-label-name">Chianti / Chianti Classico</p><p class="varietal-label-sub">Central Tuscany</p></div><span class="varietal-arrow">→</span><div><p class="varietal-grape-name">Sangiovese</p><p class="varietal-grape-note">Tart cherry, food-friendly</p></div></div>
-<div class="varietal-row"><div><p class="varietal-label-name">Brunello di Montalcino</p><p class="varietal-label-sub">Montalcino, Tuscany</p></div><span class="varietal-arrow">→</span><div><p class="varietal-grape-name">Sangiovese Grosso</p><p class="varietal-grape-note">Italy's most age-worthy</p></div></div>
-<div class="varietal-row"><div><p class="varietal-label-name">Vino Nobile di Montepulciano</p><p class="varietal-label-sub">Tuscany</p></div><span class="varietal-arrow">→</span><div><p class="varietal-grape-name">Sangiovese</p><p class="varietal-grape-note">Noble &amp; structured</p></div></div>
-
-<div class="sub-header sub-header-mt"><p class="sub-header-label">Veneto</p></div>
-<div class="varietal-row"><div><p class="varietal-label-name">Amarone della Valpolicella</p><p class="varietal-label-sub">Made from dried grapes</p></div><span class="varietal-arrow">→</span><div><p class="varietal-grape-name">Corvina blend</p><p class="varietal-grape-note">Rich, intense, 15-17% ABV</p></div></div>
-<div class="varietal-row"><div><p class="varietal-label-name">Soave</p><p class="varietal-label-sub">Veneto</p></div><span class="varietal-arrow">→</span><div><p class="varietal-grape-name">Garganega</p><p class="varietal-grape-note">Almond, floral, crisp</p></div></div>
-<div class="varietal-row"><div><p class="varietal-label-name">Prosecco</p><p class="varietal-label-sub">Veneto / Friuli</p></div><span class="varietal-arrow">→</span><div><p class="varietal-grape-name">Glera</p><p class="varietal-grape-note">Light &amp; fruity sparkler</p></div></div>
-
-<div class="sub-header sub-header-mt"><p class="sub-header-label">Southern Italy &amp; Islands</p></div>
-<div class="varietal-row"><div><p class="varietal-label-name">Montepulciano d'Abruzzo</p><p class="varietal-label-sub">Abruzzo</p></div><span class="varietal-arrow">→</span><div><p class="varietal-grape-name">Montepulciano</p><p class="varietal-grape-note">Bold, dark fruit, value</p></div></div>
-<div class="varietal-row"><div><p class="varietal-label-name">Primitivo di Manduria</p><p class="varietal-label-sub">Puglia</p></div><span class="varietal-arrow">→</span><div><p class="varietal-grape-name">Primitivo (= Zinfandel)</p><p class="varietal-grape-note">Jammy, bold</p></div></div>
-<div class="varietal-row"><div><p class="varietal-label-name">Nero d'Avola</p><p class="varietal-label-sub">Sicily</p></div><span class="varietal-arrow">→</span><div><p class="varietal-grape-name">Nero d'Avola</p><p class="varietal-grape-note">Rich, chocolate, warm spice</p></div></div>
-
-<div class="tip-box"><p class="tip-box-label">Italy's Two Essential Grapes</p><p class="tip-box-text"><strong>Nebbiolo</strong> makes Barolo and Barbaresco. <strong>Sangiovese</strong> makes Chianti and Brunello. Master those two and you've unlocked the heart of Italian wine.</p></div>
-</div>
-
-<div class="alt-bg"><div class="country-section">
-<span class="country-flag">🇪🇸</span><h2 class="country-title">Spain</h2><span class="country-subtitle">Aging Terms Tell the Story</span>
-<p class="country-intro">Spanish labels have a unique feature — legally regulated aging terms printed right on the label. Joven, Crianza, Reserva, and Gran Reserva tell you exactly how long the wine was aged.</p>
-
-<p style="font-size:.62rem;letter-spacing:.18em;text-transform:uppercase;color:var(--text-light);margin-bottom:1rem;margin-top:1rem">Spain's Aging Terms — Rioja Red</p>
-<div class="aging-card"><div><p class="aging-term">Joven</p></div><div class="aging-detail"><p class="aging-years">Little or no oak · Drink now</p><p>Young, fresh, fruit-forward. Everyday drinking wine with no pretense.</p></div></div>
-<div class="aging-card"><div><p class="aging-term">Crianza</p></div><div class="aging-detail"><p class="aging-years">Min. 2 years · 1 year in oak</p><p>Entry-level serious Spanish wine. Oak adds structure while staying approachable. Outstanding value.</p></div></div>
-<div class="aging-card"><div><p class="aging-term">Reserva</p></div><div class="aging-detail"><p class="aging-years">Min. 3 years · 1 year in oak</p><p>Better grapes, better vintages. Integrated oak, softer tannins, real depth. Where Spanish wine gets exciting.</p></div></div>
-<div class="aging-card"><div><p class="aging-term">Gran Reserva</p></div><div class="aging-detail"><p class="aging-years">Min. 5 years · 18 months in oak</p><p>Spain's finest tier. Only made in exceptional vintages. Built to age 20-30 years.</p></div></div>
-
-<div class="varietal-header" style="margin-top:1.5rem"><span class="lock-icon">🔓</span><div><h3>The Hidden Varietal Decoder — Spain</h3><p>When the label shows this region, the grape is actually...</p></div></div>
-<div class="sub-header"><p class="sub-header-label">Red Wines</p></div>
-<div class="varietal-row"><div><p class="varietal-label-name">Rioja</p><p class="varietal-label-sub">La Rioja</p></div><span class="varietal-arrow">→</span><div><p class="varietal-grape-name">Tempranillo blend</p><p class="varietal-grape-note">Earthy, cherry, vanilla</p></div></div>
-<div class="varietal-row"><div><p class="varietal-label-name">Ribera del Duero</p><p class="varietal-label-sub">Castile and León</p></div><span class="varietal-arrow">→</span><div><p class="varietal-grape-name">Tempranillo</p><p class="varietal-grape-note">Bolder, darker than Rioja</p></div></div>
-<div class="varietal-row"><div><p class="varietal-label-name">Priorat</p><p class="varietal-label-sub">Catalonia</p></div><span class="varietal-arrow">→</span><div><p class="varietal-grape-name">Garnacha &amp; Cariñena blend</p><p class="varietal-grape-note">Powerful, mineral</p></div></div>
-<div class="varietal-row"><div><p class="varietal-label-name">Bierzo</p><p class="varietal-label-sub">Castile and León</p></div><span class="varietal-arrow">→</span><div><p class="varietal-grape-name">Mencía</p><p class="varietal-grape-note">Earthy, floral, lighter</p></div></div>
-
-<div class="sub-header sub-header-mt"><p class="sub-header-label">White Wines &amp; Sparkling</p></div>
-<div class="varietal-row"><div><p class="varietal-label-name">Rías Baixas</p><p class="varietal-label-sub">Galicia</p></div><span class="varietal-arrow">→</span><div><p class="varietal-grape-name">Albariño</p><p class="varietal-grape-note">Peach, citrus, saline</p></div></div>
-<div class="varietal-row"><div><p class="varietal-label-name">Rueda</p><p class="varietal-label-sub">Castile and León</p></div><span class="varietal-arrow">→</span><div><p class="varietal-grape-name">Verdejo</p><p class="varietal-grape-note">Herbal, nutty, refreshing</p></div></div>
-<div class="varietal-row"><div><p class="varietal-label-name">Cava</p><p class="varietal-label-sub">Catalonia</p></div><span class="varietal-arrow">→</span><div><p class="varietal-grape-name">Macabeo blend</p><p class="varietal-grape-note">Spain's Champagne</p></div></div>
-
-<div class="tip-box"><p class="tip-box-label">Beginner Tip</p><p class="tip-box-text">Start with a <strong>Rioja Crianza</strong>. Then step up to a <strong>Reserva</strong> from the same producer and feel the difference that extra aging makes.</p></div>
-</div></div>
-
-<div class="cheat-sheet"><div class="cheat-sheet-inner">
-<p style="font-size:.62rem;letter-spacing:.2em;text-transform:uppercase;color:var(--gold-light);margin-bottom:.5rem">Quick Reference</p>
-<h2>The Region → Grape <em>Cheat Sheet</em></h2>
-<p class="cheat-sheet-intro">Save this. Screenshot it. Bring it to the wine shop. Every region you'll commonly encounter — and the grape hiding inside.</p>
-
-<div class="cheat-country"><p class="cheat-country-label">🇫🇷 France — Burgundy</p>
-<div class="cheat-row"><span class="cheat-region">Any Red Burgundy</span><div><p class="cheat-grape">Pinot Noir</p><p class="cheat-note">Always</p></div></div>
-<div class="cheat-row"><span class="cheat-region">Any White Burgundy</span><div><p class="cheat-grape">Chardonnay</p><p class="cheat-note">Always</p></div></div>
-<div class="cheat-row"><span class="cheat-region">Beaujolais</span><div><p class="cheat-grape">Gamay</p><p class="cheat-note">Light &amp; juicy</p></div></div>
-</div>
-
-<div class="cheat-country"><p class="cheat-country-label">🇫🇷 France — Bordeaux &amp; Loire</p>
-<div class="cheat-row"><span class="cheat-region">Pauillac / Margaux / St-Julien</span><div><p class="cheat-grape">Cabernet blend</p><p class="cheat-note">Left Bank</p></div></div>
-<div class="cheat-row"><span class="cheat-region">Pomerol / Saint-Émilion</span><div><p class="cheat-grape">Merlot blend</p><p class="cheat-note">Right Bank</p></div></div>
-<div class="cheat-row"><span class="cheat-region">Sancerre / Pouilly-Fumé</span><div><p class="cheat-grape">Sauvignon Blanc</p><p class="cheat-note">Loire</p></div></div>
-<div class="cheat-row"><span class="cheat-region">Vouvray</span><div><p class="cheat-grape">Chenin Blanc</p><p class="cheat-note">Loire</p></div></div>
-<div class="cheat-row"><span class="cheat-region">Chinon</span><div><p class="cheat-grape">Cabernet Franc</p><p class="cheat-note">Loire red</p></div></div>
-<div class="cheat-row"><span class="cheat-region">Côte-Rôtie / Hermitage</span><div><p class="cheat-grape">Syrah</p><p class="cheat-note">N. Rhône</p></div></div>
-<div class="cheat-row"><span class="cheat-region">Châteauneuf-du-Pape</span><div><p class="cheat-grape">Grenache blend</p><p class="cheat-note">S. Rhône</p></div></div>
-</div>
-
-<div class="cheat-country"><p class="cheat-country-label">🇮🇹 Italy</p>
-<div class="cheat-row"><span class="cheat-region">Barolo / Barbaresco</span><div><p class="cheat-grape">Nebbiolo</p><p class="cheat-note">Powerful</p></div></div>
-<div class="cheat-row"><span class="cheat-region">Chianti / Brunello</span><div><p class="cheat-grape">Sangiovese</p><p class="cheat-note">Tuscany</p></div></div>
-<div class="cheat-row"><span class="cheat-region">Amarone / Valpolicella</span><div><p class="cheat-grape">Corvina blend</p><p class="cheat-note">Veneto</p></div></div>
-<div class="cheat-row"><span class="cheat-region">Soave</span><div><p class="cheat-grape">Garganega</p><p class="cheat-note">White</p></div></div>
-<div class="cheat-row"><span class="cheat-region">Prosecco</span><div><p class="cheat-grape">Glera</p><p class="cheat-note">Sparkling</p></div></div>
-<div class="cheat-row"><span class="cheat-region">Montepulciano d'Abruzzo</span><div><p class="cheat-grape">Montepulciano</p><p class="cheat-note">Value red</p></div></div>
-</div>
-
-<div class="cheat-country"><p class="cheat-country-label">🇪🇸 Spain</p>
-<div class="cheat-row"><span class="cheat-region">Rioja / Ribera del Duero</span><div><p class="cheat-grape">Tempranillo</p><p class="cheat-note">King grape</p></div></div>
-<div class="cheat-row"><span class="cheat-region">Priorat</span><div><p class="cheat-grape">Garnacha blend</p><p class="cheat-note">Catalan</p></div></div>
-<div class="cheat-row"><span class="cheat-region">Rías Baixas</span><div><p class="cheat-grape">Albariño</p><p class="cheat-note">White</p></div></div>
-<div class="cheat-row"><span class="cheat-region">Rueda</span><div><p class="cheat-grape">Verdejo</p><p class="cheat-note">White</p></div></div>
-<div class="cheat-row"><span class="cheat-region">Cava</span><div><p class="cheat-grape">Macabeo blend</p><p class="cheat-note">Sparkling</p></div></div>
-</div>
-
-</div></div>
-</div>
-
-<footer class="site-footer">
-<span class="footer-logo">Kazmi Cellars</span>
-<ul class="footer-links"><li><a href="terms.html">Terms &amp; Conditions</a></li><li><a href="privacy.html">Privacy Policy</a></li><li><a href="editorial.html">Editorial Policy</a></li></ul>
-<hr class="footer-divider">
-<div class="footer-bottom"><span class="footer-copy">© 2026 Kazmi Cellars · All Rights Reserved</span><span class="footer-social">kazmicellars@gmail.com &nbsp;·&nbsp; @kazmicellars</span></div>
-</footer>
-
-<script>
-const tabBtns = document.querySelectorAll('.edu-tab-btn');
-const tabContents = document.querySelectorAll('.edu-tab-content');
-tabBtns.forEach(btn => {
-  btn.addEventListener('click', () => {
-    const tab = btn.dataset.tab;
-    tabBtns.forEach(b => b.classList.remove('active'));
-    tabContents.forEach(c => c.classList.remove('active'));
-    btn.classList.add('active');
-    document.getElementById(tab + '-tab').classList.add('active');
-  });
-});
-
-const terms = document.querySelectorAll('.glossary-term');
-const searchInput = document.getElementById('glossarySearch');
-const resultCount = document.getElementById('resultCount');
-const noResults = document.getElementById('noResults');
-const filterBtns = document.querySelectorAll('.filter-btn');
-let activeFilter = 'all';
-
-function updateResults() {
-  const query = searchInput.value.toLowerCase().trim();
-  let visible = 0;
-  terms.forEach(term => {
-    const termName = term.dataset.term.toLowerCase();
-    const termText = term.innerText.toLowerCase();
-    const termCat = term.dataset.category;
-    const matchesSearch = !query || termName.includes(query) || termText.includes(query);
-    const matchesFilter = activeFilter === 'all' || termCat === activeFilter;
-    if (matchesSearch && matchesFilter) {
-      term.classList.remove('hidden');
-      visible++;
-    } else {
-      term.classList.add('hidden');
-    }
-  });
-  resultCount.textContent = visible + ' term' + (visible !== 1 ? 's' : '') + ' found';
-  noResults.classList.toggle('visible', visible === 0);
-}
-
-searchInput.addEventListener('input', updateResults);
-filterBtns.forEach(btn => {
-  btn.addEventListener('click', () => {
-    filterBtns.forEach(b => b.classList.remove('active'));
-    btn.classList.add('active');
-    activeFilter = btn.dataset.filter;
-    updateResults();
-  });
-});
-
-function filterByTerm(termName) {
-  searchInput.value = termName;
-  activeFilter = 'all';
-  filterBtns.forEach(b => b.classList.remove('active'));
-  filterBtns[0].classList.add('active');
-  updateResults();
-  searchInput.scrollIntoView({behavior: 'smooth'});
-}
-
-updateResults();
-</script>
+  <footer class="site-footer">
+    <span class="footer-logo">Kazmi Cellars</span>
+    <ul class="footer-links">
+      <li><a href="terms.html">Terms &amp; Conditions</a></li>
+      <li><a href="privacy.html">Privacy Policy</a></li>
+      <li><a href="editorial.html">Editorial Policy</a></li>
+    </ul>
+    <hr class="footer-divider">
+    <div class="footer-bottom">
+      <span class="footer-copy">© 2026 Kazmi Cellars · All Rights Reserved</span>
+      <span class="footer-social">kazmicellars@gmail.com &nbsp;·&nbsp; @kazmicellars</span>
+    </div>
+  </footer>
 
 </body>
 </html>
