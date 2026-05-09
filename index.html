@@ -29,7 +29,7 @@
         <li><a href="posts.html">Posts</a></li>
         <li><a href="gallery.html">Gallery</a></li>
         <li><a href="cellar.html">The Cellar</a></li>
-        <li><a href="glossary.html">Glossary</a></li>
+        <li><a href="education.html">Education</a></li>
         <li><a href="goods.html">Cellar Goods</a></li>
         <li><a href="newsletter.html">Newsletter</a></li>
         <li><a href="contact.html">Contact</a></li>
@@ -155,7 +155,7 @@
       </div>
       <div class="card">
         <p class="section-label">Label Guide</p>
-        <h3 class="card-title">Reading Wine Labels</h3>
+        <h3 class="card-title">Reading Wine Labels &amp; Grape Cheat Sheet</h3>
         <p class="card-text">How to decode labels from the US, France, Italy, and Spain — with visual bottle diagrams and a complete region-to-grape cheat sheet.</p>
         <a href="wine-labels.html" class="card-link">Read the Guide →</a>
       </div>
@@ -226,7 +226,6 @@
         });
       } catch(e) {}
     }
-
     function wineryCard(w) {
       return `<div class="card"><span class="card-location">${w.location || ''}</span><h3 class="card-title">${w.name || ''}</h3><p class="card-text">${w.excerpt || ''}</p><a href="wineries.html" class="card-link">Read More →</a></div>`;
     }
@@ -246,14 +245,11 @@
       const date = p.date ? new Date(p.date).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }) : '';
       return `<div class="card">${date ? `<span class="card-location">${date}</span>` : ''}<h3 class="card-title">${p.title || ''}</h3><p class="card-text">${excerpt}</p><a href="posts.html" class="card-link">Read Post →</a></div>`;
     }
-
-    loadPreview('/data/wineries.json', 'winery-preview', 3, wineryCard);
-    loadPreview('/data/regions.json', 'region-preview', 2, regionCard);
-    loadPreview('/data/restaurants.json', 'restaurant-preview', 3, restaurantCard);
+    loadPreview('/data/wineries.json', 'winery-preview', 1, wineryCard);
+    loadPreview('/data/regions.json', 'region-preview', 1, regionCard);
+    loadPreview('/data/restaurants.json', 'restaurant-preview', 1, restaurantCard);
     loadPreview('/data/bottles.json', 'bottles-preview', 1, bottleCard);
-    loadPreview('/data/posts.json', 'posts-preview', 2, postCard);
-
-    // Gallery preview - up to 6 thumbnails
+    loadPreview('/data/posts.json', 'posts-preview', 1, postCard);
     (async function loadGalleryPreview() {
       try {
         const res = await fetch('/data/gallery.json');
