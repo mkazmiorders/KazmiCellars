@@ -118,7 +118,8 @@ collections:
               - {label: "Image", name: "image", widget: "image"}
               - {label: "Caption", name: "caption", widget: "string", required: false}
               - label: "Category"
-                name: "category"
-                widget: "select"
-                required: false
-                options: ["Wineries", "Restaurants", "Scenery", "Bottles", "Other"]
+          name: "category"
+          widget: "string"
+          required: false
+          hint: 'e.g., "Our Cellar", "Tuscany", "Napa Valley"'
+                
