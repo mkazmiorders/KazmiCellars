@@ -5,6 +5,31 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Gallery — Kazmi Cellars</title>
   <link rel="stylesheet" href="style.css" />
+  <style>
+    .gallery-intro{font-size:.95rem;color:var(--text-mid);line-height:1.8;max-width:560px;margin:0 auto 2.5rem;text-align:center}
+    .filter-bar{display:flex;flex-wrap:wrap;gap:.5rem;justify-content:center;margin-bottom:2.5rem;padding:0 1rem}
+    .filter-btn{border:1px solid var(--border);background:transparent;padding:.45rem 1.2rem;font-family:'Raleway',sans-serif;font-size:.62rem;letter-spacing:.15em;text-transform:uppercase;cursor:pointer;color:var(--text-mid);transition:all .25s}
+    .filter-btn.active,.filter-btn:hover{background:var(--brown-dark);color:white;border-color:var(--brown-dark)}
+    .photo-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:1rem;max-width:1300px;margin:0 auto;padding:0 1rem}
+    .photo-item{position:relative;cursor:pointer;overflow:hidden;background:var(--cream-dark);aspect-ratio:1/1}
+    .photo-item img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .4s}
+    .photo-item:hover img{transform:scale(1.05)}
+    .photo-caption{position:absolute;bottom:0;left:0;right:0;padding:1.2rem 1rem .8rem;background:linear-gradient(transparent,rgba(0,0,0,.8));color:white;font-size:.78rem;letter-spacing:.05em;opacity:0;transition:opacity .3s}
+    .photo-item:hover .photo-caption{opacity:1}
+    .photo-cat-tag{position:absolute;top:.7rem;left:.7rem;background:rgba(61,40,23,.85);color:var(--gold-light);font-size:.55rem;letter-spacing:.18em;text-transform:uppercase;padding:.3rem .7rem;backdrop-filter:blur(4px)}
+    .empty-state{text-align:center;padding:4rem 2rem;color:var(--text-light)}
+    .empty-state h3{font-family:'Cormorant Garamond',serif;font-size:1.8rem;font-weight:500;color:var(--brown-dark);margin-bottom:.5rem}
+    .lightbox{position:fixed;inset:0;background:rgba(0,0,0,.95);display:none;align-items:center;justify-content:center;z-index:1000;padding:2rem;cursor:zoom-out}
+    .lightbox.active{display:flex}
+    .lightbox img{max-width:100%;max-height:90vh;object-fit:contain;box-shadow:0 8px 32px rgba(0,0,0,.6)}
+    .lightbox-caption{position:absolute;bottom:1.5rem;left:0;right:0;text-align:center;color:var(--cream);font-family:'Cormorant Garamond',serif;font-style:italic;font-size:1.1rem;padding:0 2rem}
+    .lightbox-close{position:absolute;top:1.5rem;right:2rem;color:var(--cream);font-size:2rem;background:none;border:none;cursor:pointer;font-family:'Cormorant Garamond',serif;line-height:1}
+    .lightbox-nav{position:absolute;top:50%;transform:translateY(-50%);background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.3);color:var(--cream);width:50px;height:50px;border-radius:50%;cursor:pointer;font-size:1.5rem;display:flex;align-items:center;justify-content:center;transition:all .2s}
+    .lightbox-nav:hover{background:rgba(255,255,255,.2)}
+    .lightbox-prev{left:1.5rem}
+    .lightbox-next{right:1.5rem}
+    .photo-count{font-size:.7rem;letter-spacing:.15em;color:var(--text-light);text-align:center;margin-bottom:1.5rem}
+  </style>
 </head>
 <body>
 
@@ -21,6 +46,7 @@
         <img src="logo-glass.png" alt="Kazmi Cellars">
       </a>
     </div>
+    <nav>
       <ul class="nav-links">
         <li><a href="our-story.html">Our Story</a></li>
         <li><a href="wineries.html">Wineries</a></li>
@@ -30,8 +56,8 @@
         <li><a href="posts.html">Posts</a></li>
         <li><a href="gallery.html" class="active">Gallery</a></li>
         <li><a href="cellar.html">The Cellar</a></li>
-<li><a href="education.html">Education</a></li>
-<li><a href="goods.html">Cellar Goods</a></li>
+        <li><a href="education.html">Education</a></li>
+        <li><a href="goods.html">Cellar Goods</a></li>
         <li><a href="newsletter.html">Newsletter</a></li>
         <li><a href="contact.html">Contact</a></li>
       </ul>
@@ -39,18 +65,29 @@
   </header>
 
   <div class="page-header">
-    <div style="max-width:700px;margin:0 auto;">
+    <div style="max-width:700px;margin:0 auto;text-align:center;">
       <p class="section-label">Moments In The Glass &amp; Beyond</p>
       <h1 class="section-title">Photo <em>Gallery</em></h1>
-      <p class="section-subtitle">A visual journal of wineries, bottles, scenery, and the everyday beauty we've collected along the way.</p>
+      <p class="gallery-intro">A visual journal of wineries, bottles, scenery, and the everyday beauty we've collected along the way.</p>
     </div>
   </div>
 
-  <div class="section" style="padding-top:3rem;">
-    <div id="gallery-filters" style="text-align:center;margin-bottom:2rem;"></div>
-    <div id="gallery-grid" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:1rem;">
-      <p style="color:var(--text-light);font-size:0.9rem;">Loading gallery...</p>
+  <div class="section" style="padding-top:1rem;">
+    <p class="photo-count" id="photoCount"></p>
+    <div class="filter-bar" id="filterBar"></div>
+    <div class="photo-grid" id="photoGrid"></div>
+    <div class="empty-state" id="emptyState" style="display:none;">
+      <h3>No photos yet</h3>
+      <p>Check back soon — we're collecting moments to share.</p>
     </div>
+  </div>
+
+  <div class="lightbox" id="lightbox">
+    <button class="lightbox-close" id="lightboxClose">×</button>
+    <button class="lightbox-nav lightbox-prev" id="lightboxPrev">‹</button>
+    <button class="lightbox-nav lightbox-next" id="lightboxNext">›</button>
+    <img id="lightboxImg" src="" alt="">
+    <div class="lightbox-caption" id="lightboxCaption"></div>
   </div>
 
   <footer class="site-footer">
@@ -69,69 +106,148 @@
 
   <script>
     let allPhotos = [];
-    let currentFilter = 'All';
+    let filteredPhotos = [];
+    let currentLightboxIndex = 0;
 
-    function renderGallery() {
-      const grid = document.getElementById('gallery-grid');
-      const filtered = currentFilter === 'All'
-        ? allPhotos
-        : allPhotos.filter(p => p.category === currentFilter);
+    // Helper: extract photo URL from old or new format
+    function getPhotoUrl(p) {
+      if (typeof p === 'string') return p;
+      if (p.image) return p.image;
+      if (p.url) return p.url;
+      if (p.src) return p.src;
+      return null;
+    }
 
-      if (filtered.length === 0) {
-        grid.innerHTML = '<p style="color:var(--text-light);font-size:0.9rem;grid-column:1/-1;text-align:center;">No photos in this category yet.</p>';
-        return;
+    // Normalize photo data - works for both old format (object with image+caption+category) and array of strings
+    function normalizePhotos(data) {
+      if (!Array.isArray(data)) {
+        // Wrapped in object like {photos: [...]}
+        if (data.photos) return normalizePhotos(data.photos);
+        return [];
       }
-
-      grid.innerHTML = filtered.map(p => `
-        <div style="display:flex;flex-direction:column;">
-          <img src="${p.image}" style="width:100%;height:220px;object-fit:cover;cursor:pointer;" alt="${p.caption || ''}" onclick="openLightbox('${p.image}','${(p.caption || '').replace(/'/g,"\\'")}')">
-          ${p.caption ? `<p style="font-size:0.8rem;color:var(--text-light);margin-top:0.4rem;text-align:center;">${p.caption}</p>` : ''}
-        </div>
-      `).join('');
-    }
-
-    function setFilter(cat) {
-      currentFilter = cat;
-      document.querySelectorAll('#gallery-filters button').forEach(b => {
-        b.style.background = b.dataset.cat === cat ? 'var(--gold-light, #b08d57)' : 'transparent';
-        b.style.color = b.dataset.cat === cat ? '#fff' : 'var(--text-light)';
-      });
-      renderGallery();
-    }
-
-    function openLightbox(src, caption) {
-      const overlay = document.createElement('div');
-      overlay.style.cssText = 'position:fixed;inset:0;background:rgba(0,0,0,0.92);display:flex;flex-direction:column;align-items:center;justify-content:center;z-index:9999;cursor:pointer;padding:2rem;';
-      overlay.innerHTML = `
-        <img src="${src}" style="max-width:90%;max-height:80vh;object-fit:contain;">
-        ${caption ? `<p style="color:#fff;margin-top:1rem;font-size:0.95rem;text-align:center;max-width:600px;">${caption}</p>` : ''}
-        <p style="color:#999;margin-top:1rem;font-size:0.75rem;">Tap anywhere to close</p>
-      `;
-      overlay.onclick = () => overlay.remove();
-      document.body.appendChild(overlay);
+      return data.map(item => {
+        if (typeof item === 'string') {
+          return { image: item, caption: '', category: '' };
+        }
+        return {
+          image: getPhotoUrl(item),
+          caption: item.caption || '',
+          category: item.category || ''
+        };
+      }).filter(p => p.image);
     }
 
     async function loadGallery() {
       try {
-        const res = await fetch('data/gallery.json');
-        const data = await res.json();
-        allPhotos = (data.photos || []).filter(p => p.image);
-
-        if (allPhotos.length === 0) {
-          document.getElementById('gallery-grid').innerHTML = '<p style="color:var(--text-light);font-size:0.9rem;grid-column:1/-1;text-align:center;">No photos yet. Check back soon.</p>';
-          return;
-        }
-
-        const cats = ['All', ...new Set(allPhotos.map(p => p.category).filter(Boolean))];
-        document.getElementById('gallery-filters').innerHTML = cats.map(c => `
-          <button data-cat="${c}" onclick="setFilter('${c}')" style="padding:0.5rem 1rem;margin:0.2rem;border:1px solid var(--border, #ddd);background:${c==='All'?'var(--gold-light, #b08d57)':'transparent'};color:${c==='All'?'#fff':'var(--text-light)'};font-family:Raleway,sans-serif;font-size:0.75rem;letter-spacing:0.1em;text-transform:uppercase;cursor:pointer;">${c}</button>
-        `).join('');
-
-        renderGallery();
-      } catch(e) {
-        document.getElementById('gallery-grid').innerHTML = '<p style="color:var(--text-light);font-size:0.9rem;grid-column:1/-1;text-align:center;">No photos yet. Check back soon.</p>';
+        const r = await fetch('data/gallery.json', {cache: 'no-store'});
+        if (!r.ok) throw new Error('No gallery data');
+        const data = await r.json();
+        allPhotos = normalizePhotos(data);
+      } catch (e) {
+        console.log('Could not load gallery:', e);
+        allPhotos = [];
       }
+
+      if (!allPhotos.length) {
+        document.getElementById('emptyState').style.display = 'block';
+        document.getElementById('photoCount').style.display = 'none';
+        return;
+      }
+
+      buildFilters();
+      renderPhotos('All');
     }
+
+    function buildFilters() {
+      // Get unique categories, preserving insertion order
+      const seen = new Set();
+      const categories = [];
+      allPhotos.forEach(p => {
+        const cat = p.category && p.category.trim() ? p.category.trim() : 'Uncategorized';
+        if (!seen.has(cat)) {
+          seen.add(cat);
+          categories.push(cat);
+        }
+      });
+      // Sort alphabetically (with Uncategorized last)
+      categories.sort((a, b) => {
+        if (a === 'Uncategorized') return 1;
+        if (b === 'Uncategorized') return -1;
+        return a.localeCompare(b);
+      });
+
+      const bar = document.getElementById('filterBar');
+      const allBtn = `<button class="filter-btn active" data-cat="All">All Photos</button>`;
+      const catBtns = categories.map(cat =>
+        `<button class="filter-btn" data-cat="${cat.replace(/"/g,'&quot;')}">${cat}</button>`
+      ).join('');
+      bar.innerHTML = allBtn + catBtns;
+
+      bar.addEventListener('click', e => {
+        const btn = e.target.closest('.filter-btn');
+        if (!btn) return;
+        bar.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        renderPhotos(btn.dataset.cat);
+      });
+    }
+
+    function renderPhotos(filter) {
+      filteredPhotos = filter === 'All'
+        ? allPhotos
+        : allPhotos.filter(p => (p.category || 'Uncategorized') === filter);
+
+      const grid = document.getElementById('photoGrid');
+      grid.innerHTML = filteredPhotos.map((p, i) => `
+        <div class="photo-item" data-index="${i}">
+          <img src="${p.image}" alt="${p.caption || ''}" loading="lazy">
+          ${p.category ? `<div class="photo-cat-tag">${p.category}</div>` : ''}
+          ${p.caption ? `<div class="photo-caption">${p.caption}</div>` : ''}
+        </div>
+      `).join('');
+
+      const count = filteredPhotos.length;
+      document.getElementById('photoCount').textContent =
+        count + (count === 1 ? ' photo' : ' photos') + (filter !== 'All' ? ` in ${filter}` : '');
+
+      grid.querySelectorAll('.photo-item').forEach(el => {
+        el.addEventListener('click', () => openLightbox(parseInt(el.dataset.index)));
+      });
+    }
+
+    // Lightbox
+    const lightbox = document.getElementById('lightbox');
+    const lightboxImg = document.getElementById('lightboxImg');
+    const lightboxCaption = document.getElementById('lightboxCaption');
+
+    function openLightbox(idx) {
+      currentLightboxIndex = idx;
+      const p = filteredPhotos[idx];
+      lightboxImg.src = p.image;
+      lightboxCaption.textContent = p.caption || '';
+      lightbox.classList.add('active');
+      document.body.style.overflow = 'hidden';
+    }
+    function closeLightbox() {
+      lightbox.classList.remove('active');
+      document.body.style.overflow = '';
+    }
+    function navLightbox(dir) {
+      currentLightboxIndex = (currentLightboxIndex + dir + filteredPhotos.length) % filteredPhotos.length;
+      openLightbox(currentLightboxIndex);
+    }
+
+    document.getElementById('lightboxClose').addEventListener('click', closeLightbox);
+    document.getElementById('lightboxPrev').addEventListener('click', e => { e.stopPropagation(); navLightbox(-1); });
+    document.getElementById('lightboxNext').addEventListener('click', e => { e.stopPropagation(); navLightbox(1); });
+    lightbox.addEventListener('click', e => { if (e.target === lightbox || e.target === lightboxImg) closeLightbox(); });
+    document.addEventListener('keydown', e => {
+      if (!lightbox.classList.contains('active')) return;
+      if (e.key === 'Escape') closeLightbox();
+      if (e.key === 'ArrowLeft') navLightbox(-1);
+      if (e.key === 'ArrowRight') navLightbox(1);
+    });
+
     loadGallery();
   </script>
 
