@@ -23,6 +23,8 @@
     .bottle-notes p:last-child{margin-bottom:0}
     .bottle-notes strong{color:var(--brown-dark);font-weight:500}
     .bottle-notes em{color:var(--text-mid)}
+    .bottle-notes h2{font-family:'Cormorant Garamond',serif;font-size:1.3rem;font-weight:500;color:var(--brown-dark);margin:1.8rem 0 .8rem;line-height:1.25;padding-top:1.2rem;border-top:1px solid var(--border)}
+    .bottle-notes h3{font-family:'Cormorant Garamond',serif;font-size:1.1rem;font-weight:500;color:var(--brown-dark);margin:1.5rem 0 .7rem;line-height:1.3}
     .empty-state{text-align:center;padding:5rem 2rem;color:var(--text-light);max-width:560px;margin:0 auto}
     .empty-state h3{font-family:'Cormorant Garamond',serif;font-size:1.8rem;font-weight:500;color:var(--brown-dark);margin-bottom:.6rem}
     .empty-state p{font-size:.9rem;color:var(--text-mid);margin:0}
@@ -104,21 +106,30 @@
       return div.innerHTML;
     }
 
-    function renderNotes(text) {
+    function renderInline(text) {
+      return escapeHtml(text)
+        .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
+        .replace(/\*(.+?)\*/g, '<em>$1</em>')
+        .replace(/__(.+?)__/g, '<strong>$1</strong>')
+        .replace(/_(.+?)_/g, '<em>$1</em>');
+    }
+
+    function renderMarkdown(text) {
       if (!text) return '';
-      function renderInline(line) {
-        return escapeHtml(line)
-          .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
-          .replace(/\*(.+?)\*/g, '<em>$1</em>')
-          .replace(/__(.+?)__/g, '<strong>$1</strong>')
-          .replace(/_(.+?)_/g, '<em>$1</em>');
+      const lines = text.split('\n');
+      const out = [];
+      for (const rawLine of lines) {
+        const line = rawLine.trim();
+        if (!line) continue;
+        const headingMatch = line.match(/^(#{1,3})\s*(.+)$/);
+        if (headingMatch) {
+          const level = headingMatch[1].length;
+          out.push(`<h${level}>${renderInline(headingMatch[2])}</h${level}>`);
+          continue;
+        }
+        out.push(`<p>${renderInline(line)}</p>`);
       }
-      return text
-        .split(/\n+/)
-        .map(line => line.trim())
-        .filter(Boolean)
-        .map(line => `<p>${renderInline(line)}</p>`)
-        .join('');
+      return out.join('\n');
     }
 
     function formatWeek(week) {
@@ -176,7 +187,7 @@
                 ${week ? `<p class="bottle-week">${escapeHtml(week)}</p>` : ''}
                 <h2 class="bottle-name">${escapeHtml(name)}</h2>
                 ${meta ? `<p class="bottle-meta">${escapeHtml(meta)}</p>` : ''}
-                <div class="bottle-notes">${renderNotes(notes)}</div>
+                <div class="bottle-notes">${renderMarkdown(notes)}</div>
               </div>
             </article>
           `;
