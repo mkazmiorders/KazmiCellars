@@ -5,7 +5,35 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Posts — Kazmi Cellars</title>
   <link rel="stylesheet" href="style.css" />
-  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+  <style>
+    .posts-intro{font-size:.95rem;color:var(--text-mid);line-height:1.8;max-width:580px;margin:0 auto 3rem;text-align:center}
+    .post-entry{max-width:880px;margin:0 auto 5rem;background:var(--white);border:1px solid var(--border);overflow:hidden}
+    .post-banner{width:100%;height:380px;background-size:cover;background-position:center;background-color:var(--cream-dark)}
+    @media (max-width:760px){.post-banner{height:240px}}
+    .post-content{padding:2.5rem 2rem}
+    @media (max-width:600px){.post-content{padding:2rem 1.4rem}}
+    .post-date{font-size:.7rem;letter-spacing:.25em;text-transform:uppercase;color:var(--gold);margin:0 0 .5rem}
+    .post-title{font-family:'Cormorant Garamond',serif;font-size:clamp(2rem,4vw,2.6rem);font-weight:500;color:var(--brown-dark);margin:0 0 1rem;line-height:1.15}
+    .post-excerpt{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:1.2rem;color:var(--text-mid);line-height:1.7;margin:0 0 2rem;padding-bottom:1.8rem;border-bottom:1px solid var(--border)}
+    .post-body{font-size:.95rem;line-height:1.85;color:var(--text-dark)}
+    .post-body p{margin:0 0 1.2rem}
+    .post-body p:last-child{margin-bottom:0}
+    .post-body strong{color:var(--brown-dark);font-weight:500}
+    .post-body em{color:var(--text-mid)}
+    .post-body h2{font-family:'Cormorant Garamond',serif;font-size:1.5rem;font-weight:500;color:var(--brown-dark);margin:2.2rem 0 1rem;line-height:1.25;padding-top:1.4rem;border-top:1px solid var(--border)}
+    .post-body h3{font-family:'Cormorant Garamond',serif;font-size:1.2rem;font-weight:500;color:var(--brown-dark);margin:1.8rem 0 .8rem;line-height:1.3}
+    .post-photos{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:.6rem;margin-top:2rem;padding-top:2rem;border-top:1px solid var(--border)}
+    .post-photo{width:100%;aspect-ratio:1/1;object-fit:cover;background:var(--cream-dark);cursor:pointer;transition:opacity .2s}
+    .post-photo:hover{opacity:.85}
+    .empty-state{text-align:center;padding:5rem 2rem;color:var(--text-light)}
+    .empty-state h3{font-family:'Cormorant Garamond',serif;font-size:1.8rem;font-weight:500;color:var(--brown-dark);margin-bottom:.6rem}
+    .empty-state p{font-size:.9rem;color:var(--text-mid);max-width:420px;margin:0 auto}
+    .loading{text-align:center;padding:4rem 2rem;color:var(--text-light);font-style:italic;font-family:'Cormorant Garamond',serif;font-size:1.1rem}
+    .lightbox{position:fixed;inset:0;background:rgba(0,0,0,.95);display:none;align-items:center;justify-content:center;z-index:1000;padding:2rem;cursor:zoom-out}
+    .lightbox.active{display:flex}
+    .lightbox img{max-width:100%;max-height:90vh;object-fit:contain}
+    .lightbox-close{position:absolute;top:1.5rem;right:2rem;color:var(--cream);font-size:2rem;background:none;border:none;cursor:pointer;font-family:'Cormorant Garamond',serif;line-height:1}
+  </style>
 </head>
 <body>
 
@@ -32,8 +60,8 @@
         <li><a href="posts.html" class="active">Posts</a></li>
         <li><a href="gallery.html">Gallery</a></li>
         <li><a href="cellar.html">The Cellar</a></li>
-<li><a href="education.html">Education</a></li>
-<li><a href="goods.html">Cellar Goods</a></li>
+        <li><a href="education.html">Education</a></li>
+        <li><a href="goods.html">Cellar Goods</a></li>
         <li><a href="newsletter.html">Newsletter</a></li>
         <li><a href="contact.html">Contact</a></li>
       </ul>
@@ -41,17 +69,20 @@
   </header>
 
   <div class="page-header">
-    <div style="max-width:700px;margin:0 auto;">
+    <div style="max-width:780px;margin:0 auto;text-align:center;">
       <p class="section-label">Thoughts, Stories &amp; Whatever's On Our Mind</p>
       <h1 class="section-title">Our <em>Posts</em></h1>
-      <p class="section-subtitle">A more free-form space for the wine adventures, observations, and stories that don't fit neatly into the other sections.</p>
+      <p class="posts-intro">A more free-form space for the wine adventures, observations, and stories that don't fit neatly into the other sections.</p>
     </div>
   </div>
 
-  <div class="section" style="padding-top:3rem;">
-    <div id="post-list">
-      <p style="color:var(--text-light);font-size:0.9rem;">Loading posts...</p>
-    </div>
+  <main id="postsFeed">
+    <div class="loading">Loading posts…</div>
+  </main>
+
+  <div class="lightbox" id="lightbox">
+    <button class="lightbox-close" id="lightboxClose">×</button>
+    <img id="lightboxImg" src="" alt="">
   </div>
 
   <footer class="site-footer">
@@ -69,37 +100,142 @@
   </footer>
 
   <script>
-    function formatDate(dateStr) {
-      if (!dateStr) return '';
-      const d = new Date(dateStr);
-      if (isNaN(d)) return dateStr;
-      return d.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
+    function getPhotoUrl(p) {
+      if (!p) return null;
+      if (typeof p === 'string') return p;
+      if (p.image) return p.image;
+      if (p.url) return p.url;
+      if (p.src) return p.src;
+      return null;
+    }
+
+    function escapeHtml(text) {
+      const div = document.createElement('div');
+      div.textContent = text || '';
+      return div.innerHTML;
+    }
+
+    function renderInline(text) {
+      return escapeHtml(text)
+        .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
+        .replace(/\*(.+?)\*/g, '<em>$1</em>')
+        .replace(/__(.+?)__/g, '<strong>$1</strong>')
+        .replace(/_(.+?)_/g, '<em>$1</em>');
+    }
+
+    function renderMarkdown(text) {
+      if (!text) return '';
+      const lines = text.split('\n');
+      const out = [];
+      for (const rawLine of lines) {
+        const line = rawLine.trim();
+        if (!line) continue;
+        const headingMatch = line.match(/^(#{1,3})\s*(.+)$/);
+        if (headingMatch) {
+          const level = headingMatch[1].length;
+          out.push(`<h${level}>${renderInline(headingMatch[2])}</h${level}>`);
+          continue;
+        }
+        out.push(`<p>${renderInline(line)}</p>`);
+      }
+      return out.join('\n');
+    }
+
+    function formatDate(d) {
+      if (!d) return '';
+      const date = new Date(d);
+      if (isNaN(date.getTime())) return d;
+      return date.toLocaleDateString('en-US', {year: 'numeric', month: 'long', day: 'numeric'});
     }
 
     async function loadPosts() {
-      const container = document.getElementById('post-list');
+      const feed = document.getElementById('postsFeed');
       try {
-        const res = await fetch('data/posts.json');
-        const data = await res.json();
-        const items = (data.posts || []).slice().sort((a, b) => {
-          return new Date(b.date || 0) - new Date(a.date || 0);
-        });
-        if (items.length === 0) {
-          container.innerHTML = '<p style="color:var(--text-light);font-size:0.9rem;">No posts yet. Check back soon.</p>';
+        const r = await fetch('data/posts.json', {cache: 'no-store'});
+        if (!r.ok) throw new Error('No posts data');
+        const data = await r.json();
+        const posts = Array.isArray(data) ? data : (data.posts || []);
+
+        if (!posts.length) {
+          feed.innerHTML = `
+            <div class="empty-state">
+              <h3>Posts coming soon</h3>
+              <p>We're gathering thoughts, stories, and observations from the wine adventures we've been on. Check back soon.</p>
+            </div>`;
           return;
         }
-        container.innerHTML = items.map(p => `
-          <div class="card">
-            ${p.image ? `<img src="${p.image}" style="width:100%;height:280px;object-fit:cover;margin-bottom:1.5rem;" alt="${p.title}">` : ''}
-            ${p.date ? `<span class="card-location">${formatDate(p.date)}</span>` : ''}
-            <h2 class="card-title">${p.title}</h2>
-            <div class="card-text post-body">${p.body ? marked.parse(p.body) : ''}</div>
-          </div>
-        `).join('');
-      } catch(e) {
-        container.innerHTML = '<p style="color:var(--text-light);font-size:0.9rem;">No posts yet. Check back soon.</p>';
+
+        // Sort by date desc if dates exist, otherwise reverse insertion order
+        const sorted = posts.slice().sort((a, b) => {
+          const da = new Date(a.date || 0).getTime();
+          const db = new Date(b.date || 0).getTime();
+          return db - da;
+        });
+
+        feed.innerHTML = sorted.map(p => {
+          const photos = p.photos || [];
+          const heroPhoto = getPhotoUrl(p.image) || (photos[0] ? getPhotoUrl(photos[0]) : null);
+          const extraPhotos = (heroPhoto && photos.length && getPhotoUrl(photos[0]) === heroPhoto
+            ? photos.slice(1)
+            : photos
+          ).map(getPhotoUrl).filter(Boolean);
+          const date = formatDate(p.date);
+          const title = p.title || 'Untitled';
+          const excerpt = p.excerpt || '';
+          const body = p.body || p.review || p.content || '';
+
+          const bannerHtml = heroPhoto
+            ? `<div class="post-banner" style="background-image:url('${heroPhoto}')"></div>`
+            : '';
+
+          const photosHtml = extraPhotos.length
+            ? `<div class="post-photos">${extraPhotos.map(url =>
+                `<img src="${url}" alt="" class="post-photo" loading="lazy" onclick="openLightbox('${url}')">`
+              ).join('')}</div>`
+            : '';
+
+          return `
+            <article class="post-entry">
+              ${bannerHtml}
+              <div class="post-content">
+                ${date ? `<p class="post-date">${escapeHtml(date)}</p>` : ''}
+                <h2 class="post-title">${escapeHtml(title)}</h2>
+                ${excerpt ? `<p class="post-excerpt">${escapeHtml(excerpt)}</p>` : ''}
+                <div class="post-body">${renderMarkdown(body)}</div>
+                ${photosHtml}
+              </div>
+            </article>
+          `;
+        }).join('');
+      } catch (e) {
+        console.error('Could not load posts:', e);
+        feed.innerHTML = `
+          <div class="empty-state">
+            <h3>Couldn't load posts</h3>
+            <p>Something went wrong fetching the data. Try refreshing the page.</p>
+          </div>`;
       }
     }
+
+    const lightbox = document.getElementById('lightbox');
+    const lightboxImg = document.getElementById('lightboxImg');
+    window.openLightbox = function(url) {
+      lightboxImg.src = url;
+      lightbox.classList.add('active');
+      document.body.style.overflow = 'hidden';
+    };
+    function closeLightbox() {
+      lightbox.classList.remove('active');
+      document.body.style.overflow = '';
+    }
+    document.getElementById('lightboxClose').addEventListener('click', closeLightbox);
+    lightbox.addEventListener('click', e => {
+      if (e.target === lightbox || e.target === lightboxImg) closeLightbox();
+    });
+    document.addEventListener('keydown', e => {
+      if (e.key === 'Escape' && lightbox.classList.contains('active')) closeLightbox();
+    });
+
     loadPosts();
   </script>
 
