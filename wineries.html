@@ -5,6 +5,35 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Winery Experiences — Kazmi Cellars</title>
   <link rel="stylesheet" href="style.css" />
+  <style>
+    .wineries-intro{font-size:.95rem;color:var(--text-mid);line-height:1.8;max-width:580px;margin:0 auto 3rem;text-align:center}
+    .winery-entry{max-width:880px;margin:0 auto 5rem;background:var(--white);border:1px solid var(--border);overflow:hidden}
+    .winery-banner{width:100%;height:380px;background-size:cover;background-position:center;background-color:var(--cream-dark)}
+    @media (max-width:760px){.winery-banner{height:240px}}
+    .winery-content{padding:2.5rem 2rem}
+    @media (max-width:600px){.winery-content{padding:2rem 1.4rem}}
+    .winery-location{font-size:.7rem;letter-spacing:.25em;text-transform:uppercase;color:var(--gold);margin:0 0 .5rem}
+    .winery-name{font-family:'Cormorant Garamond',serif;font-size:clamp(2rem,4vw,2.6rem);font-weight:500;color:var(--brown-dark);margin:0 0 1rem;line-height:1.15}
+    .winery-excerpt{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:1.2rem;color:var(--text-mid);line-height:1.7;margin:0 0 2rem;padding-bottom:1.8rem;border-bottom:1px solid var(--border)}
+    .winery-body{font-size:.95rem;line-height:1.85;color:var(--text-dark)}
+    .winery-body p{margin:0 0 1.2rem}
+    .winery-body p:last-child{margin-bottom:0}
+    .winery-body strong{color:var(--brown-dark);font-weight:500}
+    .winery-body em{color:var(--text-mid)}
+    .winery-body h2{font-family:'Cormorant Garamond',serif;font-size:1.5rem;font-weight:500;color:var(--brown-dark);margin:2.2rem 0 1rem;line-height:1.25;padding-top:1.4rem;border-top:1px solid var(--border)}
+    .winery-body h3{font-family:'Cormorant Garamond',serif;font-size:1.2rem;font-weight:500;color:var(--brown-dark);margin:1.8rem 0 .8rem;line-height:1.3}
+    .winery-photos{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:.6rem;margin-top:2rem;padding-top:2rem;border-top:1px solid var(--border)}
+    .winery-photo{width:100%;aspect-ratio:1/1;object-fit:cover;background:var(--cream-dark);cursor:pointer;transition:opacity .2s}
+    .winery-photo:hover{opacity:.85}
+    .empty-state{text-align:center;padding:5rem 2rem;color:var(--text-light)}
+    .empty-state h3{font-family:'Cormorant Garamond',serif;font-size:1.8rem;font-weight:500;color:var(--brown-dark);margin-bottom:.6rem}
+    .empty-state p{font-size:.9rem;color:var(--text-mid);max-width:420px;margin:0 auto}
+    .loading{text-align:center;padding:4rem 2rem;color:var(--text-light);font-style:italic;font-family:'Cormorant Garamond',serif;font-size:1.1rem}
+    .lightbox{position:fixed;inset:0;background:rgba(0,0,0,.95);display:none;align-items:center;justify-content:center;z-index:1000;padding:2rem;cursor:zoom-out}
+    .lightbox.active{display:flex}
+    .lightbox img{max-width:100%;max-height:90vh;object-fit:contain}
+    .lightbox-close{position:absolute;top:1.5rem;right:2rem;color:var(--cream);font-size:2rem;background:none;border:none;cursor:pointer;font-family:'Cormorant Garamond',serif;line-height:1}
+  </style>
 </head>
 <body>
 
@@ -31,8 +60,8 @@
         <li><a href="posts.html">Posts</a></li>
         <li><a href="gallery.html">Gallery</a></li>
         <li><a href="cellar.html">The Cellar</a></li>
-<li><a href="education.html">Education</a></li>
-<li><a href="goods.html">Cellar Goods</a></li>
+        <li><a href="education.html">Education</a></li>
+        <li><a href="goods.html">Cellar Goods</a></li>
         <li><a href="newsletter.html">Newsletter</a></li>
         <li><a href="contact.html">Contact</a></li>
       </ul>
@@ -40,17 +69,20 @@
   </header>
 
   <div class="page-header">
-    <div style="max-width:700px;margin:0 auto;">
+    <div style="max-width:780px;margin:0 auto;text-align:center;">
       <p class="section-label">Firsthand Visits &amp; Tastings</p>
       <h1 class="section-title">Winery <em>Experiences</em></h1>
-      <p class="section-subtitle">Our personal experiences visiting wineries around the world — the people, the pours, and the stories.</p>
+      <p class="wineries-intro">Our personal experiences visiting wineries around the world — the people, the pours, and the stories.</p>
     </div>
   </div>
 
-  <div class="section" style="padding-top:3rem;">
-    <div id="winery-list">
-      <p style="color:var(--text-light);font-size:0.9rem;">Loading wineries...</p>
-    </div>
+  <main id="wineriesFeed">
+    <div class="loading">Loading winery experiences…</div>
+  </main>
+
+  <div class="lightbox" id="lightbox">
+    <button class="lightbox-close" id="lightboxClose">×</button>
+    <img id="lightboxImg" src="" alt="">
   </div>
 
   <footer class="site-footer">
@@ -68,47 +100,127 @@
   </footer>
 
   <script>
+    function getPhotoUrl(p) {
+      if (!p) return null;
+      if (typeof p === 'string') return p;
+      if (p.image) return p.image;
+      if (p.url) return p.url;
+      if (p.src) return p.src;
+      return null;
+    }
+
+    function escapeHtml(text) {
+      const div = document.createElement('div');
+      div.textContent = text || '';
+      return div.innerHTML;
+    }
+
+    function renderInline(text) {
+      return escapeHtml(text)
+        .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
+        .replace(/\*(.+?)\*/g, '<em>$1</em>')
+        .replace(/__(.+?)__/g, '<strong>$1</strong>')
+        .replace(/_(.+?)_/g, '<em>$1</em>');
+    }
+
+    function renderMarkdown(text) {
+      if (!text) return '';
+      const lines = text.split('\n');
+      const out = [];
+      for (const rawLine of lines) {
+        const line = rawLine.trim();
+        if (!line) continue;
+        const headingMatch = line.match(/^(#{1,3})\s*(.+)$/);
+        if (headingMatch) {
+          const level = headingMatch[1].length;
+          out.push(`<h${level}>${renderInline(headingMatch[2])}</h${level}>`);
+          continue;
+        }
+        out.push(`<p>${renderInline(line)}</p>`);
+      }
+      return out.join('\n');
+    }
+
     async function loadWineries() {
-      const container = document.getElementById('winery-list');
+      const feed = document.getElementById('wineriesFeed');
       try {
-        const res = await fetch('data/wineries.json');
-        const data = await res.json();
-        const items = data.wineries || [];
-        if (items.length === 0) {
-          container.innerHTML = '<p style="color:var(--text-light);font-size:0.9rem;">No winery experiences yet. Check back soon.</p>';
+        const r = await fetch('data/wineries.json', {cache: 'no-store'});
+        if (!r.ok) throw new Error('No wineries data');
+        const data = await r.json();
+        const wineries = Array.isArray(data) ? data : (data.wineries || []);
+
+        if (!wineries.length) {
+          feed.innerHTML = `
+            <div class="empty-state">
+              <h3>Visits coming soon</h3>
+              <p>We're gathering our experiences from the wineries we've visited. Check back soon.</p>
+            </div>`;
           return;
         }
-        container.innerHTML = items.map(w => {
-          const photoUrls = (w.photos || [])
-            .map(p => typeof p === 'string' ? p : (p && p.image))
-            .filter(Boolean);
-          if (!photoUrls.length && w.image) photoUrls.push(w.image);
 
-          let photosHTML = '';
-          if (photoUrls.length === 1) {
-            photosHTML = `<img src="${photoUrls[0]}" style="width:100%;height:220px;object-fit:cover;margin-bottom:1.5rem;" alt="${w.name}">`;
-          } else if (photoUrls.length > 1) {
-            photosHTML = `
-              <img src="${photoUrls[0]}" style="width:100%;height:220px;object-fit:cover;margin-bottom:1rem;" alt="${w.name}">
-              <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:0.5rem;margin-bottom:1.5rem;">
-                ${photoUrls.slice(1).map(url => `<img src="${url}" style="width:100%;height:120px;object-fit:cover;" alt="${w.name}">`).join('')}
-              </div>
-            `;
-          }
+        const ordered = wineries.slice().reverse();
+
+        feed.innerHTML = ordered.map(w => {
+          const photos = w.photos || [];
+          const heroPhoto = photos[0] ? getPhotoUrl(photos[0]) : getPhotoUrl(w.image);
+          const extraPhotos = photos.slice(1).map(getPhotoUrl).filter(Boolean);
+          const location = w.location || '';
+          const name = w.name || 'Untitled';
+          const excerpt = w.excerpt || '';
+          const review = w.review || w.body || '';
+
+          const bannerHtml = heroPhoto
+            ? `<div class="winery-banner" style="background-image:url('${heroPhoto}')"></div>`
+            : '';
+
+          const photosHtml = extraPhotos.length
+            ? `<div class="winery-photos">${extraPhotos.map(url =>
+                `<img src="${url}" alt="" class="winery-photo" loading="lazy" onclick="openLightbox('${url}')">`
+              ).join('')}</div>`
+            : '';
+
           return `
-            <div class="card">
-              ${photosHTML}
-              ${w.location ? `<span class="card-location">${w.location}</span>` : ''}
-              <h2 class="card-title">${w.name}</h2>
-              ${w.excerpt ? `<p class="card-text">${w.excerpt}</p>` : ''}
-              ${w.review ? `<div style="margin-top:1rem;padding-top:1rem;border-top:1px solid var(--border);"><p class="card-text">${w.review}</p></div>` : ''}
-            </div>
+            <article class="winery-entry">
+              ${bannerHtml}
+              <div class="winery-content">
+                ${location ? `<p class="winery-location">${escapeHtml(location)}</p>` : ''}
+                <h2 class="winery-name">${escapeHtml(name)}</h2>
+                ${excerpt ? `<p class="winery-excerpt">${escapeHtml(excerpt)}</p>` : ''}
+                <div class="winery-body">${renderMarkdown(review)}</div>
+                ${photosHtml}
+              </div>
+            </article>
           `;
         }).join('');
-      } catch(e) {
-        container.innerHTML = '<p style="color:var(--text-light);font-size:0.9rem;">No winery experiences yet. Check back soon.</p>';
+      } catch (e) {
+        console.error('Could not load wineries:', e);
+        feed.innerHTML = `
+          <div class="empty-state">
+            <h3>Couldn't load wineries</h3>
+            <p>Something went wrong fetching the data. Try refreshing the page.</p>
+          </div>`;
       }
     }
+
+    const lightbox = document.getElementById('lightbox');
+    const lightboxImg = document.getElementById('lightboxImg');
+    window.openLightbox = function(url) {
+      lightboxImg.src = url;
+      lightbox.classList.add('active');
+      document.body.style.overflow = 'hidden';
+    };
+    function closeLightbox() {
+      lightbox.classList.remove('active');
+      document.body.style.overflow = '';
+    }
+    document.getElementById('lightboxClose').addEventListener('click', closeLightbox);
+    lightbox.addEventListener('click', e => {
+      if (e.target === lightbox || e.target === lightboxImg) closeLightbox();
+    });
+    document.addEventListener('keydown', e => {
+      if (e.key === 'Escape' && lightbox.classList.contains('active')) closeLightbox();
+    });
+
     loadWineries();
   </script>
 
