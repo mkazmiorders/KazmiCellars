@@ -119,31 +119,35 @@ collections:
               - {label: "Caption", name: "caption", widget: "string", required: false}
               - {label: "Category", name: "category", widget: "string", required: false}
   - name: "maiden-series"
-    - name: "maiden-series"
     label: "Maiden Series"
-    file: "data/maiden-series.json"
-    fields:
-      - {label: "Intro", name: "intro", widget: "text", required: false}
-      - label: "Poems"
-        name: "poems"
-        widget: "list"
+    files:
+      - label: "Maiden Series"
+        name: "maiden-series"
+        file: "data/maiden-series.json"
         fields:
-          - {label: "Part (e.g., I, II, III)", name: "part", widget: "string", required: false}
-          - {label: "Title", name: "title", widget: "string"}
-          - {label: "Date", name: "date", widget: "datetime", required: false}
-          - {label: "Image", name: "image", widget: "image", required: false}
-          - {label: "Body", name: "body", widget: "markdown"}
-
+          - {label: "Intro", name: "intro", widget: "text", required: false}
+          - label: "Poems"
+            name: "poems"
+            widget: "list"
+            fields:
+              - {label: "Part (e.g., I, II, III)", name: "part", widget: "string", required: false}
+              - {label: "Title", name: "title", widget: "string"}
+              - {label: "Date", name: "date", widget: "datetime", required: false}
+              - {label: "Image", name: "image", widget: "image", required: false}
+              - {label: "Body", name: "body", widget: "markdown"}
   - name: "between-pours"
     label: "Between Pours"
-    file: "data/between-pours.json"
-    fields:
-      - {label: "Intro", name: "intro", widget: "text", required: false}
-      - label: "Poems"
-        name: "poems"
-        widget: "list"
+    files:
+      - label: "Between Pours"
+        name: "between-pours"
+        file: "data/between-pours.json"
         fields:
-          - {label: "Title", name: "title", widget: "string"}
-          - {label: "Date", name: "date", widget: "datetime", required: false}
-          - {label: "Image", name: "image", widget: "image", required: false}
-          - {label: "Body", name: "body", widget: "markdown"}
+          - {label: "Intro", name: "intro", widget: "text", required: false}
+          - label: "Poems"
+            name: "poems"
+            widget: "list"
+            fields:
+              - {label: "Title", name: "title", widget: "string"}
+              - {label: "Date", name: "date", widget: "datetime", required: false}
+              - {label: "Image", name: "image", widget: "image", required: false}
+              - {label: "Body", name: "body", widget: "markdown"}
