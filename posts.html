@@ -20,6 +20,8 @@
     .post-body p:last-child{margin-bottom:0}
     .post-body strong{color:var(--brown-dark);font-weight:500}
     .post-body em{color:var(--text-mid)}
+    .post-body a{color:var(--brown-dark);text-decoration:underline;text-decoration-color:var(--gold-light);text-underline-offset:3px;transition:color .2s,text-decoration-color .2s}
+    .post-body a:hover{color:var(--gold);text-decoration-color:var(--gold)}
     .post-body h2{font-family:'Cormorant Garamond',serif;font-size:1.5rem;font-weight:500;color:var(--brown-dark);margin:2.2rem 0 1rem;line-height:1.25;padding-top:1.4rem;border-top:1px solid var(--border)}
     .post-body h3{font-family:'Cormorant Garamond',serif;font-size:1.2rem;font-weight:500;color:var(--brown-dark);margin:1.8rem 0 .8rem;line-height:1.3}
     .post-photos{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:.6rem;margin-top:2rem;padding-top:2rem;border-top:1px solid var(--border)}
@@ -116,11 +118,24 @@
     }
 
     function renderInline(text) {
-      return escapeHtml(text)
-        .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
-        .replace(/\*(.+?)\*/g, '<em>$1</em>')
-        .replace(/__(.+?)__/g, '<strong>$1</strong>')
-        .replace(/_(.+?)_/g, '<em>$1</em>');
+      let html = escapeHtml(text);
+      const linkPlaceholders = [];
+      // Markdown links: [text](url) - preserve via placeholder so bold/italic regex don't mangle them
+      html = html.replace(/\[([^\]]+)\]\(([^)]+)\)/g, (m, t, u) => {
+        const idx = linkPlaceholders.length;
+        linkPlaceholders.push('<a href="' + u + '" target="_blank" rel="noopener">' + t + '</a>');
+        return '\x00L' + idx + '\x00';
+      });
+      // Auto-link bare URLs (http/https)
+      html = html.replace(/(https?:\/\/[^\s<>"']+)/g, '<a href="$1" target="_blank" rel="noopener">$1</a>');
+      // Bold and italic
+      html = html.replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
+                 .replace(/\*(.+?)\*/g, '<em>$1</em>')
+                 .replace(/__(.+?)__/g, '<strong>$1</strong>')
+                 .replace(/_(.+?)_/g, '<em>$1</em>');
+      // Restore the markdown link placeholders
+      html = html.replace(/\x00L(\d+)\x00/g, (m, i) => linkPlaceholders[+i]);
+      return html;
     }
 
     function renderMarkdown(text) {
@@ -208,11 +223,12 @@
           `;
         }).join('');
       } catch (e) {
-        console.error('Could not load posts:', e);
+        // No data file yet (file not created, or no entries) - show friendly empty state
+        console.log('No posts data yet:', e.message);
         feed.innerHTML = `
           <div class="empty-state">
-            <h3>Couldn't load posts</h3>
-            <p>Something went wrong fetching the data. Try refreshing the page.</p>
+            <h3>Posts coming soon</h3>
+            <p>We're gathering thoughts, stories, and observations from the wine adventures we've been on. Check back soon.</p>
           </div>`;
       }
     }
