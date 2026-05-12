@@ -1,0 +1,197 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>The Maiden Series — Kazmi Cellars</title>
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    .poems-intro{font-size:.95rem;color:var(--text-mid);line-height:1.8;max-width:600px;margin:0 auto 2rem;text-align:center;font-style:italic;font-family:'Cormorant Garamond',serif;font-size:1.1rem}
+    .poems-intro-divider{text-align:center;color:var(--gold);letter-spacing:1em;padding-left:1em;margin:0 auto 3rem;font-size:1rem}
+    .poem-entry{max-width:720px;margin:0 auto 5rem;padding:0 1.5rem}
+    .poem-entry+.poem-entry{padding-top:4rem;border-top:1px solid var(--border)}
+    .poem-part{font-size:.65rem;letter-spacing:.35em;text-transform:uppercase;color:var(--gold);margin:0 0 1rem;text-align:center;font-weight:500}
+    .poem-title{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:clamp(2rem,4vw,2.6rem);font-weight:500;color:var(--brown-dark);margin:0 0 .6rem;line-height:1.2;text-align:center}
+    .poem-date{font-size:.7rem;letter-spacing:.18em;text-transform:uppercase;color:var(--text-light);text-align:center;margin:0 0 2rem}
+    .poem-image{margin:0 auto 2.5rem;max-width:480px;text-align:center}
+    .poem-image img{width:100%;height:auto;display:block;max-height:420px;object-fit:cover}
+    .poem-body{white-space:pre-wrap;font-family:'Cormorant Garamond',serif;font-size:1.18rem;line-height:1.85;color:var(--text-dark);text-align:center;max-width:520px;margin:0 auto;font-weight:400}
+    .poem-body strong{color:var(--brown-dark);font-weight:500}
+    .poem-body em{font-style:italic;color:var(--text-mid)}
+    .poem-body a{color:var(--brown-dark);text-decoration:underline;text-decoration-color:var(--gold-light);text-underline-offset:3px}
+    .poem-body a:hover{color:var(--gold);text-decoration-color:var(--gold)}
+    .poem-divider{text-align:center;color:var(--gold);font-size:.9rem;letter-spacing:1em;padding-left:1em;margin:2.5rem 0 0}
+    .empty-state{text-align:center;padding:5rem 2rem;color:var(--text-light);max-width:520px;margin:0 auto}
+    .empty-state h3{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:1.8rem;font-weight:500;color:var(--brown-dark);margin-bottom:.6rem}
+    .empty-state p{font-size:.9rem;color:var(--text-mid)}
+    .loading{text-align:center;padding:4rem 2rem;color:var(--text-light);font-style:italic;font-family:'Cormorant Garamond',serif;font-size:1.1rem}
+  </style>
+</head>
+<body>
+
+  <header class="site-header">
+    <div class="header-grid">
+      <a href="index.html" class="header-icon header-icon-left">
+        <img src="logo-glass.png" alt="Kazmi Cellars">
+      </a>
+      <a href="index.html" class="header-brand">
+        <img src="kazmi-cellars-logo.png" alt="Kazmi Cellars">
+        <span class="logo-tagline">Journey Through Wine With Us</span>
+      </a>
+      <a href="index.html" class="header-icon header-icon-right">
+        <img src="logo-glass.png" alt="Kazmi Cellars">
+      </a>
+    </div>
+    <nav>
+      <ul class="nav-links">
+        <li><a href="our-story.html">Our Story</a></li>
+        <li><a href="wineries.html">Wineries</a></li>
+        <li><a href="regions.html">Regions</a></li>
+        <li><a href="restaurants.html">Restaurants</a></li>
+        <li><a href="bottles.html">This Week's Bottles</a></li>
+        <li><a href="posts.html">Posts</a></li>
+        <li><a href="gallery.html">Gallery</a></li>
+        <li><a href="cellar.html">The Cellar</a></li>
+        <li><a href="wine-ink.html" class="active">Wine Ink</a></li>
+        <li><a href="education.html">Education</a></li>
+        <li><a href="goods.html">Cellar Goods</a></li>
+        <li><a href="newsletter.html">Newsletter</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <div class="page-header">
+    <div style="max-width:780px;margin:0 auto;text-align:center;">
+      <p class="section-label">A Curated Series</p>
+      <h1 class="section-title">The Maiden <em>Series</em></h1>
+      <p class="poems-intro" id="seriesIntro">An ongoing collection of poems written for Rachel — and for the journey we've built together.</p>
+      <div class="poems-intro-divider">· · ·</div>
+    </div>
+  </div>
+
+  <main id="poemsFeed">
+    <div class="loading">Loading poems…</div>
+  </main>
+
+  <footer class="site-footer">
+    <span class="footer-logo">Kazmi Cellars</span>
+    <ul class="footer-links">
+      <li><a href="terms.html">Terms &amp; Conditions</a></li>
+      <li><a href="privacy.html">Privacy Policy</a></li>
+      <li><a href="editorial.html">Editorial Policy</a></li>
+    </ul>
+    <hr class="footer-divider">
+    <div class="footer-bottom">
+      <span class="footer-copy">© 2026 Kazmi Cellars · All Rights Reserved</span>
+      <span class="footer-social">kazmicellars@gmail.com &nbsp;·&nbsp; @kazmicellars</span>
+    </div>
+  </footer>
+
+  <script>
+    function getPhotoUrl(p) {
+      if (!p) return null;
+      if (typeof p === 'string') return p;
+      if (p.image) return p.image;
+      if (p.url) return p.url;
+      return null;
+    }
+
+    function escapeHtml(text) {
+      const div = document.createElement('div');
+      div.textContent = text || '';
+      return div.innerHTML;
+    }
+
+    function formatDate(d) {
+      if (!d) return '';
+      const date = new Date(d);
+      if (isNaN(date.getTime())) return d;
+      return date.toLocaleDateString('en-US', {year: 'numeric', month: 'long', day: 'numeric'});
+    }
+
+    // Render a poem's body - preserves line breaks (poetry needs exact formatting)
+    // Supports inline bold/italic and links
+    function renderPoemBody(text) {
+      if (!text) return '';
+      let html = escapeHtml(text);
+      const linkPlaceholders = [];
+      html = html.replace(/\[([^\]]+)\]\(([^)]+)\)/g, (m, t, u) => {
+        const idx = linkPlaceholders.length;
+        linkPlaceholders.push('<a href="' + u + '" target="_blank" rel="noopener">' + t + '</a>');
+        return '\x00L' + idx + '\x00';
+      });
+      html = html.replace(/(https?:\/\/[^\s<>"']+|www\.[A-Za-z0-9.\-]+\.[A-Za-z]{2,}(?:\/[^\s<>"']*)?)/g, (url) => {
+        let trail = '';
+        while (url.length && /[.,;:!?)\]]$/.test(url)) { trail = url.slice(-1) + trail; url = url.slice(0, -1); }
+        const href = url.startsWith('www.') ? 'https://' + url : url;
+        return '<a href="' + href + '" target="_blank" rel="noopener">' + url + '</a>' + trail;
+      });
+      html = html.replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
+                 .replace(/\*(.+?)\*/g, '<em>$1</em>')
+                 .replace(/__(.+?)__/g, '<strong>$1</strong>')
+                 .replace(/_(.+?)_/g, '<em>$1</em>');
+      html = html.replace(/\x00L(\d+)\x00/g, (m, i) => linkPlaceholders[+i]);
+      return html;
+    }
+
+    async function loadPoems() {
+      const feed = document.getElementById('poemsFeed');
+      try {
+        const r = await fetch('data/maiden-series.json', {cache: 'no-store'});
+        if (!r.ok) throw new Error('No poems data');
+        const data = await r.json();
+
+        // Update intro if CMS has one
+        if (data && data.intro) {
+          document.getElementById('seriesIntro').textContent = data.intro;
+        }
+
+        const poems = Array.isArray(data) ? data : (data.poems || []);
+
+        if (!poems.length) {
+          feed.innerHTML = `
+            <div class="empty-state">
+              <h3>Series coming soon</h3>
+              <p>The first poems are being put to paper. Check back soon to begin at Part I.</p>
+            </div>`;
+          return;
+        }
+
+        // Maiden Series: preserve order added (Part I, II, III, IV...) - oldest first
+        const ordered = poems.slice();
+
+        feed.innerHTML = ordered.map((poem, i) => {
+          const photo = getPhotoUrl(poem.image);
+          const title = poem.title || 'Untitled';
+          const date = formatDate(poem.date);
+          const body = poem.body || '';
+          const photoHtml = photo ? `<figure class="poem-image"><img src="${photo}" alt="${escapeHtml(title)}" loading="lazy"></figure>` : '';
+          const dividerHtml = (i < ordered.length - 1) ? '<div class="poem-divider">· · ·</div>' : '';
+
+          return `
+            <article class="poem-entry">
+            ${poem.part ? `<p class="poem-part">PART ${escapeHtml(poem.part).toUpperCase()}</p>` : ''}
+              <h2 class="poem-title">${escapeHtml(title)}</h2>
+              ${date ? `<p class="poem-date">${escapeHtml(date)}</p>` : ''}
+              ${photoHtml}
+              <div class="poem-body">${renderPoemBody(body)}</div>
+              ${dividerHtml}
+            </article>
+          `;
+        }).join('');
+      } catch (e) {
+        console.log('No poems data yet:', e.message);
+        feed.innerHTML = `
+          <div class="empty-state">
+            <h3>Series coming soon</h3>
+            <p>The first poems are being put to paper. Check back soon to begin at Part I.</p>
+          </div>`;
+      }
+    }
+
+    loadPoems();
+  </script>
+
+</body>
+</html>
