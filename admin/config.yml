@@ -151,3 +151,18 @@ collections:
               - {label: "Date", name: "date", widget: "datetime", required: false}
               - {label: "Image", name: "image", widget: "image", required: false}
               - {label: "Body", name: "body", widget: "markdown"}
+  - name: "resources"
+    label: "Reference Sheets"
+    files:
+      - label: "All Reference Sheets"
+        name: "resources"
+        file: "data/resources.json"
+        fields:
+          - label: "Resources"
+            name: "resources"
+            widget: "list"
+            fields:
+              - {label: "Title", name: "title", widget: "string"}
+              - {label: "Description", name: "description", widget: "text", required: false}
+              - {label: "Category", name: "category", widget: "string", hint: "e.g. Aromas, Grapes, Food Pairing, Tasting"}
+              - {label: "PDF Path", name: "file", widget: "string", hint: "Upload PDF to /documents/ in GitHub, then enter path e.g. /documents/filename.pdf"}
