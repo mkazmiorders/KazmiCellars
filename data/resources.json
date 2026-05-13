@@ -5,6 +5,18 @@
       "description": "Breaking down Primary, Secondary and Tertiary aromas.",
       "category": "Aromas",
       "file": "/documents/aromas_explained.pdf"
+    },
+    {
+      "title": "Grape Variety Aroma Guide",
+      "description": "Which aromas correlate with which grapes.",
+      "category": "Aromas",
+      "file": "/documents/grape_aromas.pdf"
+    },
+    {
+      "title": "Wine Category Aroma Guide",
+      "description": "Aromas broken down by categories.",
+      "category": "Aromas",
+      "file": "/documents/wine_aroma_guide.pdf"
     }
   ]
 }
