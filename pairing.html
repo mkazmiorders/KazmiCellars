@@ -37,6 +37,8 @@
         <li><a href="wine-ink.html">Wine Ink</a></li>
         <li><a href="education.html">Education</a></li>
         <li><a href="pairing.html" class="active">Pairing</a></li>
+        <li><a href="aromas.html">Aromas</a></li>
+        <li><a href="palate.html">Palate</a></li>
         <li><a href="goods.html">Cellar Goods</a></li>
         <li><a href="newsletter.html">Newsletter</a></li>
         <li><a href="contact.html">Contact</a></li>
@@ -46,10 +48,10 @@
 
   <div class="page-header">
     <div style="max-width:780px;margin:0 auto;text-align:center;">
-      <p class="section-label">Proteins · Prep Styles · Cheeses</p>
+      <p class="section-label">Interactive Tool</p>
       <h1 class="section-title">Wine &amp; Food <em>Pairing</em></h1>
       <p style="font-size:.95rem;color:var(--text-mid);line-height:1.8;max-width:560px;margin:0 auto;">
-        Pick a grape, explore what it loves. Every pairing is drawn from how we actually think about food and wine together.
+        Pick a grape, explore what it loves. Proteins, prep styles, and cheeses — every pairing drawn from how we actually think about food and wine together.
       </p>
     </div>
   </div>
@@ -72,7 +74,6 @@
     </div>
   </footer>
 
-  <!-- React via CDN -->
   <script src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
   <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
   <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
@@ -80,19 +81,17 @@
   <script type="text/babel">
     const { useState, useMemo } = React;
 
-    // ── COLOUR SYSTEM ─────────────────────────────────────────────────────────
     const C = {
-      red:    { bg:"#FAF0ED", badge:"#8C2B2B", badgeText:"#fff", accent:"#8C2B2B" },
-      white:  { bg:"#EEF2FA", badge:"#2B4F8C", badgeText:"#fff", accent:"#2B4F8C" },
-      rose:   { bg:"#FAF0F4", badge:"#A0344A", badgeText:"#fff", accent:"#A0344A" },
+      red:       { bg:"#FAF0ED", badge:"#8C2B2B", badgeText:"#fff", accent:"#8C2B2B" },
+      white:     { bg:"#EEF2FA", badge:"#2B4F8C", badgeText:"#fff", accent:"#2B4F8C" },
+      rose:      { bg:"#FAF0F4", badge:"#A0344A", badgeText:"#fff", accent:"#A0344A" },
+      sparkling: { bg:"#FAFAEA", badge:"#8B7A14", badgeText:"#fff", accent:"#8B7A14" },
+      dessert:   { bg:"#FEF5E4", badge:"#9B6010", badgeText:"#fff", accent:"#9B6010" },
+      fortified: { bg:"#F5EAF8", badge:"#5C2A7A", badgeText:"#fff", accent:"#5C2A7A" },
     };
 
-    // ── DATA ──────────────────────────────────────────────────────────────────
     const GRAPES = [
-      // ═══════════════════════════ RED GRAPES ══════════════════════════════
-      {
-        id:"cab-sauv", name:"Cabernet Sauvignon", type:"red", body:"Full",
-        origin:"Bordeaux, France",
+      { id:"cab-sauv", name:"Cabernet Sauvignon", type:"red", body:"Full", origin:"Bordeaux, France",
         tagline:"The king of reds — bold, structured, built for the table.",
         proteins:[
           { cat:"Beef",    items:["Ribeye","Prime Rib","Brisket","Filet Mignon","Beef Short Ribs","T-Bone","Porterhouse"] },
@@ -102,25 +101,23 @@
           { cat:"Avoid",   items:["Delicate fish","Light shellfish","Spicy cuisine — tannins clash"] },
         ],
         preps:[
-          { style:"Classic Steak Marinade",  desc:"Red wine, garlic, rosemary, Worcestershire — the natural companion" },
-          { style:"Red Wine Reduction",      desc:"Pan sauce with Cab itself — self-referential, always works" },
-          { style:"Peppercorn Crust",        desc:"Cracked black pepper crust on beef ties to Cab's natural pepper notes" },
-          { style:"Herb-Crusted Roast",      desc:"Rosemary, thyme, garlic — classic Provençal herb preparation" },
-          { style:"Slow Braise",             desc:"Red wine braises (beef short ribs, lamb shank) — low and slow" },
-          { style:"Chimichurri",             desc:"Argentine-style grilled beef with chimichurri pairs beautifully" },
+          { style:"Classic Steak Marinade", desc:"Red wine, garlic, rosemary, Worcestershire — the natural companion" },
+          { style:"Red Wine Reduction",     desc:"Pan sauce with Cab itself — self-referential, always works" },
+          { style:"Peppercorn Crust",       desc:"Cracked black pepper crust on beef ties to Cab's natural pepper notes" },
+          { style:"Herb-Crusted Roast",     desc:"Rosemary, thyme, garlic — classic Provençal herb preparation" },
+          { style:"Slow Braise",            desc:"Red wine braises (beef short ribs, lamb shank) — low and slow" },
+          { style:"Chimichurri",            desc:"Argentine-style grilled beef with chimichurri pairs beautifully" },
         ],
         cheeses:[
-          { name:"Aged Cheddar (3–5 yr)",   note:"Tannin cuts through fat — a near-perfect textural match" },
-          { name:"Manchego (Curado)",        note:"Nutty, firm — complements Cab's structure without competing" },
-          { name:"Aged Gouda",              note:"Caramel/toffee notes bridge to Cab's dark fruit" },
-          { name:"Pecorino Romano",          note:"Salty sharpness provides contrast to ripe fruit" },
-          { name:"Comté (18–24 month)",      note:"Hazelnut complexity mirrors Cab's cedar and tobacco" },
-          { name:"Avoid: Fresh soft cheeses",note:"Too mild — wine overwhelms them completely" },
+          { name:"Aged Cheddar (3–5 yr)",    note:"Tannin cuts through fat — a near-perfect textural match" },
+          { name:"Manchego (Curado)",         note:"Nutty, firm — complements Cab's structure without competing" },
+          { name:"Aged Gouda",               note:"Caramel/toffee notes bridge to Cab's dark fruit" },
+          { name:"Pecorino Romano",           note:"Salty sharpness provides contrast to ripe fruit" },
+          { name:"Comté (18–24 month)",       note:"Hazelnut complexity mirrors Cab's cedar and tobacco" },
+          { name:"Avoid: Fresh soft cheeses", note:"Too mild — wine overwhelms them completely" },
         ],
       },
-      {
-        id:"merlot", name:"Merlot", type:"red", body:"Medium-Full",
-        origin:"Bordeaux, France",
+      { id:"merlot", name:"Merlot", type:"red", body:"Medium-Full", origin:"Bordeaux, France",
         tagline:"Plush and approachable — bridges bold reds to lighter preparations.",
         proteins:[
           { cat:"Beef",      items:["Beef Tenderloin","Sirloin","Beef Stew","Meatloaf","Burgers (quality)"] },
@@ -130,23 +127,21 @@
           { cat:"Vegetarian",items:["Mushroom Risotto","Truffle dishes","Eggplant Parmesan"] },
         ],
         preps:[
-          { style:"Mushroom-Based Sauces",  desc:"Earth notes in Merlot sing alongside mushroom preparations" },
-          { style:"Simple Herb Roasts",     desc:"Rosemary and thyme — let Merlot's fruit carry without competition" },
-          { style:"Tomato Braises",         desc:"Merlot's soft tannins match well with tomato-based slow braises" },
-          { style:"Light Red Wine Sauce",   desc:"Softer than Cab — use Merlot-based sauces for more finesse" },
-          { style:"Honey Glaze",            desc:"Honey-glazed pork or duck works beautifully with Merlot's plum notes" },
+          { style:"Mushroom-Based Sauces", desc:"Earth notes in Merlot sing alongside mushroom preparations" },
+          { style:"Simple Herb Roasts",    desc:"Rosemary and thyme — let Merlot's fruit carry without competition" },
+          { style:"Tomato Braises",        desc:"Merlot's soft tannins match well with tomato-based slow braises" },
+          { style:"Light Red Wine Sauce",  desc:"Softer than Cab — use Merlot-based sauces for more finesse" },
+          { style:"Honey Glaze",           desc:"Honey-glazed pork or duck works beautifully with Merlot's plum notes" },
         ],
         cheeses:[
-          { name:"Brie de Meaux",          note:"Creamy softness matches Merlot's plush texture perfectly" },
-          { name:"Camembert",              note:"Classic match — buttery cheese, round wine" },
-          { name:"Fontina",               note:"Mild nuttiness complements without overwhelming" },
-          { name:"Mild Cheddar (1–2 yr)", note:"Approachable, unchallenging — goes with Merlot's softer profile" },
-          { name:"Mozzarella di Bufala",  note:"Fresh, milky — works with lighter Merlot styles" },
+          { name:"Brie de Meaux",         note:"Creamy softness matches Merlot's plush texture perfectly" },
+          { name:"Camembert",             note:"Classic match — buttery cheese, round wine" },
+          { name:"Fontina",              note:"Mild nuttiness complements without overwhelming" },
+          { name:"Mild Cheddar (1–2 yr)",note:"Approachable, unchallenging — goes with Merlot's softer profile" },
+          { name:"Mozzarella di Bufala", note:"Fresh, milky — works with lighter Merlot styles" },
         ],
       },
-      {
-        id:"pinot-noir", name:"Pinot Noir", type:"red", body:"Light-Medium",
-        origin:"Burgundy, France",
+      { id:"pinot-noir", name:"Pinot Noir", type:"red", body:"Light-Medium", origin:"Burgundy, France",
         tagline:"The most food-versatile red — elegant, silky, and restrained.",
         proteins:[
           { cat:"Poultry",   items:["Duck Breast","Duck Confit","Roasted Chicken","Quail","Guinea Fowl","Turkey"] },
@@ -156,32 +151,30 @@
           { cat:"Vegetarian",items:["Mushroom dishes (all)","Truffle pasta","Roasted Beets","Lentils"] },
         ],
         preps:[
-          { style:"Butter & Pan Sauces",    desc:"Classic Burgundian butter sauces — coq au vin is the archetype" },
-          { style:"Mushroom Preparations",  desc:"Any mushroom preparation (duxelles, ragù, risotto) is transcendent" },
-          { style:"Citrus-Herb Chicken",    desc:"Lemon-herb roasted chicken — citrus lifts Pinot's red fruit" },
-          { style:"Light Fruit Glazes",     desc:"Cherry or raspberry glaze on duck — mirrors Pinot's own fruit" },
-          { style:"Salmon Preparations",    desc:"Grilled or pan-seared — one of wine's great cross-category pairings" },
-          { style:"Simple Roasts",          desc:"Don't overthink it — simple roasted preparations let Pinot shine" },
+          { style:"Butter & Pan Sauces",   desc:"Classic Burgundian butter sauces — coq au vin is the archetype" },
+          { style:"Mushroom Preparations", desc:"Any mushroom preparation (duxelles, ragù, risotto) is transcendent" },
+          { style:"Citrus-Herb Chicken",   desc:"Lemon-herb roasted chicken — citrus lifts Pinot's red fruit" },
+          { style:"Light Fruit Glazes",    desc:"Cherry or raspberry glaze on duck — mirrors Pinot's own fruit" },
+          { style:"Salmon Preparations",   desc:"Grilled or pan-seared — one of wine's great cross-category pairings" },
+          { style:"Simple Roasts",         desc:"Don't overthink it — simple roasted preparations let Pinot shine" },
         ],
         cheeses:[
-          { name:"Gruyère (aged)",          note:"Nutty depth that complements Pinot's earthy red fruit" },
-          { name:"Comté",                   note:"The classic Burgundian cheese match — hazelnut, fruit, balance" },
-          { name:"Époisses",               note:"The bold Burgundian washed rind — intensity matches Pinot's depth" },
-          { name:"Brie (triple cream)",     note:"Richness softened by Pinot's acidity — excellent match" },
-          { name:"Aged Goat Cheese",        note:"Earthy, tangy — works beautifully with cool-climate Pinot" },
-          { name:"Taleggio",               note:"Washed rind softness pairs with Pinot's silky texture" },
+          { name:"Gruyère (aged)",     note:"Nutty depth that complements Pinot's earthy red fruit" },
+          { name:"Comté",              note:"The classic Burgundian cheese match — hazelnut, fruit, balance" },
+          { name:"Époisses",          note:"The bold Burgundian washed rind — intensity matches Pinot's depth" },
+          { name:"Brie (triple cream)",note:"Richness softened by Pinot's acidity — excellent match" },
+          { name:"Aged Goat Cheese",   note:"Earthy, tangy — works beautifully with cool-climate Pinot" },
+          { name:"Taleggio",          note:"Washed rind softness pairs with Pinot's silky texture" },
         ],
       },
-      {
-        id:"syrah", name:"Syrah / Shiraz", type:"red", body:"Full",
-        origin:"Northern Rhône, France / Australia",
+      { id:"syrah", name:"Syrah / Shiraz", type:"red", body:"Full", origin:"Northern Rhône, France / Australia",
         tagline:"Spicy, smoky, dark — a powerhouse with a distinctive personality.",
         proteins:[
-          { cat:"Lamb",    items:["Grilled Lamb Chops","Braised Lamb Shank","Rack of Lamb","Lamb Souvlaki"] },
-          { cat:"Beef",    items:["Beef Ribs (BBQ)","Ribeye (grilled)","Flank Steak","Oxtail Braise"] },
-          { cat:"Game",    items:["Venison","Wild Boar","Duck (all preparations)","Elk","Bison"] },
-          { cat:"Pork",    items:["Smoked Pork Ribs","Merguez Sausage","Chorizo","BBQ Pulled Pork"] },
-          { cat:"Avoid",   items:["Delicate white fish","Cream-based dishes — clash with tannin"] },
+          { cat:"Lamb",  items:["Grilled Lamb Chops","Braised Lamb Shank","Rack of Lamb","Lamb Souvlaki"] },
+          { cat:"Beef",  items:["Beef Ribs (BBQ)","Ribeye (grilled)","Flank Steak","Oxtail Braise"] },
+          { cat:"Game",  items:["Venison","Wild Boar","Duck (all preparations)","Elk","Bison"] },
+          { cat:"Pork",  items:["Smoked Pork Ribs","Merguez Sausage","Chorizo","BBQ Pulled Pork"] },
+          { cat:"Avoid", items:["Delicate white fish","Cream-based dishes — clash with tannin"] },
         ],
         preps:[
           { style:"Black Pepper Spice Rub",  desc:"Rotundone (the pepper compound) in Syrah mirrors actual black pepper" },
@@ -192,17 +185,15 @@
           { style:"Red Wine Braise",         desc:"Braised wild boar or venison — a classic Rhône preparation" },
         ],
         cheeses:[
-          { name:"Aged Manchego",            note:"Salty, nutty — stands up to Syrah's power and spice" },
-          { name:"Mimolette (aged)",         note:"Firm French cheese with caramel notes bridges to Syrah's dark fruit" },
-          { name:"Comté (24 month+)",        note:"Long-aged complexity matches Syrah's layered character" },
-          { name:"Aged Gouda (5 yr)",        note:"Crystalline, caramel — echoes Shiraz's sweeter fruit notes" },
-          { name:"Roquefort",               note:"Bold blue with big red — the intensity match works if the wine isn't too tannic" },
-          { name:"Pecorino (aged)",          note:"Salty sharpness cuts through Syrah's richness" },
+          { name:"Aged Manchego",   note:"Salty, nutty — stands up to Syrah's power and spice" },
+          { name:"Mimolette (aged)",note:"Firm French cheese with caramel notes bridges to Syrah's dark fruit" },
+          { name:"Comté (24 month+)",note:"Long-aged complexity matches Syrah's layered character" },
+          { name:"Aged Gouda (5 yr)",note:"Crystalline, caramel — echoes Shiraz's sweeter fruit notes" },
+          { name:"Roquefort",       note:"Bold blue with big red — the intensity match works if the wine isn't too tannic" },
+          { name:"Pecorino (aged)", note:"Salty sharpness cuts through Syrah's richness" },
         ],
       },
-      {
-        id:"grenache", name:"Grenache / Garnacha", type:"red", body:"Medium-Full",
-        origin:"Southern Rhône, France / Spain",
+      { id:"grenache", name:"Grenache / Garnacha", type:"red", body:"Medium-Full", origin:"Southern Rhône, France / Spain",
         tagline:"Juicy and spiced with old-world soul — love of heat shows in the glass.",
         proteins:[
           { cat:"Lamb",       items:["Braised Lamb","Lamb Stew","Grilled Lamb Kebabs","Leg of Lamb"] },
@@ -212,23 +203,21 @@
           { cat:"Vegetarian", items:["Ratatouille","Piperade","Roasted Peppers","Tomato-based stews"] },
         ],
         preps:[
-          { style:"Herbes de Provence",     desc:"The quintessential Southern Rhône herb profile — natural mirror" },
-          { style:"Spanish Paprika Rub",    desc:"Smoked paprika and garlic — Garnacha's Iberian soul" },
-          { style:"Simple Mediterranean",   desc:"Garlic, olive oil, lemon — don't overcomplicate it" },
-          { style:"Tomato Provençal",       desc:"Tomato-based slow cooking reflects Grenache's medium acidity" },
-          { style:"Slow-Roasted Preparations", desc:"Low and slow brings out Grenache's spice and dried herb notes" },
+          { style:"Herbes de Provence",       desc:"The quintessential Southern Rhône herb profile — natural mirror" },
+          { style:"Spanish Paprika Rub",      desc:"Smoked paprika and garlic — Garnacha's Iberian soul" },
+          { style:"Simple Mediterranean",     desc:"Garlic, olive oil, lemon — don't overcomplicate it" },
+          { style:"Tomato Provençal",         desc:"Tomato-based slow cooking reflects Grenache's medium acidity" },
+          { style:"Slow-Roasted Preparations",desc:"Low and slow brings out Grenache's spice and dried herb notes" },
         ],
         cheeses:[
-          { name:"Manchego (semi-curado)",  note:"The natural Garnacha cheese — Spanish through and through" },
-          { name:"Garrotxa",               note:"Catalan goat cheese — firm, herbal, made for this pairing" },
-          { name:"Mild Brie",              note:"Softness complements Grenache's round, fruity profile" },
-          { name:"Chèvre (fresh)",         note:"Tangy and herbaceous — contrasts beautifully with ripe Grenache fruit" },
-          { name:"Ossau-Iraty",            note:"Basque sheep's milk — nutty, clean, works perfectly with Grenache" },
+          { name:"Manchego (semi-curado)",note:"The natural Garnacha cheese — Spanish through and through" },
+          { name:"Garrotxa",             note:"Catalan goat cheese — firm, herbal, made for this pairing" },
+          { name:"Mild Brie",            note:"Softness complements Grenache's round, fruity profile" },
+          { name:"Chèvre (fresh)",       note:"Tangy and herbaceous — contrasts beautifully with ripe Grenache fruit" },
+          { name:"Ossau-Iraty",          note:"Basque sheep's milk — nutty, clean, works perfectly with Grenache" },
         ],
       },
-      {
-        id:"sangiovese", name:"Sangiovese", type:"red", body:"Medium",
-        origin:"Tuscany, Italy",
+      { id:"sangiovese", name:"Sangiovese", type:"red", body:"Medium", origin:"Tuscany, Italy",
         tagline:"High acid, sour cherry, and savory soul — made for Italian food.",
         proteins:[
           { cat:"Beef",       items:["Bistecca Fiorentina","Beef Ragù","Braised Beef Cheek","Meatballs"] },
@@ -238,49 +227,45 @@
           { cat:"Charcuterie",items:["Salami","Prosciutto di Parma","Finocchiona","Soppressata"] },
         ],
         preps:[
-          { style:"Tomato-Based",           desc:"Acidity in wine mirrors acidity in tomato — a natural harmonizer" },
-          { style:"Italian Herb Roast",     desc:"Rosemary, sage, fennel seed — Tuscan classics" },
-          { style:"Braised Preparations",   desc:"Osso buco, beef braised in wine — the Florentine table" },
-          { style:"Agrodolce Glaze",        desc:"Sweet-sour glaze plays against Sangiovese's tartness beautifully" },
-          { style:"Pizza & Pasta",          desc:"The everyday Sangiovese pairing — never wrong, always satisfying" },
-          { style:"Grilled Over Wood",      desc:"Bistecca Fiorentina grilled over oak — the ultimate Tuscany moment" },
+          { style:"Tomato-Based",        desc:"Acidity in wine mirrors acidity in tomato — a natural harmonizer" },
+          { style:"Italian Herb Roast",  desc:"Rosemary, sage, fennel seed — Tuscan classics" },
+          { style:"Braised Preparations",desc:"Osso buco, beef braised in wine — the Florentine table" },
+          { style:"Agrodolce Glaze",     desc:"Sweet-sour glaze plays against Sangiovese's tartness beautifully" },
+          { style:"Pizza & Pasta",       desc:"The everyday Sangiovese pairing — never wrong, always satisfying" },
+          { style:"Grilled Over Wood",   desc:"Bistecca Fiorentina grilled over oak — the ultimate Tuscany moment" },
         ],
         cheeses:[
-          { name:"Parmigiano-Reggiano",     note:"Italy's greatest cheese with Italy's great grape — elevated simplicity" },
-          { name:"Pecorino Romano",         note:"Salty, sharp — the classic pasta and pizza cheese companion" },
-          { name:"Aged Provolone",          note:"Firm and slightly smoky — bridges to Sangiovese's savory notes" },
-          { name:"Taleggio",               note:"Washed rind softness provides contrast to Sangiovese's acidity" },
-          { name:"Ricotta Salata",          note:"Crumbled over pasta — a texture and flavor bridge" },
+          { name:"Parmigiano-Reggiano",note:"Italy's greatest cheese with Italy's great grape — elevated simplicity" },
+          { name:"Pecorino Romano",    note:"Salty, sharp — the classic pasta and pizza cheese companion" },
+          { name:"Aged Provolone",     note:"Firm and slightly smoky — bridges to Sangiovese's savory notes" },
+          { name:"Taleggio",          note:"Washed rind softness provides contrast to Sangiovese's acidity" },
+          { name:"Ricotta Salata",     note:"Crumbled over pasta — a texture and flavor bridge" },
         ],
       },
-      {
-        id:"nebbiolo", name:"Nebbiolo", type:"red", body:"Full",
-        origin:"Piedmont, Italy",
+      { id:"nebbiolo", name:"Nebbiolo", type:"red", body:"Full", origin:"Piedmont, Italy",
         tagline:"Tar and roses — the most complex and demanding of Italian grapes.",
         proteins:[
-          { cat:"Beef",    items:["Braised Beef Cheek","Beef Short Ribs","Brasato al Barolo","Veal Osso Buco"] },
-          { cat:"Game",    items:["White Truffle Dishes","Venison","Wild Boar","Hare (braised)"] },
-          { cat:"Lamb",    items:["Braised Lamb Shoulder","Slow-Cooked Lamb"] },
-          { cat:"Poultry", items:["Duck (braised)","Pheasant","Guinea Fowl with Truffles"] },
+          { cat:"Beef",   items:["Braised Beef Cheek","Beef Short Ribs","Brasato al Barolo","Veal Osso Buco"] },
+          { cat:"Game",   items:["White Truffle Dishes","Venison","Wild Boar","Hare (braised)"] },
+          { cat:"Lamb",   items:["Braised Lamb Shoulder","Slow-Cooked Lamb"] },
+          { cat:"Poultry",items:["Duck (braised)","Pheasant","Guinea Fowl with Truffles"] },
         ],
         preps:[
-          { style:"Brasato al Barolo",      desc:"Beef braised in Barolo itself — the definitive Piemontese preparation" },
-          { style:"Truffle Preparations",   desc:"White truffle is Nebbiolo's greatest companion — earthy mirrors earthy" },
-          { style:"Long Braises",           desc:"Only slow, long cooking softens enough to truly match Nebbiolo's tannins" },
-          { style:"Truffle Risotto",        desc:"Barolo risotto with white truffle — pure Piemontese luxury" },
-          { style:"Rich Aged Preparations", desc:"The wine needs age; the food needs complexity — they must match" },
+          { style:"Brasato al Barolo",     desc:"Beef braised in Barolo itself — the definitive Piemontese preparation" },
+          { style:"Truffle Preparations",  desc:"White truffle is Nebbiolo's greatest companion — earthy mirrors earthy" },
+          { style:"Long Braises",          desc:"Only slow, long cooking softens enough to truly match Nebbiolo's tannins" },
+          { style:"Truffle Risotto",       desc:"Barolo risotto with white truffle — pure Piemontese luxury" },
+          { style:"Rich Aged Preparations",desc:"The wine needs age; the food needs complexity — they must match" },
         ],
         cheeses:[
-          { name:"Parmigiano (36 month)",   note:"The granular, crystalline aged Parm meets Nebbiolo's tannins with grace" },
-          { name:"Castelmagno",             note:"Piemontese blue-veined cheese — the regional champion for Barolo" },
-          { name:"Fontina d'Aosta",         note:"Alpine milk, earthy and nutty — classic northern Italian pairing" },
-          { name:"Taleggio",               note:"Washed rind richness tempers Nebbiolo's grippy tannins" },
-          { name:"Robiola (aged)",          note:"Piemontese mixed-milk cheese — local always wins" },
+          { name:"Parmigiano (36 month)",note:"The granular, crystalline aged Parm meets Nebbiolo's tannins with grace" },
+          { name:"Castelmagno",          note:"Piemontese blue-veined cheese — the regional champion for Barolo" },
+          { name:"Fontina d'Aosta",      note:"Alpine milk, earthy and nutty — classic northern Italian pairing" },
+          { name:"Taleggio",            note:"Washed rind richness tempers Nebbiolo's grippy tannins" },
+          { name:"Robiola (aged)",       note:"Piemontese mixed-milk cheese — local always wins" },
         ],
       },
-      {
-        id:"tempranillo", name:"Tempranillo", type:"red", body:"Medium-Full",
-        origin:"Rioja, Spain",
+      { id:"tempranillo", name:"Tempranillo", type:"red", body:"Medium-Full", origin:"Rioja, Spain",
         tagline:"Spain's national treasure — earthy, leather, and dried cherry.",
         proteins:[
           { cat:"Lamb",       items:["Lechazo (Suckling Lamb)","Lamb Chops","Braised Lamb","Lamb Stew"] },
@@ -290,49 +275,45 @@
           { cat:"Poultry",    items:["Roasted Chicken (Spanish spices)","Rabbit in Sauce"] },
         ],
         preps:[
-          { style:"Spanish Spice Roast",    desc:"Paprika, garlic, cumin — the Iberian flavor profile" },
-          { style:"Simple Wood Grill",      desc:"Spanish roasted meats over wood — suckling lamb is the classic" },
-          { style:"Sofrito Base",           desc:"Tomato/pepper/onion sofrito — the foundation of Spanish cooking" },
-          { style:"American Oak Influence", desc:"Rioja's vanilla/coconut from American oak — try with vanilla-glazed pork" },
-          { style:"Patatas Bravas (Tapas)", desc:"Bold, spicy potato dishes alongside Tempranillo are quintessentially Spanish" },
+          { style:"Spanish Spice Roast",   desc:"Paprika, garlic, cumin — the Iberian flavor profile" },
+          { style:"Simple Wood Grill",     desc:"Spanish roasted meats over wood — suckling lamb is the classic" },
+          { style:"Sofrito Base",          desc:"Tomato/pepper/onion sofrito — the foundation of Spanish cooking" },
+          { style:"American Oak Influence",desc:"Rioja's vanilla/coconut from American oak — try with vanilla-glazed pork" },
+          { style:"Patatas Bravas (Tapas)",desc:"Bold, spicy potato dishes alongside Tempranillo are quintessentially Spanish" },
         ],
         cheeses:[
-          { name:"Manchego (Viejo)",        note:"The undisputed Spanish pairing — aged for 12 months, firm and nutty" },
-          { name:"Zamorano",               note:"Sheep's milk like Manchego but more intense — fantastic with Rioja" },
-          { name:"Idiazábal",              note:"Smoked Basque sheep's milk — smoky notes mirror Tempranillo's earth" },
-          { name:"Mahón (aged)",           note:"Menorcan cow's milk — firm, slightly salty" },
-          { name:"Torta del Casar",        note:"Intensely runny, pungent Extremaduran sheep's milk — bold meets bold" },
+          { name:"Manchego (Viejo)", note:"The undisputed Spanish pairing — aged for 12 months, firm and nutty" },
+          { name:"Zamorano",        note:"Sheep's milk like Manchego but more intense — fantastic with Rioja" },
+          { name:"Idiazábal",       note:"Smoked Basque sheep's milk — smoky notes mirror Tempranillo's earth" },
+          { name:"Mahón (aged)",    note:"Menorcan cow's milk — firm, slightly salty" },
+          { name:"Torta del Casar", note:"Intensely runny, pungent Extremaduran sheep's milk — bold meets bold" },
         ],
       },
-      {
-        id:"malbec", name:"Malbec", type:"red", body:"Full",
-        origin:"Mendoza, Argentina / Cahors, France",
+      { id:"malbec", name:"Malbec", type:"red", body:"Full", origin:"Mendoza, Argentina / Cahors, France",
         tagline:"Dark fruit, violet, and the spirit of the Argentine asado.",
         proteins:[
-          { cat:"Beef",    items:["Argentine Asado (all cuts)","Ribeye","Brisket","Beef Empanadas","Short Ribs"] },
-          { cat:"Lamb",    items:["Grilled Lamb","Asado de Cordero","Lamb Chops"] },
-          { cat:"Pork",    items:["Grilled Pork Ribs","Chorizo Criollo","Pork Chops (grilled)"] },
-          { cat:"Game",    items:["Venison","Duck (grilled)"] },
-          { cat:"Poultry", items:["Grilled Chicken (charred)","Duck Breast"] },
+          { cat:"Beef",   items:["Argentine Asado (all cuts)","Ribeye","Brisket","Beef Empanadas","Short Ribs"] },
+          { cat:"Lamb",   items:["Grilled Lamb","Asado de Cordero","Lamb Chops"] },
+          { cat:"Pork",   items:["Grilled Pork Ribs","Chorizo Criollo","Pork Chops (grilled)"] },
+          { cat:"Game",   items:["Venison","Duck (grilled)"] },
+          { cat:"Poultry",items:["Grilled Chicken (charred)","Duck Breast"] },
         ],
         preps:[
-          { style:"Chimichurri",            desc:"The defining Argentine pairing — fresh herb sauce on grilled beef" },
-          { style:"Heavy Char Grill",       desc:"Malbec loves char — the smokiness from the grill is its natural habitat" },
-          { style:"Argentine Asado",        desc:"Low, slow fire over wood coals — the full Argentine ritual" },
-          { style:"Spice Rub (cumin/coriander)", desc:"Latin spice rubs bring out Malbec's dark fruit and violet" },
-          { style:"Malbec Reduction Sauce", desc:"Use Malbec in the pan sauce — self-referential excellence" },
+          { style:"Chimichurri",                desc:"The defining Argentine pairing — fresh herb sauce on grilled beef" },
+          { style:"Heavy Char Grill",           desc:"Malbec loves char — the smokiness from the grill is its natural habitat" },
+          { style:"Argentine Asado",            desc:"Low, slow fire over wood coals — the full Argentine ritual" },
+          { style:"Spice Rub (cumin/coriander)",desc:"Latin spice rubs bring out Malbec's dark fruit and violet" },
+          { style:"Malbec Reduction Sauce",     desc:"Use Malbec in the pan sauce — self-referential excellence" },
         ],
         cheeses:[
-          { name:"Argentine Provoleta",     note:"Grilled provolone — eaten at the asado as a starter, naturally" },
-          { name:"Aged Gouda",             note:"Caramel notes bridge perfectly to Malbec's dark fruit" },
-          { name:"Manchego",               note:"Nutty and firm — stands up to Malbec without competing" },
-          { name:"Mild Blue (Gorgonzola Dolce)", note:"Creamy blue against Malbec's plum and chocolate — luxurious" },
-          { name:"Provolone (aged)",        note:"Sharp, slightly smoky — made for grilled meat pairings" },
+          { name:"Argentine Provoleta",         note:"Grilled provolone — eaten at the asado as a starter, naturally" },
+          { name:"Aged Gouda",                  note:"Caramel notes bridge perfectly to Malbec's dark fruit" },
+          { name:"Manchego",                    note:"Nutty and firm — stands up to Malbec without competing" },
+          { name:"Mild Blue (Gorgonzola Dolce)",note:"Creamy blue against Malbec's plum and chocolate — luxurious" },
+          { name:"Provolone (aged)",            note:"Sharp, slightly smoky — made for grilled meat pairings" },
         ],
       },
-      {
-        id:"zinfandel", name:"Zinfandel / Primitivo", type:"red", body:"Full",
-        origin:"California, USA / Puglia, Italy",
+      { id:"zinfandel", name:"Zinfandel / Primitivo", type:"red", body:"Full", origin:"California, USA / Puglia, Italy",
         tagline:"Jammy, bold, and American at heart — built for BBQ.",
         proteins:[
           { cat:"Pork",       items:["BBQ Pork Ribs","Pulled Pork","Pork Sausage","Pancetta"] },
@@ -342,47 +323,43 @@
           { cat:"Other",      items:["Pizza (bold toppings)","BBQ Chicken","Roasted Game"] },
         ],
         preps:[
-          { style:"BBQ Smoky",              desc:"The definitive Zinfandel pairing — smoked meats, sticky sauce" },
-          { style:"Spicy Preparations",     desc:"Zin's jammy fruit handles heat and spice better than most reds" },
-          { style:"Italian-American",       desc:"Primitivo's Italian side: pasta with sausage, pizza, hearty ragù" },
-          { style:"Bold Spice Rub",         desc:"Cumin, paprika, chili — mirrors Zin's bold, spicy character" },
-          { style:"Sweet-Savory Glaze",     desc:"Bourbon-brown sugar glaze on ribs — plays to Zin's jammy sweetness" },
+          { style:"BBQ Smoky",         desc:"The definitive Zinfandel pairing — smoked meats, sticky sauce" },
+          { style:"Spicy Preparations",desc:"Zin's jammy fruit handles heat and spice better than most reds" },
+          { style:"Italian-American",  desc:"Primitivo's Italian side: pasta with sausage, pizza, hearty ragù" },
+          { style:"Bold Spice Rub",    desc:"Cumin, paprika, chili — mirrors Zin's bold, spicy character" },
+          { style:"Sweet-Savory Glaze",desc:"Bourbon-brown sugar glaze on ribs — plays to Zin's jammy sweetness" },
         ],
         cheeses:[
-          { name:"Aged Cheddar",            note:"Sharp cheddar and bold Zin — classic American pairing" },
-          { name:"Asiago (aged)",           note:"Italian-American crossover — nutty, slightly sharp" },
-          { name:"Smoked Gouda",           note:"Smokiness mirrors Zin's affinity for BBQ and smoked meats" },
-          { name:"Dry Jack (aged)",         note:"California's own hard cheese — local pairing, always works" },
-          { name:"Pepper Jack",             note:"Spicy cheese with jammy wine — fun and deliberate contrast" },
+          { name:"Aged Cheddar",  note:"Sharp cheddar and bold Zin — classic American pairing" },
+          { name:"Asiago (aged)", note:"Italian-American crossover — nutty, slightly sharp" },
+          { name:"Smoked Gouda", note:"Smokiness mirrors Zin's affinity for BBQ and smoked meats" },
+          { name:"Dry Jack (aged)",note:"California's own hard cheese — local pairing, always works" },
+          { name:"Pepper Jack",   note:"Spicy cheese with jammy wine — fun and deliberate contrast" },
         ],
       },
-      {
-        id:"mourvedre", name:"Mourvèdre / Monastrell", type:"red", body:"Full",
-        origin:"Bandol, France / Jumilla, Spain",
+      { id:"mourvedre", name:"Mourvèdre / Monastrell", type:"red", body:"Full", origin:"Bandol, France / Jumilla, Spain",
         tagline:"Dark, gamey, and wild — the cellar's dark horse.",
         proteins:[
-          { cat:"Game",    items:["Wild Boar","Venison","Hare","Pheasant","Duck (wild)","Rabbit"] },
-          { cat:"Lamb",    items:["Rich Braised Lamb","Mutton","Lamb Daube"] },
-          { cat:"Beef",    items:["Braised Beef","Oxtail","Beef Daube"] },
+          { cat:"Game",       items:["Wild Boar","Venison","Hare","Pheasant","Duck (wild)","Rabbit"] },
+          { cat:"Lamb",       items:["Rich Braised Lamb","Mutton","Lamb Daube"] },
+          { cat:"Beef",       items:["Braised Beef","Oxtail","Beef Daube"] },
           { cat:"Charcuterie",items:["Cured Meats","Dry Sausage","Game Pâté","Rillettes"] },
         ],
         preps:[
-          { style:"Rich Game Braise",       desc:"Wild game braised with juniper, thyme — Mourvèdre's natural habitat" },
-          { style:"Herbes de Provence",     desc:"The Southern French wild herb profile — lavender, thyme, bay" },
-          { style:"Daube (slow stew)",      desc:"The Provençal beef or lamb stew — deeply satisfying match" },
-          { style:"Olive-Based Preparations",desc:"Tapenade, olives in cooking — mirrors the wine's dark olive notes" },
+          { style:"Rich Game Braise",         desc:"Wild game braised with juniper, thyme — Mourvèdre's natural habitat" },
+          { style:"Herbes de Provence",       desc:"The Southern French wild herb profile — lavender, thyme, bay" },
+          { style:"Daube (slow stew)",        desc:"The Provençal beef or lamb stew — deeply satisfying match" },
+          { style:"Olive-Based Preparations", desc:"Tapenade, olives in cooking — mirrors the wine's dark olive notes" },
         ],
         cheeses:[
-          { name:"Comté (24+ month)",       note:"Long-aged French complexity matches Mourvèdre's intensity" },
-          { name:"Manchego (Viejo)",        note:"For Monastrell — aged Spanish cheese, local pairing" },
-          { name:"Époisses",               note:"Pungent washed rind — bold cheese meets bold wine" },
-          { name:"Aged Tomme de Savoie",    note:"Alpine earthiness mirrors Mourvèdre's gamey character" },
-          { name:"Strong Roquefort",        note:"Powerful blue — only for big, tannic Mourvèdre/Bandol expressions" },
+          { name:"Comté (24+ month)",    note:"Long-aged French complexity matches Mourvèdre's intensity" },
+          { name:"Manchego (Viejo)",     note:"For Monastrell — aged Spanish cheese, local pairing" },
+          { name:"Époisses",            note:"Pungent washed rind — bold cheese meets bold wine" },
+          { name:"Aged Tomme de Savoie",note:"Alpine earthiness mirrors Mourvèdre's gamey character" },
+          { name:"Strong Roquefort",     note:"Powerful blue — only for big, tannic Mourvèdre/Bandol expressions" },
         ],
       },
-      {
-        id:"barbera", name:"Barbera d'Asti / d'Alba", type:"red", body:"Medium",
-        origin:"Piedmont, Italy",
+      { id:"barbera", name:"Barbera d'Asti / d'Alba", type:"red", body:"Medium", origin:"Piedmont, Italy",
         tagline:"High acid, low tannin — the everyday Piemontese red built for food.",
         proteins:[
           { cat:"Pork",       items:["Italian Sausage","Salsiccia","Pork Ragù","Cotechino"] },
@@ -397,15 +374,13 @@
           { style:"Pizza",                  desc:"The Italian answer to what goes with pizza — Barbera" },
         ],
         cheeses:[
-          { name:"Asiago",                  note:"Piemontese table cheese — mild, approachable, daily use" },
-          { name:"Fresh Mozzarella",        note:"Simple and clean — matches Barbera's unoaked freshness" },
-          { name:"Mild Pecorino",           note:"Young Pecorino before it sharpens up" },
-          { name:"Grana Padano",           note:"Like a lighter Parmigiano — good everyday pairing" },
+          { name:"Asiago",         note:"Piemontese table cheese — mild, approachable, daily use" },
+          { name:"Fresh Mozzarella",note:"Simple and clean — matches Barbera's unoaked freshness" },
+          { name:"Mild Pecorino",  note:"Young Pecorino before it sharpens up" },
+          { name:"Grana Padano",  note:"Like a lighter Parmigiano — good everyday pairing" },
         ],
       },
-      {
-        id:"cab-franc", name:"Cabernet Franc", type:"red", body:"Medium",
-        origin:"Loire Valley, France / Bordeaux",
+      { id:"cab-franc", name:"Cabernet Franc", type:"red", body:"Medium", origin:"Loire Valley, France / Bordeaux",
         tagline:"Herbal, elegant, and underrated — a food-lover's grape.",
         proteins:[
           { cat:"Pork",       items:["Pork Tenderloin","Charcuterie","Rillettes","Pork Belly"] },
@@ -415,54 +390,50 @@
           { cat:"Charcuterie",items:["Terrine","Pâté de Campagne","Rillettes de Tours"] },
         ],
         preps:[
-          { style:"Green Herb Marinade",    desc:"Thyme, tarragon, parsley — Cab Franc's herbaceous nature amplified" },
-          { style:"Simple Loire Roasts",    desc:"The Loire tradition: simplicity, fresh herbs, local charcuterie" },
-          { style:"Mushroom Sauce",         desc:"Earthy mushroom preparations suit Cab Franc's savory, herbal profile" },
-          { style:"Lentil Accompaniments",  desc:"The green lentil pairing — a Loire Valley tradition" },
+          { style:"Green Herb Marinade",  desc:"Thyme, tarragon, parsley — Cab Franc's herbaceous nature amplified" },
+          { style:"Simple Loire Roasts",  desc:"The Loire tradition: simplicity, fresh herbs, local charcuterie" },
+          { style:"Mushroom Sauce",       desc:"Earthy mushroom preparations suit Cab Franc's savory, herbal profile" },
+          { style:"Lentil Accompaniments",desc:"The green lentil pairing — a Loire Valley tradition" },
         ],
         cheeses:[
-          { name:"Selles-sur-Cher",         note:"The Loire goat cheese — ash-rind, tangy, absolutely made for this" },
-          { name:"Crottin de Chavignol",    note:"Classic Loire goat — tart and earthy against Cab Franc's herbs" },
-          { name:"Brie (lighter style)",    note:"Soft and mild — complements without competing" },
-          { name:"Camembert (young)",       note:"Creamy softness works with Cab Franc's medium body" },
+          { name:"Selles-sur-Cher",    note:"The Loire goat cheese — ash-rind, tangy, absolutely made for this" },
+          { name:"Crottin de Chavignol",note:"Classic Loire goat — tart and earthy against Cab Franc's herbs" },
+          { name:"Brie (lighter style)",note:"Soft and mild — complements without competing" },
+          { name:"Camembert (young)",  note:"Creamy softness works with Cab Franc's medium body" },
         ],
       },
-      {
-        id:"carmenere", name:"Carménère", type:"red", body:"Medium-Full",
-        origin:"Chile (originally Bordeaux)",
+      { id:"carmener", name:"Carménère", type:"red", body:"Medium-Full", origin:"Chile (originally Bordeaux)",
         tagline:"Chile's signature red — smoky, herbal, and underestimated.",
         proteins:[
-          { cat:"Beef",    items:["Grilled Beef (Latin style)","Beef Empanadas","Short Ribs","Steak"] },
-          { cat:"Lamb",    items:["Spiced Lamb","Grilled Lamb Chops"] },
-          { cat:"Pork",    items:["Grilled Pork","Chorizo","Slow-Roasted Pork"] },
-          { cat:"Game",    items:["Venison","Duck"] },
+          { cat:"Beef",items:["Grilled Beef (Latin style)","Beef Empanadas","Short Ribs","Steak"] },
+          { cat:"Lamb",items:["Spiced Lamb","Grilled Lamb Chops"] },
+          { cat:"Pork",items:["Grilled Pork","Chorizo","Slow-Roasted Pork"] },
+          { cat:"Game",items:["Venison","Duck"] },
         ],
         preps:[
-          { style:"Latin Spice Rub",        desc:"Cumin, paprika, oregano — mirrors Carménère's smoky paprika note" },
-          { style:"Chimichurri",            desc:"The green herb sauce cuts through Carménère's herbal earthiness" },
-          { style:"Smoky Preparations",     desc:"Smoked and charred preparations bring out Carménère's best" },
-          { style:"Bell Pepper Accompaniment", desc:"Bell pepper as condiment — bridges to the wine's pyrazine note" },
+          { style:"Latin Spice Rub",          desc:"Cumin, paprika, oregano — mirrors Carménère's smoky paprika note" },
+          { style:"Chimichurri",              desc:"The green herb sauce cuts through Carménère's herbal earthiness" },
+          { style:"Smoky Preparations",       desc:"Smoked and charred preparations bring out Carménère's best" },
+          { style:"Bell Pepper Accompaniment",desc:"Bell pepper as condiment — bridges to the wine's pyrazine note" },
         ],
         cheeses:[
-          { name:"Manchego",               note:"Nutty firmness works well across the red spectrum" },
-          { name:"Aged Cheddar",           note:"Sharpness balances Carménère's herbal green notes" },
-          { name:"Gouda (semi-aged)",      note:"Mild caramel — softens Carménère's savory edge" },
-          { name:"Smoked Cheese",         note:"Smoked Scamorza or smoked Gouda — smoky meets smoky" },
+          { name:"Manchego",        note:"Nutty firmness works well across the red spectrum" },
+          { name:"Aged Cheddar",    note:"Sharpness balances Carménère's herbal green notes" },
+          { name:"Gouda (semi-aged)",note:"Mild caramel — softens Carménère's savory edge" },
+          { name:"Smoked Cheese",  note:"Smoked Scamorza or smoked Gouda — smoky meets smoky" },
         ],
       },
-      {
-        id:"aglianico", name:"Aglianico", type:"red", body:"Full",
-        origin:"Campania & Basilicata, Italy",
+      { id:"aglianico", name:"Aglianico", type:"red", body:"Full", origin:"Campania & Basilicata, Italy",
         tagline:"The 'Barolo of the South' — ancient, powerful, uncompromising.",
         proteins:[
-          { cat:"Game",    items:["Wild Boar","Venison","Hare","Lamb (aged)","Mutton"] },
-          { cat:"Beef",    items:["Braised Beef","Oxtail","Beef Cheek","Beef Short Ribs"] },
-          { cat:"Pork",    items:["Aged Sausage","Southern Italian Charcuterie","Slow-Roasted Pork"] },
+          { cat:"Game",items:["Wild Boar","Venison","Hare","Lamb (aged)","Mutton"] },
+          { cat:"Beef",items:["Braised Beef","Oxtail","Beef Cheek","Beef Short Ribs"] },
+          { cat:"Pork",items:["Aged Sausage","Southern Italian Charcuterie","Slow-Roasted Pork"] },
         ],
         preps:[
-          { style:"Southern Italian Braise",desc:"Long braises with tomato, herbs, wine — the Campanian tradition" },
-          { style:"Strong Spice Preparations", desc:"Bold Southern Italian spicing — this wine can handle it" },
-          { style:"Ragù Napoletano",        desc:"The classic Neapolitan Sunday ragù — hours of cooking, Aglianico alongside" },
+          { style:"Southern Italian Braise",  desc:"Long braises with tomato, herbs, wine — the Campanian tradition" },
+          { style:"Strong Spice Preparations",desc:"Bold Southern Italian spicing — this wine can handle it" },
+          { style:"Ragù Napoletano",          desc:"The classic Neapolitan Sunday ragù — hours of cooking, Aglianico alongside" },
         ],
         cheeses:[
           { name:"Provolone del Monaco",    note:"The Campanian cheese — local always wins with Aglianico" },
@@ -471,33 +442,29 @@
           { name:"Parmigiano (36 month)",   note:"Crystalline aged Parm handles the wine's tannic structure" },
         ],
       },
-      {
-        id:"nero-davola", name:"Nero d'Avola", type:"red", body:"Medium-Full",
-        origin:"Sicily, Italy",
+      { id:"nero-davola", name:"Nero d'Avola", type:"red", body:"Medium-Full", origin:"Sicily, Italy",
         tagline:"Sicily's jewel — sun-drenched, dark fruit, and Mediterranean soul.",
         proteins:[
-          { cat:"Beef",    items:["Grilled Beef","Meatballs (Sicilian style)","Beef Ragù"] },
-          { cat:"Pork",    items:["Sausage (Sicilian)","Slow-Roasted Pork","Pancetta"] },
-          { cat:"Seafood", items:["Swordfish (grilled)","Tuna (grilled — bold preparation)","Octopus (braised)"] },
-          { cat:"Lamb",    items:["Grilled Lamb","Lamb Chops Sicilian style"] },
+          { cat:"Beef",   items:["Grilled Beef","Meatballs (Sicilian style)","Beef Ragù"] },
+          { cat:"Pork",   items:["Sausage (Sicilian)","Slow-Roasted Pork","Pancetta"] },
+          { cat:"Seafood",items:["Swordfish (grilled)","Tuna (grilled — bold preparation)","Octopus (braised)"] },
+          { cat:"Lamb",   items:["Grilled Lamb","Lamb Chops Sicilian style"] },
         ],
         preps:[
-          { style:"Sicilian Spice",         desc:"Fennel seed, chili, capers, olives — the Sicilian flavor world" },
-          { style:"Caponata Accompaniment", desc:"Sweet-sour eggplant relish alongside grilled meats — stunning" },
-          { style:"Agrodolce",             desc:"The sweet-sour Sicilian preparation — contrasts beautifully" },
-          { style:"Grilled with Citrus",    desc:"Lemon and herb grilled fish/meat — the island approach" },
+          { style:"Sicilian Spice",        desc:"Fennel seed, chili, capers, olives — the Sicilian flavor world" },
+          { style:"Caponata Accompaniment",desc:"Sweet-sour eggplant relish alongside grilled meats — stunning" },
+          { style:"Agrodolce",            desc:"The sweet-sour Sicilian preparation — contrasts beautifully" },
+          { style:"Grilled with Citrus",  desc:"Lemon and herb grilled fish/meat — the island approach" },
         ],
         cheeses:[
-          { name:"Pecorino Siciliano",      note:"The island's own aged sheep's milk — the obvious local match" },
-          { name:"Caciocavallo",           note:"Southern stretched curd — traditional and fitting" },
-          { name:"Aged Provolone",         note:"Sharp, slightly smoky — good companion for dark-fruited Nero" },
-          { name:"Ragusano",              note:"Sicilian PDO stretched curd cheese — support local" },
+          { name:"Pecorino Siciliano",note:"The island's own aged sheep's milk — the obvious local match" },
+          { name:"Caciocavallo",      note:"Southern stretched curd — traditional and fitting" },
+          { name:"Aged Provolone",    note:"Sharp, slightly smoky — good companion for dark-fruited Nero" },
+          { name:"Ragusano",         note:"Sicilian PDO stretched curd cheese — support local" },
         ],
       },
-      // ═══════════════════════════ WHITE GRAPES ════════════════════════════
-      {
-        id:"chardonnay", name:"Chardonnay", type:"white", body:"Medium-Full",
-        origin:"Burgundy, France",
+      // ── WHITE ────────────────────────────────────────────────────────────────
+      { id:"chardonnay", name:"Chardonnay", type:"white", body:"Medium-Full", origin:"Burgundy, France",
         tagline:"The world's most versatile white — from steely Chablis to buttery Napa.",
         proteins:[
           { cat:"Seafood",   items:["Lobster","Crab","Scallops (seared)","Halibut","Sea Bass","Sole","Sole Meunière"] },
@@ -506,25 +473,23 @@
           { cat:"Vegetarian",items:["Mushroom Risotto (oaked style)","Corn preparations","Butternut Squash","Pasta in Cream"] },
         ],
         preps:[
-          { style:"Butter & Cream Sauces",  desc:"Oaked Chardonnay's butterscotch mirrors cream sauces — classic" },
-          { style:"Roasted Lemon-Herb",     desc:"Citrus notes in unoaked Chablis shine with simple herb preparations" },
-          { style:"Lobster Bisque",         desc:"The luxury pairing — rich bisque with rich Meursault or Napa Chardonnay" },
-          { style:"Poached Preparations",   desc:"Delicate poaching (fish in court-bouillon) suits lighter Chablis styles" },
-          { style:"Grilled Corn",           desc:"Char and natural sweetness of corn mirrors oaked Chardonnay beautifully" },
-          { style:"Truffle Cream",          desc:"Truffle cream pasta with white Burgundy — pure indulgence" },
+          { style:"Butter & Cream Sauces",desc:"Oaked Chardonnay's butterscotch mirrors cream sauces — classic" },
+          { style:"Roasted Lemon-Herb",   desc:"Citrus notes in unoaked Chablis shine with simple herb preparations" },
+          { style:"Lobster Bisque",       desc:"The luxury pairing — rich bisque with rich Meursault or Napa Chardonnay" },
+          { style:"Poached Preparations", desc:"Delicate poaching (fish in court-bouillon) suits lighter Chablis styles" },
+          { style:"Grilled Corn",         desc:"Char and natural sweetness of corn mirrors oaked Chardonnay beautifully" },
+          { style:"Truffle Cream",        desc:"Truffle cream pasta with white Burgundy — pure indulgence" },
         ],
         cheeses:[
-          { name:"Brie de Meaux",           note:"The creamy texture match — both are round and indulgent" },
-          { name:"Camembert (young)",       note:"Buttery softness meets Chardonnay's butter — naturally complementary" },
-          { name:"Gruyère (medium age)",    note:"Nutty and clean — works especially well with white Burgundy" },
-          { name:"Comté (18 month)",        note:"Toasted hazelnut and fruit notes mirror good Chardonnay" },
-          { name:"Chèvre (young)",          note:"Fresh goat tang works beautifully with unoaked, mineral Chablis" },
-          { name:"Triple Cream (Brillat-Savarin)", note:"Extreme richness paired with full oaked Chardonnay — luxurious excess" },
+          { name:"Brie de Meaux",                note:"The creamy texture match — both are round and indulgent" },
+          { name:"Camembert (young)",            note:"Buttery softness meets Chardonnay's butter — naturally complementary" },
+          { name:"Gruyère (medium age)",         note:"Nutty and clean — works especially well with white Burgundy" },
+          { name:"Comté (18 month)",             note:"Toasted hazelnut and fruit notes mirror good Chardonnay" },
+          { name:"Chèvre (young)",               note:"Fresh goat tang works beautifully with unoaked, mineral Chablis" },
+          { name:"Triple Cream (Brillat-Savarin)",note:"Extreme richness paired with full oaked Chardonnay — luxurious excess" },
         ],
       },
-      {
-        id:"sauv-blanc", name:"Sauvignon Blanc", type:"white", body:"Light-Medium",
-        origin:"Loire Valley, France / New Zealand",
+      { id:"sauv-blanc", name:"Sauvignon Blanc", type:"white", body:"Light-Medium", origin:"Loire Valley, France / New Zealand",
         tagline:"Bright, grassy, and tangy — the sommelier's go-to for green vegetables.",
         proteins:[
           { cat:"Seafood",   items:["Oysters","Clams","Mussels","Sea Bass","Sole","Snapper","Shrimp","Ceviche"] },
@@ -533,52 +498,48 @@
           { cat:"Avoid",     items:["Heavy red meats","Cream sauces — richness overwhelms the wine's brightness"] },
         ],
         preps:[
-          { style:"Citrus Marinade",        desc:"Lemon/lime herb marinade for fish — the most natural match in wine" },
-          { style:"Herb Vinaigrette",       desc:"Tarragon and chervil vinaigrette — Loire valley in a dressing" },
-          { style:"Thai & Vietnamese",      desc:"Lemongrass, lime leaf, fish sauce preparations — excellent" },
-          { style:"Light Ceviche Preparation", desc:"Acid in wine mirrors acid in ceviche — South American match" },
+          { style:"Citrus Marinade",          desc:"Lemon/lime herb marinade for fish — the most natural match in wine" },
+          { style:"Herb Vinaigrette",         desc:"Tarragon and chervil vinaigrette — Loire valley in a dressing" },
+          { style:"Thai & Vietnamese",        desc:"Lemongrass, lime leaf, fish sauce preparations — excellent" },
+          { style:"Light Ceviche Preparation",desc:"Acid in wine mirrors acid in ceviche — South American match" },
           { style:"Simple Steamed Shellfish", desc:"Don't mess with perfection — simple shellfish, simple wine" },
-          { style:"Cucumber & Fresh Herb",  desc:"Cool, fresh, green — mirrors the wine's vegetal freshness" },
+          { style:"Cucumber & Fresh Herb",    desc:"Cool, fresh, green — mirrors the wine's vegetal freshness" },
         ],
         cheeses:[
-          { name:"Chèvre (fresh Sancerre style)", note:"The defining pairing — local wine, local cheese, perfect acidity bridge" },
-          { name:"Crottin de Chavignol",    note:"The Sancerre cheese — tangy, slightly aged goat, absolute classic" },
-          { name:"Feta",                   note:"Salty, tangy — the acid and salt play beautifully with Sauvignon" },
-          { name:"Ricotta (fresh)",         note:"Clean and mild — lets Sauvignon Blanc's brightness lead" },
-          { name:"Boursin (herb)",          note:"Soft herb cheese mirrors the wine's herbaceous green notes" },
-          { name:"Avoid: Aged strong cheeses", note:"Too heavy — they bury the wine's delicate aromatics" },
+          { name:"Chèvre (fresh Sancerre style)",note:"The defining pairing — local wine, local cheese, perfect acidity bridge" },
+          { name:"Crottin de Chavignol",         note:"The Sancerre cheese — tangy, slightly aged goat, absolute classic" },
+          { name:"Feta",                        note:"Salty, tangy — the acid and salt play beautifully with Sauvignon" },
+          { name:"Ricotta (fresh)",              note:"Clean and mild — lets Sauvignon Blanc's brightness lead" },
+          { name:"Boursin (herb)",               note:"Soft herb cheese mirrors the wine's herbaceous green notes" },
+          { name:"Avoid: Aged strong cheeses",   note:"Too heavy — they bury the wine's delicate aromatics" },
         ],
       },
-      {
-        id:"riesling", name:"Riesling", type:"white", body:"Light",
-        origin:"Mosel, Germany / Alsace, France",
+      { id:"riesling", name:"Riesling", type:"white", body:"Light", origin:"Mosel, Germany / Alsace, France",
         tagline:"The sommelier's secret weapon — pairs with almost anything, especially spice.",
         proteins:[
-          { cat:"Pork",      items:["Pork Schnitzel","Roasted Pork","Pork Belly","Ham (cured)","Bratwurst"] },
-          { cat:"Seafood",   items:["Smoked Salmon","Scallops","Seared Tuna","Crab","Shrimp (Asian style)"] },
-          { cat:"Poultry",   items:["Duck (sweet/spicy preparation)","Chicken (Asian spiced)","Turkey"] },
-          { cat:"Asian",     items:["Thai cuisine","Vietnamese cuisine","Chinese BBQ","Sushi & Sashimi","Spicy preparations (all)"] },
-          { cat:"Foie Gras", items:["Sautéed Foie Gras (with fruit)","Pâté de Foie Gras (sweet Riesling)"] },
+          { cat:"Pork",     items:["Pork Schnitzel","Roasted Pork","Pork Belly","Ham (cured)","Bratwurst"] },
+          { cat:"Seafood",  items:["Smoked Salmon","Scallops","Seared Tuna","Crab","Shrimp (Asian style)"] },
+          { cat:"Poultry",  items:["Duck (sweet/spicy preparation)","Chicken (Asian spiced)","Turkey"] },
+          { cat:"Asian",    items:["Thai cuisine","Vietnamese cuisine","Chinese BBQ","Sushi & Sashimi","Spicy preparations (all)"] },
+          { cat:"Foie Gras",items:["Sautéed Foie Gras (with fruit)","Pâté de Foie Gras (sweet Riesling)"] },
         ],
         preps:[
-          { style:"Asian Spice Preparations", desc:"Riesling's residual sweetness quenches heat — the best spice wine" },
-          { style:"Ginger & Lemongrass",    desc:"The aromatic herbs of Southeast Asia mirror Riesling's floral notes" },
-          { style:"Sweet & Sour Balance",   desc:"Riesling thrives where sweet and sour coexist in the dish" },
-          { style:"Smoked Preparations",    desc:"Smoked salmon is Riesling's great pairing — petrol note and smoke" },
-          { style:"German Classics",        desc:"Schnitzel, sauerkraut, bratwurst — Riesling's homeland companions" },
-          { style:"Fruit-Based Sauces",     desc:"Apricot, peach, cherry sauces on poultry work brilliantly" },
+          { style:"Asian Spice Preparations",desc:"Riesling's residual sweetness quenches heat — the best spice wine" },
+          { style:"Ginger & Lemongrass",     desc:"The aromatic herbs of Southeast Asia mirror Riesling's floral notes" },
+          { style:"Sweet & Sour Balance",    desc:"Riesling thrives where sweet and sour coexist in the dish" },
+          { style:"Smoked Preparations",     desc:"Smoked salmon is Riesling's great pairing — petrol note and smoke" },
+          { style:"German Classics",         desc:"Schnitzel, sauerkraut, bratwurst — Riesling's homeland companions" },
+          { style:"Fruit-Based Sauces",      desc:"Apricot, peach, cherry sauces on poultry work brilliantly" },
         ],
         cheeses:[
-          { name:"Münster (Alsatian)",      note:"The classic Alsatian pairing — pungent washed rind needs off-dry Riesling" },
-          { name:"Emmental",               note:"Mild, nutty Swiss — clean and friendly with dry Riesling" },
-          { name:"Mild Comté",             note:"Young Comté before the intensity builds — good match" },
-          { name:"Mild Gouda",             note:"Semi-soft, clean — lets Riesling's aromatics shine" },
-          { name:"Roquefort (off-dry Riesling)", note:"Sweet Riesling vs salty blue — the classic sweet/salty contrast" },
+          { name:"Münster (Alsatian)",          note:"The classic Alsatian pairing — pungent washed rind needs off-dry Riesling" },
+          { name:"Emmental",                   note:"Mild, nutty Swiss — clean and friendly with dry Riesling" },
+          { name:"Mild Comté",                 note:"Young Comté before the intensity builds — good match" },
+          { name:"Mild Gouda",                 note:"Semi-soft, clean — lets Riesling's aromatics shine" },
+          { name:"Roquefort (off-dry Riesling)",note:"Sweet Riesling vs salty blue — the classic sweet/salty contrast" },
         ],
       },
-      {
-        id:"pinot-gris", name:"Pinot Gris / Pinot Grigio", type:"white", body:"Light-Medium",
-        origin:"Alsace, France / Northern Italy",
+      { id:"pinot-gris", name:"Pinot Gris / Pinot Grigio", type:"white", body:"Light-Medium", origin:"Alsace, France / Northern Italy",
         tagline:"Two personalities: crisp Italian refreshment vs. rich Alsatian depth.",
         proteins:[
           { cat:"Seafood",   items:["Light White Fish","Shellfish","Calamari","Shrimp","Sole (Italian style)"] },
@@ -587,67 +548,61 @@
           { cat:"Vegetarian",items:["Pizza (Italian Pinot Grigio)","Light Pasta","Risotto (seafood)"] },
         ],
         preps:[
-          { style:"Italian Light",          desc:"Italian Pinot Grigio: simple, lemon-dressed, minimally sauced" },
-          { style:"Alsatian Rich",          desc:"Richer Alsace Pinot Gris: quiche Lorraine, choucroute, smoked meats" },
-          { style:"Smoked Preparations",    desc:"Smoke (salmon, meats) is a known pairing for Alsatian Pinot Gris" },
-          { style:"Simple Seafood",         desc:"The Italian way — don't complicate, let freshness lead" },
+          { style:"Italian Light",     desc:"Italian Pinot Grigio: simple, lemon-dressed, minimally sauced" },
+          { style:"Alsatian Rich",     desc:"Richer Alsace Pinot Gris: quiche Lorraine, choucroute, smoked meats" },
+          { style:"Smoked Preparations",desc:"Smoke (salmon, meats) is a known pairing for Alsatian Pinot Gris" },
+          { style:"Simple Seafood",    desc:"The Italian way — don't complicate, let freshness lead" },
         ],
         cheeses:[
-          { name:"Munster (Alsatian)",      note:"Washed rind pungency is Alsatian Pinot Gris's traditional companion" },
-          { name:"Gruyère",                note:"Mild nutty — good with Italian style especially" },
-          { name:"Fresh Mozzarella",        note:"The Italian Pinot Grigio pairing — light and fresh" },
-          { name:"Brie (lighter)",          note:"Soft, creamy, unchallenging — works with both styles" },
+          { name:"Munster (Alsatian)",note:"Washed rind pungency is Alsatian Pinot Gris's traditional companion" },
+          { name:"Gruyère",          note:"Mild nutty — good with Italian style especially" },
+          { name:"Fresh Mozzarella", note:"The Italian Pinot Grigio pairing — light and fresh" },
+          { name:"Brie (lighter)",   note:"Soft, creamy, unchallenging — works with both styles" },
         ],
       },
-      {
-        id:"gewurz", name:"Gewurztraminer", type:"white", body:"Full",
-        origin:"Alsace, France",
+      { id:"gewurz", name:"Gewurztraminer", type:"white", body:"Full", origin:"Alsace, France",
         tagline:"The most perfumed grape — lychee, rose, ginger, and pure personality.",
         proteins:[
-          { cat:"Asian",     items:["Chinese BBQ Duck","Peking Duck","Thai Green Curry","Indian Tikka Masala","Vietnamese Pho"] },
-          { cat:"Seafood",   items:["Smoked Salmon","Lobster (spiced)","Scallops (spiced)","Crab Cakes"] },
-          { cat:"Poultry",   items:["Duck à l'Orange","Chicken with Mango","Foie Gras","Goose"] },
-          { cat:"Other",     items:["Charcuterie (Alsatian)","Onion Tart (Flammekueche)","Curry dishes (all)"] },
+          { cat:"Asian",  items:["Chinese BBQ Duck","Peking Duck","Thai Green Curry","Indian Tikka Masala","Vietnamese Pho"] },
+          { cat:"Seafood",items:["Smoked Salmon","Lobster (spiced)","Scallops (spiced)","Crab Cakes"] },
+          { cat:"Poultry",items:["Duck à l'Orange","Chicken with Mango","Foie Gras","Goose"] },
+          { cat:"Other",  items:["Charcuterie (Alsatian)","Onion Tart (Flammekueche)","Curry dishes (all)"] },
         ],
         preps:[
-          { style:"Asian Spice",            desc:"Ginger, five-spice, chili — Gewurztraminer's natural Asian affinity" },
-          { style:"Orange & Citrus Glazes", desc:"Duck à l'Orange is the classic — sweet, acidic, aromatic mirror" },
-          { style:"Curry Preparations",     desc:"Any curry (Indian, Thai) — the off-dry sweetness cools the spice" },
-          { style:"Alsatian Classics",      desc:"Flammekueche, choucroute, onion tart — local food with local wine" },
-          { style:"Lychee-Based",           desc:"Dishes featuring lychee or tropical fruit mirror the wine's core aroma" },
+          { style:"Asian Spice",           desc:"Ginger, five-spice, chili — Gewurztraminer's natural Asian affinity" },
+          { style:"Orange & Citrus Glazes",desc:"Duck à l'Orange is the classic — sweet, acidic, aromatic mirror" },
+          { style:"Curry Preparations",    desc:"Any curry (Indian, Thai) — the off-dry sweetness cools the spice" },
+          { style:"Alsatian Classics",     desc:"Flammekueche, choucroute, onion tart — local food with local wine" },
+          { style:"Lychee-Based",          desc:"Dishes featuring lychee or tropical fruit mirror the wine's core aroma" },
         ],
         cheeses:[
-          { name:"Munster (Alsatian)",      note:"The great regional pairing — intense washed rind, equally intense wine" },
-          { name:"Époisse",               note:"One of France's most powerful washed rinds — only for bold Gewurz" },
-          { name:"Gorgonzola Dolce",        note:"Creamy, mild blue against aromatic wine — surprisingly harmonious" },
-          { name:"Fresh Chèvre (herbed)",   note:"Herbed goat cheese mirrors Gewurztraminer's aromatic garden quality" },
+          { name:"Munster (Alsatian)",    note:"The great regional pairing — intense washed rind, equally intense wine" },
+          { name:"Époisse",             note:"One of France's most powerful washed rinds — only for bold Gewurz" },
+          { name:"Gorgonzola Dolce",     note:"Creamy, mild blue against aromatic wine — surprisingly harmonious" },
+          { name:"Fresh Chèvre (herbed)",note:"Herbed goat cheese mirrors Gewurztraminer's aromatic garden quality" },
         ],
       },
-      {
-        id:"viognier", name:"Viognier", type:"white", body:"Full",
-        origin:"Northern Rhône, France (Condrieu)",
+      { id:"viognier", name:"Viognier", type:"white", body:"Full", origin:"Northern Rhône, France (Condrieu)",
         tagline:"Sumptuous, floral, and almost oily — apricot and honeysuckle in a glass.",
         proteins:[
-          { cat:"Seafood",   items:["Lobster","Crab","Scallops","Sea Bass (aromatic preparation)","Prawns"] },
-          { cat:"Poultry",   items:["Roasted Chicken (spiced)","Duck","Chicken Tagine"] },
-          { cat:"Other",     items:["North African Tagine","Curry (mild-medium)","Aromatic preparations"] },
+          { cat:"Seafood",items:["Lobster","Crab","Scallops","Sea Bass (aromatic preparation)","Prawns"] },
+          { cat:"Poultry",items:["Roasted Chicken (spiced)","Duck","Chicken Tagine"] },
+          { cat:"Other",  items:["North African Tagine","Curry (mild-medium)","Aromatic preparations"] },
         ],
         preps:[
-          { style:"North African Tagine",   desc:"Preserved lemon, apricot, warm spices — mirrors Viognier's aromatics perfectly" },
-          { style:"Floral Herb Preparations", desc:"Lavender, tarragon, saffron — aromatic herbs meet aromatic wine" },
-          { style:"Stone Fruit Sauces",     desc:"Peach or apricot sauce on chicken or duck — self-referential beauty" },
-          { style:"Spiced Seafood",         desc:"Saffron-spiced seafood, bouillabaisse — the Rhône connection" },
+          { style:"North African Tagine",    desc:"Preserved lemon, apricot, warm spices — mirrors Viognier's aromatics perfectly" },
+          { style:"Floral Herb Preparations",desc:"Lavender, tarragon, saffron — aromatic herbs meet aromatic wine" },
+          { style:"Stone Fruit Sauces",      desc:"Peach or apricot sauce on chicken or duck — self-referential beauty" },
+          { style:"Spiced Seafood",          desc:"Saffron-spiced seafood, bouillabaisse — the Rhône connection" },
         ],
         cheeses:[
-          { name:"Aged Chèvre",            note:"Earthy, developed goat — the acid contrast lifts Viognier's richness" },
-          { name:"Chèvre (fresh)",         note:"Clean tanginess cuts Viognier's heady floral richness" },
-          { name:"Mild Brie",             note:"Soft and creamy — complements without competing with the aromatics" },
-          { name:"Mild Comté",            note:"Understated nuttiness lets Viognier be the star" },
+          { name:"Aged Chèvre",  note:"Earthy, developed goat — the acid contrast lifts Viognier's richness" },
+          { name:"Chèvre (fresh)",note:"Clean tanginess cuts Viognier's heady floral richness" },
+          { name:"Mild Brie",    note:"Soft and creamy — complements without competing with the aromatics" },
+          { name:"Mild Comté",   note:"Understated nuttiness lets Viognier be the star" },
         ],
       },
-      {
-        id:"chenin", name:"Chenin Blanc", type:"white", body:"Light-Full",
-        origin:"Loire Valley, France / South Africa",
+      { id:"chenin", name:"Chenin Blanc", type:"white", body:"Light-Full", origin:"Loire Valley, France / South Africa",
         tagline:"The chameleon — bone dry to lusciously sweet, and extraordinary with age.",
         proteins:[
           { cat:"Pork",      items:["Pork Rillettes (Loire classic)","Pork Tenderloin","Ham","Andouillette"] },
@@ -656,21 +611,19 @@
           { cat:"Vegetarian",items:["Goat Cheese preparations","Honey-drizzled dishes","Apple-based dishes"] },
         ],
         preps:[
-          { style:"Loire Valley Classics",  desc:"Rillettes, charcuterie from Tours — Chenin Blanc's homeland pairings" },
-          { style:"Honey-Mustard",          desc:"Sweet/tangy balance plays against Chenin's off-dry styles beautifully" },
-          { style:"Tart Fruit Preparations",desc:"Apple, quince, pear in preparations — mirrors dry Vouvray's fruit" },
-          { style:"Simple Fresh Preparations", desc:"Don't overthink — freshness and simplicity let Chenin shine" },
+          { style:"Loire Valley Classics",    desc:"Rillettes, charcuterie from Tours — Chenin Blanc's homeland pairings" },
+          { style:"Honey-Mustard",            desc:"Sweet/tangy balance plays against Chenin's off-dry styles beautifully" },
+          { style:"Tart Fruit Preparations",  desc:"Apple, quince, pear in preparations — mirrors dry Vouvray's fruit" },
+          { style:"Simple Fresh Preparations",desc:"Don't overthink — freshness and simplicity let Chenin shine" },
         ],
         cheeses:[
-          { name:"Selles-sur-Cher",         note:"The Loire ash-rind goat — absolute classic, born for this pairing" },
-          { name:"Crottin de Chavignol",    note:"Tangy Loire goat — complements Chenin's natural acidity" },
-          { name:"Comté (young)",           note:"Mild and approachable — gentle complement to Chenin's freshness" },
-          { name:"Aged Chèvre",            note:"Developed goat complexity pairs with Vouvray's aged profiles" },
+          { name:"Selles-sur-Cher",    note:"The Loire ash-rind goat — absolute classic, born for this pairing" },
+          { name:"Crottin de Chavignol",note:"Tangy Loire goat — complements Chenin's natural acidity" },
+          { name:"Comté (young)",      note:"Mild and approachable — gentle complement to Chenin's freshness" },
+          { name:"Aged Chèvre",       note:"Developed goat complexity pairs with Vouvray's aged profiles" },
         ],
       },
-      {
-        id:"albarino", name:"Albariño / Alvarinho", type:"white", body:"Light",
-        origin:"Rías Baixas, Spain / Vinho Verde, Portugal",
+      { id:"albarino", name:"Albariño / Alvarinho", type:"white", body:"Light", origin:"Rías Baixas, Spain / Vinho Verde, Portugal",
         tagline:"The Atlantic grape — salty, citrusy, and made for the sea.",
         proteins:[
           { cat:"Seafood",   items:["Grilled Octopus","Clams","Mussels","Oysters","Scallops","Percebes (barnacles)","All shellfish"] },
@@ -679,21 +632,19 @@
           { cat:"Vegetarian",items:["Simple green salads","Light vegetable preparations"] },
         ],
         preps:[
-          { style:"Galician Seafood",       desc:"Simply grilled or boiled — Albariño's homeland preparation, unbeatable" },
-          { style:"Citrus & Olive Oil",     desc:"Lemon, good olive oil, sea salt — nothing more needed" },
-          { style:"Light Herb Marinade",    desc:"Parsley, garlic, lemon — the Galician trifecta" },
-          { style:"Ceviche",               desc:"Acid, citrus, and the ocean — Albariño's elements reflected back" },
+          { style:"Galician Seafood",  desc:"Simply grilled or boiled — Albariño's homeland preparation, unbeatable" },
+          { style:"Citrus & Olive Oil",desc:"Lemon, good olive oil, sea salt — nothing more needed" },
+          { style:"Light Herb Marinade",desc:"Parsley, garlic, lemon — the Galician trifecta" },
+          { style:"Ceviche",          desc:"Acid, citrus, and the ocean — Albariño's elements reflected back" },
         ],
         cheeses:[
-          { name:"Fresh Manchego (Fresco)", note:"Mild, milky — doesn't compete with the wine's delicacy" },
-          { name:"Idiazábal (young)",       note:"Young Basque cheese before the smoke/age intensifies" },
-          { name:"Fresh Chèvre",           note:"Clean tang — a natural with light, crisp white wines" },
-          { name:"Tetilla",               note:"Galician cow's milk cheese — the local match, mild and creamy" },
+          { name:"Fresh Manchego (Fresco)",note:"Mild, milky — doesn't compete with the wine's delicacy" },
+          { name:"Idiazábal (young)",      note:"Young Basque cheese before the smoke/age intensifies" },
+          { name:"Fresh Chèvre",          note:"Clean tang — a natural with light, crisp white wines" },
+          { name:"Tetilla",              note:"Galician cow's milk cheese — the local match, mild and creamy" },
         ],
       },
-      {
-        id:"gruner", name:"Grüner Veltliner", type:"white", body:"Light-Medium",
-        origin:"Wachau & Kamptal, Austria",
+      { id:"gruner", name:"Grüner Veltliner", type:"white", body:"Light-Medium", origin:"Wachau & Kamptal, Austria",
         tagline:"Austria's great white — white pepper, mineral, and the king of asparagus pairings.",
         proteins:[
           { cat:"Seafood",   items:["Trout (Forelle)","Pike-Perch (Zander)","Crayfish","Crab","Oysters"] },
@@ -702,21 +653,19 @@
           { cat:"Pork",      items:["Light Pork Preparations","Ham"] },
         ],
         preps:[
-          { style:"White Asparagus",        desc:"The definitive Grüner pairing — white asparagus with hollandaise" },
-          { style:"Schnitzel",             desc:"The Austrian classic — breaded veal or pork with lemon and Grüner" },
-          { style:"Light Alpine",           desc:"Austrian and Alpine cuisine — clean, simple, precise preparations" },
-          { style:"Lemon Butter Sauce",     desc:"Fits Grüner's weight and white pepper character perfectly" },
+          { style:"White Asparagus",   desc:"The definitive Grüner pairing — white asparagus with hollandaise" },
+          { style:"Schnitzel",        desc:"The Austrian classic — breaded veal or pork with lemon and Grüner" },
+          { style:"Light Alpine",     desc:"Austrian and Alpine cuisine — clean, simple, precise preparations" },
+          { style:"Lemon Butter Sauce",desc:"Fits Grüner's weight and white pepper character perfectly" },
         ],
         cheeses:[
-          { name:"Gruyère",                note:"Nutty and clean — the alpine cheese for an alpine wine" },
-          { name:"Emmental",               note:"Mild, holey Swiss — clean pairing that doesn't overpower" },
-          { name:"Mild Bergkäse",          note:"Austrian alpine cheese — the most natural local match" },
-          { name:"Fresh Chèvre",           note:"Tangy freshness works with lighter Grüner Veltliner styles" },
+          { name:"Gruyère",      note:"Nutty and clean — the alpine cheese for an alpine wine" },
+          { name:"Emmental",     note:"Mild, holey Swiss — clean pairing that doesn't overpower" },
+          { name:"Mild Bergkäse",note:"Austrian alpine cheese — the most natural local match" },
+          { name:"Fresh Chèvre", note:"Tangy freshness works with lighter Grüner Veltliner styles" },
         ],
       },
-      {
-        id:"assyrtiko", name:"Assyrtiko", type:"white", body:"Medium",
-        origin:"Santorini, Greece",
+      { id:"assyrtiko", name:"Assyrtiko", type:"white", body:"Medium", origin:"Santorini, Greece",
         tagline:"Volcanic electricity — salty, mineral, and unlike anything else on earth.",
         proteins:[
           { cat:"Seafood",   items:["Grilled Octopus","Sea Urchin","Oysters","Clams","Shrimp (Greek style)","Grilled Fish (all)"] },
@@ -724,22 +673,20 @@
           { cat:"Vegetarian",items:["Fava (split pea purée)","Greek Salad","Dolmades","Roasted Vegetables with Herbs"] },
         ],
         preps:[
-          { style:"Greek Seafood Grill",    desc:"Simply grilled over charcoal with olive oil and lemon — perfection" },
-          { style:"Lemon & Oregano",        desc:"The Greek combination — mirrors Assyrtiko's citrus and herb notes" },
-          { style:"Olive Oil Preparations", desc:"Good Greek olive oil as the cooking medium — natural complement" },
-          { style:"Saline Preparations",    desc:"Capers, olives, sea salt — echoes the wine's volcanic salinity" },
+          { style:"Greek Seafood Grill",   desc:"Simply grilled over charcoal with olive oil and lemon — perfection" },
+          { style:"Lemon & Oregano",       desc:"The Greek combination — mirrors Assyrtiko's citrus and herb notes" },
+          { style:"Olive Oil Preparations",desc:"Good Greek olive oil as the cooking medium — natural complement" },
+          { style:"Saline Preparations",   desc:"Capers, olives, sea salt — echoes the wine's volcanic salinity" },
         ],
         cheeses:[
-          { name:"Feta (Greek PDO)",        note:"The absolute natural pairing — salty brine and volcanic salinity" },
-          { name:"Halloumi (grilled)",      note:"Squeaky, salty — fantastic against Assyrtiko's mineral brightness" },
-          { name:"Graviera (Naxos)",        note:"Greek hard cheese — nutty, slightly sweet, excellent match" },
-          { name:"Mizithra (fresh)",        note:"Mild fresh Greek cheese — clean and understated" },
+          { name:"Feta (Greek PDO)",  note:"The absolute natural pairing — salty brine and volcanic salinity" },
+          { name:"Halloumi (grilled)",note:"Squeaky, salty — fantastic against Assyrtiko's mineral brightness" },
+          { name:"Graviera (Naxos)",  note:"Greek hard cheese — nutty, slightly sweet, excellent match" },
+          { name:"Mizithra (fresh)",  note:"Mild fresh Greek cheese — clean and understated" },
         ],
       },
-      // ═══════════════════════════ ROSÉ ════════════════════════════════════
-      {
-        id:"provence-rose", name:"Rosé (Provence style)", type:"rose", body:"Light",
-        origin:"Provence, France",
+      // ── ROSÉ ─────────────────────────────────────────────────────────────────
+      { id:"gewurz-rose", name:"Rosé (Provence style)", type:"rose", body:"Light", origin:"Provence, France",
         tagline:"The world's most popular dry rosé — effortlessly food-friendly.",
         proteins:[
           { cat:"Seafood",   items:["Grilled Prawns","Bouillabaisse","Grilled Fish","Tuna Niçoise","Crab"] },
@@ -748,42 +695,165 @@
           { cat:"Other",     items:["Antipasti","Mezze","Charcuterie boards","Watermelon & Prosciutto"] },
         ],
         preps:[
-          { style:"Provençal Herb",         desc:"Herbes de Provence, garlic, olive oil — the rosé homeland" },
-          { style:"Summer Grill",           desc:"Light charcoal grilling of vegetables and seafood" },
-          { style:"Mediterranean Mezze",    desc:"Hummus, tabbouleh, fattoush, grilled pita — rosé loves the mezze spread" },
-          { style:"Picnic Preparations",    desc:"Cold dishes, charcuterie, salads — rosé's natural habitat" },
+          { style:"Provençal Herb",     desc:"Herbes de Provence, garlic, olive oil — the rosé homeland" },
+          { style:"Summer Grill",       desc:"Light charcoal grilling of vegetables and seafood" },
+          { style:"Mediterranean Mezze",desc:"Hummus, tabbouleh, fattoush, grilled pita — rosé loves the mezze spread" },
+          { style:"Picnic Preparations",desc:"Cold dishes, charcuterie, salads — rosé's natural habitat" },
         ],
         cheeses:[
-          { name:"Chèvre (fresh or young)", note:"Tangy lightness mirrors Provence rosé's delicate fruit" },
-          { name:"Feta",                   note:"Salty, briny — perfect contrast to dry, crisp rosé" },
-          { name:"Fresh Mozzarella",        note:"Caprese salad with rosé — a summer Mediterranean staple" },
-          { name:"Ricotta (fresh)",         note:"Clean and gentle — the ideal light cheese for rosé" },
-          { name:"Burrata",               note:"Creamy and fresh — drizzled with olive oil alongside Provence rosé" },
+          { name:"Chèvre (fresh or young)",note:"Tangy lightness mirrors Provence rosé's delicate fruit" },
+          { name:"Feta",                  note:"Salty, briny — perfect contrast to dry, crisp rosé" },
+          { name:"Fresh Mozzarella",      note:"Caprese salad with rosé — a summer Mediterranean staple" },
+          { name:"Ricotta (fresh)",       note:"Clean and gentle — the ideal light cheese for rosé" },
+          { name:"Burrata",              note:"Creamy and fresh — drizzled with olive oil alongside Provence rosé" },
+        ],
+      },
+      // ── SPARKLING ─────────────────────────────────────────────────────────────
+      { id:"champagne", name:"Champagne", type:"sparkling", body:"Light-Medium", origin:"Champagne, France",
+        tagline:"The world's greatest sparkling wine — versatile, celebratory, and criminally underused at the table.",
+        proteins:[
+          { cat:"Shellfish",items:["Oysters (the classic)","Clams","Mussels","Langoustines","Lobster","Crab","Scallops"] },
+          { cat:"Fish",     items:["Caviar (the ultimate)","Smoked Salmon","Sushi & Sashimi","Sea Bass","Sole","Turbot"] },
+          { cat:"Poultry",  items:["Fried Chicken (surprising but iconic)","Roasted Chicken","Turkey","Quail"] },
+          { cat:"Other",    items:["Fish & Chips","Tempura","Light Charcuterie","Potato Chips (yes, really)"] },
+          { cat:"Avoid",    items:["Heavy red meat (overpowers the wine)","Rich tomato sauces","Very spicy dishes"] },
+        ],
+        preps:[
+          { style:"Raw Bar",             desc:"Oysters, clams, sea urchin — the bubbles and acidity are born for this" },
+          { style:"Fried Preparations",  desc:"Bubbles cut through oil magnificently — fried chicken, tempura, fish & chips" },
+          { style:"Butter Sauce (Blanc)",desc:"Beurre blanc over fish — Champagne's richness meets buttery elegance" },
+          { style:"Caviar Service",      desc:"Blini, crème fraîche, caviar — the luxury pairing that defines an era" },
+          { style:"Citrus & Herb Dressed",desc:"Light citrus vinaigrettes on seafood salads — acidity mirrors the wine" },
+          { style:"Simple & Unadorned",  desc:"Champagne needs no help — serve with the simplest, freshest preparations" },
+        ],
+        cheeses:[
+          { name:"Brie de Meaux",      note:"The classic Champagne cheese — creamy, soft, and from the same region" },
+          { name:"Comté (mild-medium)",note:"Nutty and clean — doesn't fight the wine's delicate bubbles" },
+          { name:"Chaource",          note:"Creamy Champagne-region cheese — drinking local never tasted better" },
+          { name:"Fresh Chèvre",      note:"Tangy freshness works beautifully with Blanc de Blancs style" },
+          { name:"Aged Gruyère",      note:"Toasted hazelnut in both wine and cheese — understated excellence" },
+          { name:"Avoid: Strong blues",note:"Overpowering — crush the wine's delicate aromatics" },
+        ],
+      },
+      // ── DESSERT ───────────────────────────────────────────────────────────────
+      { id:"sauternes", name:"Sauternes", type:"dessert", body:"Full (Sweet)", origin:"Bordeaux, France",
+        tagline:"Liquid gold — botrytis-affected nectar that is one of the world's greatest wines.",
+        proteins:[
+          { cat:"Foie Gras",items:["Sautéed Foie Gras","Foie Gras Terrine","Foie Gras Torchon — the legendary pairing"] },
+          { cat:"Seafood",  items:["Lobster (sweet-salty contrast)","Crab","Scallops with light sweetness","Langoustines"] },
+          { cat:"Poultry",  items:["Roasted Duck (fruit sauce)","Chicken with Peach or Apricot","Roast Pork (fruit glaze)"] },
+          { cat:"Dessert",  items:["Crème Brûlée","Fruit Tarts (peach, apricot)","Tarte Tatin","Honey-based Desserts"] },
+          { cat:"Avoid",    items:["Chocolate (clashes — too bitter)","Very spicy food","Heavy red meats"] },
+        ],
+        preps:[
+          { style:"Foie Gras Preparations",  desc:"The greatest food pairing in wine — sweet wine, rich liver, perfection" },
+          { style:"Stone Fruit Glazes",       desc:"Peach, apricot, and quince preparations mirror Sauternes' own flavors" },
+          { style:"Sweet-Savory Contrast",    desc:"Sauternes with salty blue cheese is one of the world's legendary pairings" },
+          { style:"Honey-Based Dishes",       desc:"Honey in preparation echoes botrytis honey in the wine" },
+          { style:"Crème & Custard",          desc:"Crème brûlée, pots de crème — the classic French dessert pairing" },
+          { style:"Lobster with Light Cream", desc:"Sweet wine vs sweet lobster with cream — decadent and spectacular" },
+        ],
+        cheeses:[
+          { name:"Roquefort",                   note:"The most celebrated pairing in wine — salty blue vs sweet gold" },
+          { name:"Gorgonzola (aged)",            note:"Italian blue alternative — intense, salty, stunning against Sauternes" },
+          { name:"Stilton",                     note:"The English blue — rich and crumbly, equally brilliant with sweet wine" },
+          { name:"Époisses",                   note:"Pungent washed rind — intense salty contrast to the wine's sweetness" },
+          { name:"Comté (aged — for contrast)", note:"Nutty intensity against sweetness — works in smaller quantities" },
+        ],
+      },
+      { id:"tokaji", name:"Tokaji Aszú", type:"dessert", body:"Full (Sweet)", origin:"Tokaj, Hungary",
+        tagline:"The King of Wines — ancient, complex, and one of Europe's most storied dessert wines.",
+        proteins:[
+          { cat:"Foie Gras",items:["Foie Gras Terrine","Sautéed Foie Gras — mirrors the Sauternes pairing perfectly"] },
+          { cat:"Seafood",  items:["Lobster","Scallops (lightly prepared)","Langoustines"] },
+          { cat:"Asian",    items:["Duck with Plum Sauce","Peking Duck","Asian Sweet-Salty preparations","Pork Belly (Chinese)"] },
+          { cat:"Dessert",  items:["Crème Brûlée","Fruit Tarts","Hungarian Pastries (rétes/strudel)","Apricot Desserts"] },
+          { cat:"Avoid",    items:["Bitter chocolate (dark)","Heavily spiced food","Acidic tomato-based dishes"] },
+        ],
+        preps:[
+          { style:"Foie Gras",           desc:"As with Sauternes — the pinnacle of sweet wine and foie gras" },
+          { style:"Asian Sweet-Salty",   desc:"Tokaji's high acidity handles the sweet-salty-umami of Asian cuisine" },
+          { style:"Apricot & Stone Fruit",desc:"Apricot is Tokaji's dominant note — mirror it in preparations" },
+          { style:"Hungarian Classics",  desc:"Rétes (strudel), honey cake, fruit dumplings — the homeland pairings" },
+          { style:"Aged Cheese Board",   desc:"Served with blue cheese and honeycomb — a spectacular finish to a meal" },
+        ],
+        cheeses:[
+          { name:"Roquefort",             note:"The blue cheese pairing applies here as powerfully as with Sauternes" },
+          { name:"Aged Comté (30 month)", note:"Long-aged nuttiness and fruit against Tokaji's honey and apricot" },
+          { name:"Manchego (Viejo)",      note:"Crystalline, nutty aged sheep — works beautifully as a contrast" },
+          { name:"Gorgonzola Piccante",   note:"Aged, crumbly, intense blue — the contrast pairing at its best" },
+          { name:"Pálpusztai",           note:"Hungary's own pungent washed-rind cheese — the ultimate local pairing" },
+        ],
+      },
+      // ── FORTIFIED ─────────────────────────────────────────────────────────────
+      { id:"ruby-port", name:"Ruby Port", type:"fortified", body:"Full (Sweet)", origin:"Douro Valley, Portugal",
+        tagline:"Deep, dark, and fruit-driven — the entry point to the world of Port.",
+        proteins:[
+          { cat:"Dessert",    items:["Dark Chocolate","Chocolate Truffles","Chocolate Cake","Brownies","Chocolate Fondant"] },
+          { cat:"Cheese",     items:["Stilton (the legendary pairing)","Strong Blue Cheese","Aged Cheddar"] },
+          { cat:"Game",       items:["Game Pâté","Duck Liver Pâté","Venison (rich braise)"] },
+          { cat:"Charcuterie",items:["Aged Cured Meats","Salami (strong)","Chorizo"] },
+          { cat:"Other",      items:["Mixed Nuts","Dried Fruits","Fruit & Nut Cake","Christmas Pudding"] },
+        ],
+        preps:[
+          { style:"Dark Chocolate Preparations",desc:"The defining Ruby Port pairing — fruit-driven wine vs bitter chocolate" },
+          { style:"Cheese Board Finish",        desc:"Served after dinner with Stilton — a British tradition of highest order" },
+          { style:"Berry-Based Desserts",       desc:"Ruby's dark cherry and raspberry notes mirror berry desserts beautifully" },
+          { style:"Pâté & Game",               desc:"Rich, earthy pâtés match Ruby Port's dark fruit and sweetness" },
+          { style:"Fruit & Nut Preparations",  desc:"Walnuts, pecans, dried cherries — mirror the wine's own flavour profile" },
+        ],
+        cheeses:[
+          { name:"Stilton",              note:"The most celebrated Port pairing — crumbly blue, dark sweet wine" },
+          { name:"Aged Cheddar (5 yr)",  note:"Sharp, crystalline cheddar against Port's sweetness — classic British" },
+          { name:"Gorgonzola (Piccante)",note:"Aged Italian blue — intense salty contrast to Ruby's dark fruit" },
+          { name:"Strong Roquefort",     note:"The French blue alternative — equally powerful, equally stunning" },
+          { name:"Manchego (aged)",      note:"Nutty firmness — a gentler pairing for those who prefer less intensity" },
+        ],
+      },
+      { id:"tawny-port", name:"Tawny Port", type:"fortified", body:"Full (Sweet, Oxidative)", origin:"Douro Valley, Portugal",
+        tagline:"Nutty, caramel, and dried fruit — aged oxidatively for a completely different soul than Ruby.",
+        proteins:[
+          { cat:"Dessert",    items:["Crème Brûlée","Pecan Pie","Toffee Pudding","Walnut Cake","Tiramisu","Tarte Tatin"] },
+          { cat:"Nuts",       items:["Roasted Walnuts","Pecans","Almonds","Hazelnuts","Nut Brittle","Praline"] },
+          { cat:"Dried Fruit",items:["Dried Figs","Medjool Dates","Dried Apricots","Raisins","Prunes — mirrors the wine itself"] },
+          { cat:"Cheese",     items:["Aged Gouda (5+ yr)","Aged Comté","Manchego (Viejo)","Stilton"] },
+          { cat:"Other",      items:["Crème Caramel","Bread & Butter Pudding","Mince Pies","Panettone"] },
+        ],
+        preps:[
+          { style:"Caramel & Toffee",        desc:"Tawny's caramel and toffee notes find their mirror in these preparations" },
+          { style:"Nut-Based Desserts",       desc:"Pecan pie, walnut cake, praline — the nut affinity is extraordinary" },
+          { style:"Dried Fruit Preparations", desc:"Figs, dates, prunes — the wine's own flavors reflected in the dish" },
+          { style:"Crème Brûlée",            desc:"Caramelized sugar top mirrors Tawny's oxidative richness perfectly" },
+          { style:"Cheese & Honey Board",    desc:"Aged cheeses with honeycomb — Tawny as the accompaniment, not the dessert" },
+          { style:"Biscotti & Cantuccini",   desc:"The Italian-Portuguese crossover — almond biscotti for dipping" },
+        ],
+        cheeses:[
+          { name:"Aged Gouda (5–8 yr)",note:"Crystalline caramel in the cheese mirrors caramel in the Tawny — outstanding" },
+          { name:"Comté (36 month)",   note:"Long-aged toasted nut complexity — one of the best Tawny pairings" },
+          { name:"Manchego (Viejo)",   note:"Nutty, crystalline sheep's milk — the Spanish bridge to Portuguese wine" },
+          { name:"Stilton",            note:"Works with Tawny as it does with Ruby — but the nutty style suits even better" },
+          { name:"Aged Mimolette",     note:"Caramel, butterscotch notes — almost mirrors the wine in cheese form" },
         ],
       },
     ];
 
-    const PROTEIN_FILTERS = ["All","Beef","Lamb","Pork","Poultry","Seafood","Fish","Game","Vegetarian","Charcuterie","Asian"];
-    const TYPE_FILTERS = ["All","Red","White","Rosé"];
+    const PROTEIN_FILTERS = ["All","Beef","Lamb","Pork","Poultry","Seafood","Fish","Game","Vegetarian","Charcuterie","Asian","Dessert & Cheese"];
+    const TYPE_FILTERS    = ["All","Red","White","Rosé","Sparkling","Dessert","Fortified"];
 
-    // ── COMPONENT ────────────────────────────────────────────────────────────
     function WinePairing() {
-      const [search, setSearch] = useState("");
-      const [typeFilter, setTypeFilter] = useState("All");
+      const [search, setSearch]               = useState("");
+      const [typeFilter, setTypeFilter]       = useState("All");
       const [proteinFilter, setProteinFilter] = useState("All");
-      const [expanded, setExpanded] = useState(null);
-      const [activeTab, setActiveTab] = useState({});
+      const [expanded, setExpanded]           = useState(null);
+      const [activeTab, setActiveTab]         = useState({});
 
-      const filtered = useMemo(() => {
-        return GRAPES.filter(g => {
-          const matchType = typeFilter === "All" || g.type === typeFilter.toLowerCase().replace("é","e");
-          const matchSearch = !search || g.name.toLowerCase().includes(search.toLowerCase());
-          const matchProtein = proteinFilter === "All" ||
-            g.proteins.some(p => p.cat.toLowerCase().includes(proteinFilter.toLowerCase()) &&
-              p.cat !== "Avoid");
-          return matchType && matchSearch && matchProtein;
-        });
-      }, [search, typeFilter, proteinFilter]);
+      const filtered = useMemo(() => GRAPES.filter(g => {
+        const matchType    = typeFilter === "All" || g.type === typeFilter.toLowerCase().replace("é","e").replace(" ","");
+        const matchSearch  = !search || g.name.toLowerCase().includes(search.toLowerCase());
+        const matchProtein = proteinFilter === "All" ||
+          g.proteins.some(p => p.cat.toLowerCase().includes(proteinFilter.toLowerCase()) && p.cat !== "Avoid");
+        return matchType && matchSearch && matchProtein;
+      }), [search, typeFilter, proteinFilter]);
 
       const toggle = (id) => {
         setExpanded(e => e === id ? null : id);
@@ -792,13 +862,11 @@
 
       return (
         <div style={st.root}>
-          {/* Search */}
           <div style={st.searchWrap}>
-            <input style={st.search} placeholder="Search grape variety…"
+            <input style={st.search} placeholder="Search grape or wine style…"
               value={search} onChange={e => setSearch(e.target.value)}/>
           </div>
 
-          {/* Type Filter */}
           <div style={st.filterRow}>
             {TYPE_FILTERS.map(f => (
               <button key={f}
@@ -807,7 +875,6 @@
             ))}
           </div>
 
-          {/* Protein Filter */}
           <div style={st.filterLabel}>Filter by protein:</div>
           <div style={st.filterRow}>
             {PROTEIN_FILTERS.map(f => (
@@ -817,13 +884,12 @@
             ))}
           </div>
 
-          <div style={st.count}>{filtered.length} {filtered.length===1?"grape":"grapes"}</div>
+          <div style={st.count}>{filtered.length} {filtered.length===1?"wine":"wines"}</div>
 
-          {/* Cards */}
           {filtered.map(g => {
-            const col = C[g.type] || C.red;
+            const col    = C[g.type] || C.red;
             const isOpen = expanded === g.id;
-            const tab = activeTab[g.id] || "proteins";
+            const tab    = activeTab[g.id] || "proteins";
             return (
               <div key={g.id} style={{...st.card, background: col.bg}}>
                 <div style={st.cardTop} onClick={() => toggle(g.id)}>
@@ -862,9 +928,7 @@
                             </div>
                             <div style={st.pills}>
                               {p.items.map((item,j) => (
-                                <span key={j} style={{...st.pill, ...(p.cat==="Avoid"?st.pillAvoid:{})}}>
-                                  {item}
-                                </span>
+                                <span key={j} style={{...st.pill, ...(p.cat==="Avoid"?st.pillAvoid:{})}}>{item}</span>
                               ))}
                             </div>
                           </div>
@@ -902,81 +966,48 @@
           })}
 
           {filtered.length === 0 && (
-            <div style={st.empty}>No grapes match your filters.</div>
+            <div style={st.empty}>No wines match your filters.</div>
           )}
         </div>
       );
     }
 
     const st = {
-      root: {
-        fontFamily:"Georgia,'Times New Roman',serif",
-        background:"transparent",
-        padding:"0 0 60px",
-        color:"#2C1A0E",
-      },
-      searchWrap: { padding:"20px 14px 0" },
-      search: {
-        width:"100%", padding:"10px 14px", fontSize:14,
-        border:"1px solid #D9C8A8", borderRadius:8, outline:"none",
-        background:"#FFF9F0", fontFamily:"Georgia,serif", color:"#2C1A0E",
-        boxSizing:"border-box",
-      },
-      filterRow: { display:"flex", gap:6, flexWrap:"wrap", padding:"10px 14px 0" },
-      filterLabel: { fontSize:10, color:"#9C8060", padding:"10px 14px 0", textTransform:"uppercase", letterSpacing:"0.5px" },
-      chip: {
-        padding:"4px 11px", borderRadius:20, border:"1px solid #D9C8A8",
-        background:"transparent", fontSize:11.5, cursor:"pointer",
-        fontFamily:"Georgia,serif", color:"#6B4C2A",
-      },
-      chipActive: { background:"#5C1A1A", color:"#fff", borderColor:"#5C1A1A" },
-      chipActiveProtein: { background:"#3A6B3A", color:"#fff", borderColor:"#3A6B3A" },
-      count: { fontSize:11, color:"#9C8060", padding:"8px 14px 4px", fontStyle:"italic" },
-      card: {
-        margin:"8px 14px",
-        borderRadius:10,
-        border:"1px solid #D9C8A8",
-        overflow:"hidden",
-        boxShadow:"0 1px 6px rgba(0,0,0,0.05)",
-      },
-      cardTop: {
-        display:"flex", justifyContent:"space-between", alignItems:"flex-start",
-        padding:"14px", cursor:"pointer",
-      },
-      cardName: { fontSize:17, fontWeight:"bold", color:"#2C1A0E" },
-      cardMeta: { fontSize:10, color:"#9C8060", marginTop:2, fontStyle:"italic" },
-      cardTagline: { fontSize:12, color:"#6B4C2A", marginTop:4, lineHeight:1.5 },
-      cardRight: { display:"flex", flexDirection:"column", alignItems:"flex-end", gap:6 },
-      badge: { fontSize:10, padding:"3px 10px", borderRadius:12, fontWeight:"bold" },
-      arrow: { fontSize:10, color:"#9C8060" },
-      tagline: { fontSize:12, color:"#6B4C2A", fontStyle:"italic", padding:"0 14px 10px", lineHeight:1.5 },
-      tabs: { display:"flex", borderBottom:"1px solid #D9C8A8", background:"rgba(255,255,255,0.5)" },
-      tab: {
-        flex:1, padding:"9px 4px", border:"none", borderBottom:"2px solid transparent",
-        background:"transparent", fontSize:11, cursor:"pointer",
-        fontFamily:"Georgia,serif", color:"#6B4C2A",
-      },
-      tabActive: { fontWeight:"bold", color:"#2C1A0E", borderBottom:"2px solid" },
-      tabContent: { padding:"12px 14px" },
-      section: { marginBottom:10 },
-      avoidSection: { background:"#FFF0F0", borderRadius:6, padding:"6px 8px", marginBottom:8 },
-      sectionLabel: {
-        fontSize:10, fontWeight:"bold", color:"#8B6914",
-        textTransform:"uppercase", letterSpacing:"0.5px", marginBottom:5,
-      },
-      pills: { display:"flex", flexWrap:"wrap", gap:5 },
-      pill: {
-        fontSize:11, padding:"3px 10px", borderRadius:12,
-        background:"rgba(255,255,255,0.8)", border:"1px solid #D9C8A8", color:"#2C1A0E",
-      },
-      pillAvoid: { background:"#FDE8E8", borderColor:"#C87070", color:"#8C2B2B" },
-      prepRow: { padding:"8px 0", borderBottom:"1px solid rgba(217,200,168,0.5)" },
-      prepStyle: { fontSize:12, fontWeight:"bold", color:"#2C1A0E", marginBottom:3 },
-      prepDesc: { fontSize:11.5, color:"#5C4030", lineHeight:1.6 },
-      cheeseRow: { padding:"8px 0", borderBottom:"1px solid rgba(217,200,168,0.5)" },
-      cheeseName: { fontSize:12, fontWeight:"bold", color:"#2C1A0E", marginBottom:3 },
-      cheeseNote: { fontSize:11.5, color:"#5C4030", lineHeight:1.5 },
-      empty: { textAlign:"center", padding:"40px", color:"#9C8060", fontStyle:"italic" },
+      root:             { fontFamily:"Georgia,'Times New Roman',serif", background:"transparent", padding:"0 0 60px", color:"#2C1A0E" },
+      searchWrap:       { padding:"20px 14px 0" },
+      search:           { width:"100%", padding:"10px 14px", fontSize:14, border:"1px solid #D9C8A8", borderRadius:8, outline:"none", background:"#FFF9F0", fontFamily:"Georgia,serif", color:"#2C1A0E", boxSizing:"border-box" },
+      filterRow:        { display:"flex", gap:6, flexWrap:"wrap", padding:"10px 14px 0" },
+      filterLabel:      { fontSize:10, color:"#9C8060", padding:"10px 14px 0", textTransform:"uppercase", letterSpacing:"0.5px" },
+      chip:             { padding:"4px 11px", borderRadius:20, border:"1px solid #D9C8A8", background:"transparent", fontSize:11.5, cursor:"pointer", fontFamily:"Georgia,serif", color:"#6B4C2A" },
+      chipActive:       { background:"#5C1A1A", color:"#fff", borderColor:"#5C1A1A" },
+      chipActiveProtein:{ background:"#3A6B3A", color:"#fff", borderColor:"#3A6B3A" },
+      count:            { fontSize:11, color:"#9C8060", padding:"8px 14px 4px", fontStyle:"italic" },
+      card:             { margin:"8px 14px", borderRadius:10, border:"1px solid #D9C8A8", overflow:"hidden", boxShadow:"0 1px 6px rgba(0,0,0,0.05)" },
+      cardTop:          { display:"flex", justifyContent:"space-between", alignItems:"flex-start", padding:"14px", cursor:"pointer" },
+      cardName:         { fontSize:17, fontWeight:"bold", color:"#2C1A0E" },
+      cardMeta:         { fontSize:10, color:"#9C8060", marginTop:2, fontStyle:"italic" },
+      cardTagline:      { fontSize:12, color:"#6B4C2A", marginTop:4, lineHeight:1.5 },
+      cardRight:        { display:"flex", flexDirection:"column", alignItems:"flex-end", gap:6 },
+      badge:            { fontSize:10, padding:"3px 10px", borderRadius:12, fontWeight:"bold" },
+      arrow:            { fontSize:10, color:"#9C8060" },
+      tagline:          { fontSize:12, color:"#6B4C2A", fontStyle:"italic", padding:"0 14px 10px", lineHeight:1.5 },
+      tabs:             { display:"flex", borderBottom:"1px solid #D9C8A8", background:"rgba(255,255,255,0.5)" },
+      tab:              { flex:1, padding:"9px 4px", border:"none", borderBottom:"2px solid transparent", background:"transparent", fontSize:11, cursor:"pointer", fontFamily:"Georgia,serif", color:"#6B4C2A" },
+      tabActive:        { fontWeight:"bold", color:"#2C1A0E", borderBottom:"2px solid" },
+      tabContent:       { padding:"12px 14px" },
+      section:          { marginBottom:10 },
+      avoidSection:     { background:"#FFF0F0", borderRadius:6, padding:"6px 8px", marginBottom:8 },
+      sectionLabel:     { fontSize:10, fontWeight:"bold", color:"#8B6914", textTransform:"uppercase", letterSpacing:"0.5px", marginBottom:5 },
+      pills:            { display:"flex", flexWrap:"wrap", gap:5 },
+      pill:             { fontSize:11, padding:"3px 10px", borderRadius:12, background:"rgba(255,255,255,0.8)", border:"1px solid #D9C8A8", color:"#2C1A0E" },
+      pillAvoid:        { background:"#FDE8E8", borderColor:"#C87070", color:"#8C2B2B" },
+      prepRow:          { padding:"8px 0", borderBottom:"1px solid rgba(217,200,168,0.5)" },
+      prepStyle:        { fontSize:12, fontWeight:"bold", color:"#2C1A0E", marginBottom:3 },
+      prepDesc:         { fontSize:11.5, color:"#5C4030", lineHeight:1.6 },
+      cheeseRow:        { padding:"8px 0", borderBottom:"1px solid rgba(217,200,168,0.5)" },
+      cheeseName:       { fontSize:12, fontWeight:"bold", color:"#2C1A0E", marginBottom:3 },
+      cheeseNote:       { fontSize:11.5, color:"#5C4030", lineHeight:1.5 },
+      empty:            { textAlign:"center", padding:"40px", color:"#9C8060", fontStyle:"italic" },
     };
 
     ReactDOM.createRoot(document.getElementById('pairing-root')).render(<WinePairing />);
