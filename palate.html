@@ -1,0 +1,576 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Palate &amp; Structure — Kazmi Cellars</title>
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    #palate-root { max-width: 860px; margin: 0 auto; padding: 0 0 3rem; }
+  </style>
+</head>
+<body>
+
+  <header class="site-header">
+    <div class="header-grid">
+      <a href="index.html" class="header-icon header-icon-left">
+        <img src="logo-glass.png" alt="Kazmi Cellars">
+      </a>
+      <a href="index.html" class="header-brand">
+        <img src="kazmi-cellars-logo.png" alt="Kazmi Cellars">
+        <span class="logo-tagline">Journey Through Wine With Us</span>
+      </a>
+      <a href="index.html" class="header-icon header-icon-right">
+        <img src="logo-glass.png" alt="Kazmi Cellars">
+      </a>
+    </div>
+    <nav>
+      <ul class="nav-links">
+        <li><a href="our-story.html">Our Story</a></li>
+        <li><a href="wineries.html">Wineries</a></li>
+        <li><a href="regions.html">Regions</a></li>
+        <li><a href="restaurants.html">Restaurants</a></li>
+        <li><a href="bottles.html">This Week's Bottles</a></li>
+        <li><a href="posts.html">Posts</a></li>
+        <li><a href="gallery.html">Gallery</a></li>
+        <li><a href="cellar.html">The Cellar</a></li>
+        <li><a href="wine-ink.html">Wine Ink</a></li>
+        <li><a href="education.html">Education</a></li>
+        <li><a href="pairing.html">Pairing</a></li>
+        <li><a href="aromas.html">Aromas</a></li>
+        <li><a href="palate.html" class="active">Palate</a></li>
+        <li><a href="goods.html">Cellar Goods</a></li>
+        <li><a href="newsletter.html">Newsletter</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <div class="page-header">
+    <div style="max-width:780px;margin:0 auto;text-align:center;">
+      <p class="section-label">Interactive Tool</p>
+      <h1 class="section-title">Palate &amp; <em>Structure</em></h1>
+      <p style="font-size:.95rem;color:var(--text-mid);line-height:1.8;max-width:560px;margin:0 auto;">
+        What does this wine actually taste like? Tannin, acidity, body, finish — with mouthfeel notes and drinking windows for every grape.
+      </p>
+    </div>
+  </div>
+
+  <main>
+    <div id="palate-root"></div>
+  </main>
+
+  <footer class="site-footer">
+    <span class="footer-logo">Kazmi Cellars</span>
+    <ul class="footer-links">
+      <li><a href="terms.html">Terms &amp; Conditions</a></li>
+      <li><a href="privacy.html">Privacy Policy</a></li>
+      <li><a href="editorial.html">Editorial Policy</a></li>
+    </ul>
+    <hr class="footer-divider">
+    <div class="footer-bottom">
+      <span class="footer-copy">© 2026 Kazmi Cellars · All Rights Reserved</span>
+      <span class="footer-social">kazmicellars@gmail.com &nbsp;·&nbsp; @kazmicellars</span>
+    </div>
+  </footer>
+
+  <script src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+  <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+  <script type="text/babel">
+    const { useState, useMemo } = React;
+
+    const C = {
+      red:       { bg:"#FAF0ED", badge:"#8C2B2B", badgeText:"#fff", accent:"#8C2B2B" },
+      white:     { bg:"#EEF2FA", badge:"#2B4F8C", badgeText:"#fff", accent:"#2B4F8C" },
+      rose:      { bg:"#FAF0F4", badge:"#A0344A", badgeText:"#fff", accent:"#A0344A" },
+      sparkling: { bg:"#FAFAEA", badge:"#8B7A14", badgeText:"#fff", accent:"#8B7A14" },
+      dessert:   { bg:"#FEF5E4", badge:"#9B6010", badgeText:"#fff", accent:"#9B6010" },
+      fortified: { bg:"#F5EAF8", badge:"#5C2A7A", badgeText:"#fff", accent:"#5C2A7A" },
+    };
+
+    const Bar = ({ value, max=5, color }) => (
+      <div style={{ display:"flex", alignItems:"center", gap:6 }}>
+        <div style={{ flex:1, height:6, background:"#E8DCC8", borderRadius:3, overflow:"hidden" }}>
+          <div style={{ width:`${(value/max)*100}%`, height:"100%", background:color, borderRadius:3, transition:"width 0.3s" }}/>
+        </div>
+        <span style={{ fontSize:9, color:"#9C8060", width:12, textAlign:"right" }}>{value}/{max}</span>
+      </div>
+    );
+
+    const GRAPES = [
+      // ── RED ──────────────────────────────────────────────────────────────────
+      { id:"cab-sauv", name:"Cabernet Sauvignon", type:"red", origin:"Bordeaux, France",
+        tagline:"Power and precision — built to age, built for the table.",
+        tannin:5, acidity:3, body:5, sweetness:1, finish:5,
+        palate:["Blackcurrant","Dark Plum","Black Cherry","Cedar","Tobacco","Graphite","Dark Chocolate","Coffee (aged)"],
+        mouthfeel:"Firm, drying tannins with a full, structured body. Grippy on the gums. Significant weight on the palate.",
+        finishDesc:"Very long — cedar, dark fruit, and tobacco linger. Great vintages finish for 45–60+ seconds.",
+        structureNote:"The most tannic of the mainstream grapes. Needs protein and fat in food (or years in the cellar) to integrate. Never drink young Cab with delicate food.",
+        drinkingWindow:"Best with 5–15 years of age. Great examples can go 30–40 years.",
+      },
+      { id:"merlot", name:"Merlot", type:"red", origin:"Bordeaux, France",
+        tagline:"Plush and approachable — the welcoming side of Bordeaux.",
+        tannin:3, acidity:2, body:4, sweetness:1, finish:3,
+        palate:["Plum","Black Cherry","Blueberry","Mocha","Chocolate","Bay Leaf","Vanilla"],
+        mouthfeel:"Round and velvety. Softer tannins than Cabernet. Full-bodied but approachable even young. Plush mid-palate.",
+        finishDesc:"Medium-long. Chocolate, plum, and soft spice on the finish. Gentler than Cab.",
+        structureNote:"Merlot's softer tannins and lower acidity make it the most immediately drinkable of the Bordeaux varieties. Great for food pairing without the need to age.",
+        drinkingWindow:"Often enjoyable at 3–8 years. Premium examples age 15–25 years.",
+      },
+      { id:"pinot-noir", name:"Pinot Noir", type:"red", origin:"Burgundy, France",
+        tagline:"Silky and expressive — the most delicate of the great reds.",
+        tannin:2, acidity:4, body:2, sweetness:1, finish:4,
+        palate:["Red Cherry","Raspberry","Strawberry","Cranberry","Forest Floor","Mushroom","Cola","Spice"],
+        mouthfeel:"Silky and elegant. Light to medium body. Low tannin but vibrant acidity. Almost transparent in texture — you feel it more than you chew it.",
+        finishDesc:"Long and perfumed. Red fruit, earth, and dried flowers. In great Burgundy, the finish can be extraordinary — lingering forest and rose.",
+        structureNote:"Low tannin means it pairs with a wide range of foods including fish. The high acidity keeps it lively at the table. Never heavy — elegance over power.",
+        drinkingWindow:"Village level: 3–8 years. Premier/Grand Cru: 10–25 years.",
+      },
+      { id:"syrah", name:"Syrah / Shiraz", type:"red", origin:"Northern Rhône / Australia",
+        tagline:"Bold and spicy — pepper, dark fruit, and smoked meat on the palate.",
+        tannin:4, acidity:3, body:5, sweetness:1, finish:5,
+        palate:["Black Pepper","Dark Plum","Blackberry","Olive","Smoked Meat","Leather","Dark Chocolate","Iron"],
+        mouthfeel:"Full-bodied and structured. Firm tannins but less grippy than Cabernet. The pepper note hits mid-palate and is unmistakable. Often a slight iron or blood note.",
+        finishDesc:"Long and warming. Pepper, smoked meat, and dark fruit. Northern Rhône finishes with more elegance; Barossa finishes with more power.",
+        structureNote:"The rotundone compound (also in black pepper) is what gives Syrah its distinctive spice on the palate. This is a chemical fact, not just a descriptor. You are tasting the same molecule.",
+        drinkingWindow:"3–10 years most examples. Hermitage and Côte Rôtie: 15–30+ years.",
+      },
+      { id:"grenache", name:"Grenache / Garnacha", type:"red", origin:"Southern Rhône / Spain",
+        tagline:"Warm and spiced — high alcohol, soft tannins, and dried herb complexity.",
+        tannin:2, acidity:2, body:4, sweetness:2, finish:3,
+        palate:["Red Cherry","Raspberry","Orange Peel","White Pepper","Licorice","Dried Herbs","Cinnamon"],
+        mouthfeel:"Round and generous. Low tannin with a soft, almost sweet texture. High alcohol gives warmth and weight. Very approachable. Can feel slightly jammy when overripe.",
+        finishDesc:"Medium. Spice and dried herbs linger. Sometimes a warming alcohol note on the finish.",
+        structureNote:"Low tannin and acidity means Grenache needs to be balanced by aromatic complexity and alcohol. Best examples have real spice and herb depth. Avoid overripe versions that taste purely of jam.",
+        drinkingWindow:"Generally drink within 5–10 years. Old vine examples can age 15+ years.",
+      },
+      { id:"sangiovese", name:"Sangiovese", type:"red", origin:"Tuscany, Italy",
+        tagline:"Tart and savory — the acidity that makes Italian food come alive.",
+        tannin:4, acidity:5, body:3, sweetness:1, finish:4,
+        palate:["Sour Cherry","Tomato","Dried Herbs","Leather","Iron","Tobacco","Dusty Earth"],
+        mouthfeel:"Medium-bodied with firm, drying tannins and very high acidity. The tartness is the point — it cuts through pasta, pizza, fatty meats. Can feel austere without food.",
+        finishDesc:"Long and savory. Leather, tobacco, sour cherry, and dried herbs. Aged Brunello has one of the longest finishes of any Italian wine.",
+        structureNote:"Sangiovese is the rare red that genuinely needs food — the high acidity and firm tannins taste harsh alone but transform at the table. A natural dining wine.",
+        drinkingWindow:"Chianti: 3–10 years. Brunello di Montalcino: 10–30 years.",
+      },
+      { id:"nebbiolo", name:"Nebbiolo", type:"red", origin:"Piedmont, Italy",
+        tagline:"Massive structure wrapped in perfume — the most demanding Italian grape.",
+        tannin:5, acidity:5, body:4, sweetness:1, finish:5,
+        palate:["Sour Cherry","Dried Rose","Licorice","Tobacco","Tar","Leather","Truffle","Dark Chocolate"],
+        mouthfeel:"Despite the pale color, the tannins are ferocious when young — mouth-coating, astringent, drying. Very high acidity. Full-bodied. Needs years to soften. When mature it transforms into something silky and sublime.",
+        finishDesc:"Extremely long. One of wine's great finishes — tar, roses, dried fruit, tobacco, and truffle can persist for a full minute in great Barolo.",
+        structureNote:"The tannin and acid combination in young Nebbiolo is genuinely challenging. It is not approachable young without food. The reward for patience is extraordinary — few wines are as complex after 15+ years.",
+        drinkingWindow:"Minimum 8–10 years. Great Barolo: 15–40 years.",
+      },
+      { id:"tempranillo", name:"Tempranillo", type:"red", origin:"Rioja, Spain",
+        tagline:"Earthy and dried-fruit driven — Spain's elegant national grape.",
+        tannin:3, acidity:3, body:3, sweetness:1, finish:3,
+        palate:["Dried Cherry","Leather","Tobacco","Tomato","Vanilla (American oak)","Coconut","Cedar","Dusty Earth"],
+        mouthfeel:"Medium body and tannins. The American oak influence in Rioja gives a distinctive vanilla and coconut sweetness on the palate. Smooth and approachable with food. Never aggressive.",
+        finishDesc:"Medium. Tobacco, dried cherry, vanilla, and leather. The oak signature is distinctive — dill and coconut from American oak, cedar from French oak.",
+        structureNote:"The American vs French oak debate defines Rioja's two major styles. American oak = sweeter, coconut/vanilla; French oak = more austere, cedar, minerality.",
+        drinkingWindow:"Joven/Crianza: 2–6 years. Reserva: 5–12 years. Gran Reserva: 10–25 years.",
+      },
+      { id:"malbec", name:"Malbec", type:"red", origin:"Mendoza, Argentina / Cahors, France",
+        tagline:"Dark and velvety — violet, dark plum, and smooth chocolate finish.",
+        tannin:3, acidity:3, body:4, sweetness:1, finish:3,
+        palate:["Dark Cherry","Black Plum","Blueberry","Violet","Cocoa","Coffee","Black Pepper","Mocha"],
+        mouthfeel:"Full-bodied and velvety. Tannins are present but rounded — approachable even young. Smooth chocolate texture on the mid-palate is Malbec's calling card.",
+        finishDesc:"Medium-long. Dark fruit, cocoa, and violet. High-altitude Uco Valley examples have fresher acidity and a longer, more mineral finish.",
+        structureNote:"Altitude dramatically changes Malbec's character. Low altitude Mendoza = rounder, jammier. High altitude Uco Valley = more structured, fresher acid, better finish.",
+        drinkingWindow:"Entry level: 1–5 years. Premium altitude examples: 5–15 years.",
+      },
+      { id:"zinfandel", name:"Zinfandel / Primitivo", type:"red", origin:"California / Puglia, Italy",
+        tagline:"Jammy and high-octane — bold fruit, spice, and BBQ soul.",
+        tannin:3, acidity:3, body:5, sweetness:2, finish:3,
+        palate:["Blackberry Jam","Dark Cherry","Black Pepper","Cinnamon","Anise","Chocolate","Tobacco","Dried Fruit"],
+        mouthfeel:"Full-bodied and robust. Medium tannins but the high alcohol (often 14.5–16%) gives significant warmth and weight. Can feel almost sweet from the ripe fruit even when technically dry.",
+        finishDesc:"Medium. Jammy fruit, pepper, and spice. Sometimes a warm alcohol note on the finish.",
+        structureNote:"Zinfandel's uneven ripening creates its characteristic mix of fresh and dried fruit on the palate. This is a feature, not a flaw.",
+        drinkingWindow:"Drink within 3–8 years. Old vine examples can age 10–15 years.",
+      },
+      { id:"mourvedre", name:"Mourvèdre / Monastrell", type:"red", origin:"Bandol / Jumilla, Spain",
+        tagline:"Wild and meaty — the most savory and animal of the mainstream reds.",
+        tannin:4, acidity:3, body:5, sweetness:1, finish:4,
+        palate:["Blackberry","Dark Plum","Black Olive","Leather","Smoked Meat","Iron","Licorice","Dried Herbs"],
+        mouthfeel:"Full-bodied with firm, chewy tannins. Very dense and structured. The savory, meaty quality on the palate is distinctive and polarizing.",
+        finishDesc:"Long and savory. Leather, smoked meat, and iron linger. One of the most uniquely flavored finishes in red wine.",
+        structureNote:"Mourvèdre is extremely sensitive to terroir and winemaking. Without enough heat and careful handling it becomes harsh and rustic. In the right hands (Bandol) it is extraordinary.",
+        drinkingWindow:"Needs 5+ years minimum. Bandol: 10–20 years.",
+      },
+      { id:"barbera", name:"Barbera", type:"red", origin:"Piedmont, Italy",
+        tagline:"Bright and juicy — the everyday Piemontese table red.",
+        tannin:2, acidity:5, body:3, sweetness:1, finish:2,
+        palate:["Sour Cherry","Red Plum","Blueberry","Dried Herbs","Leather (light)","Spice"],
+        mouthfeel:"Medium body with very high acidity and low tannin. Juicy and easy-drinking. Almost refreshing for a red wine. Great with food because the acidity cuts through everything.",
+        finishDesc:"Short to medium. Bright cherry and herb. Clean and fresh.",
+        structureNote:"Barbera's combination of high acid and low tannin makes it uniquely food-friendly. The everyday workhorse of Piemontese cuisine.",
+        drinkingWindow:"Drink within 3–7 years. Best young and fresh.",
+      },
+      { id:"cab-franc", name:"Cabernet Franc", type:"red", origin:"Loire Valley / Bordeaux",
+        tagline:"Herbal and elegant — silkier than Cab Sauvignon with more freshness.",
+        tannin:3, acidity:4, body:3, sweetness:1, finish:3,
+        palate:["Red Currant","Raspberry","Graphite","Pencil Shaving","Green Herb","Violet","Leather (light)"],
+        mouthfeel:"Medium body and tannins. Silkier and more aromatic than Cabernet Sauvignon. The herbal, pencil-shaving quality is distinctive on the palate — not just the nose.",
+        finishDesc:"Medium. Herbaceous, red fruit, and graphite. Loire examples finish with more freshness; Bordeaux examples with more weight.",
+        structureNote:"Cab Franc produces some of the Loire's most ageworthy wines (Chinon, Bourgueil). Massively underrated grape.",
+        drinkingWindow:"Drink at 3–10 years. Premium Loire examples: 10–20 years.",
+      },
+      { id:"carmenere", name:"Carménère", type:"red", origin:"Chile",
+        tagline:"Smoky and savory — dark fruit with a herbal, paprika backbone.",
+        tannin:3, acidity:3, body:4, sweetness:1, finish:3,
+        palate:["Dark Cherry","Black Plum","Smoked Paprika","Green Pepper","Chocolate","Tobacco","Dark Olive"],
+        mouthfeel:"Full-bodied and smooth with medium tannins. The herbal, green note is present on the palate. Riper examples show more dark chocolate and less green character.",
+        finishDesc:"Medium. Smoky spice and dark fruit. The paprika and herb character is the most distinctive finish note.",
+        structureNote:"Ripeness is the key debate with Carménère. Underripe = very green. Overripe = jammy. The sweet spot shows dark fruit plus savory spice.",
+        drinkingWindow:"Drink within 3–8 years.",
+      },
+      { id:"aglianico", name:"Aglianico", type:"red", origin:"Campania & Basilicata, Italy",
+        tagline:"Ancient and powerful — one of Italy's most tannic and age-worthy grapes.",
+        tannin:5, acidity:5, body:5, sweetness:1, finish:5,
+        palate:["Dark Cherry","Black Plum","Tobacco","Tar","Leather","Iron","Dark Chocolate","Coffee"],
+        mouthfeel:"Enormous — massive tannins, very high acidity, full body. One of the most structurally intense wines you will encounter. Virtually undrinkable young. Transforms dramatically with time.",
+        finishDesc:"Very long and warming. Tar, leather, tobacco, and iron. One of the great Italian finishes.",
+        structureNote:"Along with Nebbiolo, Aglianico is one of the two most structurally powerful Italian red grapes. The Barolo of the South — same philosophy, completely different terroir.",
+        drinkingWindow:"Minimum 8 years. Great examples: 15–30 years.",
+      },
+      { id:"nero-davola", name:"Nero d'Avola", type:"red", origin:"Sicily, Italy",
+        tagline:"Sun-drenched and bold — dark fruit, chocolate, and Sicilian warmth.",
+        tannin:3, acidity:3, body:4, sweetness:1, finish:3,
+        palate:["Dark Cherry","Black Plum","Dark Chocolate","Mocha","Licorice","Dried Herb","Leather"],
+        mouthfeel:"Full-bodied and warm. Medium tannins with a generous, round mid-palate. High alcohol gives warmth. Very approachable for such a dark, rich wine.",
+        finishDesc:"Medium-long. Dark chocolate, dried fruit, and spice. The warmth of the island stays through to the finish.",
+        structureNote:"Nero d'Avola is Sicily's answer to Syrah — similar profile but with more chocolate-mocha character and less pepper. Significantly undervalued for its quality level.",
+        drinkingWindow:"3–10 years. Old vine examples age 12–20 years.",
+      },
+      // ── WHITE ────────────────────────────────────────────────────────────────
+      { id:"chardonnay", name:"Chardonnay", type:"white", origin:"Burgundy, France",
+        tagline:"The full spectrum — from electric Chablis to rich buttery Napa.",
+        tannin:1, acidity:3, body:3, sweetness:1, finish:4,
+        palate:["Lemon Curd","Green Apple (unoaked)","Peach","Butter","Cream","Toasted Hazelnut","Vanilla"],
+        mouthfeel:"Highly variable by style. Unoaked/Chablis: lean, tense, almost electric. Oaked: creamy, round, textural. Malolactic fermentation adds a soft, buttery weight to the mid-palate.",
+        finishDesc:"Medium-long. Oaked styles: butter, hazelnut, cream. Unoaked styles: lemon, chalk, mineral.",
+        structureNote:"The butter note in Chardonnay comes from diacetyl, a byproduct of malolactic fermentation (MLF). MLF = butter. No MLF = crisp.",
+        drinkingWindow:"Basic: 1–3 years. White Burgundy: 5–15 years. Great Meursault/Montrachet: 15–25 years.",
+      },
+      { id:"sauv-blanc", name:"Sauvignon Blanc", type:"white", origin:"Loire Valley / New Zealand",
+        tagline:"Vivid and zesty — the sharpest, most refreshing white at the table.",
+        tannin:1, acidity:5, body:2, sweetness:1, finish:3,
+        palate:["Grapefruit","Lime","Lemon Zest","Gooseberry","Passionfruit","Fresh Cut Grass","Green Herb"],
+        mouthfeel:"Light to medium body. Very high acidity that makes the mouth water. Lean and crisp. Sometimes a slight textural weight from the thiol compounds (especially Marlborough).",
+        finishDesc:"Medium. Citrus, green herb, and mineral. Sancerre finishes with more chalk. Marlborough finishes with more tropical fruit.",
+        structureNote:"The thiols that give Sauvignon Blanc its passionfruit character are the same sulfur compounds found in grapefruit peel. They are activated during fermentation.",
+        drinkingWindow:"Drink within 1–3 years for most. Sancerre and Pouilly-Fumé: 3–8 years.",
+      },
+      { id:"riesling", name:"Riesling", type:"white", origin:"Mosel, Germany / Alsace",
+        tagline:"Laser precision — the highest acid-to-sweetness balance in white wine.",
+        tannin:1, acidity:5, body:2, sweetness:3, finish:5,
+        palate:["Lime","Green Apple","Apricot","White Peach","Mineral","Petrol (aged)","Honey (sweet styles)"],
+        mouthfeel:"Light-bodied but intense. The defining characteristic is the tension between high acidity and residual sweetness — they balance each other perfectly. Despite sweetness, it never feels heavy.",
+        finishDesc:"Very long. One of the longest-finishing white wines. Mineral, citrus, and apricot persist. Aged examples finish with petrol and honey.",
+        structureNote:"Riesling's acidity is so high it can balance extraordinary levels of sweetness — a TBA can have 300+ grams per litre of sugar but tastes balanced. Acidity is its superpower.",
+        drinkingWindow:"Kabinett/Spätlese: 5–20 years. Auslese/TBA: 20–50+ years.",
+      },
+      { id:"pinot-gris", name:"Pinot Gris / Pinot Grigio", type:"white", origin:"Alsace / Northern Italy",
+        tagline:"Two styles — crisp Italian lightness vs. rich, smoky Alsatian depth.",
+        tannin:1, acidity:2, body:2, sweetness:2, finish:2,
+        palate:["Pear","Green Apple","Lemon","White Peach (Alsace)","Honey (Alsace)","Almond","Smoked Notes (Alsace)"],
+        mouthfeel:"Italian style: light, crisp, slightly neutral. Alsatian style: full-bodied, round, almost oily texture with significant weight.",
+        finishDesc:"Italian: short and clean. Alsatian: medium-long with smoke, honey, and white truffle.",
+        structureNote:"The Alsatian style is one of the most misunderstood whites — people expect the Italian version and are surprised by the richness and slight bitterness at the finish.",
+        drinkingWindow:"Italian: 1–3 years. Alsatian: 3–10 years. Grand Cru: 10–20 years.",
+      },
+      { id:"gewurz", name:"Gewurztraminer", type:"white", origin:"Alsace, France",
+        tagline:"Explosive and exotic — lychee and rose hit the palate like nothing else.",
+        tannin:1, acidity:2, body:4, sweetness:3, finish:3,
+        palate:["Lychee","Rose Water","Ginger","Grapefruit","Apricot","Turkish Delight","Exotic Spice"],
+        mouthfeel:"Full-bodied and almost oily in texture. Low acidity gives a round, unctuously rich mouthfeel. Off-dry to slightly sweet in many examples even when labelled dry.",
+        finishDesc:"Medium. Spice, rose, and exotic fruit. Sometimes a slightly bitter grapefruit pith note at the very end.",
+        structureNote:"Gewurztraminer's low acidity is both its charm and its weakness — without acidity structure the wine can feel heavy and cloying over a meal.",
+        drinkingWindow:"3–8 years. Vendange Tardive styles: 10–20 years.",
+      },
+      { id:"viognier", name:"Viognier", type:"white", origin:"Northern Rhône — Condrieu",
+        tagline:"Lush and heady — stone fruit and florals with an almost oily richness.",
+        tannin:1, acidity:2, body:4, sweetness:2, finish:3,
+        palate:["Apricot","Peach","Honeysuckle","Ginger","Orange Blossom","Cream","Mango"],
+        mouthfeel:"Full-bodied and lush with a distinctive oily or unctuous texture from the grape's natural glycerol. Low acidity makes it round and soft.",
+        finishDesc:"Medium. Stone fruit and floral notes. Sometimes a slightly bitter almond note at the very end.",
+        structureNote:"Viognier's texture comes from natural glycerol — the same compound that creates 'tears' on the inside of the glass. It's not technically sweet but tastes rich because of this viscosity.",
+        drinkingWindow:"Drink within 3–5 years. Condrieu: 5–10 years.",
+      },
+      { id:"chenin", name:"Chenin Blanc", type:"white", origin:"Loire Valley / South Africa",
+        tagline:"Extraordinary range — from bone dry to lusciously sweet, always with great acidity.",
+        tannin:1, acidity:5, body:2, sweetness:3, finish:5,
+        palate:["Quince","Green Apple","Honey","Lanolin","Chamomile","Dried Apricot","Waxy Texture"],
+        mouthfeel:"The acidity is the defining feature — even very sweet styles have a refreshing tension. Dry Savennières can feel almost austere. Vouvray off-dry has the perfect sweet-acid balance.",
+        finishDesc:"Very long in quality examples. Mineral, quince, and honey. Aged Vouvray can finish for 30–50 seconds.",
+        structureNote:"Chenin Blanc is one of the most age-worthy white grapes in the world. The same acidity that makes it taste lean when young protects it as it develops complexity over decades.",
+        drinkingWindow:"Dry: 5–20 years. Sweet (Quarts de Chaume): 20–50+ years.",
+      },
+      { id:"albarino", name:"Albariño / Alvarinho", type:"white", origin:"Rías Baixas / Vinho Verde",
+        tagline:"Saline and citrusy — the ocean on the palate.",
+        tannin:1, acidity:4, body:2, sweetness:1, finish:3,
+        palate:["Lemon","Lime","Grapefruit","White Peach","Apricot","Saline","Almond","Mineral"],
+        mouthfeel:"Light to medium body with good acidity and a distinctive saline, almost briny quality on the palate. Refreshing and clean.",
+        finishDesc:"Medium. Citrus, almond, and saline mineral. The sea-spray quality stays through to the finish.",
+        structureNote:"The saline character in Albariño is genuinely terroir-driven — the proximity of Rías Baixas to the Atlantic Ocean influences the soil chemistry and the wine's mineral quality.",
+        drinkingWindow:"Drink within 1–4 years for freshness. Premium examples age 5–10 years.",
+      },
+      { id:"gruner", name:"Grüner Veltliner", type:"white", origin:"Wachau & Kamptal, Austria",
+        tagline:"Peppery and mineral — Austria's unmistakable signature on the palate.",
+        tannin:1, acidity:4, body:2, sweetness:1, finish:3,
+        palate:["White Pepper — the defining taste","Grapefruit","Lemon","Green Herb","Mineral","White Peach","Flint"],
+        mouthfeel:"Light to medium body with good acidity. The white pepper note isn't just aromatic — you taste it on the palate. Clean and precise.",
+        finishDesc:"Medium. White pepper, mineral, and citrus. The pepper note is the most distinctive finish in white wine.",
+        structureNote:"The white pepper character in Grüner Veltliner comes from rotundone — the same compound as in Syrah's black pepper. Austria's cool climate concentrates it beautifully.",
+        drinkingWindow:"Federspiel: 1–3 years. Smaragd: 5–15 years. Great examples: 15–25 years.",
+      },
+      { id:"assyrtiko", name:"Assyrtiko", type:"white", origin:"Santorini, Greece",
+        tagline:"Electric and saline — volcanic intensity with extraordinary acidity.",
+        tannin:1, acidity:5, body:3, sweetness:1, finish:4,
+        palate:["Lemon","Lime","Grapefruit","Saline","Volcanic Ash","Mineral","Flint","White Peach"],
+        mouthfeel:"Medium body but very high acidity — almost electric on the palate. Dry and precise with a distinct saline, almost rocky quality. Bracing in the best possible way.",
+        finishDesc:"Long and mineral. The volcanic mineral and saline quality persists. Almost austere but compelling.",
+        structureNote:"Santorini's basket-vine training protects grapes from extreme winds. The volcanic pumice soil gives the wine its distinctive ashy, saline character — not replicable anywhere else.",
+        drinkingWindow:"3–8 years. Barrel-aged Nykteri style: 8–15 years.",
+      },
+      // ── ROSÉ ─────────────────────────────────────────────────────────────────
+      { id:"provence-rose", name:"Rosé — Provence Style", type:"rose", origin:"Provence, France",
+        tagline:"Delicate and dry — fresh strawberry, mineral, and Mediterranean elegance.",
+        tannin:1, acidity:3, body:1, sweetness:1, finish:2,
+        palate:["Strawberry","Raspberry","White Peach","Citrus","Dried Herb","Mineral","Rose Water"],
+        mouthfeel:"Light-bodied, dry, and refreshing. Very clean and crisp. Almost no tannin. High-quality Provence rosé has a delicate texture that's more mineral and precise than simple fruit-forward versions.",
+        finishDesc:"Short to medium. Citrus, mineral, and fresh herb. Clean and dry.",
+        structureNote:"The best Provence rosés are made by direct pressing — very short skin contact. The pale color is intentional and a mark of quality in this style.",
+        drinkingWindow:"Drink within 1–3 years. Great for freshness.",
+      },
+      // ── SPARKLING ─────────────────────────────────────────────────────────────
+      { id:"champagne", name:"Champagne", type:"sparkling", origin:"Champagne, France",
+        tagline:"Effervescent and complex — brioche, citrus, and the finest bubbles in wine.",
+        tannin:1, acidity:5, body:2, sweetness:2, finish:4,
+        palate:["Lemon","Green Apple","Brioche","Toast","Cream","Chalk","White Cherry","Almond"],
+        mouthfeel:"The effervescence creates a completely unique mouthfeel — tiny bubbles (mousse) carry flavors across the palate differently than still wine. High acidity is balanced by dosage.",
+        finishDesc:"Long for a sparkling wine. Brioche, citrus, and chalk. Vintage Champagne and prestige cuvées finish with extraordinary complexity.",
+        structureNote:"Bubble size matters. Fine mousse (tiny bubbles) = quality. Large bubbles = lower quality or improper serving temperature. Serve at 8–10°C for optimal bubble behavior.",
+        drinkingWindow:"NV: drink within 3 years. Vintage: 8–20 years. Prestige cuvées: 15–30 years.",
+      },
+      // ── DESSERT ───────────────────────────────────────────────────────────────
+      { id:"sauternes", name:"Sauternes", type:"dessert", origin:"Bordeaux, France",
+        tagline:"Liquid gold — botrytis creates a sweetness balanced by extraordinary acidity.",
+        tannin:1, acidity:4, body:5, sweetness:5, finish:5,
+        palate:["Apricot Jam","Honey","Peach","Crème Brûlée","Vanilla","Saffron","Ginger","Tropical Fruit"],
+        mouthfeel:"Very sweet but never cloying — the high acidity cuts through the sweetness and keeps the wine fresh. Unctuous and viscous. Full-bodied. The texture is luxurious and distinctive.",
+        finishDesc:"Extremely long. Honey, apricot, saffron, and spice. Great Sauternes (Château d'Yquem) can finish for several minutes.",
+        structureNote:"Botrytis cinerea concentrates sugar, acidity, and glycerol simultaneously — this is why Sauternes is sweet but not flabby. The fungus also adds its own distinctive flavor compounds.",
+        drinkingWindow:"5–20 years for most. Great vintages (d'Yquem): 50–100 years.",
+      },
+      { id:"tokaji", name:"Tokaji Aszú", type:"dessert", origin:"Tokaj, Hungary",
+        tagline:"Apricot and fire — ancient Hungarian sweetness with volcanic mineral spine.",
+        tannin:1, acidity:5, body:4, sweetness:5, finish:5,
+        palate:["Apricot","Orange Marmalade","Honey","Ginger","Roasted Almond","Saffron","Volcanic Mineral"],
+        mouthfeel:"Sweet and viscous but with a vibrant, almost electric acidity underneath. Less unctuous than Sauternes — the volcanic terroir gives more tension.",
+        finishDesc:"Very long. Apricot, honey, mineral, and spice. The volcanic mineral note is what distinguishes Tokaji from other dessert wines.",
+        structureNote:"Tokaji uses a unique 'puttonyos' system measuring sweetness level (3–6 puttonyos, with Essencia being beyond scale) — like Riesling's Prädikat system.",
+        drinkingWindow:"5–20 years. Essencia: 50–100+ years.",
+      },
+      // ── FORTIFIED ─────────────────────────────────────────────────────────────
+      { id:"ruby-port", name:"Ruby Port", type:"fortified", origin:"Douro Valley, Portugal",
+        tagline:"Dark and sweet — fortified fruit with rich chocolate and dried berry.",
+        tannin:3, acidity:2, body:5, sweetness:5, finish:4,
+        palate:["Dark Cherry","Blackberry","Chocolate","Plum","Dried Fig","Coffee","Cinnamon","Raisin"],
+        mouthfeel:"Full-bodied and sweet with significant tannin — the tannic grip and sweetness create a distinctive combination. Warming from the fortification alcohol (around 20%). Viscous and rich.",
+        finishDesc:"Long. Dark fruit, chocolate, and warming spirit. The spirit notes integrate better with time.",
+        structureNote:"Port is fortified by adding grape spirit during fermentation — this stops fermentation and preserves the natural grape sugar. Ruby Port is aged in large tanks to preserve fresh, dark fruit character.",
+        drinkingWindow:"Ruby: drink now. LBV: 5–10 years. Vintage Port: 20–50 years.",
+      },
+      { id:"tawny-port", name:"Tawny Port", type:"fortified", origin:"Douro Valley, Portugal",
+        tagline:"Nutty and oxidative — caramel, dried fruit, and rancio complexity.",
+        tannin:2, acidity:2, body:4, sweetness:4, finish:4,
+        palate:["Caramel","Toffee","Dried Apricot","Walnut","Orange Peel","Coffee","Dried Fig","Rancio"],
+        mouthfeel:"Less tannic than Ruby because tannins have softened through oxidative aging. Silkier and nuttier. The sweetness is balanced by the nutty, slightly bitter rancio note.",
+        finishDesc:"Long and nutty. Caramel, roasted nuts, and dried fruit. The rancio note gives a distinctive slightly bitter, nutty finish.",
+        structureNote:"Tawny Port is aged in small oak barrels with deliberate oxygen exposure. This oxidation changes the color (ruby → tawny) and transforms the flavor completely. 10, 20, 30, 40 Year Tawny indicates average age of the blend.",
+        drinkingWindow:"Drink once opened (within 3 months refrigerated). Ready to drink when bottled.",
+      },
+    ];
+
+    const TYPE_FILTERS   = ["All","Red","White","Rosé","Sparkling","Dessert","Fortified"];
+    const STRUCT_FILTERS = ["All","High Tannin","High Acidity","Full Body","Food Friendly","Age Worthy"];
+
+    function PalateStructure() {
+      const [search, setSearch]             = useState("");
+      const [typeFilter, setTypeFilter]     = useState("All");
+      const [structFilter, setStructFilter] = useState("All");
+      const [expanded, setExpanded]         = useState(null);
+
+      const filtered = useMemo(() => GRAPES.filter(g => {
+        const matchType = typeFilter === "All" || g.type === typeFilter.toLowerCase().replace("é","e").replace(" ","");
+        const matchSearch = !search || g.name.toLowerCase().includes(search.toLowerCase());
+        const matchStruct = structFilter === "All" ||
+          (structFilter === "High Tannin"   && g.tannin >= 4) ||
+          (structFilter === "High Acidity"  && g.acidity >= 4) ||
+          (structFilter === "Full Body"     && g.body >= 4) ||
+          (structFilter === "Food Friendly" && g.acidity >= 3 && g.tannin <= 3) ||
+          (structFilter === "Age Worthy"    && g.finish >= 4 && (g.tannin >= 4 || g.acidity >= 4));
+        return matchType && matchSearch && matchStruct;
+      }), [search, typeFilter, structFilter]);
+
+      return (
+        <div style={st.root}>
+          <div style={st.controls}>
+            <input style={st.search} placeholder="Search grape…"
+              value={search} onChange={e => setSearch(e.target.value)}/>
+            <div style={st.filterRow}>
+              {TYPE_FILTERS.map(f => (
+                <button key={f}
+                  style={{...st.chip, ...(typeFilter===f ? st.chipActiveType : {})}}
+                  onClick={() => setTypeFilter(f)}>{f}</button>
+              ))}
+            </div>
+            <div style={st.filterLabel}>Filter by structure:</div>
+            <div style={st.filterRow}>
+              {STRUCT_FILTERS.map(f => (
+                <button key={f}
+                  style={{...st.chip, ...(structFilter===f ? st.chipActiveStruct : {})}}
+                  onClick={() => setStructFilter(f)}>{f}</button>
+              ))}
+            </div>
+          </div>
+
+          <div style={st.count}>{filtered.length} {filtered.length===1?"wine":"wines"}</div>
+
+          {filtered.map(g => {
+            const col = C[g.type] || C.red;
+            const isOpen = expanded === g.id;
+            return (
+              <div key={g.id} style={{...st.card, background: col.bg}}>
+                <div style={st.cardTop} onClick={() => setExpanded(isOpen ? null : g.id)}>
+                  <div style={{flex:1}}>
+                    <div style={st.cardName}>{g.name}</div>
+                    <div style={st.cardOrigin}>{g.origin}</div>
+                    <div style={st.miniStruct}>
+                      {[["T",g.tannin],["A",g.acidity],["B",g.body]].map(([l,v])=>(
+                        <div key={l} style={st.miniBar}>
+                          <span style={st.miniLabel}>{l}</span>
+                          <div style={st.miniTrack}>
+                            <div style={{...st.miniFill, width:`${(v/5)*100}%`, background: col.accent}}/>
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                  <div style={st.cardRight}>
+                    <span style={{...st.badge, background: col.badge, color: col.badgeText}}>
+                      {g.type.charAt(0).toUpperCase()+g.type.slice(1)}
+                    </span>
+                    <span style={st.arrow}>{isOpen ? "▲" : "▼"}</span>
+                  </div>
+                </div>
+
+                {isOpen && (
+                  <div style={st.expanded}>
+                    <div style={st.tagline}>{g.tagline}</div>
+
+                    <div style={st.structGrid}>
+                      {[
+                        ["Tannin",    g.tannin,    "Low → High",   "#8C2B2B"],
+                        ["Acidity",   g.acidity,   "Low → High",   "#2B4F8C"],
+                        ["Body",      g.body,      "Light → Full", "#5C1A1A"],
+                        ["Sweetness", g.sweetness, "Dry → Sweet",  "#9B6010"],
+                        ["Finish",    g.finish,    "Short → Long", "#3A6B3A"],
+                      ].map(([label, val, scale, color]) => (
+                        <div key={label} style={st.structRow}>
+                          <div style={st.structLabel}>{label}</div>
+                          <div style={st.structBarWrap}><Bar value={val} color={color}/></div>
+                          <div style={st.structScale}>{scale}</div>
+                        </div>
+                      ))}
+                    </div>
+
+                    <div style={st.divider}/>
+                    <div style={st.sectionLabel}>🍷 On the Palate</div>
+                    <div style={st.pills}>
+                      {g.palate.map((t,i) => (
+                        <span key={i} style={{...st.pill, borderColor: col.accent+"60", color: col.accent}}>{t}</span>
+                      ))}
+                    </div>
+
+                    <div style={st.divider}/>
+                    <div style={st.sectionLabel}>👄 Mouthfeel</div>
+                    <div style={st.bodyText}>{g.mouthfeel}</div>
+
+                    <div style={{...st.sectionLabel, marginTop:10}}>✨ Finish</div>
+                    <div style={st.bodyText}>{g.finishDesc}</div>
+
+                    <div style={st.noteBox}>
+                      <div style={st.noteTitle}>📖 Structure Note</div>
+                      <div style={st.noteText}>{g.structureNote}</div>
+                    </div>
+
+                    <div style={st.windowBox}>
+                      <span style={st.windowLabel}>🕐 Drinking Window: </span>
+                      <span style={st.windowText}>{g.drinkingWindow}</span>
+                    </div>
+                  </div>
+                )}
+              </div>
+            );
+          })}
+
+          {filtered.length === 0 && (
+            <div style={st.empty}>No wines match your filters.</div>
+          )}
+        </div>
+      );
+    }
+
+    const st = {
+      root:          { fontFamily:"Georgia,'Times New Roman',serif", background:"transparent", padding:"0 0 60px", color:"#2C1A0E" },
+      controls:      { padding:"20px 14px 0" },
+      search:        { width:"100%", padding:"10px 14px", fontSize:14, border:"1px solid #D9C8A8", borderRadius:8, outline:"none", background:"#FFF9F0", fontFamily:"Georgia,serif", color:"#2C1A0E", boxSizing:"border-box", marginBottom:10 },
+      filterRow:     { display:"flex", gap:6, flexWrap:"wrap", marginBottom:8 },
+      filterLabel:   { fontSize:10, color:"#9C8060", textTransform:"uppercase", letterSpacing:"0.5px", marginBottom:4 },
+      chip:          { padding:"4px 11px", borderRadius:20, border:"1px solid #D9C8A8", background:"transparent", fontSize:11, cursor:"pointer", fontFamily:"Georgia,serif", color:"#6B4C2A" },
+      chipActiveType:   { background:"#5C1A1A", color:"#fff", borderColor:"#5C1A1A" },
+      chipActiveStruct: { background:"#3A6B3A", color:"#fff", borderColor:"#3A6B3A" },
+      count:         { fontSize:11, color:"#9C8060", padding:"8px 14px 4px", fontStyle:"italic" },
+      card:          { margin:"8px 14px", borderRadius:10, border:"1px solid #D9C8A8", overflow:"hidden", boxShadow:"0 1px 6px rgba(0,0,0,0.05)" },
+      cardTop:       { display:"flex", justifyContent:"space-between", alignItems:"flex-start", padding:"12px 14px", cursor:"pointer" },
+      cardName:      { fontSize:17, fontWeight:"bold", color:"#2C1A0E" },
+      cardOrigin:    { fontSize:10, color:"#9C8060", marginTop:2, fontStyle:"italic" },
+      cardRight:     { display:"flex", flexDirection:"column", alignItems:"flex-end", gap:6, marginLeft:10 },
+      badge:         { fontSize:10, padding:"3px 10px", borderRadius:12, fontWeight:"bold", whiteSpace:"nowrap" },
+      arrow:         { fontSize:10, color:"#9C8060" },
+      miniStruct:    { display:"flex", flexDirection:"column", gap:3, marginTop:8 },
+      miniBar:       { display:"flex", alignItems:"center", gap:6 },
+      miniLabel:     { fontSize:9, color:"#9C8060", width:10, fontWeight:"bold" },
+      miniTrack:     { flex:1, height:4, background:"#E8DCC8", borderRadius:2, overflow:"hidden" },
+      miniFill:      { height:"100%", borderRadius:2 },
+      expanded:      { padding:"0 14px 16px" },
+      tagline:       { fontSize:12, color:"#6B4C2A", fontStyle:"italic", marginBottom:14, lineHeight:1.5 },
+      structGrid:    { display:"flex", flexDirection:"column", gap:8, marginBottom:14 },
+      structRow:     { display:"flex", alignItems:"center", gap:8 },
+      structLabel:   { fontSize:11, fontWeight:"bold", color:"#2C1A0E", width:68, flexShrink:0 },
+      structBarWrap: { flex:1 },
+      structScale:   { fontSize:9, color:"#9C8060", width:70, textAlign:"right", flexShrink:0 },
+      divider:       { height:1, background:"#E8DCC8", margin:"12px 0" },
+      sectionLabel:  { fontSize:10, fontWeight:"bold", color:"#5C1A1A", textTransform:"uppercase", letterSpacing:"0.6px", marginBottom:8 },
+      pills:         { display:"flex", flexWrap:"wrap", gap:6, marginBottom:4 },
+      pill:          { fontSize:11, padding:"4px 11px", borderRadius:16, background:"rgba(255,255,255,0.85)", border:"1px solid" },
+      bodyText:      { fontSize:12, color:"#3C2A1A", lineHeight:1.7 },
+      noteBox:       { background:"#FFF4E0", borderLeft:"3px solid #C8860A", borderRadius:"0 6px 6px 0", padding:"10px 12px", marginTop:12 },
+      noteTitle:     { fontSize:10, fontWeight:"bold", color:"#C8860A", textTransform:"uppercase", letterSpacing:"0.5px", marginBottom:4 },
+      noteText:      { fontSize:11.5, color:"#3C2A1A", lineHeight:1.65 },
+      windowBox:     { marginTop:10, padding:"8px 12px", background:"rgba(255,255,255,0.6)", borderRadius:6, border:"1px solid #D9C8A8" },
+      windowLabel:   { fontSize:11, fontWeight:"bold", color:"#6B4C2A" },
+      windowText:    { fontSize:11, color:"#3C2A1A" },
+      empty:         { textAlign:"center", padding:"40px", color:"#9C8060", fontStyle:"italic" },
+    };
+
+    ReactDOM.createRoot(document.getElementById('palate-root')).render(<PalateStructure />);
+  </script>
+
+</body>
+</html>
