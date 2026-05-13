@@ -1,0 +1,10 @@
+{
+  "resources": [
+    {
+      "title": "Aromas Explained",
+      "description": "A guide to identifying and understanding the aromas you'll encounter when tasting wine.",
+      "category": "Tasting",
+      "file": "/documents/aromas_explained.pdf"
+    }
+  ]
+}
