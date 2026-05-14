@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Interactive Tools — Kazmi Cellars</title>
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    .tools-intro{font-size:.95rem;color:var(--text-mid);line-height:1.8;max-width:580px;margin:0 auto 3.5rem;text-align:center}
+    .tools-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:1.5rem;max-width:920px;margin:0 auto;padding:0 1.5rem 4rem}
+    .tool-card{background:var(--white);border:1px solid var(--border);padding:2.4rem 2rem;text-align:center;text-decoration:none;color:inherit;transition:all .3s;display:block}
+    .tool-card:hover{border-color:var(--gold);box-shadow:0 6px 24px rgba(60,40,20,.08);transform:translateY(-2px)}
+    .tool-icon{font-size:2.2rem;margin-bottom:1rem;line-height:1}
+    .tool-label{font-size:.62rem;letter-spacing:.25em;text-transform:uppercase;color:var(--gold);margin-bottom:.5rem}
+    .tool-title{font-family:'Cormorant Garamond',serif;font-size:1.8rem;font-weight:500;color:var(--brown-dark);margin:0 0 .8rem;line-height:1.2}
+    .tool-desc{font-size:.88rem;color:var(--text-mid);line-height:1.7;margin:0 0 1.4rem}
+    .tool-cta{font-size:.65rem;letter-spacing:.25em;text-transform:uppercase;color:var(--gold);font-weight:500;border-top:1px solid var(--border);padding-top:1rem;display:block;margin-top:.5rem}
+    .tool-card:hover .tool-cta{color:var(--brown-dark)}
+    .tools-note{text-align:center;font-size:.8rem;color:var(--text-light);font-style:italic;padding-bottom:3rem}
+  </style>
+</head>
+<body>
+<script src="nav.js"></script>
+
+  <div class="page-header">
+    <div style="max-width:780px;margin:0 auto;text-align:center;">
+      <p class="section-label">Interactive</p>
+      <h1 class="section-title"><em>Interactive</em> Tools</h1>
+      <p class="tools-intro">Three reference tools built from how we actually think about wine — pick a grape and explore what it smells like, tastes like, and loves to eat with.</p>
+    </div>
+  </div>
+
+  <main>
+    <div class="tools-grid">
+
+      <a href="pairing.html" class="tool-card">
+        <div class="tool-icon">🥩</div>
+        <p class="tool-label">Food Pairing</p>
+        <h2 class="tool-title">Wine &amp; Food Pairing</h2>
+        <p class="tool-desc">Pick any grape and explore what it loves — proteins, prep styles, and cheeses. Covers 30+ wines including Champagne, Sauternes, and Port.</p>
+        <span class="tool-cta">Open Pairing Tool →</span>
+      </a>
+
+      <a href="aromas.html" class="tool-card">
+        <div class="tool-icon">🌸</div>
+        <p class="tool-label">Aroma Profiles</p>
+        <h2 class="tool-title">Aroma Explorer</h2>
+        <p class="tool-desc">What does this grape actually smell like? Browse aromas by category — fruit, floral, earth, spice, oak, and tertiary. Covers reds, whites, sparkling, dessert, and fortified.</p>
+        <span class="tool-cta">Open Aroma Explorer →</span>
+      </a>
+
+      <a href="palate.html" class="tool-card">
+        <div class="tool-icon">📊</div>
+        <p class="tool-label">Structure &amp; Taste</p>
+        <h2 class="tool-title">Palate &amp; Structure</h2>
+        <p class="tool-desc">Visual structure bars for tannin, acidity, body, sweetness, and finish — with mouthfeel notes, palate descriptors, and drinking windows for every grape.</p>
+        <span class="tool-cta">Open Palate Tool →</span>
+      </a>
+
+    </div>
+    <p class="tools-note">All tools work on mobile — pull them up at the dinner table, at a wine shop, or anywhere you need a quick reference.</p>
+  </main>
+
+  <footer class="site-footer">
+    <span class="footer-logo">Kazmi Cellars</span>
+    <ul class="footer-links">
+      <li><a href="terms.html">Terms &amp; Conditions</a></li>
+      <li><a href="privacy.html">Privacy Policy</a></li>
+      <li><a href="editorial.html">Editorial Policy</a></li>
+    </ul>
+    <hr class="footer-divider">
+    <div class="footer-bottom">
+      <span class="footer-copy">© 2026 Kazmi Cellars · All Rights Reserved</span>
+      <span class="footer-social">kazmicellars@gmail.com &nbsp;·&nbsp; @kazmicellars</span>
+    </div>
+  </footer>
+
+</body>
+</html>
