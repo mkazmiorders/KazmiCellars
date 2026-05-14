@@ -1,4 +1,31 @@
 <!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Descriptors — Kazmi Cellars</title>
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    .glossary-intro{font-size:.9rem;color:var(--text-mid);line-height:1.8;max-width:620px;margin:1rem auto 0;text-align:center}
+    .search-wrap{display:flex;align-items:center;border:1px solid var(--border);background:var(--white);padding:0 1rem;max-width:680px;margin:0 auto 1rem}
+    .search-icon{color:var(--text-light);margin-right:.6rem}
+    .glossary-search{border:none;outline:none;padding:.75rem 0;font-family:'Raleway',sans-serif;font-size:.9rem;color:var(--text-dark);background:transparent;width:100%}
+    .result-count{text-align:center;font-size:.7rem;letter-spacing:.15em;text-transform:uppercase;color:var(--text-light);margin-bottom:1.2rem}
+    .filter-buttons{display:flex;flex-wrap:wrap;gap:.5rem;justify-content:center;margin-bottom:2rem}
+    .filter-btn{border:1px solid var(--border);background:transparent;padding:.45rem 1.2rem;font-family:'Raleway',sans-serif;font-size:.62rem;letter-spacing:.15em;text-transform:uppercase;cursor:pointer;color:var(--text-mid);transition:all .2s}
+    .filter-btn.active,.filter-btn:hover{background:var(--brown-dark);color:white;border-color:var(--brown-dark)}
+    .glossary-term{max-width:780px;margin:0 auto 2rem;padding:1.8rem 2rem;background:var(--white);border:1px solid var(--border)}
+    .glossary-term.hidden{display:none}
+    .term-header{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:1rem;flex-wrap:wrap;gap:.5rem}
+    .term-name{font-family:'Cormorant Garamond',serif;font-size:1.6rem;font-weight:500;color:var(--brown-dark)}
+    .term-category{font-size:.6rem;letter-spacing:.2em;text-transform:uppercase;color:var(--gold)}
+    .term-definition{font-size:.88rem;color:var(--text-dark);line-height:1.75;margin:0 0 .8rem}
+    .term-plain{font-size:.85rem;color:var(--text-mid);line-height:1.7;margin:0 0 .8rem;padding:.8rem 1rem;background:var(--cream-dark);border-left:3px solid var(--gold);font-style:italic}
+    .term-example{font-size:.82rem;color:var(--text-mid);line-height:1.7;margin:0}
+    .no-results{text-align:center;padding:4rem 2rem;color:var(--text-light);display:none}
+    .no-results.visible{display:block}
+  </style>
+</head>
 <body>
 <script src="nav.js"></script>
 
@@ -7,7 +34,7 @@
       <p class="section-label">How Wine Tastes</p>
       <h1 class="section-title"><em>Descriptors</em></h1>
       <p class="glossary-intro">Every word you'll see on a tasting note — from foundational structure terms like Acidity and Body, to texture words like Silky and Velvety, to character terms like Elegant and Complex. Defined in plain English with real-world examples.</p>
-      <p style="font-size:.8rem;color:var(--text-light);"><a href="education.html" style="color:var(--gold);">← Back to Education</a></p>
+      <p style="font-size:.8rem;color:var(--text-light);margin-top:1rem;text-align:center"><a href="education.html" style="color:var(--gold);">← Back to Education</a></p>
     </div>
   </div>
 
@@ -85,11 +112,11 @@
 
       <div class="glossary-term" data-category="flavor" data-term="herbaceous"><div class="term-header"><span class="term-name">Herbaceous</span><span class="term-category">Flavor</span></div><p class="term-definition">A descriptor for wines with green, vegetal, or herbal aromas — bell pepper, jalapeño, fresh grass, mint, basil, eucalyptus, or asparagus. Common in Sauvignon Blanc, Cabernet Franc, and Cabernet Sauvignon from cooler climates.</p><p class="term-plain">"Green and herbal — bell pepper, fresh grass, mint. Either a feature or a flaw, depending on the wine."</p><p class="term-example"><strong>Example:</strong> A Loire Valley Cabernet Franc almost always has a green pepper and herb edge — the grape and place showing through. In some Cabernets from warm regions, herbaceous notes signal underripe grapes — context matters.</p></div>
 
-      <div class="glossary-term" data-category="flavor" data-term="smoky"><div class="term-header"><span class="term-name">Smoky</span><span class="term-category">Flavor</span></div><p class="term-definition">A descriptor for wines with aromas evoking smoke, charred wood, gunflint, or grilled meat. Can come from heavily toasted oak barrels, certain grape varieties (Syrah is naturally smoky), or specific terroirs (the flinty soils of Pouilly-Fumé give smoky white wines).</p><p class="term-plain">"Like smoke from a campfire or grilled meat. Can come from oak, the grape, or even the soil."</p><p class="term-example"><strong>Example:</strong> A Northern Rhône Syrah from Cornas often smells of smoked meat and burnt wood. Pouilly-Fumé literally takes its name from "fumé" (smoky) — the flinty soils give it a distinctive smoky edge.</p></div>
+      <div class="glossary-term" data-category="flavor" data-term="smoky"><div class="term-header"><span class="term-name">Smoky</span><span class="term-category">Flavor</span></div><p class="term-definition">A descriptor for wines with aromas evoking smoke, charred wood, gunflint, or grilled meat. Can come from heavily toasted oak barrels, certain grape varieties (Syrah is naturally smoky), or specific terroirs.</p><p class="term-plain">"Like smoke from a campfire or grilled meat. Can come from oak, the grape, or even the soil."</p><p class="term-example"><strong>Example:</strong> A Northern Rhône Syrah from Cornas often smells of smoked meat and burnt wood. Pouilly-Fumé literally takes its name from "fumé" (smoky) — the flinty soils give it a distinctive smoky edge.</p></div>
 
       <div class="glossary-term" data-category="flavor" data-term="savory"><div class="term-header"><span class="term-name">Savory</span><span class="term-category">Flavor</span></div><p class="term-definition">A descriptor for wines with non-fruit, umami-rich aromas — soy sauce, miso, dried meat, mushroom, or roasted vegetables. Savory wines feel meaty and food-friendly. Common in mature reds and certain Old World styles.</p><p class="term-plain">"Meaty, umami-rich, food-friendly. The opposite of sweet or fruity. Like soy sauce or roasted mushrooms."</p><p class="term-example"><strong>Example:</strong> A mature Rioja Reserva often shows savory notes — leather, dried meat, soy, mushroom — alongside its fruit. These are the wines that pair magically with a Sunday roast.</p></div>
 
-      <div class="glossary-term" data-category="flavor" data-term="buttery"><div class="term-header"><span class="term-name">Buttery</span><span class="term-category">Flavor</span></div><p class="term-definition">A descriptor for wines (almost always Chardonnay) that smell and taste of butter, cream, or popcorn. The buttery character comes primarily from malolactic fermentation, where harsh malic acid is converted to softer lactic acid — creating that creamy, dairy-like quality.</p><p class="term-plain">"Tastes like butter or cream. Almost always Chardonnay, almost always from a winemaking step called malolactic fermentation."</p><p class="term-example"><strong>Example:</strong> A classic California Chardonnay from the 1990s — sometimes called a "butter bomb" — was deliberately rich, creamy, and buttery. Many modern producers have stepped back from the style, but plenty still make it on purpose.</p></div>
+      <div class="glossary-term" data-category="flavor" data-term="buttery"><div class="term-header"><span class="term-name">Buttery</span><span class="term-category">Flavor</span></div><p class="term-definition">A descriptor for wines (almost always Chardonnay) that smell and taste of butter, cream, or popcorn. The buttery character comes primarily from malolactic fermentation, where harsh malic acid is converted to softer lactic acid — creating that creamy, dairy-like quality.</p><p class="term-plain">"Tastes like butter or cream. Almost always Chardonnay, almost always from malolactic fermentation."</p><p class="term-example"><strong>Example:</strong> A classic California Chardonnay can be deliberately rich, creamy, and buttery — a "butter bomb." Many modern producers have stepped back from the style, but plenty still make it on purpose.</p></div>
 
       <div class="glossary-term" data-category="character" data-term="concentrated"><div class="term-header"><span class="term-name">Concentrated</span><span class="term-category">Character</span></div><p class="term-definition">A descriptor for wines with packed-in flavor — intense, deep, and substantial rather than thin or watery. Often comes from low yields, old vines, or careful winemaking that preserves intensity. A quality marker.</p><p class="term-plain">"Packed with flavor. Nothing's diluted — every sip carries weight."</p><p class="term-example"><strong>Example:</strong> A great Brunello di Montalcino or a top Napa Cabernet feels concentrated — flavors don't fade or thin out, they keep delivering from the first sip to the last drop.</p></div>
 
@@ -144,28 +171,15 @@
         const termText = term.innerText.toLowerCase();
         const termCat = term.dataset.category;
         const matchesFilter = activeFilter === 'all' || termCat === activeFilter;
-        if (!matchesFilter) {
-          term.classList.add('hidden');
-          return;
-        }
+        if (!matchesFilter) { term.classList.add('hidden'); return; }
         let score = 0;
-        if (!query) {
-          score = 1;
-        } else if (termName === query) {
-          score = 100;
-        } else if (termName.startsWith(query)) {
-          score = 80;
-        } else if (termName.includes(query)) {
-          score = 60;
-        } else if (termText.includes(query)) {
-          score = 20;
-        }
-        if (score > 0) {
-          term.classList.remove('hidden');
-          matches.push({term, score});
-        } else {
-          term.classList.add('hidden');
-        }
+        if (!query) { score = 1; }
+        else if (termName === query) { score = 100; }
+        else if (termName.startsWith(query)) { score = 80; }
+        else if (termName.includes(query)) { score = 60; }
+        else if (termText.includes(query)) { score = 20; }
+        if (score > 0) { term.classList.remove('hidden'); matches.push({term, score}); }
+        else { term.classList.add('hidden'); }
       });
       matches.sort((a, b) => b.score - a.score);
       const list = document.getElementById('glossaryList');
