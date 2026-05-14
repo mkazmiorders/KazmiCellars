@@ -1,4 +1,14 @@
 <!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Aroma Explorer — Kazmi Cellars</title>
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    #aromas-root { max-width: 860px; margin: 0 auto; padding: 0 0 3rem; }
+  </style>
+</head>
 <body>
 <script src="nav.js"></script>
 
@@ -57,7 +67,6 @@
     };
 
     const GRAPES = [
-      // ── RED ──────────────────────────────────────────────────────────────────
       { id:"cab-sauv", name:"Cabernet Sauvignon", type:"red", origin:"Bordeaux, France",
         tagline:"Bold and structured — a nose that announces itself.",
         aromas:{
@@ -234,7 +243,6 @@
           oak:      ["Smoke","Vanilla","Toast"],
           tertiary: ["Leather","Tobacco","Coffee","Dried Meat","Fig"],
         }},
-      // ── WHITE ────────────────────────────────────────────────────────────────
       { id:"chardonnay", name:"Chardonnay", type:"white", origin:"Burgundy, France",
         tagline:"The great chameleon — from steely Chablis to rich buttery Napa.",
         aromas:{
@@ -345,7 +353,6 @@
           oak:      ["Rarely oaked (natural purity is the point)"],
           tertiary: ["Smoke","Mineral Complexity","Petrol (aged)","Dried Citrus"],
         }},
-      // ── ROSÉ ─────────────────────────────────────────────────────────────────
       { id:"provence-rose", name:"Rosé — Provence Style", type:"rose", origin:"Provence, France",
         tagline:"Delicate and fresh — red fruit, flowers, and Mediterranean herbs.",
         aromas:{
@@ -357,7 +364,6 @@
           oak:      ["Rarely oaked"],
           tertiary: ["Dried Rose","Almond (faint)"],
         }},
-      // ── SPARKLING ─────────────────────────────────────────────────────────────
       { id:"champagne", name:"Champagne", type:"sparkling", origin:"Champagne, France",
         tagline:"Bread, citrus, and stone — the most complex and layered sparkling wine.",
         aromas:{
@@ -369,7 +375,6 @@
           oak:      ["Vanilla (if oak-aged)","Hazelnut","Cream"],
           tertiary: ["Brioche","Toast","Yeast","Biscuit","Honey","Beeswax","Petrol (aged Blanc de Blancs)"],
         }},
-      // ── DESSERT ───────────────────────────────────────────────────────────────
       { id:"sauternes", name:"Sauternes", type:"dessert", origin:"Bordeaux, France",
         tagline:"Botrytis gold — honey, apricot, and the unmistakable scent of noble rot.",
         aromas:{
@@ -392,7 +397,6 @@
           oak:      ["Vanilla","Caramel","Toast","Almond"],
           tertiary: ["Honey","Beeswax","Petrol (aged)","Roasted Almond","Dried Apricot","Marmalade"],
         }},
-      // ── FORTIFIED ─────────────────────────────────────────────────────────────
       { id:"ruby-port", name:"Ruby Port", type:"fortified", origin:"Douro Valley, Portugal",
         tagline:"Dark and fruit-driven — blackberry, chocolate, and dried flowers.",
         aromas:{
@@ -466,7 +470,6 @@
             const col = C[g.type] || C.red;
             const isOpen = expanded === g.id;
             const visibleCats = catFilter === "All" ? Object.keys(AROMA_CATS) : [catFilter];
-
             return (
               <div key={g.id} style={{...st.card, background: col.bg}}>
                 <div style={st.cardTop} onClick={() => setExpanded(isOpen ? null : g.id)}>
@@ -482,7 +485,6 @@
                     <span style={st.arrow}>{isOpen ? "▲" : "▼"}</span>
                   </div>
                 </div>
-
                 {isOpen && (
                   <div style={st.expanded}>
                     <div style={st.tagline}>{g.tagline}</div>
@@ -550,4 +552,3 @@
 
 </body>
 </html>
-
