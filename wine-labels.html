@@ -1,4 +1,71 @@
-<!doctype html><body>
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Wine Labels — Kazmi Cellars</title>
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    .page-intro{font-size:.9rem;color:var(--text-mid);line-height:1.8;max-width:620px;margin:1rem auto 0;text-align:center}
+
+    /* Cheat Sheet */
+    .cheat-sheet{display:grid;grid-template-columns:repeat(4,1fr);gap:1rem;max-width:920px;margin:0 auto 3rem;padding:0 1.5rem}
+    @media(max-width:760px){.cheat-sheet{grid-template-columns:1fr 1fr}}
+    @media(max-width:480px){.cheat-sheet{grid-template-columns:1fr}}
+    .cheat-card{background:var(--white);border:1px solid var(--border);padding:1.2rem;text-align:left}
+    .cheat-flag{font-size:1.4rem;margin-bottom:.4rem}
+    .cheat-name{font-family:'Cormorant Garamond',serif;font-size:1rem;font-weight:500;color:var(--brown-dark);margin-bottom:.5rem}
+    .cheat-tier{font-size:.72rem;color:var(--text-mid);margin-bottom:.5rem;line-height:1.5}
+    .cheat-tier strong{color:var(--brown-dark);display:block;font-size:.6rem;letter-spacing:.12em;text-transform:uppercase;margin-bottom:.15rem}
+    .cheat-key{font-size:.75rem;color:var(--text-mid);line-height:1.6;border-top:1px solid var(--border);padding-top:.5rem;margin-top:.5rem}
+
+    /* Country Sections */
+    .country-section{max-width:920px;margin:0 auto 4rem;padding:0 1.5rem}
+    .country-header{margin-bottom:2rem}
+    .clabel{font-size:.62rem;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);display:block;margin-bottom:.4rem}
+    .country-header h2{font-family:'Cormorant Garamond',serif;font-size:1.8rem;font-weight:500;color:var(--brown-dark);margin:0 0 .6rem}
+    .country-header .summary{font-size:.88rem;color:var(--text-mid);line-height:1.75;margin:0;max-width:620px}
+    .diagram-grid{display:grid;grid-template-columns:1fr 1fr;gap:2rem;align-items:start}
+    @media(max-width:680px){.diagram-grid{grid-template-columns:1fr}}
+
+    /* Wine Label Mockup */
+    .wine-label{background:var(--cream-dark);border:1px solid var(--border);padding:1.5rem 1rem;font-family:'Cormorant Garamond',serif;display:flex;flex-direction:column;gap:1rem;min-height:320px;justify-content:space-between}
+    .flourish-top{text-align:center;color:var(--gold);letter-spacing:.5em;font-size:.8rem;margin-bottom:.3rem}
+    .label-row{display:flex;align-items:flex-start;gap:.5rem}
+    .label-tag{background:var(--gold);color:white;font-size:.55rem;font-family:'Raleway',sans-serif;font-weight:700;width:16px;height:16px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:3px}
+    .label-producer,.label-chateau{font-size:1.4rem;font-weight:500;color:var(--brown-dark);letter-spacing:.1em;line-height:1.1}
+    .label-grand-vin{font-size:.7rem;letter-spacing:.2em;color:var(--text-light);text-align:center;text-transform:uppercase;margin:.3rem 0}
+    .label-vintage{font-size:1.8rem;font-weight:400;color:var(--brown-dark)}
+    .label-wine-name{font-size:1rem;font-style:italic;color:var(--brown-dark)}
+    .label-variety{font-size:.9rem;color:var(--brown-dark);letter-spacing:.05em}
+    .label-region,.label-appellation{font-size:.85rem;color:var(--text-mid);font-style:italic}
+    .label-aoc{font-size:.65rem;color:var(--text-light);letter-spacing:.05em}
+    .label-classification,.label-tier{font-size:.75rem;letter-spacing:.1em;color:var(--gold);text-transform:uppercase}
+    .label-estate,.label-mis{font-size:.65rem;letter-spacing:.12em;color:var(--text-light);text-align:center}
+    .label-ornament{text-align:center;font-size:1.2rem;color:var(--gold)}
+    .label-bottom{font-size:.6rem;letter-spacing:.1em;color:var(--text-light);text-align:center;margin-top:.5rem;border-top:1px solid var(--border);padding-top:.5rem}
+    .divider-thin{border:none;border-top:1px solid var(--border);margin:.3rem 0}
+
+    /* Annotations */
+    .annotations{display:flex;flex-direction:column;gap:1rem}
+    .annotation{display:flex;gap:.8rem;align-items:flex-start}
+    .anno-num{background:var(--gold);color:white;font-size:.6rem;font-family:'Raleway',sans-serif;font-weight:700;width:20px;height:20px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:2px}
+    .anno-text strong{font-size:.8rem;color:var(--brown-dark);display:block;margin-bottom:.2rem}
+    .anno-text p{font-size:.75rem;color:var(--text-mid);line-height:1.6;margin:0}
+
+    /* Grape Guide */
+    .grape-guide{max-width:920px;margin:0 auto 4rem;padding:0 1.5rem}
+    .grape-country{margin-bottom:2.5rem}
+    .grape-country-header{font-family:'Cormorant Garamond',serif;font-size:1.2rem;font-weight:500;color:var(--brown-dark);margin:0 0 .8rem;display:flex;align-items:center;gap:.6rem;padding-bottom:.5rem;border-bottom:1px solid var(--border)}
+    .grape-flag{font-size:1.1rem}
+    .grape-row{display:grid;grid-template-columns:1.4fr 1.2fr 2fr;gap:1rem;padding:.5rem 0;border-bottom:1px solid rgba(217,200,168,.4);align-items:start}
+    @media(max-width:600px){.grape-row{grid-template-columns:1fr;gap:.2rem;padding:.7rem 0}}
+    .grape-region{font-size:.82rem;color:var(--brown-dark);font-weight:500;line-height:1.4}
+    .grape-variety{font-size:.78rem;color:var(--gold);line-height:1.4}
+    .grape-style{font-size:.75rem;color:var(--text-mid);line-height:1.5}
+  </style>
+</head>
+<body>
 <script src="nav.js"></script>
 
   <div class="page-header">
@@ -6,13 +73,12 @@
       <p class="section-label">Decoding the Bottle</p>
       <h1 class="section-title"><em>Wine Labels</em></h1>
       <p class="page-intro">Wine labels speak in their own language — and that language changes between countries. Here's a side-by-side guide to reading the four most common wine label styles you'll encounter.</p>
-      <p style="font-size:.8rem;color:var(--text-light);"><a href="education.html" style="color:var(--gold);">← Back to Education</a></p>
+      <p style="font-size:.8rem;color:var(--text-light);margin-top:1rem;text-align:center"><a href="education.html" style="color:var(--gold);">← Back to Education</a></p>
     </div>
   </div>
 
   <div class="section" style="padding-top:2.5rem;">
 
-    <!-- CHEAT SHEET -->
     <div class="cheat-sheet">
       <div class="cheat-card">
         <div class="cheat-flag">🇺🇸 USA</div>
@@ -40,14 +106,13 @@
       </div>
     </div>
 
-    <!-- ============ USA ============ -->
+    <!-- USA -->
     <div class="country-section">
       <div class="country-header">
         <span class="clabel">United States</span>
         <h2>How to Read a US Wine Label</h2>
         <p class="summary">American labels lead with the grape — Cabernet, Pinot Noir, Chardonnay. The AVA tells you where it grew. Simple, grape-forward, easy to navigate.</p>
       </div>
-
       <div class="diagram-grid">
         <div class="wine-label">
           <div>
@@ -67,7 +132,6 @@
             <div class="label-bottom">ALC. 14.5% BY VOL · 750 ML</div>
           </div>
         </div>
-
         <div class="annotations">
           <div class="annotation"><div class="anno-num">1</div><div class="anno-text"><strong>Producer</strong><p>The winery that made the wine. Often the largest, most prominent text on the label.</p></div></div>
           <div class="annotation"><div class="anno-num">2</div><div class="anno-text"><strong>Vintage</strong><p>The year the grapes were harvested. By US law, 95% of grapes must come from this year.</p></div></div>
@@ -79,14 +143,13 @@
       </div>
     </div>
 
-    <!-- ============ FRANCE ============ -->
+    <!-- France -->
     <div class="country-section">
       <div class="country-header">
         <span class="clabel">France · Bordeaux</span>
         <h2>How to Read a French Wine Label</h2>
         <p class="summary">French wines emphasize <em>place</em> over grape — the appellation tells you the region's traditional grapes and style. The classification reveals the quality tier within that place.</p>
       </div>
-
       <div class="diagram-grid">
         <div class="wine-label">
           <div>
@@ -107,7 +170,6 @@
             <div class="label-bottom">ALC. 13% BY VOL · 750 ML</div>
           </div>
         </div>
-
         <div class="annotations">
           <div class="annotation"><div class="anno-num">1</div><div class="anno-text"><strong>Château / Producer</strong><p>"Château" literally means "castle" but in Bordeaux refers to the wine estate. Always the most prominent text on the label.</p></div></div>
           <div class="annotation"><div class="anno-num">2</div><div class="anno-text"><strong>Vintage</strong><p>The harvest year. Vintage matters enormously in Bordeaux due to year-to-year weather variability. 1989 is a legendary vintage.</p></div></div>
@@ -119,14 +181,13 @@
       </div>
     </div>
 
-    <!-- ============ ITALY ============ -->
+    <!-- Italy -->
     <div class="country-section">
       <div class="country-header">
         <span class="clabel">Italy · Tuscany</span>
         <h2>How to Read an Italian Wine Label</h2>
         <p class="summary">Italian labels balance producer, region, and tradition. The DOCG seal, Riserva designations, and historical estate names all tell you something about what's inside.</p>
       </div>
-
       <div class="diagram-grid">
         <div class="wine-label">
           <div>
@@ -147,11 +208,10 @@
             <div class="label-bottom">ALC. 14% BY VOL · 750 ML</div>
           </div>
         </div>
-
         <div class="annotations">
           <div class="annotation"><div class="anno-num">1</div><div class="anno-text"><strong>Producer</strong><p>The winery name. Biondi-Santi is the historic estate that invented Brunello di Montalcino in the 1880s. "Tenuta Greppo" is their specific vineyard estate.</p></div></div>
           <div class="annotation"><div class="anno-num">2</div><div class="anno-text"><strong>Appellation</strong><p>The region and wine style combined. Brunello di Montalcino is made from 100% Sangiovese grapes grown around the town of Montalcino in Tuscany.</p></div></div>
-          <div class="annotation"><div class="anno-num">3</div><div class="anno-text"><strong>DOCG</strong><p>Italy's highest classification — Denominazione di Origine Controllata e Garantita. Strictest rules on grapes, yields, aging, and production. Only 77 wines qualify.</p></div></div>
+          <div class="annotation"><div class="anno-num">3</div><div class="anno-text"><strong>DOCG</strong><p>Italy's highest classification. Strictest rules on grapes, yields, aging, and production. Only 77 wines qualify.</p></div></div>
           <div class="annotation"><div class="anno-num">4</div><div class="anno-text"><strong>Riserva</strong><p>Legally requires extended aging before release. For Brunello, that means at least 6 years total (2 in oak) instead of the standard 5.</p></div></div>
           <div class="annotation"><div class="anno-num">5</div><div class="anno-text"><strong>Vintage</strong><p>The harvest year. 2010 is one of the great modern Brunello vintages — perfectly balanced ripeness and structure.</p></div></div>
           <div class="annotation"><div class="anno-num">6</div><div class="anno-text"><strong>Imbottigliato all'Origine</strong><p>"Bottled at the source" — Italian for estate-bottled. The wine was made and bottled at the producer's own facility.</p></div></div>
@@ -159,14 +219,13 @@
       </div>
     </div>
 
-    <!-- ============ SPAIN ============ -->
+    <!-- Spain -->
     <div class="country-section">
       <div class="country-header">
         <span class="clabel">Spain · La Rioja</span>
         <h2>How to Read a Spanish Wine Label</h2>
         <p class="summary">Spanish labels make aging the headline. The aging tier — Crianza, Reserva, or Gran Reserva — tells you immediately how long the wine spent in oak and bottle before release.</p>
       </div>
-
       <div class="diagram-grid">
         <div class="wine-label">
           <div>
@@ -187,11 +246,10 @@
             <div class="label-bottom">ALC. 14% BY VOL · 750 ML</div>
           </div>
         </div>
-
         <div class="annotations">
           <div class="annotation"><div class="anno-num">1</div><div class="anno-text"><strong>Bodega / Producer</strong><p>"Bodega" is Spanish for winery. Marqués de Riscal is one of Rioja's oldest and most iconic producers, founded in 1858.</p></div></div>
           <div class="annotation"><div class="anno-num">2</div><div class="anno-text"><strong>Region</strong><p>Rioja is Spain's most famous wine region — known for Tempranillo-based reds aged in American oak that develop classic vanilla-coconut notes.</p></div></div>
-          <div class="annotation"><div class="anno-num">3</div><div class="anno-text"><strong>DOCa</strong><p>Denominación de Origen Calificada — Spain's highest classification. Only two regions hold it: Rioja and Priorat. Stricter rules than DO.</p></div></div>
+          <div class="annotation"><div class="anno-num">3</div><div class="anno-text"><strong>DOCa</strong><p>Denominación de Origen Calificada — Spain's highest classification. Only two regions hold it: Rioja and Priorat.</p></div></div>
           <div class="annotation"><div class="anno-num">4</div><div class="anno-text"><strong>Gran Reserva</strong><p>Spain's longest aging tier. For red Rioja, requires 5 years total (2+ in oak, 3+ in bottle). Only made in exceptional vintages. Crianza &lt; Reserva &lt; Gran Reserva.</p></div></div>
           <div class="annotation"><div class="anno-num">5</div><div class="anno-text"><strong>Vintage</strong><p>The harvest year. By the time a Gran Reserva is released, it's already at least 5 years old — ready to drink without further aging.</p></div></div>
           <div class="annotation"><div class="anno-num">6</div><div class="anno-text"><strong>Embotellado en la Propiedad</strong><p>"Bottled at the property" — Spanish for estate-bottled. The wine was made and bottled at the producer's own facility.</p></div></div>
@@ -199,7 +257,7 @@
       </div>
     </div>
 
-    <!-- ============ GRAPE GUIDE ============ -->
+    <!-- Grape Guide -->
     <div class="grape-guide">
       <div class="country-header">
         <span class="clabel">Region · Grape Cheat Sheet</span>
@@ -257,7 +315,6 @@
         <div class="grape-row"><div class="grape-region">Vinho Verde</div><div class="grape-variety">Alvarinho + Loureiro Blend</div><div class="grape-style">Light, slightly fizzy, fresh — perfect summer wine</div></div>
         <div class="grape-row"><div class="grape-region">Port (Douro)</div><div class="grape-variety">Touriga Nacional + Field Blend</div><div class="grape-style">Sweet, fortified, dark fruit and spice</div></div>
       </div>
-
     </div>
 
   </div>
