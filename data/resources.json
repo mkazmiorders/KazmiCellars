@@ -17,6 +17,12 @@
       "description": "Aromas broken down by categories.",
       "category": "Aromas",
       "file": "/documents/wine_aroma_guide.pdf"
+    },
+    {
+      "title": "Blend Cheat Sheet",
+      "description": "Whats in all these blends? Hopefully this helps!",
+      "category": "Blends",
+      "file": "/documents/kc_blends.pdf"
     }
   ]
 }
