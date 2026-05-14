@@ -1,4 +1,27 @@
 <!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Our Story — Kazmi Cellars</title>
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    .story-hero{max-width:880px;margin:0 auto 3rem;padding:0 1.5rem}
+    .story-tagline{font-family:'Cormorant Garamond',serif;font-size:clamp(1.4rem,3vw,2rem);font-weight:500;color:var(--brown-dark);line-height:1.3;margin:0 0 2rem;font-style:italic;text-align:center}
+    .story-hero-image{margin:0}
+    .story-hero-image img{width:100%;display:block}
+    .story-hero-caption{font-size:.75rem;color:var(--text-light);letter-spacing:.08em;margin:.6rem 0 0;text-align:center;font-style:italic}
+    .story-body{max-width:720px;margin:0 auto;padding:0 1.5rem 5rem;font-size:.95rem;line-height:1.9;color:var(--text-dark)}
+    .story-body p{margin:0 0 1.4rem}
+    .story-body h2{font-family:'Cormorant Garamond',serif;font-size:1.6rem;font-weight:500;color:var(--brown-dark);margin:2.5rem 0 1rem;padding-top:1.5rem;border-top:1px solid var(--border)}
+    .story-body h3{font-family:'Cormorant Garamond',serif;font-size:1.2rem;font-weight:500;color:var(--brown-dark);margin:2rem 0 .8rem}
+    .story-mid-image{max-width:720px;margin:2rem auto;padding:0 1.5rem}
+    .story-mid-image img{width:100%;display:block}
+    .loading{text-align:center;padding:4rem 2rem;color:var(--text-light);font-style:italic;font-family:'Cormorant Garamond',serif;font-size:1.1rem}
+    .error-msg{max-width:600px;margin:4rem auto;padding:0 1.5rem;text-align:center;color:var(--text-light)}
+    .error-msg h3{font-family:'Cormorant Garamond',serif;font-size:1.8rem;font-weight:500;color:var(--brown-dark);margin-bottom:.8rem}
+  </style>
+</head>
 <body>
 <script src="nav.js"></script>
 
@@ -59,7 +82,6 @@
         .replace(/_(.+?)_/g, '<em>$1</em>');
     }
 
-    // Smart renderer: each non-empty line = paragraph; #/##/### lines = headings (space optional)
     function renderMarkdown(text) {
       if (!text) return '';
       const lines = text.split('\n');
@@ -84,10 +106,7 @@
           const r = await fetch(path, {cache: 'no-store'});
           if (!r.ok) continue;
           const data = await r.json();
-          if (data && (data.story || data.body || data.content)) {
-            console.log('Loaded story from:', path);
-            return data;
-          }
+          if (data && (data.story || data.body || data.content)) return data;
         } catch (e) {}
       }
       return null;
@@ -98,14 +117,7 @@
       try {
         const data = await findData();
         if (!data) {
-          container.innerHTML = `
-            <div class="error-msg">
-              <h3>Story data not found</h3>
-              <p>Couldn't find the story file in any of these locations:</p>
-              <p style="font-family:monospace;font-size:.85rem;">
-                ${POSSIBLE_PATHS.map(p => `<code>${p}</code>`).join('<br>')}
-              </p>
-            </div>`;
+          container.innerHTML = '<div class="error-msg"><h3>Story coming soon</h3><p>Check back soon.</p></div>';
           return;
         }
 
@@ -149,12 +161,7 @@
 
         container.innerHTML = html;
       } catch (e) {
-        console.error('Could not load story:', e);
-        container.innerHTML = `
-          <div class="error-msg">
-            <h3>Couldn't load the story</h3>
-            <p>Something went wrong. Try refreshing the page.</p>
-          </div>`;
+        container.innerHTML = '<div class="error-msg"><h3>Couldn\'t load the story</h3><p>Try refreshing the page.</p></div>';
       }
     }
 
