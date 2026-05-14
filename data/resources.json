@@ -25,8 +25,8 @@
       "file": "/documents/kc_blends.pdf"
     },
     {
-      "title": "The LIfe of a Vine",
-      "description": "We always talke about vines but do we really understand them? I hope this helps!",
+      "title": "The Life of a Vine",
+      "description": "We always talk about vines but do we really understand them? I hope this helps!",
       "category": "Wine Growing",
       "file": "/documents/kc_vine_life.pdf"
     },
@@ -35,6 +35,36 @@
       "description": "What is the harvest to harvest cycle so much happens in between, hopefully this waks you through the process!",
       "category": "Wine Growing",
       "file": "/documents/kc_vine_to_bottle.pdf"
+    },
+    {
+      "title": "Wine Glorssary",
+      "description": "Everyday Wine Glorssary terms at  your fingertips!",
+      "category": "Wine Education",
+      "file": "/documents/kc_glossary.pdf"
+    },
+    {
+      "title": "Wine Descriptors",
+      "description": "So many terms to describe wine. Here are some of the most common ones!",
+      "category": "Wine Education",
+      "file": "/documents/kc_descriptors.pdf"
+    },
+    {
+      "title": "Wine Making Terms",
+      "description": "What are these wine makers talking about? Skin contact and maceration. This will help with some of the terms!",
+      "category": "Wine Education",
+      "file": "/documents/kc_winemaking.pdf"
+    },
+    {
+      "title": "Wine Regions and Their Soil",
+      "description": "One of the most facinating aspects of wine. Its amazing how the same grape can turn out different depending on the soil compostion in the region its grown in. Here is a break down of famous regions and what makes them so unique!",
+      "category": "Wine Education",
+      "file": "/documents/kc_winemaking.pdf"
+    },
+    {
+      "title": "Wine and Food Pairing",
+      "description": "Check out the interactive guide on our website but if you just wanted a printed cheat sheet; here you go!",
+      "category": "Useful Tools",
+      "file": "/documents/wine_food_pairing-1.pdf"
     }
   ]
 }
