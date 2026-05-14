@@ -65,6 +65,18 @@
       "description": "Check out the interactive guide on our website but if you just wanted a printed cheat sheet; here you go!",
       "category": "Useful Tools",
       "file": "/documents/wine_food_pairing-1.pdf"
+    },
+    {
+      "title": "Serving Wine Tips",
+      "description": "General tips on temparature, order of serving wine and much more!",
+      "category": "Useful Tools",
+      "file": "/documents/kc_serving.pdf"
+    },
+    {
+      "title": "How to Taste Wine",
+      "description": "Step by step guide to tastig wine, if you want to know how the professionals do it.",
+      "category": "Useful Tools",
+      "file": ";documents/kc_tasting.pdf"
     }
   ]
 }
