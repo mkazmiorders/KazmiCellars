@@ -21,7 +21,7 @@
     {
       "title": "Blend Cheat Sheet",
       "description": "Whats in all these blends? Hopefully this helps!",
-      "category": "Blends",
+      "category": "Useful tools",
       "file": "/documents/kc_blends.pdf"
     },
     {
@@ -74,9 +74,21 @@
     },
     {
       "title": "How to Taste Wine",
-      "description": "Step by step guide to tastig wine, if you want to know how the professionals do it.",
+      "description": "Step by step guide to tasting wine, if you want to know how the professionals do it.",
       "category": "Useful Tools",
       "file": ";documents/kc_tasting.pdf"
+    },
+    {
+      "title": "Wine Making Philosophy",
+      "description": "What is Natural, Organic, Biodynamic or just the conventional method? Here is a glimpse. Just know just because its conventional doesnt mean they are not practicing organic methods; particulalry now a days.",
+      "category": "Useful Tools",
+      "file": "/documents/kc_winemaking_philosophy.pdf"
+    },
+    {
+      "title": "Vintage  Guide",
+      "description": "This is always a tough one. Whats a great vintage? Someone winemakers can make a great wine in a poor vintage and some a poor wine in a great vintage. Use this as a general guide.",
+      "category": "Useful Tools",
+      "file": "/documents/kc_vintage.pdf"
     }
   ]
 }
