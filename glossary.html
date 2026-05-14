@@ -1,4 +1,31 @@
 <!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Glossary — Kazmi Cellars</title>
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    .glossary-intro{font-size:.9rem;color:var(--text-mid);line-height:1.8;max-width:620px;margin:1rem auto 0;text-align:center}
+    .search-wrap{display:flex;align-items:center;border:1px solid var(--border);background:var(--white);padding:0 1rem;max-width:680px;margin:0 auto 1rem}
+    .search-icon{color:var(--text-light);margin-right:.6rem}
+    .glossary-search{border:none;outline:none;padding:.75rem 0;font-family:'Raleway',sans-serif;font-size:.9rem;color:var(--text-dark);background:transparent;width:100%}
+    .result-count{text-align:center;font-size:.7rem;letter-spacing:.15em;text-transform:uppercase;color:var(--text-light);margin-bottom:1.2rem}
+    .filter-buttons{display:flex;flex-wrap:wrap;gap:.5rem;justify-content:center;margin-bottom:2rem}
+    .filter-btn{border:1px solid var(--border);background:transparent;padding:.45rem 1.2rem;font-family:'Raleway',sans-serif;font-size:.62rem;letter-spacing:.15em;text-transform:uppercase;cursor:pointer;color:var(--text-mid);transition:all .2s}
+    .filter-btn.active,.filter-btn:hover{background:var(--brown-dark);color:white;border-color:var(--brown-dark)}
+    .glossary-term{max-width:780px;margin:0 auto 2rem;padding:1.8rem 2rem;background:var(--white);border:1px solid var(--border)}
+    .glossary-term.hidden{display:none}
+    .term-header{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:1rem;flex-wrap:wrap;gap:.5rem}
+    .term-name{font-family:'Cormorant Garamond',serif;font-size:1.6rem;font-weight:500;color:var(--brown-dark)}
+    .term-category{font-size:.6rem;letter-spacing:.2em;text-transform:uppercase;color:var(--gold)}
+    .term-definition{font-size:.88rem;color:var(--text-dark);line-height:1.75;margin:0 0 .8rem}
+    .term-plain{font-size:.85rem;color:var(--text-mid);line-height:1.7;margin:0 0 .8rem;padding:.8rem 1rem;background:var(--cream-dark);border-left:3px solid var(--gold);font-style:italic}
+    .term-example{font-size:.82rem;color:var(--text-mid);line-height:1.7;margin:0}
+    .no-results{text-align:center;padding:4rem 2rem;color:var(--text-light);display:none}
+    .no-results.visible{display:block}
+  </style>
+</head>
 <body>
 <script src="nav.js"></script>
 
@@ -7,7 +34,7 @@
       <p class="section-label">Reference</p>
       <h1 class="section-title"><em>Glossary</em></h1>
       <p class="glossary-intro">The vocabulary of wine — concepts, styles, faults, and the practical terms you'll hear at a tasting or restaurant. Defined in plain English, with real-world examples.</p>
-      <p style="font-size:.8rem;color:var(--text-light);"><a href="education.html" style="color:var(--gold);">← Back to Education</a></p>
+      <p style="font-size:.8rem;color:var(--text-light);margin-top:1rem;text-align:center"><a href="education.html" style="color:var(--gold);">← Back to Education</a></p>
     </div>
   </div>
 
@@ -164,28 +191,15 @@
         const termText = term.innerText.toLowerCase();
         const termCat = term.dataset.category;
         const matchesFilter = activeFilter === 'all' || termCat === activeFilter;
-        if (!matchesFilter) {
-          term.classList.add('hidden');
-          return;
-        }
+        if (!matchesFilter) { term.classList.add('hidden'); return; }
         let score = 0;
-        if (!query) {
-          score = 1;
-        } else if (termName === query) {
-          score = 100;
-        } else if (termName.startsWith(query)) {
-          score = 80;
-        } else if (termName.includes(query)) {
-          score = 60;
-        } else if (termText.includes(query)) {
-          score = 20;
-        }
-        if (score > 0) {
-          term.classList.remove('hidden');
-          matches.push({term, score});
-        } else {
-          term.classList.add('hidden');
-        }
+        if (!query) { score = 1; }
+        else if (termName === query) { score = 100; }
+        else if (termName.startsWith(query)) { score = 80; }
+        else if (termName.includes(query)) { score = 60; }
+        else if (termText.includes(query)) { score = 20; }
+        if (score > 0) { term.classList.remove('hidden'); matches.push({term, score}); }
+        else { term.classList.add('hidden'); }
       });
       matches.sort((a, b) => b.score - a.score);
       const list = document.getElementById('glossaryList');
