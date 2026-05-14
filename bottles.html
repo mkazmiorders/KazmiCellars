@@ -1,21 +1,29 @@
 <!doctype html>
 <html lang="en">
 <head>
-...css and styles...
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Aroma Explorer — Kazmi Cellars</title>
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    #aromas-root { max-width: 860px; margin: 0 auto; padding: 0 0 3rem; }
+  </style>
 </head>
 <body>
 <script src="nav.js"></script>
 
   <div class="page-header">
     <div style="max-width:780px;margin:0 auto;text-align:center;">
-      <p class="section-label">What We're Drinking</p>
-      <h1 class="section-title">This Week's <em>Bottles</em></h1>
-      <p class="bottles-intro">A look at the wines we've been opening lately — what they were like, what we paired them with, and how they made us feel.</p>
+      <p class="section-label">Interactive Tool</p>
+      <h1 class="section-title">Aroma <em>Explorer</em></h1>
+      <p style="font-size:.95rem;color:var(--text-mid);line-height:1.8;max-width:560px;margin:0 auto;">
+        What does this grape actually smell like? Explore aromas by category — fruit, floral, earth, spice, oak, and more.
+      </p>
     </div>
   </div>
 
-  <main id="bottlesFeed">
-    <div class="loading">Loading tasting notes…</div>
+  <main>
+    <div id="aromas-root"></div>
   </main>
 
   <footer class="site-footer">
@@ -32,119 +40,514 @@
     </div>
   </footer>
 
-  <script>
-    function getPhotoUrl(p) {
-      if (!p) return null;
-      if (typeof p === 'string') return p;
-      if (p.image) return p.image;
-      if (p.url) return p.url;
-      if (p.src) return p.src;
-      return null;
-    }
+  <script src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+  <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
 
-    function escapeHtml(text) {
-      const div = document.createElement('div');
-      div.textContent = text || '';
-      return div.innerHTML;
-    }
+  <script type="text/babel">
+    const { useState, useMemo } = React;
 
-    function renderInline(text) {
-      return escapeHtml(text)
-        .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
-        .replace(/\*(.+?)\*/g, '<em>$1</em>')
-        .replace(/__(.+?)__/g, '<strong>$1</strong>')
-        .replace(/_(.+?)_/g, '<em>$1</em>');
-    }
+    const C = {
+      red:       { bg:"#FAF0ED", badge:"#8C2B2B", badgeText:"#fff", accent:"#8C2B2B" },
+      white:     { bg:"#EEF2FA", badge:"#2B4F8C", badgeText:"#fff", accent:"#2B4F8C" },
+      rose:      { bg:"#FAF0F4", badge:"#A0344A", badgeText:"#fff", accent:"#A0344A" },
+      sparkling: { bg:"#FAFAEA", badge:"#8B7A14", badgeText:"#fff", accent:"#8B7A14" },
+      dessert:   { bg:"#FEF5E4", badge:"#9B6010", badgeText:"#fff", accent:"#9B6010" },
+      fortified: { bg:"#F5EAF8", badge:"#5C2A7A", badgeText:"#fff", accent:"#5C2A7A" },
+    };
 
-    function renderMarkdown(text) {
-      if (!text) return '';
-      const lines = text.split('\n');
-      const out = [];
-      for (const rawLine of lines) {
-        const line = rawLine.trim();
-        if (!line) continue;
-        const headingMatch = line.match(/^(#{1,3})\s*(.+)$/);
-        if (headingMatch) {
-          const level = headingMatch[1].length;
-          out.push(`<h${level}>${renderInline(headingMatch[2])}</h${level}>`);
-          continue;
-        }
-        out.push(`<p>${renderInline(line)}</p>`);
-      }
-      return out.join('\n');
-    }
+    const AROMA_CATS = {
+      fruit:    { label:"Fruit",           emoji:"🍇", color:"#7A3A8C" },
+      floral:   { label:"Floral",          emoji:"🌸", color:"#C44A6A" },
+      herb:     { label:"Herb & Green",    emoji:"🌿", color:"#3A7A3A" },
+      earth:    { label:"Earth & Mineral", emoji:"🌍", color:"#8B6020" },
+      spice:    { label:"Spice",           emoji:"🌶️", color:"#C45A1A" },
+      oak:      { label:"Oak & Wood",      emoji:"🪵", color:"#7A5030" },
+      tertiary: { label:"Age & Tertiary",  emoji:"⏳", color:"#4A5A7A" },
+    };
 
-    function formatWeek(week) {
-      if (!week) return '';
-      const d = new Date(week);
-      if (!isNaN(d.getTime())) {
-        return 'Week of ' + d.toLocaleDateString('en-US', {month: 'long', day: 'numeric', year: 'numeric'});
-      }
-      return week;
-    }
+    const GRAPES = [
+      { id:"cab-sauv", name:"Cabernet Sauvignon", type:"red", origin:"Bordeaux, France",
+        tagline:"Bold and structured — a nose that announces itself.",
+        aromas:{
+          fruit:    ["Blackcurrant","Blackberry","Black Cherry","Dark Plum","Cassis"],
+          floral:   ["Dried Violet","Rose (faint)"],
+          herb:     ["Green Bell Pepper","Eucalyptus","Mint","Bay Leaf"],
+          earth:    ["Cedar","Tobacco Leaf","Graphite","Pencil Shaving"],
+          spice:    ["Black Pepper","Clove"],
+          oak:      ["Vanilla","Toast","Smoke","Coconut (American oak)"],
+          tertiary: ["Cigar Box","Leather","Coffee","Dark Chocolate","Truffle (aged)"],
+        }},
+      { id:"merlot", name:"Merlot", type:"red", origin:"Bordeaux, France",
+        tagline:"Softer and more approachable — plum-forward with earthy depth.",
+        aromas:{
+          fruit:    ["Plum","Black Cherry","Blueberry","Fig","Dark Raspberry"],
+          floral:   ["Violet","Rose Petal"],
+          herb:     ["Bay Leaf","Thyme","Sage"],
+          earth:    ["Moist Earth","Mocha","Cedar"],
+          spice:    ["Clove","Allspice","Nutmeg"],
+          oak:      ["Vanilla","Mocha","Toasted Oak"],
+          tertiary: ["Leather","Tobacco","Dried Herbs","Chocolate"],
+        }},
+      { id:"pinot-noir", name:"Pinot Noir", type:"red", origin:"Burgundy, France",
+        tagline:"Ethereal and fragrant — the most perfumed of all red grapes.",
+        aromas:{
+          fruit:    ["Red Cherry","Raspberry","Strawberry","Cranberry","Red Currant","Dried Cherry"],
+          floral:   ["Rose Petal","Violet","Geranium"],
+          herb:     ["Dried Herbs","Green Tea"],
+          earth:    ["Forest Floor","Wet Earth","Mushroom","Autumn Leaves","Compost"],
+          spice:    ["Cinnamon","Star Anise","Clove (faint)"],
+          oak:      ["Vanilla","Toast","Smoke (light)"],
+          tertiary: ["Barnyard","Leather","Truffles","Game","Cola","Dried Rose"],
+        }},
+      { id:"syrah", name:"Syrah / Shiraz", type:"red", origin:"Northern Rhône / Australia",
+        tagline:"Spicy, smoky, and wild — one of the most distinctive noses in wine.",
+        aromas:{
+          fruit:    ["Blackberry","Black Plum","Blueberry","Dark Cherry","Boysenberry"],
+          floral:   ["Violet","Purple Flower"],
+          herb:     ["Olive","Dark Olive","Rosemary"],
+          earth:    ["Iron","Blood","Wet Stone"],
+          spice:    ["Black Pepper","White Pepper","Licorice","Clove","Anise"],
+          oak:      ["Smoke","Vanilla","Toasted Wood"],
+          tertiary: ["Bacon Fat","Smoked Meat","Leather","Game","Coffee","Dark Chocolate"],
+        }},
+      { id:"grenache", name:"Grenache / Garnacha", type:"red", origin:"Southern Rhône / Spain",
+        tagline:"Juicy and spiced — warm-climate charm with herbal soul.",
+        aromas:{
+          fruit:    ["Red Cherry","Raspberry","Strawberry","Orange Peel","Red Plum","Dried Cranberry"],
+          floral:   ["Lavender","Dried Rose","Hibiscus"],
+          herb:     ["Garrigue","Wild Thyme","Rosemary","Dried Lavender","Fennel"],
+          earth:    ["Dusty Earth","Iron","Leather"],
+          spice:    ["White Pepper","Cinnamon","Licorice","Clove"],
+          oak:      ["Vanilla","Toast (light)"],
+          tertiary: ["Dried Herbs","Tobacco","Leather","Prune","Fig (aged)"],
+        }},
+      { id:"sangiovese", name:"Sangiovese", type:"red", origin:"Tuscany, Italy",
+        tagline:"Savory and tart — tomato, cherry, and the Italian countryside.",
+        aromas:{
+          fruit:    ["Sour Cherry","Red Cherry","Red Plum","Dried Cherry","Tomato"],
+          floral:   ["Dried Rose","Violet (faint)","Dried Herbs"],
+          herb:     ["Oregano","Tomato Leaf","Sage","Bay Leaf","Thyme"],
+          earth:    ["Leather","Dusty Earth","Clay","Iron"],
+          spice:    ["Clove","Black Pepper","Cinnamon"],
+          oak:      ["Vanilla","Toast","Cedar"],
+          tertiary: ["Tobacco","Leather","Dried Herbs","Balsamic (aged)","Mushroom"],
+        }},
+      { id:"nebbiolo", name:"Nebbiolo", type:"red", origin:"Piedmont, Italy",
+        tagline:"Tar and roses — one of wine's most famous and distinctive aromas.",
+        aromas:{
+          fruit:    ["Sour Cherry","Dried Cherry","Red Plum","Pomegranate","Raspberry (faint)"],
+          floral:   ["Rose","Dried Rose","Violet","Rose Petal — intense and unmistakable"],
+          herb:     ["Dried Herbs","Licorice Root"],
+          earth:    ["Tar","Iron","Clay","Dried Earth"],
+          spice:    ["Anise","Cinnamon","Clove","Star Anise"],
+          oak:      ["Toast","Vanilla","Sandalwood"],
+          tertiary: ["Tobacco","Leather","Truffle","Dried Mushroom","Camphor","Game"],
+        }},
+      { id:"tempranillo", name:"Tempranillo", type:"red", origin:"Rioja, Spain",
+        tagline:"Leather and dried cherry — the soul of the Spanish table.",
+        aromas:{
+          fruit:    ["Dried Cherry","Sour Cherry","Plum","Tomato","Red Currant","Dried Strawberry"],
+          floral:   ["Dried Rose","Violet (light)"],
+          herb:     ["Tomato Leaf","Dried Herbs","Thyme"],
+          earth:    ["Leather","Dusty Earth","Tobacco","Cedar"],
+          spice:    ["Black Pepper","Clove","Cinnamon"],
+          oak:      ["Vanilla","Coconut (American oak)","Dill (American oak)","Toast"],
+          tertiary: ["Tobacco","Leather","Dried Fruit","Coffee (aged)","Cigar Box"],
+        }},
+      { id:"malbec", name:"Malbec", type:"red", origin:"Mendoza, Argentina / Cahors, France",
+        tagline:"Violet, dark plum, and chocolate — the Argentine powerhouse.",
+        aromas:{
+          fruit:    ["Dark Cherry","Black Plum","Blackberry","Blueberry","Black Currant","Dried Plum"],
+          floral:   ["Violet","Dark Flower","Iris"],
+          herb:     ["Dried Herbs (faint)"],
+          earth:    ["Mocha","Dark Chocolate","Coffee","Cedar"],
+          spice:    ["Black Pepper","Clove","Cinnamon"],
+          oak:      ["Vanilla","Mocha","Toasted Oak","Smoke"],
+          tertiary: ["Leather","Tobacco","Coffee","Cocoa","Game (Cahors style)"],
+        }},
+      { id:"zinfandel", name:"Zinfandel / Primitivo", type:"red", origin:"California / Puglia, Italy",
+        tagline:"Jammy and bold — blackberry pie, pepper, and smoke.",
+        aromas:{
+          fruit:    ["Blackberry Jam","Blueberry","Black Cherry","Raspberry Jam","Dried Cranberry","Raisin"],
+          floral:   ["Violet (faint)"],
+          herb:     ["Dried Herbs","Sage"],
+          earth:    ["Leather","Dusty Earth","Mocha"],
+          spice:    ["Black Pepper","White Pepper","Cinnamon","Clove","Anise","Cardamom"],
+          oak:      ["Vanilla","Smoke","Toast","Coconut"],
+          tertiary: ["Leather","Tobacco","Prune","Port-like (overripe)","Dark Chocolate"],
+        }},
+      { id:"mourvedre", name:"Mourvèdre / Monastrell", type:"red", origin:"Bandol / Jumilla, Spain",
+        tagline:"Wild and gamey — dark fruit with an animal, earthy intensity.",
+        aromas:{
+          fruit:    ["Blackberry","Black Plum","Dark Cherry","Black Olive","Dried Blueberry"],
+          floral:   ["Lavender","Dried Violet"],
+          herb:     ["Garrigue","Thyme","Wild Herbs","Olive","Lavender"],
+          earth:    ["Iron","Leather","Wet Earth","Animal","Game"],
+          spice:    ["Black Pepper","Clove","Licorice"],
+          oak:      ["Smoke","Toast","Vanilla"],
+          tertiary: ["Leather","Smoked Meat","Barnyard","Game","Dried Meat","Tobacco"],
+        }},
+      { id:"barbera", name:"Barbera d'Asti / d'Alba", type:"red", origin:"Piedmont, Italy",
+        tagline:"Bright and juicy — cherry, herbs, and easy Italian charm.",
+        aromas:{
+          fruit:    ["Red Cherry","Sour Cherry","Blackberry","Plum","Red Currant"],
+          floral:   ["Violet","Dried Rose"],
+          herb:     ["Dried Herbs","Oregano","Thyme"],
+          earth:    ["Leather (light)","Dusty Earth"],
+          spice:    ["Clove","Black Pepper (light)","Anise"],
+          oak:      ["Vanilla","Toast (when oaked)","Cedar"],
+          tertiary: ["Dried Cherry","Leather","Tobacco (light)"],
+        }},
+      { id:"cab-franc", name:"Cabernet Franc", type:"red", origin:"Loire Valley / Bordeaux",
+        tagline:"Herbal and elegant — pencil shaving, red fruit, and fresh garden.",
+        aromas:{
+          fruit:    ["Red Currant","Red Cherry","Raspberry","Strawberry","Blueberry"],
+          floral:   ["Violet","Rose","Geranium"],
+          herb:     ["Green Bell Pepper","Graphite","Pencil Shaving","Tomato Leaf","Fresh Garden Herbs"],
+          earth:    ["Pencil Shaving","Wet Gravel","Graphite","Cedar"],
+          spice:    ["Black Pepper","Clove (light)"],
+          oak:      ["Cedar","Vanilla (light)","Toast"],
+          tertiary: ["Leather","Tobacco","Dried Herbs","Earthy Minerality"],
+        }},
+      { id:"carmenere", name:"Carménère", type:"red", origin:"Chile",
+        tagline:"Smoky and herbal — paprika, dark fruit, and a green edge.",
+        aromas:{
+          fruit:    ["Dark Cherry","Black Plum","Blackberry","Black Currant"],
+          floral:   ["Violet (faint)"],
+          herb:     ["Green Bell Pepper","Tomato Leaf","Fresh Herbs","Paprika"],
+          earth:    ["Leather","Smoked Earth","Mocha"],
+          spice:    ["Smoked Paprika","Black Pepper","Clove","Anise"],
+          oak:      ["Smoke","Vanilla","Cedar"],
+          tertiary: ["Leather","Coffee","Dark Chocolate","Tobacco"],
+        }},
+      { id:"aglianico", name:"Aglianico", type:"red", origin:"Campania & Basilicata, Italy",
+        tagline:"Ancient and powerful — tar, dark fruit, and volcanic earth.",
+        aromas:{
+          fruit:    ["Black Cherry","Dark Plum","Blackberry","Black Currant","Dried Fig"],
+          floral:   ["Dried Violet","Rose (faint)"],
+          herb:     ["Dried Herbs","Oregano","Bay Leaf"],
+          earth:    ["Tar","Iron","Volcanic Ash","Dark Chocolate","Leather"],
+          spice:    ["Black Pepper","Clove","Licorice","Anise"],
+          oak:      ["Smoke","Toast","Cedar"],
+          tertiary: ["Tobacco","Leather","Game","Dried Fruit","Coffee","Earthy Minerality"],
+        }},
+      { id:"nero-davola", name:"Nero d'Avola", type:"red", origin:"Sicily, Italy",
+        tagline:"Sun-drenched and bold — dark fruit, chocolate, and Mediterranean spice.",
+        aromas:{
+          fruit:    ["Black Cherry","Dark Plum","Blackberry","Dried Fig","Raisin"],
+          floral:   ["Dried Violet","Rose (faint)"],
+          herb:     ["Dried Herbs","Fennel Seed","Oregano"],
+          earth:    ["Dark Chocolate","Mocha","Leather","Volcanic Earth"],
+          spice:    ["Black Pepper","Licorice","Clove","Cinnamon"],
+          oak:      ["Smoke","Vanilla","Toast"],
+          tertiary: ["Leather","Tobacco","Coffee","Dried Meat","Fig"],
+        }},
+      { id:"chardonnay", name:"Chardonnay", type:"white", origin:"Burgundy, France",
+        tagline:"The great chameleon — from steely Chablis to rich buttery Napa.",
+        aromas:{
+          fruit:    ["Green Apple","Pear","Lemon","Grapefruit","Peach","Nectarine","Pineapple (warm climate)","Mango (oaked warm)"],
+          floral:   ["Acacia","White Blossom","Honeysuckle"],
+          herb:     ["Fennel (faint)"],
+          earth:    ["Flint","Chalk","Wet Stone (Chablis)","Oyster Shell (Chablis)"],
+          spice:    ["Ginger (faint)"],
+          oak:      ["Vanilla","Butter","Toast","Cream","Hazelnut","Smoke","Coconut"],
+          tertiary: ["Brioche","Honey","Beeswax","Toasted Almond","Petrol (aged)"],
+        }},
+      { id:"sauv-blanc", name:"Sauvignon Blanc", type:"white", origin:"Loire Valley / New Zealand",
+        tagline:"Vivid and aromatic — grass, citrus, and that unmistakable green edge.",
+        aromas:{
+          fruit:    ["Grapefruit","Lime","Lemon","Green Apple","Passionfruit","Gooseberry","Guava","White Peach"],
+          floral:   ["Elderflower","White Blossom"],
+          herb:     ["Freshly Cut Grass","Tomato Leaf","Asparagus","Jalapeño","Capsicum","Green Bell Pepper"],
+          earth:    ["Flint","Wet Stone","Chalk","Gunpowder (Sancerre)"],
+          spice:    ["White Pepper (faint)"],
+          oak:      ["Smoke (Fumé Blanc style)","Vanilla (if oaked — rare)"],
+          tertiary: ["Cat's Pee (thiols — Marlborough)","Dried Herbs"],
+        }},
+      { id:"riesling", name:"Riesling", type:"white", origin:"Mosel, Germany / Alsace",
+        tagline:"Floral and precise — one of the most complex aromatic profiles in wine.",
+        aromas:{
+          fruit:    ["Lime","Lemon","Green Apple","Apricot","Peach","Mandarin","White Peach","Pineapple (warm)"],
+          floral:   ["Jasmine","White Rose","Orange Blossom","Honeysuckle"],
+          herb:     ["Fennel (faint)","Dried Herbs (aged)"],
+          earth:    ["Slate","Wet Stone","Mineral","Diesel","Petrol — the hallmark aged Riesling note"],
+          spice:    ["Ginger","Spice Cake"],
+          oak:      ["Rarely oaked — purity is the point"],
+          tertiary: ["Petrol / Gasoline (TDN compound)","Honey","Beeswax","Toasted Almond","Marmalade (aged)"],
+        }},
+      { id:"pinot-gris", name:"Pinot Gris / Pinot Grigio", type:"white", origin:"Alsace / Northern Italy",
+        tagline:"Two personalities — crisp Italian lightness vs. rich Alsatian smoke.",
+        aromas:{
+          fruit:    ["Pear","Green Apple","Lemon","White Peach","Apricot (Alsace)","Melon"],
+          floral:   ["White Blossom","Acacia"],
+          herb:     ["Fennel (faint)"],
+          earth:    ["Mineral","Flint","Honey (Alsace)"],
+          spice:    ["Ginger","White Pepper","Nutmeg (Alsace)"],
+          oak:      ["Rarely oaked (Italian style)","Smoke (Alsatian style — distinctive)"],
+          tertiary: ["Smoked Bacon (Alsace)","Honey","Beeswax","Almond","White Truffle (Alsace)"],
+        }},
+      { id:"gewurz", name:"Gewurztraminer", type:"white", origin:"Alsace, France",
+        tagline:"The most immediately recognizable grape — lychee, rose, and exotic spice.",
+        aromas:{
+          fruit:    ["Lychee","Mango","Grapefruit","Pink Grapefruit","Apricot","Guava"],
+          floral:   ["Rose","Rose Petal","Orange Blossom","Violet","Gardenia"],
+          herb:     ["Ginger Root","Lemongrass"],
+          earth:    ["Mineral (faint)","Honey"],
+          spice:    ["Ginger","Cinnamon","Cardamom","Clove","Allspice","Turkish Delight"],
+          oak:      ["Rarely oaked"],
+          tertiary: ["Petroleum / Diesel (aged)","Honey","Marzipan","Beeswax","Gingerbread"],
+        }},
+      { id:"viognier", name:"Viognier", type:"white", origin:"Northern Rhône — Condrieu",
+        tagline:"Heady and perfumed — apricot, honeysuckle, and almost oily richness.",
+        aromas:{
+          fruit:    ["Apricot","Peach","Nectarine","Mango","Tangerine","White Peach"],
+          floral:   ["Honeysuckle","Violet","Orange Blossom","Jasmine","White Flower"],
+          herb:     ["Ginger","Lemongrass"],
+          earth:    ["Mineral (light)"],
+          spice:    ["Ginger","Cinnamon","Nutmeg"],
+          oak:      ["Vanilla","Cream (if lees aged)"],
+          tertiary: ["Lanolin","Beeswax","Honey","Almond"],
+        }},
+      { id:"chenin", name:"Chenin Blanc", type:"white", origin:"Loire Valley / South Africa",
+        tagline:"From bone dry to luscious sweet — quince, honey, and extraordinary range.",
+        aromas:{
+          fruit:    ["Quince","Green Apple","Pear","Lemon","Honey","Apricot","Peach","Pineapple (warm climate)"],
+          floral:   ["Acacia","White Blossom","Chamomile"],
+          herb:     ["Fennel","Fresh Hay","Straw"],
+          earth:    ["Flint","Wet Wool","Chalk","Mineral"],
+          spice:    ["Ginger","Honey Spice"],
+          oak:      ["Vanilla","Beeswax","Toast (if oaked)"],
+          tertiary: ["Beeswax","Lanolin","Honey","Toasted Almond","Dried Apricot","Quince Paste (aged)"],
+        }},
+      { id:"albarino", name:"Albariño / Alvarinho", type:"white", origin:"Rías Baixas / Vinho Verde",
+        tagline:"Salty and citrusy — the ocean in a glass.",
+        aromas:{
+          fruit:    ["Lemon","Lime","Grapefruit","White Peach","Apricot","Tangerine"],
+          floral:   ["White Blossom","Orange Blossom"],
+          herb:     ["Fresh Herbs","Lemon Verbena"],
+          earth:    ["Saline","Mineral","Wet Stone","Ocean Spray"],
+          spice:    ["White Pepper (light)"],
+          oak:      ["Rarely oaked"],
+          tertiary: ["Almond","Mineral Complexity (aged)"],
+        }},
+      { id:"gruner", name:"Grüner Veltliner", type:"white", origin:"Wachau & Kamptal, Austria",
+        tagline:"White pepper and mineral — Austria's distinctive and underrated signature.",
+        aromas:{
+          fruit:    ["Grapefruit","Lime","Green Apple","Pear","White Peach","Lemon Zest"],
+          floral:   ["White Blossom (faint)"],
+          herb:     ["White Pepper — the defining aroma","Green Herbs","Celery Leaf","Radish"],
+          earth:    ["Mineral","Flint","Wet Stone"],
+          spice:    ["White Pepper — unmistakable","Ginger"],
+          oak:      ["Smoke","Vanilla (premium aged styles)"],
+          tertiary: ["Honey","Toasted Almond","Citrus Peel (aged)","Mineral complexity"],
+        }},
+      { id:"assyrtiko", name:"Assyrtiko", type:"white", origin:"Santorini, Greece",
+        tagline:"Volcanic and electric — saline, citrus, and ashy mineral intensity.",
+        aromas:{
+          fruit:    ["Lemon","Lime","Green Apple","Grapefruit","White Peach"],
+          floral:   ["White Blossom (faint)"],
+          herb:     ["Dried Herbs","Thyme (faint)"],
+          earth:    ["Volcanic Ash","Pumice","Flint","Saline","Wet Stone","Gunflint"],
+          spice:    ["White Pepper (faint)"],
+          oak:      ["Rarely oaked (natural purity is the point)"],
+          tertiary: ["Smoke","Mineral Complexity","Petrol (aged)","Dried Citrus"],
+        }},
+      { id:"provence-rose", name:"Rosé — Provence Style", type:"rose", origin:"Provence, France",
+        tagline:"Delicate and fresh — red fruit, flowers, and Mediterranean herbs.",
+        aromas:{
+          fruit:    ["Strawberry","Raspberry","Red Cherry","Watermelon","White Peach","Citrus"],
+          floral:   ["Rose Petal","Hibiscus","Violet"],
+          herb:     ["Herbes de Provence","Dried Lavender","Thyme"],
+          earth:    ["Mineral","Chalky","Saline (coastal)"],
+          spice:    ["White Pepper (faint)"],
+          oak:      ["Rarely oaked"],
+          tertiary: ["Dried Rose","Almond (faint)"],
+        }},
+      { id:"champagne", name:"Champagne", type:"sparkling", origin:"Champagne, France",
+        tagline:"Bread, citrus, and stone — the most complex and layered sparkling wine.",
+        aromas:{
+          fruit:    ["Lemon","Grapefruit","Green Apple","Pear","White Cherry","Peach","Red Berry (Pinot-dominant)"],
+          floral:   ["White Blossom","Acacia","Chamomile"],
+          herb:     ["Fresh Herbs (faint)"],
+          earth:    ["Chalk","Flint","Wet Stone","Mineral"],
+          spice:    ["Ginger","Spice (yeast-derived)"],
+          oak:      ["Vanilla (if oak-aged)","Hazelnut","Cream"],
+          tertiary: ["Brioche","Toast","Yeast","Biscuit","Honey","Beeswax","Petrol (aged Blanc de Blancs)"],
+        }},
+      { id:"sauternes", name:"Sauternes", type:"dessert", origin:"Bordeaux, France",
+        tagline:"Botrytis gold — honey, apricot, and the unmistakable scent of noble rot.",
+        aromas:{
+          fruit:    ["Apricot Jam","Peach","Mango","Pineapple","Dried Apricot","Orange Marmalade","Quince"],
+          floral:   ["Acacia","Orange Blossom","Jasmine"],
+          herb:     ["Saffron (faint)","Ginger"],
+          earth:    ["Honey","Beeswax","Lanolin"],
+          spice:    ["Ginger","Cinnamon","Saffron","Nutmeg"],
+          oak:      ["Vanilla","Cream","Toast","Caramel"],
+          tertiary: ["Crème Brûlée","Honey","Beeswax","Roasted Nuts","Petrol (aged)","Dried Fruit Cake"],
+        }},
+      { id:"tokaji", name:"Tokaji Aszú", type:"dessert", origin:"Tokaj, Hungary",
+        tagline:"Ancient and complex — apricot, honey, and volcanic mineral depth.",
+        aromas:{
+          fruit:    ["Apricot","Peach","Orange Peel","Dried Apricot","Quince","Mandarin","Tropical Fruit"],
+          floral:   ["Orange Blossom","Acacia","White Rose"],
+          herb:     ["Ginger","Saffron (faint)"],
+          earth:    ["Volcanic Mineral","Honey","Beeswax"],
+          spice:    ["Ginger","Cinnamon","Clove","Saffron"],
+          oak:      ["Vanilla","Caramel","Toast","Almond"],
+          tertiary: ["Honey","Beeswax","Petrol (aged)","Roasted Almond","Dried Apricot","Marmalade"],
+        }},
+      { id:"ruby-port", name:"Ruby Port", type:"fortified", origin:"Douro Valley, Portugal",
+        tagline:"Dark and fruit-driven — blackberry, chocolate, and dried flowers.",
+        aromas:{
+          fruit:    ["Blackberry","Black Cherry","Plum","Dark Cherry","Dried Fig","Raisin","Blackcurrant"],
+          floral:   ["Violet","Dried Violet","Rose"],
+          herb:     ["Dried Herbs (faint)"],
+          earth:    ["Chocolate","Mocha","Dark Earth"],
+          spice:    ["Cinnamon","Clove","Nutmeg","Anise"],
+          oak:      ["Vanilla","Toast","Chocolate","Smoke"],
+          tertiary: ["Dried Fruit","Fig","Prune","Coffee","Dark Chocolate","Leather"],
+        }},
+      { id:"tawny-port", name:"Tawny Port", type:"fortified", origin:"Douro Valley, Portugal",
+        tagline:"Oxidative and nutty — caramel, dried fruit, and rancio complexity.",
+        aromas:{
+          fruit:    ["Dried Apricot","Dried Fig","Raisin","Orange Peel","Dates","Prune","Dried Cherry"],
+          floral:   ["Dried Rose","Dried Violet"],
+          herb:     [],
+          earth:    ["Caramel","Toffee","Coffee","Chocolate","Walnut"],
+          spice:    ["Cinnamon","Nutmeg","Clove","Ginger","Allspice"],
+          oak:      ["Vanilla","Walnut","Hazelnut","Oxidative Nutty Note (rancio)","Caramel"],
+          tertiary: ["Rancio","Butterscotch","Toffee","Roasted Nuts","Coffee","Dried Fruit Cake","Almond"],
+        }},
+    ];
 
-    function isHeic(url) {
-      return /\.heic$/i.test(url || '');
-    }
+    const TYPE_FILTERS = ["All","Red","White","Rosé","Sparkling","Dessert","Fortified"];
+    const CAT_FILTERS  = ["All", ...Object.keys(AROMA_CATS)];
 
-    async function loadBottles() {
-      const feed = document.getElementById('bottlesFeed');
-      try {
-        const r = await fetch('data/bottles.json', {cache: 'no-store'});
-        if (!r.ok) throw new Error('No bottles data');
-        const data = await r.json();
-        const bottles = Array.isArray(data) ? data : (data.bottles || []);
+    function AromaExplorer() {
+      const [search, setSearch]         = useState("");
+      const [typeFilter, setTypeFilter] = useState("All");
+      const [catFilter, setCatFilter]   = useState("All");
+      const [expanded, setExpanded]     = useState(null);
 
-        if (!bottles.length) {
-          feed.innerHTML = `
-            <div class="empty-state">
-              <h3>Tasting notes coming soon</h3>
-              <p>We're pouring something every week. Check back here for what we've been drinking.</p>
-            </div>`;
-          return;
-        }
+      const filtered = useMemo(() => GRAPES.filter(g => {
+        const matchType = typeFilter === "All" || g.type === typeFilter.toLowerCase().replace("é","e").replace(" ","");
+        const matchSearch = !search || g.name.toLowerCase().includes(search.toLowerCase());
+        const matchCat = catFilter === "All" || (g.aromas[catFilter] && g.aromas[catFilter].length > 0);
+        return matchType && matchSearch && matchCat;
+      }), [search, typeFilter, catFilter]);
 
-        const ordered = bottles.slice().reverse();
+      return (
+        <div style={st.root}>
+          <div style={st.controls}>
+            <input style={st.search} placeholder="Search grape…"
+              value={search} onChange={e => setSearch(e.target.value)}/>
+            <div style={st.filterRow}>
+              {TYPE_FILTERS.map(f => (
+                <button key={f}
+                  style={{...st.chip, ...(typeFilter===f ? st.chipActiveType : {})}}
+                  onClick={() => setTypeFilter(f)}>{f}</button>
+              ))}
+            </div>
+            <div style={st.filterLabel}>Filter by aroma category:</div>
+            <div style={st.filterRow}>
+              {CAT_FILTERS.map(f => {
+                const cat = AROMA_CATS[f];
+                return (
+                  <button key={f}
+                    style={{...st.chip, ...(catFilter===f ? {...st.chipActiveCat, background: cat?.color || "#5C1A1A", borderColor: cat?.color || "#5C1A1A"} : {})}}
+                    onClick={() => setCatFilter(f)}>
+                    {cat ? `${cat.emoji} ${cat.label}` : "All"}
+                  </button>
+                );
+              })}
+            </div>
+          </div>
 
-        feed.innerHTML = ordered.map(b => {
-          const imgUrl = getPhotoUrl(b.image) || (b.photos && getPhotoUrl(b.photos[0]));
-          const week = formatWeek(b.week);
-          const name = b.name || 'Untitled';
-          const meta = [b.vintage, b.region].filter(Boolean).join(' · ');
-          const notes = b.notes || b.body || b.review || '';
+          <div style={st.count}>{filtered.length} {filtered.length===1?"grape":"grapes"}</div>
 
-          let imageHtml;
-          if (imgUrl && !isHeic(imgUrl)) {
-            imageHtml = `<img src="${imgUrl}" alt="${escapeHtml(name)}" class="bottle-image" loading="lazy">`;
-          } else if (isHeic(imgUrl)) {
-            imageHtml = `<div class="bottle-image-empty">Image format not supported.<br>Re-upload as JPEG.</div>`;
-          } else {
-            imageHtml = `<div class="bottle-image-empty">No image yet</div>`;
-          }
-
-          return `
-            <article class="bottle-entry">
-              <div class="bottle-image-wrap">${imageHtml}</div>
-              <div class="bottle-content">
-                ${week ? `<p class="bottle-week">${escapeHtml(week)}</p>` : ''}
-                <h2 class="bottle-name">${escapeHtml(name)}</h2>
-                ${meta ? `<p class="bottle-meta">${escapeHtml(meta)}</p>` : ''}
-                <div class="bottle-notes">${renderMarkdown(notes)}</div>
+          {filtered.map(g => {
+            const col = C[g.type] || C.red;
+            const isOpen = expanded === g.id;
+            const visibleCats = catFilter === "All" ? Object.keys(AROMA_CATS) : [catFilter];
+            return (
+              <div key={g.id} style={{...st.card, background: col.bg}}>
+                <div style={st.cardTop} onClick={() => setExpanded(isOpen ? null : g.id)}>
+                  <div>
+                    <div style={st.cardName}>{g.name}</div>
+                    <div style={st.cardOrigin}>{g.origin}</div>
+                    {!isOpen && <div style={st.cardTagline}>{g.tagline}</div>}
+                  </div>
+                  <div style={st.cardRight}>
+                    <span style={{...st.badge, background: col.badge, color: col.badgeText}}>
+                      {g.type.charAt(0).toUpperCase()+g.type.slice(1)}
+                    </span>
+                    <span style={st.arrow}>{isOpen ? "▲" : "▼"}</span>
+                  </div>
+                </div>
+                {isOpen && (
+                  <div style={st.expanded}>
+                    <div style={st.tagline}>{g.tagline}</div>
+                    {visibleCats.map(catKey => {
+                      const items = g.aromas[catKey];
+                      if (!items || items.length === 0) return null;
+                      const cat = AROMA_CATS[catKey];
+                      return (
+                        <div key={catKey} style={st.aromaGroup}>
+                          <div style={{...st.catLabel, color: cat.color}}>
+                            {cat.emoji} {cat.label}
+                          </div>
+                          <div style={st.pills}>
+                            {items.map((aroma, i) => (
+                              <span key={i} style={{...st.pill, borderColor: cat.color+"40", color: cat.color}}>
+                                {aroma}
+                              </span>
+                            ))}
+                          </div>
+                        </div>
+                      );
+                    })}
+                  </div>
+                )}
               </div>
-            </article>
-          `;
-        }).join('');
-      } catch (e) {
-        console.error('Could not load bottles:', e);
-        feed.innerHTML = `
-          <div class="empty-state">
-            <h3>Couldn't load tasting notes</h3>
-            <p>Something went wrong fetching the data. Try refreshing the page.</p>
-          </div>`;
-      }
+            );
+          })}
+
+          {filtered.length === 0 && (
+            <div style={st.empty}>No grapes match your filters.</div>
+          )}
+        </div>
+      );
     }
 
-    loadBottles();
+    const st = {
+      root:        { fontFamily:"Georgia,'Times New Roman',serif", background:"transparent", padding:"0 0 60px", color:"#2C1A0E" },
+      controls:    { padding:"20px 14px 0" },
+      search:      { width:"100%", padding:"10px 14px", fontSize:14, border:"1px solid #D9C8A8", borderRadius:8, outline:"none", background:"#FFF9F0", fontFamily:"Georgia,serif", color:"#2C1A0E", boxSizing:"border-box", marginBottom:10 },
+      filterRow:   { display:"flex", gap:6, flexWrap:"wrap", marginBottom:8 },
+      filterLabel: { fontSize:10, color:"#9C8060", textTransform:"uppercase", letterSpacing:"0.5px", marginBottom:4 },
+      chip:        { padding:"4px 11px", borderRadius:20, border:"1px solid #D9C8A8", background:"transparent", fontSize:11, cursor:"pointer", fontFamily:"Georgia,serif", color:"#6B4C2A" },
+      chipActiveType: { background:"#5C1A1A", color:"#fff", borderColor:"#5C1A1A" },
+      chipActiveCat:  { color:"#fff" },
+      count:       { fontSize:11, color:"#9C8060", padding:"8px 14px 4px", fontStyle:"italic" },
+      card:        { margin:"8px 14px", borderRadius:10, border:"1px solid #D9C8A8", overflow:"hidden", boxShadow:"0 1px 6px rgba(0,0,0,0.05)" },
+      cardTop:     { display:"flex", justifyContent:"space-between", alignItems:"flex-start", padding:"14px", cursor:"pointer" },
+      cardName:    { fontSize:17, fontWeight:"bold", color:"#2C1A0E" },
+      cardOrigin:  { fontSize:10, color:"#9C8060", marginTop:2, fontStyle:"italic" },
+      cardTagline: { fontSize:12, color:"#6B4C2A", marginTop:4, lineHeight:1.5 },
+      cardRight:   { display:"flex", flexDirection:"column", alignItems:"flex-end", gap:6 },
+      badge:       { fontSize:10, padding:"3px 10px", borderRadius:12, fontWeight:"bold" },
+      arrow:       { fontSize:10, color:"#9C8060" },
+      expanded:    { padding:"0 14px 14px" },
+      tagline:     { fontSize:12, color:"#6B4C2A", fontStyle:"italic", marginBottom:12, lineHeight:1.5 },
+      aromaGroup:  { marginBottom:12 },
+      catLabel:    { fontSize:10, fontWeight:"bold", textTransform:"uppercase", letterSpacing:"0.6px", marginBottom:6 },
+      pills:       { display:"flex", flexWrap:"wrap", gap:6 },
+      pill:        { fontSize:11, padding:"4px 11px", borderRadius:16, background:"rgba(255,255,255,0.85)", border:"1px solid", color:"#2C1A0E" },
+      empty:       { textAlign:"center", padding:"40px", color:"#9C8060", fontStyle:"italic" },
+    };
+
+    ReactDOM.createRoot(document.getElementById('aromas-root')).render(<AromaExplorer />);
   </script>
 
 </body>
