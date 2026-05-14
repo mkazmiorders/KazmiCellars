@@ -1,4 +1,14 @@
 <!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Wine &amp; Food Pairing — Kazmi Cellars</title>
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    #pairing-root { max-width: 860px; margin: 0 auto; padding: 0 0 3rem; }
+  </style>
+</head>
 <body>
 <script src="nav.js"></script>
 
@@ -419,7 +429,6 @@
           { name:"Ragusano",         note:"Sicilian PDO stretched curd cheese — support local" },
         ],
       },
-      // ── WHITE ────────────────────────────────────────────────────────────────
       { id:"chardonnay", name:"Chardonnay", type:"white", body:"Medium-Full", origin:"Burgundy, France",
         tagline:"The world's most versatile white — from steely Chablis to buttery Napa.",
         proteins:[
@@ -504,10 +513,10 @@
           { cat:"Vegetarian",items:["Pizza (Italian Pinot Grigio)","Light Pasta","Risotto (seafood)"] },
         ],
         preps:[
-          { style:"Italian Light",     desc:"Italian Pinot Grigio: simple, lemon-dressed, minimally sauced" },
-          { style:"Alsatian Rich",     desc:"Richer Alsace Pinot Gris: quiche Lorraine, choucroute, smoked meats" },
+          { style:"Italian Light",      desc:"Italian Pinot Grigio: simple, lemon-dressed, minimally sauced" },
+          { style:"Alsatian Rich",      desc:"Richer Alsace Pinot Gris: quiche Lorraine, choucroute, smoked meats" },
           { style:"Smoked Preparations",desc:"Smoke (salmon, meats) is a known pairing for Alsatian Pinot Gris" },
-          { style:"Simple Seafood",    desc:"The Italian way — don't complicate, let freshness lead" },
+          { style:"Simple Seafood",     desc:"The Italian way — don't complicate, let freshness lead" },
         ],
         cheeses:[
           { name:"Munster (Alsatian)",note:"Washed rind pungency is Alsatian Pinot Gris's traditional companion" },
@@ -588,10 +597,10 @@
           { cat:"Vegetarian",items:["Simple green salads","Light vegetable preparations"] },
         ],
         preps:[
-          { style:"Galician Seafood",  desc:"Simply grilled or boiled — Albariño's homeland preparation, unbeatable" },
-          { style:"Citrus & Olive Oil",desc:"Lemon, good olive oil, sea salt — nothing more needed" },
+          { style:"Galician Seafood",   desc:"Simply grilled or boiled — Albariño's homeland preparation, unbeatable" },
+          { style:"Citrus & Olive Oil", desc:"Lemon, good olive oil, sea salt — nothing more needed" },
           { style:"Light Herb Marinade",desc:"Parsley, garlic, lemon — the Galician trifecta" },
-          { style:"Ceviche",          desc:"Acid, citrus, and the ocean — Albariño's elements reflected back" },
+          { style:"Ceviche",           desc:"Acid, citrus, and the ocean — Albariño's elements reflected back" },
         ],
         cheeses:[
           { name:"Fresh Manchego (Fresco)",note:"Mild, milky — doesn't compete with the wine's delicacy" },
@@ -609,9 +618,9 @@
           { cat:"Pork",      items:["Light Pork Preparations","Ham"] },
         ],
         preps:[
-          { style:"White Asparagus",   desc:"The definitive Grüner pairing — white asparagus with hollandaise" },
-          { style:"Schnitzel",        desc:"The Austrian classic — breaded veal or pork with lemon and Grüner" },
-          { style:"Light Alpine",     desc:"Austrian and Alpine cuisine — clean, simple, precise preparations" },
+          { style:"White Asparagus",    desc:"The definitive Grüner pairing — white asparagus with hollandaise" },
+          { style:"Schnitzel",         desc:"The Austrian classic — breaded veal or pork with lemon and Grüner" },
+          { style:"Light Alpine",      desc:"Austrian and Alpine cuisine — clean, simple, precise preparations" },
           { style:"Lemon Butter Sauce",desc:"Fits Grüner's weight and white pepper character perfectly" },
         ],
         cheeses:[
@@ -641,7 +650,6 @@
           { name:"Mizithra (fresh)",  note:"Mild fresh Greek cheese — clean and understated" },
         ],
       },
-      // ── ROSÉ ─────────────────────────────────────────────────────────────────
       { id:"gewurz-rose", name:"Rosé (Provence style)", type:"rose", body:"Light", origin:"Provence, France",
         tagline:"The world's most popular dry rosé — effortlessly food-friendly.",
         proteins:[
@@ -664,7 +672,6 @@
           { name:"Burrata",              note:"Creamy and fresh — drizzled with olive oil alongside Provence rosé" },
         ],
       },
-      // ── SPARKLING ─────────────────────────────────────────────────────────────
       { id:"champagne", name:"Champagne", type:"sparkling", body:"Light-Medium", origin:"Champagne, France",
         tagline:"The world's greatest sparkling wine — versatile, celebratory, and criminally underused at the table.",
         proteins:[
@@ -675,12 +682,12 @@
           { cat:"Avoid",    items:["Heavy red meat (overpowers the wine)","Rich tomato sauces","Very spicy dishes"] },
         ],
         preps:[
-          { style:"Raw Bar",             desc:"Oysters, clams, sea urchin — the bubbles and acidity are born for this" },
-          { style:"Fried Preparations",  desc:"Bubbles cut through oil magnificently — fried chicken, tempura, fish & chips" },
-          { style:"Butter Sauce (Blanc)",desc:"Beurre blanc over fish — Champagne's richness meets buttery elegance" },
-          { style:"Caviar Service",      desc:"Blini, crème fraîche, caviar — the luxury pairing that defines an era" },
+          { style:"Raw Bar",              desc:"Oysters, clams, sea urchin — the bubbles and acidity are born for this" },
+          { style:"Fried Preparations",   desc:"Bubbles cut through oil magnificently — fried chicken, tempura, fish & chips" },
+          { style:"Butter Sauce (Blanc)", desc:"Beurre blanc over fish — Champagne's richness meets buttery elegance" },
+          { style:"Caviar Service",       desc:"Blini, crème fraîche, caviar — the luxury pairing that defines an era" },
           { style:"Citrus & Herb Dressed",desc:"Light citrus vinaigrettes on seafood salads — acidity mirrors the wine" },
-          { style:"Simple & Unadorned",  desc:"Champagne needs no help — serve with the simplest, freshest preparations" },
+          { style:"Simple & Unadorned",   desc:"Champagne needs no help — serve with the simplest, freshest preparations" },
         ],
         cheeses:[
           { name:"Brie de Meaux",      note:"The classic Champagne cheese — creamy, soft, and from the same region" },
@@ -691,7 +698,6 @@
           { name:"Avoid: Strong blues",note:"Overpowering — crush the wine's delicate aromatics" },
         ],
       },
-      // ── DESSERT ───────────────────────────────────────────────────────────────
       { id:"sauternes", name:"Sauternes", type:"dessert", body:"Full (Sweet)", origin:"Bordeaux, France",
         tagline:"Liquid gold — botrytis-affected nectar that is one of the world's greatest wines.",
         proteins:[
@@ -702,12 +708,12 @@
           { cat:"Avoid",    items:["Chocolate (clashes — too bitter)","Very spicy food","Heavy red meats"] },
         ],
         preps:[
-          { style:"Foie Gras Preparations",  desc:"The greatest food pairing in wine — sweet wine, rich liver, perfection" },
-          { style:"Stone Fruit Glazes",       desc:"Peach, apricot, and quince preparations mirror Sauternes' own flavors" },
-          { style:"Sweet-Savory Contrast",    desc:"Sauternes with salty blue cheese is one of the world's legendary pairings" },
-          { style:"Honey-Based Dishes",       desc:"Honey in preparation echoes botrytis honey in the wine" },
-          { style:"Crème & Custard",          desc:"Crème brûlée, pots de crème — the classic French dessert pairing" },
-          { style:"Lobster with Light Cream", desc:"Sweet wine vs sweet lobster with cream — decadent and spectacular" },
+          { style:"Foie Gras Preparations",   desc:"The greatest food pairing in wine — sweet wine, rich liver, perfection" },
+          { style:"Stone Fruit Glazes",        desc:"Peach, apricot, and quince preparations mirror Sauternes' own flavors" },
+          { style:"Sweet-Savory Contrast",     desc:"Sauternes with salty blue cheese is one of the world's legendary pairings" },
+          { style:"Honey-Based Dishes",        desc:"Honey in preparation echoes botrytis honey in the wine" },
+          { style:"Crème & Custard",           desc:"Crème brûlée, pots de crème — the classic French dessert pairing" },
+          { style:"Lobster with Light Cream",  desc:"Sweet wine vs sweet lobster with cream — decadent and spectacular" },
         ],
         cheeses:[
           { name:"Roquefort",                   note:"The most celebrated pairing in wine — salty blue vs sweet gold" },
@@ -727,11 +733,11 @@
           { cat:"Avoid",    items:["Bitter chocolate (dark)","Heavily spiced food","Acidic tomato-based dishes"] },
         ],
         preps:[
-          { style:"Foie Gras",           desc:"As with Sauternes — the pinnacle of sweet wine and foie gras" },
-          { style:"Asian Sweet-Salty",   desc:"Tokaji's high acidity handles the sweet-salty-umami of Asian cuisine" },
+          { style:"Foie Gras",            desc:"As with Sauternes — the pinnacle of sweet wine and foie gras" },
+          { style:"Asian Sweet-Salty",    desc:"Tokaji's high acidity handles the sweet-salty-umami of Asian cuisine" },
           { style:"Apricot & Stone Fruit",desc:"Apricot is Tokaji's dominant note — mirror it in preparations" },
-          { style:"Hungarian Classics",  desc:"Rétes (strudel), honey cake, fruit dumplings — the homeland pairings" },
-          { style:"Aged Cheese Board",   desc:"Served with blue cheese and honeycomb — a spectacular finish to a meal" },
+          { style:"Hungarian Classics",   desc:"Rétes (strudel), honey cake, fruit dumplings — the homeland pairings" },
+          { style:"Aged Cheese Board",    desc:"Served with blue cheese and honeycomb — a spectacular finish to a meal" },
         ],
         cheeses:[
           { name:"Roquefort",             note:"The blue cheese pairing applies here as powerfully as with Sauternes" },
@@ -741,7 +747,6 @@
           { name:"Pálpusztai",           note:"Hungary's own pungent washed-rind cheese — the ultimate local pairing" },
         ],
       },
-      // ── FORTIFIED ─────────────────────────────────────────────────────────────
       { id:"ruby-port", name:"Ruby Port", type:"fortified", body:"Full (Sweet)", origin:"Douro Valley, Portugal",
         tagline:"Deep, dark, and fruit-driven — the entry point to the world of Port.",
         proteins:[
@@ -776,12 +781,12 @@
           { cat:"Other",      items:["Crème Caramel","Bread & Butter Pudding","Mince Pies","Panettone"] },
         ],
         preps:[
-          { style:"Caramel & Toffee",        desc:"Tawny's caramel and toffee notes find their mirror in these preparations" },
-          { style:"Nut-Based Desserts",       desc:"Pecan pie, walnut cake, praline — the nut affinity is extraordinary" },
-          { style:"Dried Fruit Preparations", desc:"Figs, dates, prunes — the wine's own flavors reflected in the dish" },
-          { style:"Crème Brûlée",            desc:"Caramelized sugar top mirrors Tawny's oxidative richness perfectly" },
-          { style:"Cheese & Honey Board",    desc:"Aged cheeses with honeycomb — Tawny as the accompaniment, not the dessert" },
-          { style:"Biscotti & Cantuccini",   desc:"The Italian-Portuguese crossover — almond biscotti for dipping" },
+          { style:"Caramel & Toffee",         desc:"Tawny's caramel and toffee notes find their mirror in these preparations" },
+          { style:"Nut-Based Desserts",        desc:"Pecan pie, walnut cake, praline — the nut affinity is extraordinary" },
+          { style:"Dried Fruit Preparations",  desc:"Figs, dates, prunes — the wine's own flavors reflected in the dish" },
+          { style:"Crème Brûlée",             desc:"Caramelized sugar top mirrors Tawny's oxidative richness perfectly" },
+          { style:"Cheese & Honey Board",     desc:"Aged cheeses with honeycomb — Tawny as the accompaniment, not the dessert" },
+          { style:"Biscotti & Cantuccini",    desc:"The Italian-Portuguese crossover — almond biscotti for dipping" },
         ],
         cheeses:[
           { name:"Aged Gouda (5–8 yr)",note:"Crystalline caramel in the cheese mirrors caramel in the Tawny — outstanding" },
@@ -822,26 +827,20 @@
             <input style={st.search} placeholder="Search grape or wine style…"
               value={search} onChange={e => setSearch(e.target.value)}/>
           </div>
-
           <div style={st.filterRow}>
             {TYPE_FILTERS.map(f => (
-              <button key={f}
-                style={{...st.chip, ...(typeFilter===f ? st.chipActive : {})}}
+              <button key={f} style={{...st.chip, ...(typeFilter===f ? st.chipActive : {})}}
                 onClick={() => setTypeFilter(f)}>{f}</button>
             ))}
           </div>
-
           <div style={st.filterLabel}>Filter by protein:</div>
           <div style={st.filterRow}>
             {PROTEIN_FILTERS.map(f => (
-              <button key={f}
-                style={{...st.chip, ...(proteinFilter===f ? st.chipActiveProtein : {})}}
+              <button key={f} style={{...st.chip, ...(proteinFilter===f ? st.chipActiveProtein : {})}}
                 onClick={() => setProteinFilter(f)}>{f}</button>
             ))}
           </div>
-
           <div style={st.count}>{filtered.length} {filtered.length===1?"wine":"wines"}</div>
-
           {filtered.map(g => {
             const col    = C[g.type] || C.red;
             const isOpen = expanded === g.id;
@@ -861,7 +860,6 @@
                     <span style={st.arrow}>{isOpen ? "▲" : "▼"}</span>
                   </div>
                 </div>
-
                 {isOpen && (
                   <div>
                     <div style={st.tagline}>{g.tagline}</div>
@@ -874,7 +872,6 @@
                         </button>
                       ))}
                     </div>
-
                     {tab === "proteins" && (
                       <div style={st.tabContent}>
                         {g.proteins.map((p,i) => (
@@ -891,7 +888,6 @@
                         ))}
                       </div>
                     )}
-
                     {tab === "preps" && (
                       <div style={st.tabContent}>
                         {g.preps.map((p,i) => (
@@ -902,7 +898,6 @@
                         ))}
                       </div>
                     )}
-
                     {tab === "cheeses" && (
                       <div style={st.tabContent}>
                         {g.cheeses.map((c,i) => (
@@ -920,7 +915,6 @@
               </div>
             );
           })}
-
           {filtered.length === 0 && (
             <div style={st.empty}>No wines match your filters.</div>
           )}
