@@ -23,6 +23,12 @@
       "description": "Whats in all these blends? Hopefully this helps!",
       "category": "Blends",
       "file": "/documents/kc_blends.pdf"
+    },
+    {
+      "title": "The LIfe of a Vine",
+      "description": "We always talke about vines but do we really understand them? I hope this helps!",
+      "category": "Wine Growing",
+      "file": "/documents/kc_vine_life.pdf"
     }
   ]
 }
