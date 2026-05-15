@@ -256,20 +256,6 @@
     </div>
   </section>
 
-  <footer class="site-footer">
-    <span class="footer-logo">Kazmi Cellars</span>
-    <ul class="footer-links">
-      <li><a href="terms.html">Terms &amp; Conditions</a></li>
-      <li><a href="privacy.html">Privacy Policy</a></li>
-      <li><a href="editorial.html">Editorial Policy</a></li>
-    </ul>
-    <hr class="footer-divider">
-    <div class="footer-bottom">
-      <span class="footer-copy">© 2026 Kazmi Cellars · All Rights Reserved</span>
-      <span class="footer-social">kazmicellars@gmail.com &nbsp;·&nbsp; @kazmicellars</span>
-    </div>
-  </footer>
-
   <script>
     // ── PAIRING TEASER ────────────────────────────────────────────────────────
     var TEASER_GRAPES = [
@@ -401,5 +387,6 @@
     loadLatest('data/posts.json',['posts'],'latest-post',function(p){return{image:getPhotoUrl(p.image)||firstPhoto(p.photos),title:p.title||'Untitled',meta:p.date?new Date(p.date).toLocaleDateString('en-US',{year:'numeric',month:'long',day:'numeric'}):'',body:excerptText(p.body||p.review,220),link:'posts.html'};},'Latest Post');
   </script>
 
+<script src="footer.js"></script>
 </body>
 </html>
