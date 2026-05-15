@@ -10,7 +10,11 @@
       <hr class="footer-divider">
       <div class="footer-bottom">
         <span class="footer-copy" style="color:var(--cream);opacity:1;">© 2026 Kazmi Cellars · All Rights Reserved</span>
-        <span class="footer-social" style="color:var(--cream);opacity:1;">contact@kazmicellars.com &nbsp;·&nbsp; @kazmicellars</span>
+        <span class="footer-social" style="color:var(--cream);opacity:1;">
+          <a href="mailto:contact@kazmicellars.com" style="color:var(--cream);text-decoration:underline;text-underline-offset:3px;">contact@kazmicellars.com</a>
+          &nbsp;·&nbsp;
+          <a href="https://instagram.com/kazmicellars" target="_blank" rel="noopener" style="color:var(--cream);text-decoration:underline;text-underline-offset:3px;">@kazmicellars</a>
+        </span>
       </div>
     </footer>
   `;
