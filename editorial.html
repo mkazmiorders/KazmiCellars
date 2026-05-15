@@ -3,57 +3,119 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Editorial Policy — Kazmi Cellars</title>
+  <title>Education — Kazmi Cellars</title>
   <link rel="stylesheet" href="style.css" />
+  <style>
+    .resources-section{max-width:880px;margin:0 auto;padding:3rem 2rem 5rem}
+    .resources-heading{font-family:'Cormorant Garamond',serif;font-size:clamp(1.6rem,3vw,2rem);font-weight:500;color:var(--brown-dark);margin:0 0 .4rem}
+    .resources-subhead{font-size:.85rem;color:var(--text-mid);margin:0 0 2.5rem}
+    .resources-category{margin-bottom:2.5rem}
+    .resources-category-label{font-size:.65rem;letter-spacing:.25em;text-transform:uppercase;color:var(--gold);margin:0 0 1rem}
+    .resources-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:1rem}
+    .resource-card{background:var(--white);border:1px solid var(--border);padding:1.25rem 1.4rem;display:flex;flex-direction:column;gap:.5rem;text-decoration:none;transition:border-color .2s,box-shadow .2s}
+    .resource-card:hover{border-color:var(--gold);box-shadow:0 2px 12px rgba(0,0,0,.06)}
+    .resource-icon{font-size:1.4rem;line-height:1}
+    .resource-title{font-family:'Cormorant Garamond',serif;font-size:1.05rem;font-weight:500;color:var(--brown-dark);line-height:1.3}
+    .resource-desc{font-size:.8rem;color:var(--text-mid);line-height:1.6;flex:1}
+    .resource-cta{font-size:.75rem;color:var(--gold);margin-top:.25rem}
+    .resources-empty{font-size:.9rem;color:var(--text-light);font-style:italic}
+    .resources-loading{font-size:.9rem;color:var(--text-light);font-style:italic;font-family:'Cormorant Garamond',serif}
+    .resources-divider{border:none;border-top:1px solid var(--border);margin:0 2rem}
+  </style>
 </head>
 <body>
 <script src="nav.js"></script>
 
   <div class="page-header">
     <div style="max-width:700px;margin:0 auto;">
-      <p class="section-label">Legal</p>
-      <h1 class="section-title">Editorial <em>Policy</em></h1>
-      <p style="font-size:0.8rem;color:var(--text-light);">Last updated: May 2026</p>
+      <p class="section-label">Learn</p>
+      <h1 class="section-title">Wine <em>Education</em></h1>
+      <p style="color:var(--text-light);font-size:1rem;margin-top:1rem;">Approachable guides to help you understand, taste, and enjoy wine with confidence. Pick where you'd like to start.</p>
     </div>
   </div>
 
   <div class="section" style="padding-top:3rem;">
-    <div style="font-size:0.92rem;color:var(--text-mid);line-height:1.9;max-width:660px;">
 
-      <p style="font-size:1rem;color:var(--text-dark);margin-bottom:2rem;">Kazmi Cellars was built on a simple principle: honest opinions, earned firsthand. This Editorial Policy explains how we approach our content, what we will and won't do, and why you can trust what you read here.</p>
+    <div class="card" style="margin-bottom:0;">
+      <p class="section-label">Reference</p>
+      <h3 class="card-title">Glossary</h3>
+      <p class="card-text">General wine terms — from Terroir and Sommelier to Rosé, Natural Wine, and the most common faults like Corked or Brett. The vocabulary of wine, defined in plain English.</p>
+      <a href="glossary.html" class="card-link">Browse the Glossary →</a>
+    </div>
 
-      <h2 style="font-family:'Cormorant Garamond',serif;font-size:1.5rem;color:var(--text-dark);margin:2rem 0 0.8rem;">Our Mission</h2>
-      <p>Kazmi Cellars exists to share a genuine, personal journey through the world of wine. Every review, tasting note, and regional experience published here comes from real visits and real bottles opened. We write for wine lovers at every level — from the curious beginner to the serious collector — and we believe great wine content should be approachable, honest, and beautifully presented.</p>
+    <div class="card">
+      <p class="section-label">How Wine Tastes</p>
+      <h3 class="card-title">Descriptors</h3>
+      <p class="card-text">Every word you'll see on a tasting note — Buttery, Silky, Earthy, Austere, Concentrated. With searchable definitions and real-world examples to make them stick.</p>
+      <a href="descriptors.html" class="card-link">Explore Descriptors →</a>
+    </div>
 
-      <h2 style="font-family:'Cormorant Garamond',serif;font-size:1.5rem;color:var(--text-dark);margin:2rem 0 0.8rem;">Independence</h2>
-      <p>All editorial content on Kazmi Cellars — including winery reviews, restaurant reviews, region experiences, and tasting notes — reflects our honest, independent opinions. We do not accept payment for positive reviews. We do not allow wineries, restaurants, or brands to review or approve content before publication. Our editorial voice is our own, and it is not for sale.</p>
+    <div class="card">
+      <p class="section-label">How Wine Is Made</p>
+      <h3 class="card-title">Winemaking Terms</h3>
+      <p class="card-text">From Old Vines and Botrytis to Carbonic Maceration and Pet-Nat — the practical vocabulary of how wine actually gets made, and why it matters in your glass.</p>
+      <a href="winemaking.html" class="card-link">Explore Winemaking →</a>
+    </div>
 
-      <h2 style="font-family:'Cormorant Garamond',serif;font-size:1.5rem;color:var(--text-dark);margin:2rem 0 0.8rem;">Firsthand Experience</h2>
-      <p>We only review places we have personally visited and bottles we have personally opened. We do not publish reviews based on secondhand accounts, press releases, or marketing materials. If we haven't been there or tasted it ourselves, we don't write about it as a review. This is non-negotiable.</p>
+    <div class="card">
+      <p class="section-label">Visual Guide</p>
+      <h3 class="card-title">Wine Labels &amp; Grape Cheat Sheet</h3>
+      <p class="card-text">How to decode labels from the US, France, Italy, and Spain — with bottle diagrams, hidden varietal decoders, and a complete region-to-grape cheat sheet.</p>
+      <a href="wine-labels.html" class="card-link">Read the Guide →</a>
+    </div>
 
-      <h2 style="font-family:'Cormorant Garamond',serif;font-size:1.5rem;color:var(--text-dark);margin:2rem 0 0.8rem;">Complimentary Tastings and Hospitality</h2>
-      <p>Occasionally, wineries or restaurants may offer complimentary tastings, meals, or hospitality during a visit. When this occurs, it is always disclosed clearly within the relevant review. Complimentary hospitality does not guarantee a positive review, and it does not influence our editorial opinions. We apply the same rigorous standards to every experience regardless of how it was obtained.</p>
+  </div>
 
-      <h2 style="font-family:'Cormorant Garamond',serif;font-size:1.5rem;color:var(--text-dark);margin:2rem 0 0.8rem;">Accuracy and Updates</h2>
-      <p>We strive for accuracy in all content we publish. Wine regions, restaurant wine programs, winery ownership, and hours of operation can change. If you notice outdated or inaccurate information, please contact us at contact@kazmicellars.com and we will investigate and update as needed. Reviews reflect conditions at the time of the visit and may not represent the current state of a reviewed establishment.</p>
+  <hr class="resources-divider">
 
-      <h2 style="font-family:'Cormorant Garamond',serif;font-size:1.5rem;color:var(--text-dark);margin:2rem 0 0.8rem;">Scoring</h2>
-      <p>When we assign scores to bottles in our tasting notes, those scores are entirely our own assessment based on personal palate, context of the tasting, and overall impression. We do not replicate or defer to scores from other publications. Our scores are meant as a personal reference point, not an authoritative judgment. Wine is subjective — a bottle we score at 94 may be your personal 98, or your 88. Taste for yourself.</p>
-
-      <h2 style="font-family:'Cormorant Garamond',serif;font-size:1.5rem;color:var(--text-dark);margin:2rem 0 0.8rem;">Educational Content</h2>
-      <p>The educational content on Kazmi Cellars — including the Wine Glossary and Reading Wine Labels guides — is written to be accessible and accurate. We consult established sources and draw on years of personal experience in compiling this content. However, wine education is a lifelong pursuit and standards evolve. If you believe any educational content contains an error, please let us know.</p>
-
-      <h2 style="font-family:'Cormorant Garamond',serif;font-size:1.5rem;color:var(--text-dark);margin:2rem 0 0.8rem;">Affiliate Content</h2>
-      <p>Kazmi Cellars may include affiliate links to products or retailers. Any such links are clearly identified and do not influence our editorial opinions. We only recommend products we would genuinely use or purchase ourselves. Affiliate commissions help support the ongoing costs of running this Site.</p>
-
-      <h2 style="font-family:'Cormorant Garamond',serif;font-size:1.5rem;color:var(--text-dark);margin:2rem 0 0.8rem;">Corrections Policy</h2>
-      <p>If we make a factual error, we correct it promptly and transparently. Corrections are noted within the relevant content. We do not silently edit or delete content to remove errors — we believe in acknowledging mistakes openly.</p>
-
-      <h2 style="font-family:'Cormorant Garamond',serif;font-size:1.5rem;color:var(--text-dark);margin:2rem 0 0.8rem;">Contact</h2>
-      <p>Questions about our editorial standards or concerns about specific content? We welcome the conversation. Reach us at <a href="mailto:contact@kazmicellars.com" style="color:var(--gold);">contact@kazmicellars.com</a>.</p>
-
+  <div class="resources-section">
+    <p class="section-label">Downloads</p>
+    <h2 class="resources-heading">Cheat Sheets &amp; Reference PDFs</h2>
+    <p class="resources-subhead">Quick-reference guides you can save, print, or pull up at the table.</p>
+    <div id="resourcesFeed">
+      <p class="resources-loading">Loading…</p>
     </div>
   </div>
+
+  <script>
+    async function loadResources() {
+      const feed = document.getElementById('resourcesFeed');
+      try {
+        const r = await fetch('data/resources.json', { cache: 'no-store' });
+        if (!r.ok) throw new Error('No resources data');
+        const data = await r.json();
+        const resources = data.resources || [];
+        if (!resources.length) {
+          feed.innerHTML = '<p class="resources-empty">No reference sheets yet — check back soon.</p>';
+          return;
+        }
+        const grouped = {};
+        for (const res of resources) {
+          const cat = res.category || 'General';
+          if (!grouped[cat]) grouped[cat] = [];
+          grouped[cat].push(res);
+        }
+        feed.innerHTML = Object.entries(grouped).map(([cat, items]) => `
+          <div class="resources-category">
+            <p class="resources-category-label">${cat}</p>
+            <div class="resources-grid">
+              ${items.map(res => `
+                <a href="${res.file}" target="_blank" rel="noopener noreferrer" class="resource-card">
+                  <div class="resource-icon">📄</div>
+                  <div class="resource-title">${res.title}</div>
+                  ${res.description ? `<div class="resource-desc">${res.description}</div>` : ''}
+                  <div class="resource-cta">Open PDF →</div>
+                </a>
+              `).join('')}
+            </div>
+          </div>
+        `).join('');
+      } catch (e) {
+        feed.innerHTML = '<p class="resources-empty">Couldn\'t load reference sheets. Try refreshing.</p>';
+      }
+    }
+    loadResources();
+  </script>
 
 <script src="footer.js"></script>
 </body>
