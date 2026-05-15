@@ -28,7 +28,7 @@
     .teaser-wrap{max-width:880px;margin:0 auto}
     .teaser-search-wrap{padding:0 0 1.2rem}
     .teaser-search{width:100%;padding:11px 16px;font-size:14px;border:1px solid var(--border);background:#FFF9F0;font-family:'Cormorant Garamond',serif;color:var(--text-dark);outline:none;box-sizing:border-box}
-    .teaser-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:.8rem;margin-bottom:1.5rem}
+    .teaser-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.2rem;max-width:880px;margin:0 auto 1.5rem}
     .teaser-card{background:#FAF7F2;border:1px solid var(--border);padding:1.2rem;text-align:left;text-decoration:none;color:inherit;transition:border-color .2s,box-shadow .2s;display:block}
     .teaser-card:hover{border-color:var(--gold);box-shadow:0 2px 12px rgba(0,0,0,.06)}
     .teaser-badge{display:inline-block;font-size:9px;padding:2px 8px;border-radius:10px;font-weight:bold;margin-bottom:.5rem;letter-spacing:.05em}
@@ -303,18 +303,9 @@
   <script>
     // ── PAIRING TEASER ────────────────────────────────────────────────────────
     var TEASER_GRAPES = [
-      { name:"Cabernet Sauvignon", type:"red",      origin:"Bordeaux, France",          tagline:"The king of reds — bold, structured, built for the table." },
-      { name:"Pinot Noir",         type:"red",      origin:"Burgundy, France",           tagline:"The most food-versatile red — elegant, silky, and restrained." },
-      { name:"Merlot",             type:"red",      origin:"Bordeaux, France",           tagline:"Plush and approachable — bridges bold reds to lighter preparations." },
-      { name:"Syrah / Shiraz",     type:"red",      origin:"Northern Rhône / Australia", tagline:"Spicy, smoky, dark — a powerhouse with a distinctive personality." },
-      { name:"Malbec",             type:"red",      origin:"Mendoza, Argentina",         tagline:"Dark fruit, violet, and the spirit of the Argentine asado." },
-      { name:"Chardonnay",         type:"white",    origin:"Burgundy, France",           tagline:"From steely Chablis to buttery Napa — the world's most versatile white." },
-      { name:"Sauvignon Blanc",    type:"white",    origin:"Loire Valley / New Zealand", tagline:"Bright, grassy, and tangy — the go-to for shellfish and green vegetables." },
-      { name:"Riesling",           type:"white",    origin:"Mosel, Germany",             tagline:"The sommelier's secret weapon — pairs with almost anything, especially spice." },
-      { name:"Rosé (Provence)",    type:"rosé",     origin:"Provence, France",           tagline:"The world's most popular dry rosé — effortlessly food-friendly." },
-      { name:"Champagne",          type:"sparkling",origin:"Champagne, France",          tagline:"Criminally underused at the table — built for oysters, fried chicken, and celebration." },
-      { name:"Sauternes",          type:"dessert",  origin:"Bordeaux, France",           tagline:"Liquid gold — the legendary pairing with foie gras and blue cheese." },
-      { name:"Tawny Port",         type:"fortified",origin:"Douro Valley, Portugal",     tagline:"Nutty, caramel, and dried fruit — the perfect after-dinner companion." },
+      { name:"Cabernet Sauvignon", type:"red",   origin:"Bordeaux, France",  tagline:"The king of reds — bold, structured, built for the table." },
+      { name:"Pinot Noir",         type:"red",   origin:"Burgundy, France",  tagline:"The most food-versatile red — elegant, silky, and restrained." },
+      { name:"Chardonnay",         type:"white", origin:"Burgundy, France",  tagline:"From steely Chablis to buttery Napa — the world's most versatile white." },
     ];
 
     var BADGE_COLORS = {
