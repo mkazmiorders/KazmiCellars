@@ -89,6 +89,30 @@
       "description": "This is always a tough one. Whats a great vintage? Someone winemakers can make a great wine in a poor vintage and some a poor wine in a great vintage. Use this as a general guide.",
       "category": "Useful Tools",
       "file": "/documents/kc_vintage.pdf"
+    },
+    {
+      "title": "How to Read an Italian Wine Label",
+      "description": "Let's decode wine labels. Here is Italy!",
+      "category": "Wine Labels",
+      "file": "/documents/kc_italy_labels.pdf"
+    },
+    {
+      "title": "How to Read a Spanish Wine Label",
+      "description": "Lets decode wine labels. Here is Spain!",
+      "category": "Wine Labels",
+      "file": "/documents/kc_spain_labels.pdf"
+    },
+    {
+      "title": "How to Read French Wine Labels",
+      "description": "France takes the cake on wine labels, almost every region does it different. Hope this helps!",
+      "category": "Wine Lables",
+      "file": "/documents/kc_french_labels_v2.pdf"
+    },
+    {
+      "title": "Palate & Structure Guide",
+      "description": "We have the interactive link but if you just want to print the cheat sheet. Here you go!",
+      "category": "Useful Tools",
+      "file": "/documents/kc_palate_structure_260514_233053.pdf"
     }
   ]
 }
