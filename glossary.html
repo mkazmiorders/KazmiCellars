@@ -1,164 +1,63 @@
-contact@kazmicellars.comcontact@kazmicellars.com<!doctype html>
+<!doctype html>
 <html lang="en">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Glossary — Kazmi Cellars</title>
+  <title>Gallery — Kazmi Cellars</title>
   <link rel="stylesheet" href="style.css" />
   <style>
-    .glossary-intro{font-size:.9rem;color:var(--text-mid);line-height:1.8;max-width:620px;margin:1rem auto 0;text-align:center}
-    .search-wrap{display:flex;align-items:center;border:1px solid var(--border);background:var(--white);padding:0 1rem;max-width:680px;margin:0 auto 1rem}
-    .search-icon{color:var(--text-light);margin-right:.6rem}
-    .glossary-search{border:none;outline:none;padding:.75rem 0;font-family:'Raleway',sans-serif;font-size:.9rem;color:var(--text-dark);background:transparent;width:100%}
-    .result-count{text-align:center;font-size:.7rem;letter-spacing:.15em;text-transform:uppercase;color:var(--text-light);margin-bottom:1.2rem}
-    .filter-buttons{display:flex;flex-wrap:wrap;gap:.5rem;justify-content:center;margin-bottom:2rem}
-    .filter-btn{border:1px solid var(--border);background:transparent;padding:.45rem 1.2rem;font-family:'Raleway',sans-serif;font-size:.62rem;letter-spacing:.15em;text-transform:uppercase;cursor:pointer;color:var(--text-mid);transition:all .2s}
+    .gallery-intro{font-size:.95rem;color:var(--text-mid);line-height:1.8;max-width:560px;margin:0 auto 2.5rem;text-align:center}
+    .filter-bar{display:flex;flex-wrap:wrap;gap:.5rem;justify-content:center;margin-bottom:2.5rem;padding:0 1rem}
+    .filter-btn{border:1px solid var(--border);background:transparent;padding:.45rem 1.2rem;font-family:'Raleway',sans-serif;font-size:.62rem;letter-spacing:.15em;text-transform:uppercase;cursor:pointer;color:var(--text-mid);transition:all .25s}
     .filter-btn.active,.filter-btn:hover{background:var(--brown-dark);color:white;border-color:var(--brown-dark)}
-    .glossary-term{max-width:780px;margin:0 auto 2rem;padding:1.8rem 2rem;background:var(--white);border:1px solid var(--border)}
-    .glossary-term.hidden{display:none}
-    .term-header{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:1rem;flex-wrap:wrap;gap:.5rem}
-    .term-name{font-family:'Cormorant Garamond',serif;font-size:1.6rem;font-weight:500;color:var(--brown-dark)}
-    .term-category{font-size:.6rem;letter-spacing:.2em;text-transform:uppercase;color:var(--gold)}
-    .term-definition{font-size:.88rem;color:var(--text-dark);line-height:1.75;margin:0 0 .8rem}
-    .term-plain{font-size:.85rem;color:var(--text-mid);line-height:1.7;margin:0 0 .8rem;padding:.8rem 1rem;background:var(--cream-dark);border-left:3px solid var(--gold);font-style:italic}
-    .term-example{font-size:.82rem;color:var(--text-mid);line-height:1.7;margin:0}
-    .no-results{text-align:center;padding:4rem 2rem;color:var(--text-light);display:none}
-    .no-results.visible{display:block}
+    .photo-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:1rem;max-width:1300px;margin:0 auto;padding:0 1rem}
+    .photo-item{position:relative;cursor:pointer;overflow:hidden;background:var(--cream-dark);aspect-ratio:1/1}
+    .photo-item img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .4s}
+    .photo-item:hover img{transform:scale(1.05)}
+    .photo-caption{position:absolute;bottom:0;left:0;right:0;padding:1.2rem 1rem .8rem;background:linear-gradient(transparent,rgba(0,0,0,.8));color:white;font-size:.78rem;letter-spacing:.05em;opacity:0;transition:opacity .3s}
+    .photo-item:hover .photo-caption{opacity:1}
+    .photo-cat-tag{position:absolute;top:.7rem;left:.7rem;background:rgba(61,40,23,.85);color:var(--gold-light);font-size:.55rem;letter-spacing:.18em;text-transform:uppercase;padding:.3rem .7rem;backdrop-filter:blur(4px)}
+    .empty-state{text-align:center;padding:4rem 2rem;color:var(--text-light)}
+    .empty-state h3{font-family:'Cormorant Garamond',serif;font-size:1.8rem;font-weight:500;color:var(--brown-dark);margin-bottom:.5rem}
+    .lightbox{position:fixed;inset:0;background:rgba(0,0,0,.95);display:none;align-items:center;justify-content:center;z-index:1000;padding:2rem;cursor:zoom-out}
+    .lightbox.active{display:flex}
+    .lightbox img{max-width:100%;max-height:90vh;object-fit:contain;box-shadow:0 8px 32px rgba(0,0,0,.6)}
+    .lightbox-caption{position:absolute;bottom:1.5rem;left:0;right:0;text-align:center;color:var(--cream);font-family:'Cormorant Garamond',serif;font-style:italic;font-size:1.1rem;padding:0 2rem}
+    .lightbox-close{position:absolute;top:1.5rem;right:2rem;color:var(--cream);font-size:2rem;background:none;border:none;cursor:pointer;font-family:'Cormorant Garamond',serif;line-height:1}
+    .lightbox-nav{position:absolute;top:50%;transform:translateY(-50%);background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.3);color:var(--cream);width:50px;height:50px;border-radius:50%;cursor:pointer;font-size:1.5rem;display:flex;align-items:center;justify-content:center;transition:all .2s}
+    .lightbox-nav:hover{background:rgba(255,255,255,.2)}
+    .lightbox-prev{left:1.5rem}
+    .lightbox-next{right:1.5rem}
+    .photo-count{font-size:.7rem;letter-spacing:.15em;color:var(--text-light);text-align:center;margin-bottom:1.5rem}
   </style>
 </head>
 <body>
 <script src="nav.js"></script>
 
   <div class="page-header">
-    <div style="max-width:700px;margin:0 auto;">
-      <p class="section-label">Reference</p>
-      <h1 class="section-title"><em>Glossary</em></h1>
-      <p class="glossary-intro">The vocabulary of wine — concepts, styles, faults, and the practical terms you'll hear at a tasting or restaurant. Defined in plain English, with real-world examples.</p>
-      <p style="font-size:.8rem;color:var(--text-light);margin-top:1rem;text-align:center"><a href="education.html" style="color:var(--gold);">← Back to Education</a></p>
+    <div style="max-width:700px;margin:0 auto;text-align:center;">
+      <p class="section-label">Moments In The Glass &amp; Beyond</p>
+      <h1 class="section-title">Photo <em>Gallery</em></h1>
+      <p class="gallery-intro">A visual journal of wineries, bottles, scenery, and the everyday beauty we've collected along the way.</p>
     </div>
   </div>
 
-  <div class="section" style="padding-top:2.5rem;">
-
-    <div class="search-wrap">
-      <span class="search-icon">🔍</span>
-      <input type="text" class="glossary-search" id="glossarySearch" placeholder="Search terms..." />
+  <div class="section" style="padding-top:1rem;">
+    <p class="photo-count" id="photoCount"></p>
+    <div class="filter-bar" id="filterBar"></div>
+    <div class="photo-grid" id="photoGrid"></div>
+    <div class="empty-state" id="emptyState" style="display:none;">
+      <h3>No photos yet</h3>
+      <p>Check back soon — we're collecting moments to share.</p>
     </div>
-    <p class="result-count" id="resultCount">14 terms</p>
+  </div>
 
-    <div class="filter-buttons">
-      <button class="filter-btn active" data-filter="all">All Terms</button>
-      <button class="filter-btn" data-filter="style">Wine Styles</button>
-      <button class="filter-btn" data-filter="fault">Wine Faults</button>
-    </div>
-
-    <div id="glossaryList">
-
-      <div class="glossary-term" data-category="general" data-term="terroir">
-        <div class="term-header"><span class="term-name">Terroir</span><span class="term-category">Concept</span></div>
-        <p class="term-definition">A French concept describing the complete natural environment where a wine is produced — the soil, climate, topography, and even the micro-organisms of a specific place — and how that environment expresses itself in the wine.</p>
-        <p class="term-plain">"The taste of where a wine was born. Two vineyards side by side can produce completely different wines because of terroir."</p>
-        <p class="term-example"><strong>Example:</strong> A Pinot Noir from Burgundy's Chambolle-Musigny tastes different from one made a mile away in Gevrey-Chambertin — same grape, same producer, different terroir.</p>
-      </div>
-
-      <div class="glossary-term" data-category="general" data-term="vigneron">
-        <div class="term-header"><span class="term-name">Vigneron</span><span class="term-category">Person</span></div>
-        <p class="term-definition">A French term for a person who cultivates a vineyard and makes wine from those grapes. Unlike a négociant (who buys grapes or wine from others), a vigneron controls the entire process from vine to bottle.</p>
-        <p class="term-plain">"A farmer-winemaker. Someone who grows the grapes and makes the wine themselves — soil to glass."</p>
-        <p class="term-example"><strong>Example:</strong> The legendary Henri Jayer of Burgundy is considered one of the greatest vignerons of the 20th century — he farmed his plots with obsessive care and crafted wines that reshaped how the world thought about Pinot Noir.</p>
-      </div>
-
-      <div class="glossary-term" data-category="general" data-term="sommelier">
-        <div class="term-header"><span class="term-name">Sommelier</span><span class="term-category">Person</span></div>
-        <p class="term-definition">A trained wine professional, typically working in a restaurant, who curates the wine list, advises guests on pairings, and serves wine. Certifications range from Certified Sommelier to Master Sommelier (a notoriously difficult exam with very few passers worldwide).</p>
-        <p class="term-plain">"The wine expert at the restaurant — the person you can ask for help picking a bottle."</p>
-        <p class="term-example"><strong>Example:</strong> When you're staring at a 200-bottle wine list and have no idea where to start, ask the sommelier for a recommendation in your price range. A good one will ask about your meal and your taste preferences before suggesting anything.</p>
-      </div>
-
-      <div class="glossary-term" data-category="general" data-term="oenophile">
-        <div class="term-header"><span class="term-name">Oenophile</span><span class="term-category">Person</span></div>
-        <p class="term-definition">A person who loves and appreciates wine, often with a deep knowledge of viticulture, winemaking, and tasting. From the Greek "oinos" (wine) and "philos" (lover). Essentially: a serious wine enthusiast.</p>
-        <p class="term-plain">"A wine lover who goes beyond casual enjoyment — someone who studies, collects, and thinks deeply about wine."</p>
-        <p class="term-example"><strong>Example:</strong> If you're reading a wine glossary at 10pm just to understand a label better, you might already be an oenophile and not know it yet.</p>
-      </div>
-
-      <div class="glossary-term" data-category="general" data-term="old world new world">
-        <div class="term-header"><span class="term-name">Old World vs. New World</span><span class="term-category">Concept</span></div>
-        <p class="term-definition">A common shorthand for two broad wine philosophies. Old World refers to traditional European wine regions (France, Italy, Spain, Germany, Portugal) where wines tend to be more restrained, earthy, and food-focused. New World refers to everywhere else (US, Australia, Argentina, Chile, South Africa, etc.) where wines often show riper fruit, higher alcohol, and bolder flavors.</p>
-        <p class="term-plain">"Old World = European tradition, restrained and earthy. New World = everywhere else, riper and bolder. Both are great — they just speak different languages."</p>
-        <p class="term-example"><strong>Example:</strong> A Burgundy Pinot Noir (Old World) tastes earthy, with red cherry, mushroom, and forest floor. A California Pinot Noir (New World) from the same grape can taste like cola, ripe black cherry, and vanilla. Same grape, completely different expressions.</p>
-      </div>
-
-      <div class="glossary-term" data-category="style" data-term="rosé rose">
-        <div class="term-header"><span class="term-name">Rosé</span><span class="term-category">Wine Style</span></div>
-        <p class="term-definition">A pink wine made from red grapes with limited skin contact. The grapes can be pressed quickly so only a little color transfers, or the juice can sit on the skins for a few hours before being separated. Rosé spans bone-dry to sweet styles.</p>
-        <p class="term-plain">"Pink wine made from red grapes — same fruit as red wine, but with way less time soaking in the skins."</p>
-        <p class="term-example"><strong>Example:</strong> Provence rosé from southern France is the gold standard — pale salmon color, bone dry, with notes of strawberry, melon, and herbs. The perfect summer wine.</p>
-      </div>
-
-      <div class="glossary-term" data-category="style" data-term="orange wine">
-        <div class="term-header"><span class="term-name">Orange Wine</span><span class="term-category">Wine Style</span></div>
-        <p class="term-definition">A white wine made using red wine techniques — the white grape juice is fermented while still in contact with the skins, seeds, and sometimes stems. This gives the wine an amber or orange hue, plus tannins and richer texture you'd never expect from a white.</p>
-        <p class="term-plain">"White grapes, but treated like red wine — fermented with the skins on. The result is a copper-colored wine with grip and depth."</p>
-        <p class="term-example"><strong>Example:</strong> Some of the best orange wines come from Friuli in Italy and Slovenia, where the technique is centuries old. Try a Ribolla Gialla from a producer like Radikon — it'll change how you think about white wine.</p>
-      </div>
-
-      <div class="glossary-term" data-category="style" data-term="natural wine">
-        <div class="term-header"><span class="term-name">Natural Wine</span><span class="term-category">Wine Style</span></div>
-        <p class="term-definition">A loosely defined category for wines made with minimal intervention — organic or biodynamic farming, native yeasts, no additives, and little to no sulfur added at bottling. There's no legal definition, so quality and style vary widely.</p>
-        <p class="term-plain">"Wine made with as little human interference as possible — no shortcuts in the vineyard, nothing added in the cellar except maybe a tiny bit of sulfur."</p>
-        <p class="term-example"><strong>Example:</strong> A natural wine bar in your city probably has a chalkboard list that changes weekly. Expect wines that are sometimes funky, sometimes cloudy, often surprising — and a vibe that's the opposite of fancy steakhouse wine service.</p>
-      </div>
-
-      <div class="glossary-term" data-category="fault" data-term="corked">
-        <div class="term-header"><span class="term-name">Corked</span><span class="term-category">Fault</span></div>
-        <p class="term-definition">A wine fault caused by a chemical compound called TCA (2,4,6-trichloroanisole), which forms in some natural corks. A corked wine smells like wet cardboard, damp basement, or moldy newspaper. It affects roughly 1–3% of bottles sealed with natural cork.</p>
-        <p class="term-plain">"When the cork ruins the wine. Smells musty — like a wet dog or damp basement. The wine is undrinkable, and it's not your fault."</p>
-        <p class="term-example"><strong>Example:</strong> If you open a bottle and it smells off — like wet cardboard or a moldy old book — it's probably corked. Restaurants will replace corked bottles without question. Stores will too, if you bring it back.</p>
-      </div>
-
-      <div class="glossary-term" data-category="fault" data-term="brett brettanomyces">
-        <div class="term-header"><span class="term-name">Brett (Brettanomyces)</span><span class="term-category">Fault</span></div>
-        <p class="term-definition">A wild yeast that can produce funky, "barnyard" or "Band-Aid" flavors in wine. In small amounts, Brett can add interesting complexity — leather, smoked meat, earthy depth. In large amounts, it dominates the wine and is considered a fault.</p>
-        <p class="term-plain">"A funky yeast that gives wine barnyard or leather notes. A little can be cool. A lot is a flaw."</p>
-        <p class="term-example"><strong>Example:</strong> Some classic Châteauneuf-du-Pape and Northern Rhône Syrahs have a touch of Brett that wine lovers actually seek out — that earthy, savory funk. But if a wine smells overwhelmingly like a horse stable or a Band-Aid, the Brett has gone too far.</p>
-      </div>
-
-      <div class="glossary-term" data-category="fault" data-term="oxidation oxidized">
-        <div class="term-header"><span class="term-name">Oxidation</span><span class="term-category">Fault &amp; Style</span></div>
-        <p class="term-definition">When wine is exposed to too much oxygen — through a faulty cork, poor storage, or being open too long. The wine loses its fruit, turns brown, and starts to taste like bruised apples or sherry. Oxidation is a fault in most wines, but it's an intentional style in others (like Sherry, Madeira, and Vin Jaune).</p>
-        <p class="term-plain">"Too much air kills wine. The fruit fades, the color browns, and it ends up tasting like bruised apples — unless you meant for it to happen, like with Sherry."</p>
-        <p class="term-example"><strong>Example:</strong> A bottle of Pinot Noir left half-full on the counter for three days will be oxidized — flat, brown, vinegar-edged. But a bottle of Fino Sherry is intentionally oxidized in the cellar and tastes amazing because of it.</p>
-      </div>
-
-      <div class="glossary-term" data-category="general" data-term="sediment">
-        <div class="term-header"><span class="term-name">Sediment</span><span class="term-category">Practical</span></div>
-        <p class="term-definition">The particles you sometimes find at the bottom of a wine bottle, especially in older reds. It's a natural byproduct of aging — tannins, color compounds, and tartrate crystals settle out over time. Sediment is harmless and a sign the wine has been aging properly.</p>
-        <p class="term-plain">"Bits at the bottom of an older bottle. Totally natural — just leftover stuff that settled out as the wine aged."</p>
-        <p class="term-example"><strong>Example:</strong> Open a 15-year-old Bordeaux and you'll likely see a thin layer of dark sediment in the bottom of the bottle. Decant carefully, leaving the last inch behind, and you'll get a perfectly clean pour.</p>
-      </div>
-
-      <div class="glossary-term" data-category="general" data-term="aerate breathe">
-        <div class="term-header"><span class="term-name">Aerate / Breathe</span><span class="term-category">Practical</span></div>
-        <p class="term-definition">Letting wine come into contact with air to soften tannins, open up aromas, and integrate flavors. You can aerate by simply opening a bottle, swirling in your glass, or using a decanter. Most young, structured red wines benefit from at least 30 minutes of air.</p>
-        <p class="term-plain">"Letting the wine breathe so it tastes better. Air softens edges and brings out more flavor."</p>
-        <p class="term-example"><strong>Example:</strong> A young Cabernet Sauvignon poured straight from the bottle can taste tight and almost harsh. Let it breathe for 30–60 minutes and the tannins relax, the fruit opens up, and the wine becomes the version it was always meant to be.</p>
-      </div>
-
-      <div class="glossary-term" data-category="general" data-term="decanting decant">
-        <div class="term-header"><span class="term-name">Decanting</span><span class="term-category">Practical</span></div>
-        <p class="term-definition">Pouring wine from its bottle into another vessel (usually a glass decanter) for two reasons — to separate the wine from sediment in older bottles, and to expose young wine to air for aeration. Different wines need different decanting times.</p>
-        <p class="term-plain">"Pouring wine into a decanter. For old wine, it's about leaving the sediment behind. For young wine, it's about giving it air."</p>
-        <p class="term-example"><strong>Example:</strong> A 20-year-old Barolo should be decanted gently to leave sediment in the bottle. A young Barolo should be decanted aggressively — splashed in to maximize air exposure — and given an hour or two before drinking.</p>
-      </div>
-
-    </div>
-
-    <div class="no-results" id="noResults">
-      <p style="font-family:'Cormorant Garamond',serif;font-size:1.8rem;margin-bottom:.5rem;">No terms found</p>
-      <p>Try a different search or browse all terms.</p>
-    </div>
-
+  <div class="lightbox" id="lightbox">
+    <button class="lightbox-close" id="lightboxClose">×</button>
+    <button class="lightbox-nav lightbox-prev" id="lightboxPrev">‹</button>
+    <button class="lightbox-nav lightbox-next" id="lightboxNext">›</button>
+    <img id="lightboxImg" src="" alt="">
+    <div class="lightbox-caption" id="lightboxCaption"></div>
   </div>
 
   <footer class="site-footer">
@@ -176,48 +75,118 @@ contact@kazmicellars.comcontact@kazmicellars.com<!doctype html>
   </footer>
 
   <script>
-    const terms = document.querySelectorAll('.glossary-term');
-    const searchInput = document.getElementById('glossarySearch');
-    const resultCount = document.getElementById('resultCount');
-    const noResults = document.getElementById('noResults');
-    const filterBtns = document.querySelectorAll('.filter-btn');
-    let activeFilter = 'all';
+    let allPhotos = [];
+    let filteredPhotos = [];
+    let currentLightboxIndex = 0;
 
-    function updateResults() {
-      const query = searchInput.value.toLowerCase().trim();
-      const matches = [];
-      terms.forEach(term => {
-        const termName = term.dataset.term.toLowerCase();
-        const termText = term.innerText.toLowerCase();
-        const termCat = term.dataset.category;
-        const matchesFilter = activeFilter === 'all' || termCat === activeFilter;
-        if (!matchesFilter) { term.classList.add('hidden'); return; }
-        let score = 0;
-        if (!query) { score = 1; }
-        else if (termName === query) { score = 100; }
-        else if (termName.startsWith(query)) { score = 80; }
-        else if (termName.includes(query)) { score = 60; }
-        else if (termText.includes(query)) { score = 20; }
-        if (score > 0) { term.classList.remove('hidden'); matches.push({term, score}); }
-        else { term.classList.add('hidden'); }
-      });
-      matches.sort((a, b) => b.score - a.score);
-      const list = document.getElementById('glossaryList');
-      matches.forEach(m => list.appendChild(m.term));
-      resultCount.textContent = matches.length + ' term' + (matches.length !== 1 ? 's' : '') + (query ? ' found' : '');
-      noResults.classList.toggle('visible', matches.length === 0);
+    function getPhotoUrl(p) {
+      if (typeof p === 'string') return p;
+      if (p.image) return p.image;
+      if (p.url) return p.url;
+      if (p.src) return p.src;
+      return null;
     }
 
-    searchInput.addEventListener('input', updateResults);
-    filterBtns.forEach(btn => {
-      btn.addEventListener('click', () => {
-        filterBtns.forEach(b => b.classList.remove('active'));
-        btn.classList.add('active');
-        activeFilter = btn.dataset.filter;
-        updateResults();
+    function normalizePhotos(data) {
+      if (!Array.isArray(data)) {
+        if (data.photos) return normalizePhotos(data.photos);
+        return [];
+      }
+      return data.map(item => {
+        if (typeof item === 'string') return { image: item, caption: '', category: '' };
+        return { image: getPhotoUrl(item), caption: item.caption || '', category: item.category || '' };
+      }).filter(p => p.image);
+    }
+
+    async function loadGallery() {
+      try {
+        const r = await fetch('data/gallery.json', {cache: 'no-store'});
+        if (!r.ok) throw new Error('No gallery data');
+        const data = await r.json();
+        allPhotos = normalizePhotos(data);
+      } catch (e) {
+        allPhotos = [];
+      }
+      if (!allPhotos.length) {
+        document.getElementById('emptyState').style.display = 'block';
+        document.getElementById('photoCount').style.display = 'none';
+        return;
+      }
+      buildFilters();
+      renderPhotos('All');
+    }
+
+    function buildFilters() {
+      const seen = new Set();
+      const categories = [];
+      allPhotos.forEach(p => {
+        const cat = p.category && p.category.trim() ? p.category.trim() : 'Uncategorized';
+        if (!seen.has(cat)) { seen.add(cat); categories.push(cat); }
       });
+      categories.sort((a, b) => {
+        if (a === 'Uncategorized') return 1;
+        if (b === 'Uncategorized') return -1;
+        return a.localeCompare(b);
+      });
+      const bar = document.getElementById('filterBar');
+      bar.innerHTML = `<button class="filter-btn active" data-cat="All">All Photos</button>` +
+        categories.map(cat => `<button class="filter-btn" data-cat="${cat.replace(/"/g,'&quot;')}">${cat}</button>`).join('');
+      bar.addEventListener('click', e => {
+        const btn = e.target.closest('.filter-btn');
+        if (!btn) return;
+        bar.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        renderPhotos(btn.dataset.cat);
+      });
+    }
+
+    function renderPhotos(filter) {
+      filteredPhotos = filter === 'All' ? allPhotos : allPhotos.filter(p => (p.category || 'Uncategorized') === filter);
+      const grid = document.getElementById('photoGrid');
+      grid.innerHTML = filteredPhotos.map((p, i) => `
+        <div class="photo-item" data-index="${i}">
+          <img src="${p.image}" alt="${p.caption || ''}" loading="lazy">
+          ${p.category ? `<div class="photo-cat-tag">${p.category}</div>` : ''}
+          ${p.caption ? `<div class="photo-caption">${p.caption}</div>` : ''}
+        </div>
+      `).join('');
+      const count = filteredPhotos.length;
+      document.getElementById('photoCount').textContent = count + (count === 1 ? ' photo' : ' photos') + (filter !== 'All' ? ` in ${filter}` : '');
+      grid.querySelectorAll('.photo-item').forEach(el => {
+        el.addEventListener('click', () => openLightbox(parseInt(el.dataset.index)));
+      });
+    }
+
+    const lightbox = document.getElementById('lightbox');
+    const lightboxImg = document.getElementById('lightboxImg');
+    const lightboxCaption = document.getElementById('lightboxCaption');
+
+    function openLightbox(idx) {
+      currentLightboxIndex = idx;
+      const p = filteredPhotos[idx];
+      lightboxImg.src = p.image;
+      lightboxCaption.textContent = p.caption || '';
+      lightbox.classList.add('active');
+      document.body.style.overflow = 'hidden';
+    }
+    function closeLightbox() { lightbox.classList.remove('active'); document.body.style.overflow = ''; }
+    function navLightbox(dir) {
+      currentLightboxIndex = (currentLightboxIndex + dir + filteredPhotos.length) % filteredPhotos.length;
+      openLightbox(currentLightboxIndex);
+    }
+
+    document.getElementById('lightboxClose').addEventListener('click', closeLightbox);
+    document.getElementById('lightboxPrev').addEventListener('click', e => { e.stopPropagation(); navLightbox(-1); });
+    document.getElementById('lightboxNext').addEventListener('click', e => { e.stopPropagation(); navLightbox(1); });
+    lightbox.addEventListener('click', e => { if (e.target === lightbox || e.target === lightboxImg) closeLightbox(); });
+    document.addEventListener('keydown', e => {
+      if (!lightbox.classList.contains('active')) return;
+      if (e.key === 'Escape') closeLightbox();
+      if (e.key === 'ArrowLeft') navLightbox(-1);
+      if (e.key === 'ArrowRight') navLightbox(1);
     });
-    updateResults();
+
+    loadGallery();
   </script>
 
 </body>
