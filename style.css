@@ -8,14 +8,14 @@
   --cream: #f5f0e8;
   --cream-dark: #ede8dc;
   --tan: #e8dfd0;
-  --gold: #b8860b;
-  --gold-light: #c9a96e;
+  --gold: #8b6914;
+  --gold-light: #b89255;
   --brown-dark: #2c1810;
   --brown-mid: #4a2c1a;
   --brown-light: #6b3f26;
-  --text-dark: #1a1008;
-  --text-mid: #2c1810;
-  --text-light: #5c4030;
+  --text-dark: #0a0604;
+  --text-mid: #1a1008;
+  --text-light: #2c1810;
   --border: #d4c4a8;
   --white: #faf8f4;
 }
@@ -34,7 +34,7 @@ body {
   font-family: 'Raleway', sans-serif;
   background-color: var(--cream);
   color: var(--text-dark);
-  font-weight: 400;
+  font-weight: 500;
   line-height: 1.7;
 }
 
