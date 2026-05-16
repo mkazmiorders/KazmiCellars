@@ -8,18 +8,18 @@
   <style>
     /* ── Hero (Split) ── */
     .hero-split{position:relative;min-height:620px;background:url('hero.jpg') center/cover no-repeat;background-color:#1a1008;color:var(--cream)}
-    .hero-split::before{content:'';position:absolute;inset:0;background:linear-gradient(180deg,rgba(20,12,6,.5) 0%,rgba(20,12,6,.55) 100%);z-index:1}
+    .hero-split::before{content:'';position:absolute;inset:0;background:linear-gradient(180deg,rgba(20,12,6,.2) 0%,rgba(20,12,6,.25) 100%);z-index:1}
     .hero-grid{position:relative;z-index:2;display:grid;grid-template-columns:1fr 1fr;min-height:620px}
     @media(max-width:760px){.hero-grid{grid-template-columns:1fr}}
     .hero-side{padding:5rem 6%;display:flex;flex-direction:column;justify-content:center;position:relative;min-height:380px}
-    .hero-practical{background:linear-gradient(135deg,rgba(250,246,236,.88) 0%,rgba(250,246,236,.6) 100%);border-right:1px solid rgba(60,40,23,.25)}
-    .hero-emotional{background:linear-gradient(225deg,rgba(61,40,23,.92) 0%,rgba(42,26,16,.78) 100%)}
+    .hero-practical{background:linear-gradient(135deg,rgba(250,246,236,.62) 0%,rgba(250,246,236,.35) 100%);border-right:1px solid rgba(60,40,23,.25)}
+    .hero-emotional{background:linear-gradient(225deg,rgba(61,40,23,.82) 0%,rgba(42,26,16,.6) 100%)}
     @media(max-width:760px){.hero-practical{border-right:none;border-bottom:1px solid rgba(60,40,23,.25)}}
     .hero-eyebrow{font-size:.7rem;letter-spacing:.35em;text-transform:uppercase;margin:0 0 1rem;font-weight:500}
     .hero-practical .hero-eyebrow{color:var(--gold)}
     .hero-emotional .hero-eyebrow{color:var(--gold-light)}
     .hero-headline{font-family:'Cormorant Garamond',serif;font-size:clamp(2.2rem,4.5vw,3.4rem);font-weight:400;line-height:1.1;margin:0 0 1.2rem;max-width:440px}
-    .hero-practical .hero-headline{color:var(--brown-dark)}
+    .hero-practical .hero-headline{color:var(--brown-dark);text-shadow:0 1px 8px rgba(250,246,236,.6)}
     .hero-emotional .hero-headline{font-style:italic;color:#f5e6c8;text-shadow:0 2px 12px rgba(0,0,0,.5)}
     .hero-emotional .hero-headline em{color:var(--gold-light)}
     .hero-subline{font-size:.92rem;line-height:1.7;max-width:380px;margin:0 0 2rem}
