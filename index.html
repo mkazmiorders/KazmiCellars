@@ -16,14 +16,14 @@
     .hero-emotional{background:linear-gradient(225deg,rgba(61,40,23,.82) 0%,rgba(42,26,16,.6) 100%)}
     @media(max-width:760px){.hero-practical{border-right:none;border-bottom:1px solid rgba(60,40,23,.25)}}
     .hero-eyebrow{font-size:.7rem;letter-spacing:.35em;text-transform:uppercase;margin:0 0 1rem;font-weight:500}
-    .hero-practical .hero-eyebrow{color:var(--gold)}
     .hero-emotional .hero-eyebrow{color:var(--gold-light)}
     .hero-headline{font-family:'Cormorant Garamond',serif;font-size:clamp(2.2rem,4.5vw,3.4rem);font-weight:400;line-height:1.1;margin:0 0 1.2rem;max-width:440px}
-    .hero-practical .hero-headline{color:var(--brown-dark);text-shadow:0 1px 8px rgba(250,246,236,.6)}
+    .hero-practical .hero-headline{color:#1a0e08;text-shadow:0 1px 4px rgba(250,246,236,.5);font-weight:500}
+    .hero-practical .hero-subline{color:#1a0e08;font-weight:500}
+    .hero-practical .hero-eyebrow{color:#8B6914;font-weight:600}
     .hero-emotional .hero-headline{font-style:italic;color:#f5e6c8;text-shadow:0 2px 12px rgba(0,0,0,.5)}
     .hero-emotional .hero-headline em{color:var(--gold-light)}
     .hero-subline{font-size:.92rem;line-height:1.7;max-width:380px;margin:0 0 2rem}
-    .hero-practical .hero-subline{color:rgba(60,40,23,.82)}
     .hero-emotional .hero-subline{color:rgba(250,246,236,.85)}
     .hero-cta{display:inline-block;text-decoration:none;padding:.9rem 1.8rem;font-size:.66rem;letter-spacing:.25em;text-transform:uppercase;transition:all .3s;align-self:flex-start;border:1px solid}
     .hero-practical .hero-cta{border-color:var(--brown-dark);color:var(--brown-dark);background:rgba(250,246,236,.35)}
@@ -149,7 +149,7 @@
   <!-- ── LIBRARY ── -->
   <section class="home-section library-section">
     <p class="section-label">The Library</p>
-    <h2 class="section-title">Free Wine <em>Guides</em></h2>
+    <h2 class="section-title">Printable Wine <em>Guides</em></h2>
     <p class="section-desc">Three downloadable PDFs we made — clear, useful, no fluff. Save them, print them, or pull them up at the table.</p>
     <div class="library-grid">
       <a href="documents/kc_tasting.pdf" target="_blank" rel="noopener" class="library-card">
@@ -332,18 +332,9 @@
   <script>
     // ── PAIRING TEASER ────────────────────────────────────────────────────────
     var TEASER_GRAPES = [
-      { name:"Cabernet Sauvignon", type:"red",      origin:"Bordeaux, France",          tagline:"The king of reds — bold, structured, built for the table." },
-      { name:"Pinot Noir",         type:"red",      origin:"Burgundy, France",           tagline:"The most food-versatile red — elegant, silky, and restrained." },
-      { name:"Merlot",             type:"red",      origin:"Bordeaux, France",           tagline:"Plush and approachable — bridges bold reds to lighter preparations." },
-      { name:"Syrah / Shiraz",     type:"red",      origin:"Northern Rhône / Australia", tagline:"Spicy, smoky, dark — a powerhouse with a distinctive personality." },
-      { name:"Malbec",             type:"red",      origin:"Mendoza, Argentina",         tagline:"Dark fruit, violet, and the spirit of the Argentine asado." },
-      { name:"Chardonnay",         type:"white",    origin:"Burgundy, France",           tagline:"From steely Chablis to buttery Napa — the world's most versatile white." },
-      { name:"Sauvignon Blanc",    type:"white",    origin:"Loire Valley / New Zealand", tagline:"Bright, grassy, and tangy — the go-to for shellfish and green vegetables." },
-      { name:"Riesling",           type:"white",    origin:"Mosel, Germany",             tagline:"The sommelier's secret weapon — pairs with almost anything, especially spice." },
-      { name:"Rosé (Provence)",    type:"rosé",     origin:"Provence, France",           tagline:"The world's most popular dry rosé — effortlessly food-friendly." },
-      { name:"Champagne",          type:"sparkling",origin:"Champagne, France",          tagline:"Criminally underused at the table — built for oysters, fried chicken, and celebration." },
-      { name:"Sauternes",          type:"dessert",  origin:"Bordeaux, France",           tagline:"Liquid gold — the legendary pairing with foie gras and blue cheese." },
-      { name:"Tawny Port",         type:"fortified",origin:"Douro Valley, Portugal",     tagline:"Nutty, caramel, and dried fruit — the perfect after-dinner companion." },
+      { name:"Cabernet Sauvignon", type:"red",   origin:"Bordeaux, France",  tagline:"The king of reds — bold, structured, built for the table." },
+      { name:"Pinot Noir",         type:"red",   origin:"Burgundy, France",  tagline:"The most food-versatile red — elegant, silky, and restrained." },
+      { name:"Chardonnay",         type:"white", origin:"Burgundy, France",  tagline:"From steely Chablis to buttery Napa — the world's most versatile white." },
     ];
 
     var BADGE_COLORS = {
