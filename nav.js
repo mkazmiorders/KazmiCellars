@@ -11,10 +11,10 @@
     ['wineries.html',    'Wineries'],
     ['regions.html',     'Regions'],
     ['posts.html',       'Posts'],
+    ['wine-ink.html',    'Wine Ink'],
     ['education.html',   'Education'],
     ['cellar.html',      'The Cellar'],
     ['our-story.html',   'Our Story'],
-    ['contact.html',     'Contact'],
   ];
 
   function isActive(href) {
