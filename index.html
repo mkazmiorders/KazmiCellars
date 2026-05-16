@@ -28,7 +28,7 @@
     .teaser-wrap{max-width:880px;margin:0 auto}
     .teaser-search-wrap{padding:0 0 1.2rem}
     .teaser-search{width:100%;padding:11px 16px;font-size:14px;border:1px solid var(--border);background:#FFF9F0;font-family:'Cormorant Garamond',serif;color:var(--text-dark);outline:none;box-sizing:border-box}
-    .teaser-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.2rem;max-width:880px;margin:0 auto 1.5rem}
+    .teaser-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:.8rem;margin-bottom:1.5rem}
     .teaser-card{background:#FAF7F2;border:1px solid var(--border);padding:1.2rem;text-align:left;text-decoration:none;color:inherit;transition:border-color .2s,box-shadow .2s;display:block}
     .teaser-card:hover{border-color:var(--gold);box-shadow:0 2px 12px rgba(0,0,0,.06)}
     .teaser-badge{display:inline-block;font-size:9px;padding:2px 8px;border-radius:10px;font-weight:bold;margin-bottom:.5rem;letter-spacing:.05em}
@@ -91,19 +91,6 @@
     .contact-card p{font-size:.82rem;color:var(--text-mid);line-height:1.7;margin:0 0 .9rem}
     .contact-card a{color:var(--gold);text-decoration:none;font-size:.78rem;letter-spacing:.05em;border-bottom:1px solid var(--gold-light)}
     .contact-card a:hover{color:var(--brown-dark);border-color:var(--brown-dark)}
-
-    /* ── Library ── */
-    .library-section{background:#FFFAF0}
-    .library-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.2rem;max-width:980px;margin:0 auto 2.5rem}
-    @media(max-width:760px){.library-grid{grid-template-columns:1fr}}
-    .library-card{display:flex;flex-direction:column;background:var(--white);border:1px solid var(--border);padding:1.8rem 1.5rem;text-align:left;text-decoration:none;color:inherit;transition:all .3s}
-    .library-card:hover{border-color:var(--gold);box-shadow:0 6px 20px rgba(60,40,20,.08);transform:translateY(-2px)}
-    .library-icon{font-size:2.2rem;margin-bottom:.6rem;line-height:1}
-    .library-title{font-family:'Cormorant Garamond',serif;font-size:1.35rem;font-weight:500;color:var(--brown-dark);margin:0 0 .6rem;line-height:1.2}
-    .library-desc{font-size:.82rem;color:var(--text-mid);line-height:1.65;margin:0 0 .9rem;flex:1}
-    .library-meta{font-size:.6rem;letter-spacing:.2em;text-transform:uppercase;color:var(--text-light);margin-bottom:.9rem;display:block}
-    .library-cta{font-size:.7rem;letter-spacing:.18em;text-transform:uppercase;color:var(--gold);font-weight:500;border-top:1px solid var(--border);padding-top:.9rem;display:inline-block}
-    .library-card:hover .library-cta{color:var(--brown-dark)}
   </style>
 </head>
 <body>
@@ -115,37 +102,6 @@
     <p class="hero-tagline">Wine experiences, wine education, cellar notes, and food pairings and much more — from two people who love wine.</p>
     <a href="pairing.html" class="hero-cta">Try the Pairing Tool →</a>
     <span class="hero-est">Est. 2019</span>
-  </section>
-
-  <!-- ── LIBRARY ── -->
-  <section class="home-section library-section">
-    <p class="section-label">The Library</p>
-    <h2 class="section-title">Free Wine <em>Guides</em></h2>
-    <p class="section-desc">Three downloadable PDFs we made — clear, useful, no fluff. Save them, print them, or pull them up at the table.</p>
-    <div class="library-grid">
-      <a href="documents/kc_tasting.pdf" target="_blank" rel="noopener" class="library-card">
-        <div class="library-icon">📄</div>
-        <h3 class="library-title">How to Taste Wine</h3>
-        <p class="library-desc">A structured 4-step approach to getting more from every glass. Appearance, nose, palate, conclusion.</p>
-        <span class="library-meta">3 pages</span>
-        <span class="library-cta">Download PDF →</span>
-      </a>
-      <a href="documents/kc_palate_structure_260515_135240.pdf" target="_blank" rel="noopener" class="library-card">
-        <div class="library-icon">📄</div>
-        <h3 class="library-title">Palate &amp; Structure Guide</h3>
-        <p class="library-desc">What every wine tastes like — tannin, acidity, body, finish, mouthfeel, and drinking windows for 30+ grapes.</p>
-        <span class="library-meta">9 pages</span>
-        <span class="library-cta">Download PDF →</span>
-      </a>
-      <a href="documents/kc_serving.pdf" target="_blank" rel="noopener" class="library-card">
-        <div class="library-icon">📄</div>
-        <h3 class="library-title">Serving Wine</h3>
-        <p class="library-desc">Temperatures, glassware, decanting, how long open bottles last, and proper service order.</p>
-        <span class="library-meta">4 pages</span>
-        <span class="library-cta">Download PDF →</span>
-      </a>
-    </div>
-    <a href="education.html" class="view-all">View All Guides in Our Library →</a>
   </section>
 
   <!-- ── PAIRING TEASER ── -->
@@ -289,7 +245,7 @@
         <p class="contact-card-label">Email Us</p>
         <h3 class="contact-card-title">Drop us a line</h3>
         <p>For collaborations, questions, or just to talk wine.</p>
-        <a href="mailto:contact@kazmicellars.com">contact@kazmicellars.com</a>
+        <a href="mailto:kazmicellars@gmail.com">kazmicellars@gmail.com</a>
       </div>
       <div class="contact-card">
         <p class="contact-card-label">Follow Along</p>
@@ -300,12 +256,35 @@
     </div>
   </section>
 
+  <footer class="site-footer">
+    <span class="footer-logo">Kazmi Cellars</span>
+    <ul class="footer-links">
+      <li><a href="terms.html">Terms &amp; Conditions</a></li>
+      <li><a href="privacy.html">Privacy Policy</a></li>
+      <li><a href="editorial.html">Editorial Policy</a></li>
+    </ul>
+    <hr class="footer-divider">
+    <div class="footer-bottom">
+      <span class="footer-copy">© 2026 Kazmi Cellars · All Rights Reserved</span>
+      <span class="footer-social">kazmicellars@gmail.com &nbsp;·&nbsp; @kazmicellars</span>
+    </div>
+  </footer>
+
   <script>
     // ── PAIRING TEASER ────────────────────────────────────────────────────────
     var TEASER_GRAPES = [
-      { name:"Cabernet Sauvignon", type:"red",   origin:"Bordeaux, France",  tagline:"The king of reds — bold, structured, built for the table." },
-      { name:"Pinot Noir",         type:"red",   origin:"Burgundy, France",  tagline:"The most food-versatile red — elegant, silky, and restrained." },
-      { name:"Chardonnay",         type:"white", origin:"Burgundy, France",  tagline:"From steely Chablis to buttery Napa — the world's most versatile white." },
+      { name:"Cabernet Sauvignon", type:"red",      origin:"Bordeaux, France",          tagline:"The king of reds — bold, structured, built for the table." },
+      { name:"Pinot Noir",         type:"red",      origin:"Burgundy, France",           tagline:"The most food-versatile red — elegant, silky, and restrained." },
+      { name:"Merlot",             type:"red",      origin:"Bordeaux, France",           tagline:"Plush and approachable — bridges bold reds to lighter preparations." },
+      { name:"Syrah / Shiraz",     type:"red",      origin:"Northern Rhône / Australia", tagline:"Spicy, smoky, dark — a powerhouse with a distinctive personality." },
+      { name:"Malbec",             type:"red",      origin:"Mendoza, Argentina",         tagline:"Dark fruit, violet, and the spirit of the Argentine asado." },
+      { name:"Chardonnay",         type:"white",    origin:"Burgundy, France",           tagline:"From steely Chablis to buttery Napa — the world's most versatile white." },
+      { name:"Sauvignon Blanc",    type:"white",    origin:"Loire Valley / New Zealand", tagline:"Bright, grassy, and tangy — the go-to for shellfish and green vegetables." },
+      { name:"Riesling",           type:"white",    origin:"Mosel, Germany",             tagline:"The sommelier's secret weapon — pairs with almost anything, especially spice." },
+      { name:"Rosé (Provence)",    type:"rosé",     origin:"Provence, France",           tagline:"The world's most popular dry rosé — effortlessly food-friendly." },
+      { name:"Champagne",          type:"sparkling",origin:"Champagne, France",          tagline:"Criminally underused at the table — built for oysters, fried chicken, and celebration." },
+      { name:"Sauternes",          type:"dessert",  origin:"Bordeaux, France",           tagline:"Liquid gold — the legendary pairing with foie gras and blue cheese." },
+      { name:"Tawny Port",         type:"fortified",origin:"Douro Valley, Portugal",     tagline:"Nutty, caramel, and dried fruit — the perfect after-dinner companion." },
     ];
 
     var BADGE_COLORS = {
@@ -422,6 +401,5 @@
     loadLatest('data/posts.json',['posts'],'latest-post',function(p){return{image:getPhotoUrl(p.image)||firstPhoto(p.photos),title:p.title||'Untitled',meta:p.date?new Date(p.date).toLocaleDateString('en-US',{year:'numeric',month:'long',day:'numeric'}):'',body:excerptText(p.body||p.review,220),link:'posts.html'};},'Latest Post');
   </script>
 
-<script src="footer.js"></script>
 </body>
 </html>
