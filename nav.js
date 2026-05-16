@@ -30,12 +30,12 @@
   document.body.insertAdjacentHTML('afterbegin',
     '<header class="site-header">' +
       '<div class="header-grid">' +
-        '<a href="index.html" class="header-icon header-icon-left"><img src="logo-glass.png" alt="Kazmi Cellars"></a>' +
+        '<a href="index.html" class="header-icon header-icon-left"><img src="logo-glass-1.png" alt="Kazmi Cellars"></a>' +
         '<a href="index.html" class="header-brand">' +
           '<img src="kazmi-cellars-logo.png" alt="Kazmi Cellars">' +
           '<span class="logo-tagline">Journey Through Wine With Us</span>' +
         '</a>' +
-        '<a href="index.html" class="header-icon header-icon-right"><img src="logo-glass.png" alt="Kazmi Cellars"></a>' +
+        '<a href="index.html" class="header-icon header-icon-right"><img src="logo-glass-1.png" alt="Kazmi Cellars"></a>' +
       '</div>' +
       '<nav><ul class="nav-links">' + items + '</ul></nav>' +
     '</header>'
