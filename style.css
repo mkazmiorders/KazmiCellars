@@ -14,8 +14,8 @@
   --brown-mid: #4a2c1a;
   --brown-light: #6b3f26;
   --text-dark: #1a1008;
-  --text-mid: #4a3728;
-  --text-light: #7a6558;
+  --text-mid: #2c1810;
+  --text-light: #5c4030;
   --border: #d4c4a8;
   --white: #faf8f4;
 }
@@ -34,7 +34,7 @@ body {
   font-family: 'Raleway', sans-serif;
   background-color: var(--cream);
   color: var(--text-dark);
-  font-weight: 300;
+  font-weight: 400;
   line-height: 1.7;
 }
 
@@ -51,10 +51,10 @@ h1, h2, h3, h4 {
 .section-label {
   font-family: 'Raleway', sans-serif;
   font-size: 0.65rem;
-  font-weight: 500;
+  font-weight: 600;
   letter-spacing: 0.2em;
   text-transform: uppercase;
-  color: var(--text-light);
+  color: var(--text-mid);
   display: flex;
   align-items: center;
   gap: 1rem;
@@ -72,7 +72,7 @@ h1, h2, h3, h4 {
 .section-title {
   font-family: 'Cormorant Garamond', serif;
   font-size: clamp(2.2rem, 5vw, 3.2rem);
-  font-weight: 400;
+  font-weight: 500;
   color: var(--text-dark);
   margin-bottom: 1rem;
   line-height: 1.15;
@@ -80,7 +80,7 @@ h1, h2, h3, h4 {
 
 .section-title em {
   font-style: italic;
-  color: var(--gold-light);
+  color: var(--gold);
 }
 
 .section-subtitle {
@@ -128,7 +128,7 @@ h1, h2, h3, h4 {
   font-size: 0.6rem;
   letter-spacing: 0.25em;
   text-transform: uppercase;
-  color: var(--text-light);
+  color: var(--text-mid);
   display: block;
   margin-top: 0.1rem;
 }
@@ -147,9 +147,9 @@ h1, h2, h3, h4 {
   font-size: 0.65rem;
   letter-spacing: 0.18em;
   text-transform: uppercase;
-  color: var(--text-mid);
+  color: var(--text-dark);
   text-decoration: none;
-  font-weight: 500;
+  font-weight: 600;
   transition: color 0.2s;
   padding: 0.3rem 0;
 }
@@ -192,15 +192,16 @@ h1, h2, h3, h4 {
   font-size: 0.6rem;
   letter-spacing: 0.25em;
   text-transform: uppercase;
-  color: rgba(255,255,255,0.6);
+  color: rgba(255,255,255,0.75);
   margin-bottom: 1rem;
   display: block;
+  font-weight: 500;
 }
 
 .hero-title {
   font-family: 'Cormorant Garamond', serif;
   font-size: clamp(2.8rem, 8vw, 4.5rem);
-  font-weight: 300;
+  font-weight: 400;
   color: white;
   line-height: 1.1;
   margin-bottom: 2rem;
@@ -213,7 +214,7 @@ h1, h2, h3, h4 {
 
 .hero-cta {
   display: inline-block;
-  border: 1px solid rgba(255,255,255,0.6);
+  border: 1px solid rgba(255,255,255,0.75);
   color: white;
   text-decoration: none;
   font-size: 0.65rem;
@@ -221,6 +222,7 @@ h1, h2, h3, h4 {
   text-transform: uppercase;
   padding: 0.9rem 1.8rem;
   transition: all 0.3s;
+  font-weight: 500;
 }
 
 .hero-cta:hover {
@@ -235,7 +237,7 @@ h1, h2, h3, h4 {
   font-family: 'Cormorant Garamond', serif;
   font-size: 0.75rem;
   letter-spacing: 0.15em;
-  color: rgba(255,255,255,0.4);
+  color: rgba(255,255,255,0.6);
   z-index: 1;
 }
 
@@ -273,7 +275,7 @@ h1, h2, h3, h4 {
   letter-spacing: 0.2em;
   text-transform: uppercase;
   color: var(--gold);
-  font-weight: 500;
+  font-weight: 600;
   margin-bottom: 0.8rem;
   display: block;
 }
@@ -281,17 +283,18 @@ h1, h2, h3, h4 {
 .card-title {
   font-family: 'Cormorant Garamond', serif;
   font-size: 1.9rem;
-  font-weight: 400;
+  font-weight: 500;
   color: var(--text-dark);
   margin-bottom: 1rem;
   line-height: 1.2;
 }
 
 .card-text {
-  font-size: 0.9rem;
+  font-size: 0.92rem;
   color: var(--text-mid);
   line-height: 1.8;
   margin-bottom: 1.5rem;
+  font-weight: 400;
 }
 
 .card-link {
@@ -300,7 +303,7 @@ h1, h2, h3, h4 {
   text-transform: uppercase;
   color: var(--text-dark);
   text-decoration: none;
-  font-weight: 500;
+  font-weight: 600;
   display: inline-flex;
   align-items: center;
   gap: 0.5rem;
@@ -316,36 +319,38 @@ h1, h2, h3, h4 {
   letter-spacing: 0.2em;
   text-transform: uppercase;
   color: var(--gold);
-  font-weight: 500;
+  font-weight: 600;
   margin-bottom: 0.8rem;
 }
 
 .bottle-title {
   font-family: 'Cormorant Garamond', serif;
   font-size: 2rem;
-  font-weight: 400;
+  font-weight: 500;
   color: var(--text-dark);
   margin-bottom: 0.4rem;
 }
 
 .bottle-meta {
-  font-size: 0.75rem;
-  color: var(--gold-light);
+  font-size: 0.78rem;
+  color: var(--brown-light);
   letter-spacing: 0.08em;
   margin-bottom: 1rem;
+  font-weight: 500;
 }
 
 .bottle-notes {
-  font-size: 0.9rem;
+  font-size: 0.92rem;
   color: var(--text-mid);
   line-height: 1.8;
   margin-bottom: 1.2rem;
+  font-weight: 400;
 }
 
 .bottle-score {
   font-family: 'Cormorant Garamond', serif;
   font-size: 2.8rem;
-  font-weight: 300;
+  font-weight: 400;
   color: var(--text-dark);
   line-height: 1;
 }
@@ -355,9 +360,10 @@ h1, h2, h3, h4 {
   font-family: 'Raleway', sans-serif;
   letter-spacing: 0.15em;
   text-transform: uppercase;
-  color: var(--text-light);
+  color: var(--text-mid);
   vertical-align: middle;
   margin-left: 0.3rem;
+  font-weight: 500;
 }
 
 /* ============================================
@@ -384,7 +390,7 @@ h1, h2, h3, h4 {
 .stat-number {
   font-family: 'Cormorant Garamond', serif;
   font-size: 3rem;
-  font-weight: 300;
+  font-weight: 400;
   color: var(--gold-light);
   line-height: 1;
   margin-bottom: 0.5rem;
@@ -394,7 +400,8 @@ h1, h2, h3, h4 {
   font-size: 0.6rem;
   letter-spacing: 0.2em;
   text-transform: uppercase;
-  color: rgba(255,255,255,0.4);
+  color: rgba(255,255,255,0.65);
+  font-weight: 500;
 }
 
 /* ============================================
@@ -404,12 +411,13 @@ h1, h2, h3, h4 {
 .badge-coming-soon {
   display: inline-block;
   background: var(--brown-mid);
-  color: rgba(255,255,255,0.85);
+  color: rgba(255,255,255,0.95);
   font-size: 0.58rem;
   letter-spacing: 0.2em;
   text-transform: uppercase;
   padding: 0.35rem 0.75rem;
   margin-bottom: 1.2rem;
+  font-weight: 500;
 }
 
 /* ============================================
@@ -427,7 +435,7 @@ h1, h2, h3, h4 {
   text-transform: uppercase;
   color: var(--text-dark);
   text-decoration: none;
-  font-weight: 500;
+  font-weight: 600;
   transition: all 0.3s;
   background: transparent;
 }
@@ -451,7 +459,7 @@ h1, h2, h3, h4 {
   font-family: 'Cormorant Garamond', serif;
   font-size: 1.8rem;
   font-style: italic;
-  color: rgba(255,255,255,0.85);
+  color: rgba(255,255,255,0.95);
   margin-bottom: 2rem;
   display: block;
 }
@@ -468,13 +476,14 @@ h1, h2, h3, h4 {
   font-size: 0.62rem;
   letter-spacing: 0.15em;
   text-transform: uppercase;
-  color: rgba(255,255,255,0.4);
+  color: rgba(255,255,255,0.7);
   text-decoration: none;
   transition: color 0.2s;
+  font-weight: 500;
 }
 
 .footer-links a:hover {
-  color: rgba(255,255,255,0.8);
+  color: rgba(255,255,255,1);
 }
 
 .footer-divider {
@@ -495,7 +504,7 @@ h1, h2, h3, h4 {
   font-size: 0.6rem;
   letter-spacing: 0.15em;
   text-transform: uppercase;
-  color: rgba(255,255,255,0.3);
+  color: rgba(255,255,255,0.55);
 }
 
 /* ============================================
@@ -529,11 +538,12 @@ h1, h2, h3, h4 {
   background: transparent;
   padding: 0.8rem 1rem 0.8rem 2.5rem;
   font-family: 'Raleway', sans-serif;
-  font-size: 0.85rem;
+  font-size: 0.9rem;
   color: var(--text-dark);
   outline: none;
   margin-bottom: 1rem;
   position: relative;
+  font-weight: 400;
 }
 
 .search-wrap {
@@ -546,7 +556,7 @@ h1, h2, h3, h4 {
   left: 0.8rem;
   top: 50%;
   transform: translateY(-50%);
-  color: var(--text-light);
+  color: var(--text-mid);
   font-size: 0.9rem;
 }
 
@@ -566,8 +576,9 @@ h1, h2, h3, h4 {
   letter-spacing: 0.15em;
   text-transform: uppercase;
   cursor: pointer;
-  color: var(--text-mid);
+  color: var(--text-dark);
   transition: all 0.2s;
+  font-weight: 500;
 }
 
 .filter-btn.active,
@@ -584,9 +595,10 @@ h1, h2, h3, h4 {
   font-family: 'Raleway', sans-serif;
   font-size: 0.62rem;
   letter-spacing: 0.1em;
-  color: var(--text-mid);
+  color: var(--text-dark);
   outline: none;
   cursor: pointer;
+  font-weight: 500;
 }
 
 /* ============================================
@@ -604,30 +616,34 @@ h1, h2, h3, h4 {
 
 .cellar-item-name {
   font-family: 'Cormorant Garamond', serif;
-  font-size: 1.1rem;
+  font-size: 1.15rem;
   color: var(--text-dark);
   margin-bottom: 0.2rem;
+  font-weight: 500;
 }
 
 .cellar-item-meta {
-  font-size: 0.72rem;
-  color: var(--text-light);
+  font-size: 0.75rem;
+  color: var(--text-mid);
   letter-spacing: 0.05em;
+  font-weight: 400;
 }
 
 .cellar-item-vintage {
   font-family: 'Cormorant Garamond', serif;
   font-size: 1.4rem;
-  color: var(--gold-light);
+  color: var(--gold);
   text-align: right;
+  font-weight: 500;
 }
 
 .cellar-item-grape {
-  font-size: 0.6rem;
+  font-size: 0.62rem;
   letter-spacing: 0.12em;
   text-transform: uppercase;
-  color: var(--text-light);
+  color: var(--text-mid);
   text-align: right;
+  font-weight: 500;
 }
 /* === New header layout === */
 .header-grid{
