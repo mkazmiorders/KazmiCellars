@@ -88,7 +88,6 @@
   <div class="page-tabs" id="pageTabs">
     <button class="page-tab active" data-tab="posts">Posts</button>
     <button class="page-tab" data-tab="gallery">Gallery</button>
-    <button class="page-tab" data-tab="wine-ink">Wine Ink</button>
   </div>
 
   <main>
@@ -107,25 +106,6 @@
       <div class="empty-state" id="galleryEmpty" style="display:none;">
         <h3>No photos yet</h3>
         <p>Check back soon — we're collecting moments to share.</p>
-      </div>
-    </div>
-
-    <div class="tab-panel" id="panel-wine-ink">
-      <p class="ink-intro">Poems written in the in-between sips — in-between pours — the moments after the bottle is empty.</p>
-      <div class="ornament">· · ·</div>
-      <div class="ink-cards">
-        <a href="maiden-series.html" class="ink-card">
-          <p class="ink-card-label">A Curated Series</p>
-          <h2 class="ink-card-title">The Maiden Series</h2>
-          <p class="ink-card-desc">An ongoing collection of poems inspired by the love of my life — and for the journey we've built together.</p>
-          <span class="ink-card-cta">Begin Reading →</span>
-        </a>
-        <a href="between-pours.html" class="ink-card">
-          <p class="ink-card-label">Loose Verses</p>
-          <h2 class="ink-card-title">Between Pours</h2>
-          <p class="ink-card-desc">Standalone poems and stray thoughts. Free-form, occasional, honest — written between the wines.</p>
-          <span class="ink-card-cta">Explore Poems →</span>
-        </a>
       </div>
     </div>
   </main>
@@ -152,7 +132,7 @@
       var b=e.target.closest('.page-tab'); if(b) switchTab(b.dataset.tab);
     });
     var initHash = window.location.hash.replace('#','');
-    if(initHash==='gallery'||initHash==='wine-ink') { switchTab(initHash); }
+    if(initHash==='gallery') { switchTab(initHash); }
     else { loadPosts(); loaded.posts=true; }
 
     function esc(t){ var d=document.createElement('div'); d.textContent=t||''; return d.innerHTML; }
