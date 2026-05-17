@@ -61,6 +61,8 @@
 
     function renderPoemBody(text) {
       if (!text) return '';
+      // Normalize line breaks — collapse 2+ newlines into single newline for consistent spacing
+      text = text.replace(/\r\n/g, '\n').replace(/\n\s*\n+/g, '\n').trim();
       let html = escapeHtml(text);
       const linkPlaceholders = [];
       html = html.replace(/\[([^\]]+)\]\(([^)]+)\)/g, (m, t, u) => {
