@@ -1,0 +1,520 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Wine Pronunciation Guide — Kazmi Cellars</title>
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    #pronunciation-root { min-height: 100vh; }
+    #pronunciation-root *::-webkit-scrollbar { height: 0; display: none; }
+  </style>
+  <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+  <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+</head>
+<body>
+<script src="nav.js"></script>
+
+<div id="pronunciation-root"></div>
+
+<script type="text/babel" data-presets="react">
+const { useState } = React;
+
+const COLORS = {
+  cream: "#f5f0e8",
+  creamDark: "#ede8dc",
+  white: "#faf8f4",
+  border: "#d4c4a8",
+  textDark: "#0a0604",
+  textMid: "#1a1008",
+  textLight: "#5c4030",
+  burgundy: "#722F37",
+  burgundyDark: "#5C1A1A",
+  gold: "#8b6914",
+  goldLight: "#b89255",
+  brownDark: "#2c1810",
+};
+
+const DATA = {
+  "Red Grapes": [
+    { word:"Cabernet Sauvignon", phonetic:"KAB-er-nay  so-VIN-yohn", lang:"fr-FR", tip:"The final 't' in Cabernet is silent" },
+    { word:"Merlot", phonetic:"mer-LOH", lang:"fr-FR", tip:"The 't' is silent — never 'mer-LOT'" },
+    { word:"Pinot Noir", phonetic:"PEE-noh  NWAHR", lang:"fr-FR", tip:"Noir rhymes with 'war' not 'noir'" },
+    { word:"Syrah", phonetic:"see-RAH", lang:"fr-FR", tip:"Same grape as Shiraz — different name by region" },
+    { word:"Grenache", phonetic:"greh-NAHSH", lang:"fr-FR", tip:"Called Garnacha in Spain" },
+    { word:"Garnacha", phonetic:"gar-NAH-chah", lang:"es-ES", tip:"Spanish name for Grenache" },
+    { word:"Tempranillo", phonetic:"tem-prah-NEE-yoh", lang:"es-ES", tip:"Double 'l' sounds like 'y' in Spanish" },
+    { word:"Sangiovese", phonetic:"san-joh-VAY-zeh", lang:"it-IT", tip:"The backbone of Chianti and Brunello" },
+    { word:"Nebbiolo", phonetic:"neh-BYOH-loh", lang:"it-IT", tip:"From 'nebbia' — Italian for fog" },
+    { word:"Malbec", phonetic:"MAL-bek", lang:"fr-FR", tip:"Called Côt in the Loire, Auxerrois in Cahors" },
+    { word:"Cabernet Franc", phonetic:"KAB-er-nay  FRONK", lang:"fr-FR", tip:"'Franc' rhymes with 'bronze' not 'frank'" },
+    { word:"Zinfandel", phonetic:"ZIN-fan-del", lang:"en-US", tip:"Genetically identical to Italian Primitivo" },
+    { word:"Primitivo", phonetic:"pree-mee-TEE-voh", lang:"it-IT", tip:"Southern Italian name for Zinfandel" },
+    { word:"Mourvèdre", phonetic:"moor-VED-ruh", lang:"fr-FR", tip:"Called Monastrell in Spain" },
+    { word:"Monastrell", phonetic:"mon-ah-STREL", lang:"es-ES", tip:"Spanish name for Mourvèdre" },
+    { word:"Barbera", phonetic:"bar-BAIR-ah", lang:"it-IT", tip:"Common mispronunciation: bar-BEAR-ah" },
+    { word:"Gamay", phonetic:"gah-MAY", lang:"fr-FR", tip:"The grape of Beaujolais" },
+    { word:"Aglianico", phonetic:"ah-LYAH-nee-koh", lang:"it-IT", tip:"Often mispronounced — the 'gl' sounds like 'ly'" },
+    { word:"Nero d'Avola", phonetic:"NEH-roh  DAH-voh-lah", lang:"it-IT", tip:"Sicily's flagship red grape" },
+    { word:"Carménère", phonetic:"kar-meh-NAIR", lang:"fr-FR", tip:"Chile's signature grape, originally from Bordeaux" },
+    { word:"Corvina", phonetic:"kor-VEE-nah", lang:"it-IT", tip:"The primary grape in Amarone and Valpolicella" },
+    { word:"Nerello Mascalese", phonetic:"neh-REL-loh  mas-kah-LAY-zeh", lang:"it-IT", tip:"The great red grape of Mount Etna, Sicily" },
+    { word:"Xinomavro", phonetic:"KSEE-noh-MAH-vroh", lang:"el-GR", tip:"Greece's greatest red — means 'acid black'" },
+    { word:"Agiorgitiko", phonetic:"ah-your-YEE-tee-koh", lang:"el-GR", tip:"Grown in Nemea — also called Saint George" },
+    { word:"Touriga Nacional", phonetic:"toh-REE-gah  nah-syoh-NAHL", lang:"pt-PT", tip:"The soul of Vintage Port" },
+  ],
+  "White Grapes": [
+    { word:"Chardonnay", phonetic:"shar-doh-NAY", lang:"fr-FR", tip:"World's most planted white — versatile and malleable" },
+    { word:"Sauvignon Blanc", phonetic:"SOH-veen-yohn  BLONK", lang:"fr-FR", tip:"'Blanc' — the 'c' is silent" },
+    { word:"Riesling", phonetic:"REEZ-ling", lang:"de-DE", tip:"Never 'RICE-ling' — a common mistake" },
+    { word:"Pinot Gris", phonetic:"PEE-noh  GREE", lang:"fr-FR", tip:"Alsace style — full-bodied and rich" },
+    { word:"Pinot Grigio", phonetic:"PEE-noh  GREE-joh", lang:"it-IT", tip:"Italian style — light and crisp" },
+    { word:"Gewurztraminer", phonetic:"geh-VURTS-trah-mee-ner", lang:"de-DE", tip:"Means 'spicy grape from Tramin'" },
+    { word:"Viognier", phonetic:"vee-oh-NYAY", lang:"fr-FR", tip:"Common mistake: vee-OG-nee-ay" },
+    { word:"Chenin Blanc", phonetic:"SHEH-nan  BLONK", lang:"fr-FR", tip:"The great white of the Loire Valley" },
+    { word:"Albariño", phonetic:"al-bah-REE-nyoh", lang:"es-ES", tip:"The ñ sounds like 'ny' — al-bah-REE-nyoh" },
+    { word:"Grüner Veltliner", phonetic:"GROO-ner  FELT-lee-ner", lang:"de-DE", tip:"The ü is like saying 'ee' with rounded lips" },
+    { word:"Assyrtiko", phonetic:"ah-SEER-tee-koh", lang:"el-GR", tip:"Greece's greatest white — from Santorini" },
+    { word:"Vermentino", phonetic:"ver-men-TEE-noh", lang:"it-IT", tip:"The coastal Mediterranean white" },
+    { word:"Muscat", phonetic:"MUS-kat", lang:"fr-FR", tip:"Also called Moscato in Italy" },
+    { word:"Moscato", phonetic:"mos-KAH-toh", lang:"it-IT", tip:"Italian name — Moscato d'Asti is gently sweet" },
+    { word:"Furmint", phonetic:"FOOR-mint", lang:"hu-HU", tip:"Hungary's flagship — the soul of Tokaji" },
+    { word:"Marsanne", phonetic:"mar-SAN", lang:"fr-FR", tip:"The richer of the two Rhône whites" },
+    { word:"Roussanne", phonetic:"roo-SAN", lang:"fr-FR", tip:"The more aromatic of the two Rhône whites" },
+    { word:"Verdicchio", phonetic:"ver-DIK-ee-oh", lang:"it-IT", tip:"Central Italian white from Marche" },
+    { word:"Garganega", phonetic:"gar-GAH-neh-gah", lang:"it-IT", tip:"The grape behind Soave Classico" },
+    { word:"Torrontés", phonetic:"tor-ron-TESS", lang:"es-ES", tip:"Argentina's aromatic white specialty" },
+  ],
+  "French Regions & Terms": [
+    { word:"Terroir", phonetic:"tair-WAHR", lang:"fr-FR", tip:"No direct English translation — sense of place" },
+    { word:"Sommelier", phonetic:"sum-el-YAY", lang:"fr-FR", tip:"Often mispronounced 'SOM-el-yay'" },
+    { word:"Château", phonetic:"sha-TOH", lang:"fr-FR", tip:"Plural: Châteaux (sha-TOH)" },
+    { word:"Bourgogne", phonetic:"boor-GON-yuh", lang:"fr-FR", tip:"The French name for Burgundy" },
+    { word:"Bordeaux", phonetic:"bor-DOH", lang:"fr-FR", tip:"The 'x' is silent — bor-DOH not bor-DOX" },
+    { word:"Pauillac", phonetic:"poh-YAK", lang:"fr-FR", tip:"Home to Lafite, Latour, Mouton Rothschild" },
+    { word:"Margaux", phonetic:"mar-GOH", lang:"fr-FR", tip:"The 'x' is silent" },
+    { word:"Médoc", phonetic:"may-DOK", lang:"fr-FR", tip:"The Left Bank peninsula of Bordeaux" },
+    { word:"Saint-Émilion", phonetic:"san-ay-meel-YOHN", lang:"fr-FR", tip:"Right Bank — home to Pétrus, Cheval Blanc" },
+    { word:"Pomerol", phonetic:"pom-eh-ROHL", lang:"fr-FR", tip:"Tiny appellation — home to Pétrus" },
+    { word:"Beaujolais", phonetic:"boh-zhoh-LAY", lang:"fr-FR", tip:"The 's' is silent" },
+    { word:"Meursault", phonetic:"mer-SOH", lang:"fr-FR", tip:"Home to great white Burgundy" },
+    { word:"Puligny-Montrachet", phonetic:"poo-lee-NYEE  mon-rah-SHAY", lang:"fr-FR", tip:"The 't' and 'ch' are both silent" },
+    { word:"Chablis", phonetic:"sha-BLEE", lang:"fr-FR", tip:"The 's' is silent — pure unoaked Chardonnay" },
+    { word:"Châteauneuf-du-Pape", phonetic:"sha-toh-nuf-doo-PAP", lang:"fr-FR", tip:"'New castle of the Pope' — great Grenache blends" },
+    { word:"Côte-Rôtie", phonetic:"coat  roh-TEE", lang:"fr-FR", tip:"'Roasted slope' — great Northern Rhône Syrah" },
+    { word:"Condrieu", phonetic:"kon-dree-UH", lang:"fr-FR", tip:"The home of Viognier" },
+    { word:"Hermitage", phonetic:"er-mee-TAHZH", lang:"fr-FR", tip:"The 'H' is silent in French" },
+    { word:"Alsace", phonetic:"al-ZAS", lang:"fr-FR", tip:"The 'e' at the end is silent" },
+    { word:"Vouvray", phonetic:"voo-VRAY", lang:"fr-FR", tip:"Loire Valley Chenin Blanc — dry to sweet" },
+    { word:"Sancerre", phonetic:"son-SAIR", lang:"fr-FR", tip:"Home to France's finest Sauvignon Blanc" },
+    { word:"Pouilly-Fumé", phonetic:"poo-YEE  foo-MAY", lang:"fr-FR", tip:"Not to be confused with Pouilly-Fuissé (Chardonnay)" },
+    { word:"Champagne", phonetic:"sham-PAN-yuh", lang:"fr-FR", tip:"In French — 'sham-PAN-yuh' not 'sham-PAIN'" },
+    { word:"Sauternes", phonetic:"soh-TAIRN", lang:"fr-FR", tip:"The 's' at the end is silent" },
+    { word:"Négociant", phonetic:"nay-goh-SYOHN", lang:"fr-FR", tip:"A merchant who buys and sells wine" },
+    { word:"Domaine", phonetic:"doh-MAIN", lang:"fr-FR", tip:"An estate that grows its own grapes" },
+    { word:"Grand Cru", phonetic:"GROHN  KROO", lang:"fr-FR", tip:"'Great growth' — the highest classification" },
+    { word:"Premier Cru", phonetic:"preh-MYAY  KROO", lang:"fr-FR", tip:"'First growth' — second tier in Burgundy" },
+    { word:"Vendange", phonetic:"von-DOHNZH", lang:"fr-FR", tip:"The harvest" },
+    { word:"Elevage", phonetic:"ay-luh-VAHZH", lang:"fr-FR", tip:"The raising or aging of wine" },
+  ],
+  "Italian Regions & Terms": [
+    { word:"Barolo", phonetic:"bah-ROH-loh", lang:"it-IT", tip:"'The King of wines' — Nebbiolo from Piedmont" },
+    { word:"Barbaresco", phonetic:"bar-bah-RES-koh", lang:"it-IT", tip:"Nebbiolo's more elegant sibling" },
+    { word:"Brunello di Montalcino", phonetic:"broo-NEL-loh  dee  mon-tal-CHEE-noh", lang:"it-IT", tip:"100% Sangiovese — requires 5+ years aging" },
+    { word:"Chianti Classico", phonetic:"kee-AHN-tee  KLAS-ee-koh", lang:"it-IT", tip:"The heartland Chianti — Gallo Nero (black rooster) logo" },
+    { word:"Amarone", phonetic:"ah-mah-ROH-neh", lang:"it-IT", tip:"From dried grapes — 'Amarone' means 'the bitter one'" },
+    { word:"Valpolicella", phonetic:"val-pol-ee-CHEL-lah", lang:"it-IT", tip:"Lighter style using same Corvina grape as Amarone" },
+    { word:"Prosecco", phonetic:"proh-SEK-oh", lang:"it-IT", tip:"Italian sparkling — Glera grape, not Champagne method" },
+    { word:"Sassicaia", phonetic:"sas-ee-KAY-ah", lang:"it-IT", tip:"The original Super Tuscan — Cabernet Sauvignon" },
+    { word:"Tignanello", phonetic:"teen-yah-NEL-loh", lang:"it-IT", tip:"Antinori's famous Super Tuscan blend" },
+    { word:"Ornellaia", phonetic:"or-nel-LYE-ah", lang:"it-IT", tip:"Bolgheri estate — Italy's Pétrus equivalent (Masseto)" },
+    { word:"Barrique", phonetic:"bah-REEK", lang:"fr-FR", tip:"225-litre French oak barrel — used across Italy" },
+    { word:"Grappa", phonetic:"GRAP-pah", lang:"it-IT", tip:"Spirit distilled from grape pomace" },
+    { word:"Dolcetto", phonetic:"dol-CHET-toh", lang:"it-IT", tip:"Piedmont red — 'little sweet one'" },
+    { word:"Frascati", phonetic:"fras-KAH-tee", lang:"it-IT", tip:"Rome's local white wine" },
+    { word:"Soave", phonetic:"SWAH-veh", lang:"it-IT", tip:"Garganega-based white from Veneto" },
+  ],
+  "Spanish Regions & Terms": [
+    { word:"Rioja", phonetic:"ree-OH-hah", lang:"es-ES", tip:"The 'j' is like an 'h' — ree-OH-hah" },
+    { word:"Ribera del Duero", phonetic:"ree-BAIR-ah  del  DWAIR-oh", lang:"es-ES", tip:"Spain's Napa Valley — Tempranillo country" },
+    { word:"Priorat", phonetic:"pree-oh-RAHT", lang:"es-ES", tip:"Catalan region — Garnacha on black slate (llicorella)" },
+    { word:"Rías Baixas", phonetic:"REE-as  BY-shas", lang:"es-ES", tip:"Galician — 'Baixas' is Galician for 'lower'" },
+    { word:"Cava", phonetic:"KAH-vah", lang:"es-ES", tip:"Spanish sparkling made by traditional method" },
+    { word:"Jerez", phonetic:"heh-RETH", lang:"es-ES", tip:"Sherry country — the 'j' sounds like 'h'" },
+    { word:"Manzanilla", phonetic:"man-tha-NEE-yah", lang:"es-ES", tip:"Dry Sherry style from Sanlúcar — saline" },
+    { word:"Verdejo", phonetic:"ver-DEH-hoh", lang:"es-ES", tip:"Rueda's white grape — nutty and herbaceous" },
+    { word:"Albillo", phonetic:"al-BEE-yoh", lang:"es-ES", tip:"Ancient white grape of Ribera del Duero" },
+  ],
+  "German & Austrian": [
+    { word:"Spätlese", phonetic:"SHPAYT-lay-zeh", lang:"de-DE", tip:"'Late harvest' — riper, slightly richer Riesling" },
+    { word:"Auslese", phonetic:"OWS-lay-zeh", lang:"de-DE", tip:"'Selected harvest' — rich, often off-dry" },
+    { word:"Beerenauslese", phonetic:"BAIR-en-OWS-lay-zeh", lang:"de-DE", tip:"'Berry selected harvest' — sweet, botrytis" },
+    { word:"Trockenbeerenauslese", phonetic:"TROK-en-BAIR-en-OWS-lay-zeh", lang:"de-DE", tip:"The most complex German sweet wine designation" },
+    { word:"Eiswein", phonetic:"ICE-vine", lang:"de-DE", tip:"'Ice wine' — made from frozen grapes" },
+    { word:"Kabinett", phonetic:"kah-bee-NET", lang:"de-DE", tip:"Lightest Prädikat — delicate, often under 10% alcohol" },
+    { word:"Mosel", phonetic:"MOH-zel", lang:"de-DE", tip:"The river and region — slate soils, elegant Riesling" },
+    { word:"Rheingau", phonetic:"RINE-gow", lang:"de-DE", tip:"The Rhine bend — classic Riesling country" },
+    { word:"Wachau", phonetic:"VAH-khow", lang:"de-DE", tip:"Austrian Danube valley — finest Grüner Veltliner" },
+    { word:"Smaragd", phonetic:"smah-RAHGT", lang:"de-DE", tip:"Highest Wachau quality tier — named after a lizard" },
+    { word:"Trocken", phonetic:"TROK-en", lang:"de-DE", tip:"Dry — on a German label means bone dry" },
+  ],
+  "Winemaking Terms": [
+    { word:"Tannin", phonetic:"TAN-in", lang:"en-US", tip:"Polyphenols from grape skins — creates drying sensation" },
+    { word:"Malolactic", phonetic:"mal-oh-LAK-tik", lang:"en-US", tip:"Fermentation converting sharp acid to soft lactic acid" },
+    { word:"Botrytis", phonetic:"boh-TRY-tis", lang:"en-US", tip:"Noble rot — concentrates sugars in sweet wines" },
+    { word:"Phylloxera", phonetic:"fil-LOK-ser-ah", lang:"en-US", tip:"The louse that destroyed Europe's vineyards in 1800s" },
+    { word:"Maceration", phonetic:"mas-er-AY-shun", lang:"en-US", tip:"Skin contact — extracts colour, tannin, and flavour" },
+    { word:"Lees", phonetic:"LEEZ", lang:"en-US", tip:"Dead yeast cells — sur lie aging adds texture" },
+    { word:"Sur Lie", phonetic:"sur  LEE", lang:"fr-FR", tip:"Aging wine on its lees — adds creaminess" },
+    { word:"Dosage", phonetic:"doh-ZAHZH", lang:"fr-FR", tip:"Sugar added to Champagne after disgorgement" },
+    { word:"Disgorgement", phonetic:"dis-GORJ-ment", lang:"en-US", tip:"Removing frozen plug of sediment from Champagne" },
+    { word:"Appellation", phonetic:"ah-pel-AY-shun", lang:"en-US", tip:"Legally defined geographic wine region" },
+    { word:"Brut", phonetic:"BROOT", lang:"fr-FR", tip:"Dry Champagne — less than 12g/L residual sugar" },
+    { word:"Demi-Sec", phonetic:"deh-mee  SEK", lang:"fr-FR", tip:"Half-dry — actually noticeably sweet" },
+    { word:"Millesime", phonetic:"mee-lay-SEEM", lang:"fr-FR", tip:"Vintage year — a millesimé Champagne is vintage" },
+    { word:"Brix", phonetic:"BRIKS", lang:"en-US", tip:"Scale measuring sugar content in grape must" },
+    { word:"Varietal", phonetic:"var-EYE-eh-tal", lang:"en-US", tip:"Wine named after and made from a single grape variety" },
+  ],
+  "Famous Estates": [
+    { word:"Romanée-Conti", phonetic:"ro-mah-NAY  CON-tee", lang:"fr-FR", tip:"The world's most expensive wine — 1.8 hectare monopole" },
+    { word:"Pétrus", phonetic:"PAY-troos", lang:"fr-FR", tip:"Pomerol's iconic Merlot — often world's priciest Bordeaux" },
+    { word:"Château Pichon Longueville", phonetic:"sha-TOH  PEE-shon  long-VEEL", lang:"fr-FR", tip:"'Super second' of Pauillac" },
+    { word:"Mouton Rothschild", phonetic:"moo-TOHN  ROHTS-child", lang:"fr-FR", tip:"The only château elevated to First Growth in 1973" },
+    { word:"Haut-Brion", phonetic:"oh-bree-YOHN", lang:"fr-FR", tip:"Only non-Médoc First Growth — from Pessac-Léognan" },
+    { word:"Lafite Rothschild", phonetic:"lah-FEET  ROHTS-child", lang:"fr-FR", tip:"Premier Grand Cru — Pauillac's most elegant First Growth" },
+    { word:"Château d'Yquem", phonetic:"sha-TOH  dee-KEM", lang:"fr-FR", tip:"The world's greatest sweet wine — Premier Cru Supérieur" },
+    { word:"Sassicaia", phonetic:"sas-ee-KAY-ah", lang:"it-IT", tip:"The Super Tuscan that changed Italian wine" },
+    { word:"Gaja", phonetic:"GAH-yah", lang:"it-IT", tip:"Angelo Gaja — the modernizer of Piedmont" },
+    { word:"Vega Sicilia", phonetic:"VAY-gah  see-THEEL-ee-ah", lang:"es-ES", tip:"Spain's most celebrated wine estate" },
+    { word:"Penfolds", phonetic:"PEN-fohlds", lang:"en-US", tip:"Australia's most iconic producer — home of Grange" },
+    { word:"Domaine Leroy", phonetic:"doh-MAIN  luh-RWAH", lang:"fr-FR", tip:"Lalou Bize-Leroy — DRC's great rival in Burgundy" },
+  ],
+};
+
+const LANG_FLAGS = {
+  "fr-FR": "🇫🇷", "it-IT": "🇮🇹", "es-ES": "🇪🇸", "de-DE": "🇩🇪",
+  "el-GR": "🇬🇷", "pt-PT": "🇵🇹", "hu-HU": "🇭🇺", "en-US": "🇺🇸",
+};
+
+const LANG_NAMES = {
+  "fr-FR": "French", "it-IT": "Italian", "es-ES": "Spanish", "de-DE": "German",
+  "el-GR": "Greek", "pt-PT": "Portuguese", "hu-HU": "Hungarian", "en-US": "English",
+};
+
+function SpeakerButton({ word, lang, isPlaying, onSpeak }) {
+  return (
+    <button
+      onClick={() => onSpeak(word, lang)}
+      style={{
+        background: isPlaying ? COLORS.burgundy : COLORS.cream,
+        border: `1px solid ${isPlaying ? COLORS.burgundy : COLORS.border}`,
+        borderRadius: "50%",
+        width: 40, height: 40,
+        display: "flex", alignItems: "center", justifyContent: "center",
+        cursor: "pointer",
+        transition: "all 0.2s ease",
+        flexShrink: 0,
+        padding: 0,
+      }}
+      title={`Hear pronunciation of ${word}`}
+    >
+      {isPlaying ? (
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+          <rect x="3" y="4" width="3" height="16" rx="1" fill={COLORS.cream} opacity="0.6">
+            <animate attributeName="height" values="16;8;16" dur="0.6s" repeatCount="indefinite" />
+            <animate attributeName="y" values="4;8;4" dur="0.6s" repeatCount="indefinite" />
+          </rect>
+          <rect x="9" y="2" width="3" height="20" rx="1" fill={COLORS.cream}>
+            <animate attributeName="height" values="20;10;20" dur="0.5s" repeatCount="indefinite" />
+            <animate attributeName="y" values="2;7;2" dur="0.5s" repeatCount="indefinite" />
+          </rect>
+          <rect x="15" y="5" width="3" height="14" rx="1" fill={COLORS.cream} opacity="0.8">
+            <animate attributeName="height" values="14;6;14" dur="0.7s" repeatCount="indefinite" />
+            <animate attributeName="y" values="5;9;5" dur="0.7s" repeatCount="indefinite" />
+          </rect>
+          <rect x="21" y="7" width="3" height="10" rx="1" fill={COLORS.cream} opacity="0.5">
+            <animate attributeName="height" values="10;4;10" dur="0.4s" repeatCount="indefinite" />
+            <animate attributeName="y" values="7;10;7" dur="0.4s" repeatCount="indefinite" />
+          </rect>
+        </svg>
+      ) : (
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+          <path d="M11 5L6 9H2v6h4l5 4V5z" fill={COLORS.burgundy}/>
+          <path d="M15.54 8.46a5 5 0 0 1 0 7.07" stroke={COLORS.burgundy} strokeWidth="2" strokeLinecap="round"/>
+          <path d="M19.07 4.93a10 10 0 0 1 0 14.14" stroke={COLORS.burgundy} strokeWidth="2" strokeLinecap="round" strokeOpacity="0.5"/>
+        </svg>
+      )}
+    </button>
+  );
+}
+
+function PronCard({ entry, isPlaying, onSpeak }) {
+  return (
+    <div style={{
+      background: COLORS.white,
+      border: `1px solid ${isPlaying ? COLORS.burgundy : COLORS.border}`,
+      padding: "16px 18px",
+      display: "flex", gap: 14, alignItems: "flex-start",
+      transition: "all 0.2s ease",
+      boxShadow: isPlaying ? `0 4px 12px rgba(114,47,55,0.15)` : "0 1px 3px rgba(60,40,20,0.04)",
+    }}>
+      <SpeakerButton word={entry.word} lang={entry.lang} isPlaying={isPlaying} onSpeak={onSpeak} />
+      <div style={{ flex: 1, minWidth: 0 }}>
+        <div style={{ display: "flex", alignItems: "baseline", gap: 8, flexWrap: "wrap" }}>
+          <span style={{
+            fontFamily: "'Cormorant Garamond', serif",
+            fontSize: 19, fontWeight: 500,
+            color: COLORS.textDark,
+          }}>{entry.word}</span>
+          <span style={{ fontSize: 10, letterSpacing: ".15em", textTransform: "uppercase", color: COLORS.textLight, fontFamily: "'Raleway',sans-serif" }}>
+            {LANG_FLAGS[entry.lang]} {LANG_NAMES[entry.lang]}
+          </span>
+        </div>
+        <div style={{
+          fontFamily: "'Courier New', monospace",
+          fontSize: 12.5, color: COLORS.burgundy,
+          letterSpacing: "0.06em", marginTop: 5,
+          fontWeight: 600,
+        }}>{entry.phonetic}</div>
+        {entry.tip && (
+          <div style={{
+            fontSize: 12, color: COLORS.textLight,
+            marginTop: 8, fontStyle: "italic",
+            lineHeight: 1.5,
+            fontFamily: "'Cormorant Garamond', serif",
+          }}>{entry.tip}</div>
+        )}
+      </div>
+    </div>
+  );
+}
+
+function PronunciationGuide() {
+  const [activeCategory, setActiveCategory] = useState("Red Grapes");
+  const [search, setSearch] = useState("");
+  const [playingWord, setPlayingWord] = useState(null);
+  const categories = Object.keys(DATA);
+
+  const speak = (word, lang) => {
+    if (!window.speechSynthesis) return;
+    window.speechSynthesis.cancel();
+    const utterance = new SpeechSynthesisUtterance(word);
+    utterance.lang = lang;
+    utterance.rate = 0.75;
+    utterance.pitch = 1;
+    setPlayingWord(word);
+    utterance.onend = () => setPlayingWord(null);
+    utterance.onerror = () => setPlayingWord(null);
+    window.speechSynthesis.speak(utterance);
+  };
+
+  const allEntries = Object.entries(DATA).flatMap(([cat, entries]) =>
+    entries.map(e => ({ ...e, category: cat }))
+  );
+
+  const filtered = search.trim()
+    ? allEntries.filter(e =>
+        e.word.toLowerCase().includes(search.toLowerCase()) ||
+        e.phonetic.toLowerCase().includes(search.toLowerCase())
+      )
+    : DATA[activeCategory];
+
+  const totalWords = allEntries.length;
+
+  return (
+    <div style={{
+      minHeight: "100vh",
+      background: COLORS.cream,
+      fontFamily: "'Raleway', sans-serif",
+      color: COLORS.textDark,
+    }}>
+      {/* Page Header — matches site .page-header style */}
+      <div style={{
+        background: COLORS.creamDark,
+        borderBottom: `1px solid ${COLORS.border}`,
+        padding: "4rem 2rem 3rem",
+        textAlign: "center",
+      }}>
+        <p style={{
+          fontFamily: "'Raleway',sans-serif",
+          fontSize: ".65rem",
+          fontWeight: 600,
+          letterSpacing: "0.2em",
+          textTransform: "uppercase",
+          color: COLORS.textMid,
+          marginBottom: ".8rem",
+          display: "inline-flex",
+          alignItems: "center",
+          gap: "1rem",
+        }}>
+          <span style={{ display: "inline-block", width: "2rem", height: "1px", background: COLORS.goldLight }}></span>
+          A Pronunciation Tool
+        </p>
+        <h1 style={{
+          fontFamily: "'Cormorant Garamond', serif",
+          fontSize: "clamp(2.2rem, 5vw, 3.2rem)",
+          fontWeight: 500,
+          color: COLORS.textDark,
+          margin: "0 0 .6rem",
+          lineHeight: 1.15,
+        }}>
+          Wine <em style={{ fontStyle: "italic", color: COLORS.gold }}>Pronunciation</em>
+        </h1>
+        <p style={{
+          fontSize: ".95rem",
+          color: COLORS.textMid,
+          maxWidth: 560,
+          margin: "0 auto 1.5rem",
+          lineHeight: 1.8,
+        }}>
+          {totalWords} grapes, regions and terms — tap the speaker to hear each one pronounced in its native language.
+        </p>
+
+        {/* Search */}
+        <div style={{ maxWidth: 460, margin: "0 auto", position: "relative" }}>
+          <svg style={{ position: "absolute", left: 14, top: "50%", transform: "translateY(-50%)" }}
+            width="14" height="14" viewBox="0 0 24 24" fill="none">
+            <circle cx="11" cy="11" r="8" stroke={COLORS.textLight} strokeWidth="2"/>
+            <path d="M21 21l-4.35-4.35" stroke={COLORS.textLight} strokeWidth="2" strokeLinecap="round"/>
+          </svg>
+          <input
+            value={search}
+            onChange={e => setSearch(e.target.value)}
+            placeholder="Search any word..."
+            style={{
+              width: "100%", padding: "12px 16px 12px 40px",
+              background: COLORS.white,
+              border: `1px solid ${COLORS.border}`,
+              color: COLORS.textDark,
+              fontSize: 14,
+              fontFamily: "'Raleway',sans-serif",
+              outline: "none",
+              boxSizing: "border-box",
+            }}
+          />
+        </div>
+      </div>
+
+      {/* Category Tabs */}
+      {!search && (
+        <div style={{
+          background: COLORS.cream,
+          borderBottom: `1px solid ${COLORS.border}`,
+          overflowX: "auto",
+          display: "flex",
+          padding: "0 1rem",
+          scrollbarWidth: "none",
+        }}>
+          <div style={{ display: "flex", gap: 0, margin: "0 auto" }}>
+            {categories.map(cat => {
+              const isActive = cat === activeCategory;
+              const count = DATA[cat].length;
+              return (
+                <button key={cat} onClick={() => setActiveCategory(cat)}
+                  style={{
+                    padding: "1rem 1.2rem .9rem",
+                    background: "none",
+                    border: "none",
+                    borderBottom: isActive ? `2px solid ${COLORS.burgundy}` : "2px solid transparent",
+                    color: isActive ? COLORS.burgundy : COLORS.textMid,
+                    fontSize: ".7rem",
+                    letterSpacing: ".18em",
+                    textTransform: "uppercase",
+                    fontWeight: isActive ? 700 : 500,
+                    cursor: "pointer",
+                    whiteSpace: "nowrap",
+                    fontFamily: "'Raleway',sans-serif",
+                    transition: "all 0.15s ease",
+                  }}>
+                  {cat}
+                  <span style={{
+                    marginLeft: 6, fontSize: 9,
+                    color: isActive ? COLORS.burgundy : COLORS.textLight,
+                    opacity: 0.7,
+                  }}>{count}</span>
+                </button>
+              );
+            })}
+          </div>
+        </div>
+      )}
+
+      {search && (
+        <div style={{
+          padding: "1rem 1.5rem",
+          color: COLORS.textMid,
+          fontSize: ".85rem",
+          textAlign: "center",
+          fontFamily: "'Cormorant Garamond',serif",
+          fontStyle: "italic",
+        }}>
+          {filtered.length} result{filtered.length !== 1 ? "s" : ""} for "{search}"
+          <button onClick={() => setSearch("")}
+            style={{
+              marginLeft: 10, color: COLORS.burgundy, background: "none",
+              border: "none", cursor: "pointer", fontSize: ".75rem",
+              fontWeight: 600, fontFamily: "'Raleway',sans-serif",
+              letterSpacing: ".1em", textTransform: "uppercase",
+            }}>
+            Clear ✕
+          </button>
+        </div>
+      )}
+
+      {/* Cards */}
+      <div style={{ padding: "2rem 1.5rem 4rem", maxWidth: 1000, margin: "0 auto" }}>
+        {filtered.length === 0 ? (
+          <div style={{
+            textAlign: "center",
+            color: COLORS.textLight,
+            padding: "4rem 2rem",
+            fontStyle: "italic",
+            fontFamily: "'Cormorant Garamond',serif",
+            fontSize: "1.1rem",
+          }}>
+            No results found for "{search}"
+          </div>
+        ) : (
+          <div style={{
+            display: "grid",
+            gridTemplateColumns: "repeat(auto-fill, minmax(320px, 1fr))",
+            gap: 12,
+          }}>
+            {filtered.map((entry, i) => (
+              <PronCard
+                key={`${entry.word}-${i}`}
+                entry={entry}
+                isPlaying={playingWord === entry.word}
+                onSpeak={speak}
+              />
+            ))}
+          </div>
+        )}
+      </div>
+
+      {/* Footer note */}
+      <div style={{
+        textAlign: "center",
+        padding: "1.5rem 1.5rem 3rem",
+        color: COLORS.textLight,
+        fontSize: ".85rem",
+        fontStyle: "italic",
+        fontFamily: "'Cormorant Garamond', serif",
+        borderTop: `1px solid ${COLORS.border}`,
+        maxWidth: 600,
+        margin: "0 auto",
+      }}>
+        Pronunciations are spoken in their native language using your browser's speech engine. Quality varies by device.
+      </div>
+    </div>
+  );
+}
+
+const root = ReactDOM.createRoot(document.getElementById('pronunciation-root'));
+root.render(<PronunciationGuide />);
+</script>
+
+<script src="footer.js"></script>
+</body>
+</html>
