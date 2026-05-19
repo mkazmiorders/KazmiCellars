@@ -1,0 +1,203 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Learn With Us — Kazmi Cellars</title>
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    .learn-intro{font-size:1rem;color:var(--text-mid);line-height:1.8;max-width:600px;margin:1rem auto 0;text-align:center}
+    .learn-section{max-width:980px;margin:0 auto;padding:3.5rem 1.5rem 1rem}
+    .learn-section-header{text-align:center;margin-bottom:2.5rem}
+    .learn-section-heading{font-family:'Cormorant Garamond',serif;font-size:clamp(1.8rem,3.5vw,2.4rem);font-weight:500;color:var(--brown-dark);margin:.4rem 0 .6rem;line-height:1.2}
+    .learn-section-heading em{font-style:italic;color:var(--gold)}
+    .learn-section-sub{font-size:.92rem;color:var(--text-mid);max-width:520px;margin:0 auto;line-height:1.7}
+    .learn-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:1.4rem}
+    .learn-card{background:var(--white);border:1px solid var(--border);padding:2rem 1.6rem;text-align:center;text-decoration:none;color:inherit;transition:all .3s;display:flex;flex-direction:column}
+    .learn-card:hover{border-color:var(--gold);box-shadow:0 6px 20px rgba(60,40,20,.08);transform:translateY(-2px)}
+    .learn-icon{font-size:2rem;margin-bottom:.8rem;line-height:1}
+    .learn-label{font-size:.6rem;letter-spacing:.25em;text-transform:uppercase;color:var(--gold);margin-bottom:.4rem;font-weight:600}
+    .learn-title{font-family:'Cormorant Garamond',serif;font-size:1.5rem;font-weight:500;color:var(--brown-dark);margin:0 0 .7rem;line-height:1.2}
+    .learn-desc{font-size:.85rem;color:var(--text-mid);line-height:1.65;margin:0 0 1.2rem;flex:1}
+    .learn-cta{font-size:.65rem;letter-spacing:.25em;text-transform:uppercase;color:var(--burgundy);font-weight:700;border-top:1px solid var(--border);padding-top:1rem;display:block;margin-top:auto}
+    .learn-card:hover .learn-cta{color:var(--burgundy-dark)}
+    .learn-divider{border:none;border-top:1px solid var(--border);max-width:600px;margin:2rem auto;opacity:.5}
+
+    /* PDF section */
+    .pdf-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:1rem}
+    .pdf-card{background:var(--white);border:1px solid var(--border);padding:1.25rem 1.4rem;display:flex;flex-direction:column;gap:.5rem;text-decoration:none;transition:border-color .2s,box-shadow .2s}
+    .pdf-card:hover{border-color:var(--gold);box-shadow:0 2px 12px rgba(0,0,0,.06)}
+    .pdf-icon{font-size:1.4rem;line-height:1}
+    .pdf-title{font-family:'Cormorant Garamond',serif;font-size:1.05rem;font-weight:500;color:var(--brown-dark);line-height:1.3}
+    .pdf-desc{font-size:.8rem;color:var(--text-mid);line-height:1.6;flex:1}
+    .pdf-cta{font-size:.7rem;color:var(--burgundy);margin-top:.25rem;font-weight:700;letter-spacing:.15em;text-transform:uppercase}
+    .pdf-category{margin-bottom:2rem}
+    .pdf-category-label{font-size:.65rem;letter-spacing:.25em;text-transform:uppercase;color:var(--gold);margin:0 0 1rem;text-align:center;font-weight:600}
+    .pdf-loading{text-align:center;font-size:.9rem;color:var(--text-light);font-style:italic;font-family:'Cormorant Garamond',serif;padding:2rem}
+    .pdf-empty{text-align:center;font-size:.9rem;color:var(--text-light);font-style:italic;padding:2rem}
+
+    .learn-footer-note{text-align:center;font-size:.85rem;color:var(--text-light);font-style:italic;font-family:'Cormorant Garamond',serif;padding:2rem 1.5rem 4rem;max-width:600px;margin:0 auto}
+  </style>
+</head>
+<body>
+<script src="nav.js"></script>
+
+  <div class="page-header">
+    <div style="max-width:780px;margin:0 auto;text-align:center;">
+      <p class="section-label">Where the Wine Lives</p>
+      <h1 class="section-title">Learn <em>With Us</em></h1>
+      <p class="learn-intro">Three ways to learn about wine — interactive tools you can play with, printable guides you can take to the table, and written references when you want to go deeper. Pick where you'd like to start.</p>
+    </div>
+  </div>
+
+  <!-- ── INTERACTIVE TOOLS ── -->
+  <section class="learn-section">
+    <div class="learn-section-header">
+      <p class="section-label" style="justify-content:center;display:inline-flex;">Interactive</p>
+      <h2 class="learn-section-heading">Interactive <em>Tools</em></h2>
+      <p class="learn-section-sub">Built from how we actually think about wine — pick a grape and explore what it sounds like, smells like, tastes like, and loves to eat with.</p>
+    </div>
+    <div class="learn-grid">
+
+      <a href="pairing.html" class="learn-card">
+        <div class="learn-icon">🥩</div>
+        <p class="learn-label">Food Pairing</p>
+        <h3 class="learn-title">Wine &amp; Food Pairing</h3>
+        <p class="learn-desc">Pick any grape and explore what it loves — proteins, prep styles, and cheeses. Covers 30+ wines.</p>
+        <span class="learn-cta">Open →</span>
+      </a>
+
+      <a href="aromas.html" class="learn-card">
+        <div class="learn-icon">🌸</div>
+        <p class="learn-label">Aroma Profiles</p>
+        <h3 class="learn-title">Aroma Explorer</h3>
+        <p class="learn-desc">What does this grape actually smell like? Browse aromas by category — fruit, floral, earth, spice, oak, tertiary.</p>
+        <span class="learn-cta">Open →</span>
+      </a>
+
+      <a href="palate.html" class="learn-card">
+        <div class="learn-icon">📊</div>
+        <p class="learn-label">Structure &amp; Taste</p>
+        <h3 class="learn-title">Palate &amp; Structure</h3>
+        <p class="learn-desc">Visual structure bars for tannin, acidity, body, sweetness, and finish — with mouthfeel notes and drinking windows.</p>
+        <span class="learn-cta">Open →</span>
+      </a>
+
+      <a href="pronunciation.html" class="learn-card">
+        <div class="learn-icon">🔊</div>
+        <p class="learn-label">How To Say It</p>
+        <h3 class="learn-title">Wine Pronunciation</h3>
+        <p class="learn-desc">Hear 175+ grapes, regions, châteaux, and terms pronounced in their native language — with phonetic spelling.</p>
+        <span class="learn-cta">Open →</span>
+      </a>
+
+    </div>
+  </section>
+
+  <hr class="learn-divider">
+
+  <!-- ── READING & REFERENCE ── -->
+  <section class="learn-section">
+    <div class="learn-section-header">
+      <p class="section-label" style="justify-content:center;display:inline-flex;">Reference</p>
+      <h2 class="learn-section-heading">Reading &amp; <em>Reference</em></h2>
+      <p class="learn-section-sub">The vocabulary of wine — what every word on a label, tasting note, or back-of-bottle means, in plain English.</p>
+    </div>
+    <div class="learn-grid">
+
+      <a href="glossary.html" class="learn-card">
+        <div class="learn-icon">📚</div>
+        <p class="learn-label">General Terms</p>
+        <h3 class="learn-title">Glossary</h3>
+        <p class="learn-desc">From Terroir and Sommelier to Natural Wine and the most common faults like Corked or Brett — the core vocabulary, defined.</p>
+        <span class="learn-cta">Browse →</span>
+      </a>
+
+      <a href="descriptors.html" class="learn-card">
+        <div class="learn-icon">🍷</div>
+        <p class="learn-label">How Wine Tastes</p>
+        <h3 class="learn-title">Descriptors</h3>
+        <p class="learn-desc">Every word on a tasting note — Buttery, Silky, Earthy, Austere, Concentrated. Searchable, with real-world examples.</p>
+        <span class="learn-cta">Explore →</span>
+      </a>
+
+      <a href="winemaking.html" class="learn-card">
+        <div class="learn-icon">🍇</div>
+        <p class="learn-label">How Wine Is Made</p>
+        <h3 class="learn-title">Winemaking Terms</h3>
+        <p class="learn-desc">From Old Vines and Botrytis to Carbonic Maceration and Pet-Nat — the practical vocabulary of how wine actually gets made.</p>
+        <span class="learn-cta">Explore →</span>
+      </a>
+
+      <a href="wine-labels.html" class="learn-card">
+        <div class="learn-icon">🏷️</div>
+        <p class="learn-label">Visual Guide</p>
+        <h3 class="learn-title">Wine Labels &amp; Cheat Sheet</h3>
+        <p class="learn-desc">How to decode labels from the US, France, Italy, and Spain — with bottle diagrams and a region-to-grape cheat sheet.</p>
+        <span class="learn-cta">Read the Guide →</span>
+      </a>
+
+    </div>
+  </section>
+
+  <hr class="learn-divider">
+
+  <!-- ── PRINTABLE GUIDES ── -->
+  <section class="learn-section">
+    <div class="learn-section-header">
+      <p class="section-label" style="justify-content:center;display:inline-flex;">Downloads</p>
+      <h2 class="learn-section-heading">Printable <em>Guides</em></h2>
+      <p class="learn-section-sub">Cheat sheets and reference PDFs you can save, print, or pull up at the table.</p>
+    </div>
+    <div id="pdfFeed">
+      <p class="pdf-loading">Loading guides…</p>
+    </div>
+  </section>
+
+  <p class="learn-footer-note">
+    Have a topic you'd like to see covered? <a href="contact.html" style="color:var(--burgundy);font-style:normal;font-weight:600;">Let us know</a>.
+  </p>
+
+  <script>
+    async function loadResources() {
+      const feed = document.getElementById('pdfFeed');
+      try {
+        const r = await fetch('data/resources.json', { cache: 'no-store' });
+        if (!r.ok) throw new Error('No resources data');
+        const data = await r.json();
+        const resources = data.resources || [];
+        if (!resources.length) {
+          feed.innerHTML = '<p class="pdf-empty">No printable guides yet — check back soon.</p>';
+          return;
+        }
+        const grouped = {};
+        for (const res of resources) {
+          const cat = res.category || 'General';
+          if (!grouped[cat]) grouped[cat] = [];
+          grouped[cat].push(res);
+        }
+        feed.innerHTML = Object.entries(grouped).map(([cat, items]) => `
+          <div class="pdf-category">
+            ${Object.keys(grouped).length > 1 ? `<p class="pdf-category-label">${cat}</p>` : ''}
+            <div class="pdf-grid">
+              ${items.map(res => `
+                <a href="${res.file}" target="_blank" rel="noopener noreferrer" class="pdf-card">
+                  <div class="pdf-icon">📄</div>
+                  <div class="pdf-title">${res.title}</div>
+                  ${res.description ? `<div class="pdf-desc">${res.description}</div>` : ''}
+                  <div class="pdf-cta">Open PDF →</div>
+                </a>
+              `).join('')}
+            </div>
+          </div>
+        `).join('');
+      } catch (e) {
+        feed.innerHTML = '<p class="pdf-empty">Couldn\'t load the guides. Try refreshing.</p>';
+      }
+    }
+    loadResources();
+  </script>
+
+<script src="footer.js"></script>
+</body>
+</html>
