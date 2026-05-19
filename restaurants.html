@@ -3,30 +3,41 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Bottles — Kazmi Cellars</title>
+  <title>Restaurant Experiences — Kazmi Cellars</title>
   <link rel="stylesheet" href="style.css" />
   <style>
-    .bottles-intro{font-size:.95rem;color:var(--text-mid);line-height:1.8;max-width:580px;margin:0 auto 3rem;text-align:center}
-    .bottles-feed{max-width:880px;margin:0 auto;padding:0 1.5rem 5rem}
-    .bottle-card{background:var(--white);border:1px solid var(--border);margin-bottom:2rem;overflow:hidden;display:grid;grid-template-columns:220px 1fr;gap:0}
-    @media(max-width:680px){.bottle-card{grid-template-columns:1fr}}
-    .bottle-img-wrap{background:var(--cream-dark);min-height:220px;display:flex;align-items:center;justify-content:center;overflow:hidden}
-    .bottle-img{width:100%;height:100%;object-fit:cover;display:block}
-    .bottle-img-placeholder{font-size:3rem;opacity:.2}
-    .bottle-body{padding:1.8rem 2rem}
-    .bottle-week{font-size:.65rem;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);margin:0 0 .4rem}
-    .bottle-name{font-family:'Cormorant Garamond',serif;font-size:1.7rem;font-weight:500;color:var(--brown-dark);margin:0 0 .3rem;line-height:1.2}
-    .bottle-meta{font-size:.75rem;color:var(--text-light);letter-spacing:.08em;margin:0 0 1rem}
-    .bottle-notes{margin:0;font-family:'Raleway',sans-serif;font-style:normal;font-size:.9rem;line-height:1.75;color:var(--text-dark)}
-    .bottle-notes .excerpt-header{display:block;font-family:'Raleway',sans-serif;font-size:.65rem;letter-spacing:.3em;text-transform:uppercase;color:var(--gold);margin:0 0 .9rem;font-weight:600}
-    .bottle-notes .excerpt-item{margin:0 0 .4rem}
-    .bottle-notes .excerpt-item:last-child{margin-bottom:0}
-    .bottle-notes .excerpt-item strong{color:var(--brown-dark);font-weight:700;margin-right:.35rem}
-    .bottle-notes .excerpt-line{margin:0 0 .4rem;font-family:'Cormorant Garamond',serif;font-style:italic;font-size:1rem;color:var(--text-mid)}
+    .restaurants-intro{font-size:.95rem;color:var(--text-mid);line-height:1.8;max-width:580px;margin:1rem auto 0;text-align:center}
+    .restaurant-entry{max-width:880px;margin:0 auto 5rem;background:var(--white);border:1px solid var(--border);overflow:hidden}
+    .restaurant-banner{width:100%;height:380px;background-size:cover;background-position:center;background-color:var(--cream-dark)}
+    @media(max-width:760px){.restaurant-banner{height:240px}}
+    .restaurant-content{padding:2.5rem 2rem}
+    @media(max-width:600px){.restaurant-content{padding:2rem 1.4rem}}
+    .restaurant-location{font-size:.7rem;letter-spacing:.25em;text-transform:uppercase;color:var(--gold);margin:0 0 .5rem}
+    .restaurant-name{font-family:'Cormorant Garamond',serif;font-size:clamp(2rem,4vw,2.6rem);font-weight:500;color:var(--brown-dark);margin:0 0 1rem;line-height:1.15}
+    .restaurant-excerpt{margin:0 0 2rem;padding-bottom:1.8rem;border-bottom:1px solid var(--border);font-family:'Raleway',sans-serif;font-style:normal;font-size:.92rem;line-height:1.75;color:var(--text-dark)}
+    .restaurant-excerpt .excerpt-header{display:block;font-family:'Raleway',sans-serif;font-size:.65rem;letter-spacing:.3em;text-transform:uppercase;color:var(--gold);margin:0 0 1rem;font-weight:600}
+    .restaurant-excerpt .excerpt-item{margin:0 0 .5rem}
+    .restaurant-excerpt .excerpt-item:last-child{margin-bottom:0}
+    .restaurant-excerpt .excerpt-item strong{color:var(--brown-dark);font-weight:700;margin-right:.35rem}
+    .restaurant-excerpt .excerpt-line{margin:0 0 .5rem;font-family:'Cormorant Garamond',serif;font-style:italic;font-size:1.1rem;color:var(--text-mid)}
+    .restaurant-body{font-size:.95rem;line-height:1.85;color:var(--text-dark)}
+    .restaurant-body p{margin:0 0 1.2rem}
+    .restaurant-body p:last-child{margin-bottom:0}
+    .restaurant-body strong{color:var(--brown-dark);font-weight:500}
+    .restaurant-body em{color:var(--text-mid)}
+    .restaurant-body h2{font-family:'Cormorant Garamond',serif;font-size:1.5rem;font-weight:500;color:var(--brown-dark);margin:2.2rem 0 1rem;padding-top:1.4rem;border-top:1px solid var(--border)}
+    .restaurant-body h3{font-family:'Cormorant Garamond',serif;font-size:1.2rem;font-weight:500;color:var(--brown-dark);margin:1.8rem 0 .8rem}
+    .restaurant-photos{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:.6rem;margin-top:2rem;padding-top:2rem;border-top:1px solid var(--border)}
+    .restaurant-photo{width:100%;aspect-ratio:1/1;object-fit:cover;cursor:pointer;transition:opacity .2s}
+    .restaurant-photo:hover{opacity:.85}
     .loading{text-align:center;padding:4rem 2rem;color:var(--text-light);font-style:italic;font-family:'Cormorant Garamond',serif;font-size:1.1rem}
     .empty-state{text-align:center;padding:5rem 2rem;color:var(--text-light)}
     .empty-state h3{font-family:'Cormorant Garamond',serif;font-size:1.8rem;font-weight:500;color:var(--brown-dark);margin-bottom:.5rem}
-    .empty-state p{font-size:.9rem;color:var(--text-mid);max-width:400px;margin:0 auto}
+    .empty-state p{font-size:.9rem;color:var(--text-mid)}
+    .lightbox{position:fixed;inset:0;background:rgba(0,0,0,.95);display:none;align-items:center;justify-content:center;z-index:1000;padding:2rem;cursor:zoom-out}
+    .lightbox.active{display:flex}
+    .lightbox img{max-width:100%;max-height:90vh;object-fit:contain}
+    .lightbox-close{position:absolute;top:1.5rem;right:2rem;color:var(--cream);font-size:2rem;background:none;border:none;cursor:pointer;font-family:'Cormorant Garamond',serif;line-height:1}
   </style>
 </head>
 <body>
@@ -34,93 +45,158 @@
 
   <div class="page-header">
     <div style="max-width:780px;margin:0 auto;text-align:center;">
-      <p class="section-label">What We're Drinking</p>
-      <h1 class="section-title">Our <em>Bottles</em></h1>
-      <p class="bottles-intro">A look at the wines we've been opening lately — what they were like, what we paired them with, and how they made us feel.</p>
+      <p class="section-label">Tables We've Loved</p>
+      <h1 class="section-title">Restaurant <em>Experiences</em></h1>
+      <p class="restaurants-intro">Restaurants where the food, the wine list, and the atmosphere all came together — places we want to remember and share.</p>
     </div>
   </div>
 
-  <main>
-    <div class="bottles-feed" id="bottlesFeed">
-      <div class="loading">Loading bottles…</div>
-    </div>
+  <main id="restaurantsFeed">
+    <div class="loading">Loading restaurant experiences…</div>
   </main>
+
+  <div class="lightbox" id="lightbox">
+    <button class="lightbox-close" id="lightboxClose">×</button>
+    <img id="lightboxImg" src="" alt="">
+  </div>
 
   <script>
     function getPhotoUrl(p) {
       if (!p) return null;
       if (typeof p === 'string') return p;
-      return p.image || p.url || p.src || null;
+      if (p.image) return p.image;
+      if (p.url) return p.url;
+      if (p.src) return p.src;
+      return null;
     }
 
     function escapeHtml(text) {
-      var d = document.createElement('div');
-      d.textContent = text || '';
-      return d.innerHTML;
+      const div = document.createElement('div');
+      div.textContent = text || '';
+      return div.innerHTML;
+    }
+
+    function renderInline(text) {
+      return escapeHtml(text)
+        .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
+        .replace(/\*(.+?)\*/g, '<em>$1</em>')
+        .replace(/__(.+?)__/g, '<strong>$1</strong>')
+        .replace(/_(.+?)_/g, '<em>$1</em>');
     }
 
     function renderExcerpt(text) {
       if (!text) return '';
       text = text.replace(/\r\n/g, '\n');
-      var lines = text.split('\n').map(function(l){ return l.trim(); }).filter(Boolean);
+      const lines = text.split('\n').map(l => l.trim()).filter(Boolean);
       if (!lines.length) return '';
 
-      var out = [];
-      for (var i = 0; i < lines.length; i++) {
-        var line = lines[i];
-        var labelMatch = line.match(/^([A-Z][^:?]{0,40}[:?])\s+(.+)$/);
+      const out = [];
+      for (let i = 0; i < lines.length; i++) {
+        const line = lines[i];
+        const labelMatch = line.match(/^([A-Z][^:?]{0,40}[:?])\s+(.+)$/);
 
         if (i === 0 && !labelMatch) {
-          out.push('<span class="excerpt-header">' + escapeHtml(line) + '</span>');
+          out.push(`<span class="excerpt-header">${escapeHtml(line)}</span>`);
         } else if (labelMatch) {
-          out.push('<div class="excerpt-item"><strong>' + escapeHtml(labelMatch[1]) + '</strong>' + escapeHtml(labelMatch[2]) + '</div>');
+          const [, label, value] = labelMatch;
+          out.push(`<div class="excerpt-item"><strong>${escapeHtml(label)}</strong>${escapeHtml(value)}</div>`);
         } else {
-          out.push('<div class="excerpt-line">' + escapeHtml(line) + '</div>');
+          out.push(`<div class="excerpt-line">${escapeHtml(line)}</div>`);
         }
       }
       return out.join('');
     }
 
-    async function loadBottles() {
-      var feed = document.getElementById('bottlesFeed');
-      try {
-        var r = await fetch('data/bottles.json', { cache: 'no-store' });
-        if (!r.ok) throw new Error();
-        var data = await r.json();
-        var bottles = Array.isArray(data) ? data : (data.bottles || []);
+    function renderMarkdown(text) {
+      if (!text) return '';
+      const lines = text.split('\n');
+      const out = [];
+      for (const rawLine of lines) {
+        const line = rawLine.trim();
+        if (!line) continue;
+        const headingMatch = line.match(/^(#{1,3})\s*(.+)$/);
+        if (headingMatch) {
+          const level = headingMatch[1].length;
+          out.push(`<h${level}>${renderInline(headingMatch[2])}</h${level}>`);
+          continue;
+        }
+        out.push(`<p>${renderInline(line)}</p>`);
+      }
+      return out.join('\n');
+    }
 
-        if (!bottles.length) {
-          feed.innerHTML = '<div class="empty-state"><h3>Bottles coming soon</h3><p>We\'re always opening something — check back soon for tasting notes.</p></div>';
+    async function loadRestaurants() {
+      const feed = document.getElementById('restaurantsFeed');
+      try {
+        const r = await fetch('data/restaurants.json', {cache: 'no-store'});
+        if (!r.ok) throw new Error('No restaurants data');
+        const data = await r.json();
+        const restaurants = Array.isArray(data) ? data : (data.restaurants || []);
+
+        if (!restaurants.length) {
+          feed.innerHTML = '<div class="empty-state"><h3>Tables coming soon</h3><p>We\'re gathering the restaurants we\'ve loved most. Check back soon.</p></div>';
           return;
         }
 
-        // Most recent first
-        var sorted = bottles.slice().reverse();
+        const ordered = restaurants.slice().reverse();
 
-        feed.innerHTML = sorted.map(function(b) {
-          var img = getPhotoUrl(b.image);
-          var meta = [b.vintage, b.region].filter(Boolean).join(' · ');
-          return '<div class="bottle-card">' +
-            '<div class="bottle-img-wrap">' +
-              (img
-                ? '<img src="' + img + '" alt="' + escapeHtml(b.name || '') + '" class="bottle-img">'
-                : '<div class="bottle-img-placeholder">🍷</div>') +
-            '</div>' +
-            '<div class="bottle-body">' +
-              (b.week ? '<p class="bottle-week">' + escapeHtml(b.week) + '</p>' : '') +
-              '<h2 class="bottle-name">' + escapeHtml(b.name || 'Untitled') + '</h2>' +
-              (meta ? '<p class="bottle-meta">' + escapeHtml(meta) + '</p>' : '') +
-              (b.notes ? '<div class="bottle-notes">' + renderExcerpt(b.notes) + '</div>' : '') +
-            '</div>' +
-            '</div>';
+        feed.innerHTML = ordered.map(rest => {
+          const photos = rest.photos || [];
+          const heroPhoto = photos[0] ? getPhotoUrl(photos[0]) : getPhotoUrl(rest.image);
+          const extraPhotos = photos.slice(1).map(getPhotoUrl).filter(Boolean);
+          const location = rest.location || '';
+          const name = rest.name || 'Untitled';
+          const excerpt = rest.excerpt || '';
+          const review = rest.review || rest.body || '';
+
+          const bannerHtml = heroPhoto
+            ? `<div class="restaurant-banner" style="background-image:url('${heroPhoto}')"></div>`
+            : '';
+
+          const photosHtml = extraPhotos.length
+            ? `<div class="restaurant-photos">${extraPhotos.map(url =>
+                `<img src="${url}" alt="" class="restaurant-photo" loading="lazy" onclick="openLightbox('${url}')">`
+              ).join('')}</div>`
+            : '';
+
+          return `
+            <article class="restaurant-entry">
+              ${bannerHtml}
+              <div class="restaurant-content">
+                ${location ? `<p class="restaurant-location">${escapeHtml(location)}</p>` : ''}
+                <h2 class="restaurant-name">${escapeHtml(name)}</h2>
+                ${excerpt ? `<div class="restaurant-excerpt">${renderExcerpt(excerpt)}</div>` : ''}
+                <div class="restaurant-body">${renderMarkdown(review)}</div>
+                ${photosHtml}
+              </div>
+            </article>
+          `;
         }).join('');
-
-      } catch(e) {
-        feed.innerHTML = '<div class="empty-state"><h3>Couldn\'t load bottles</h3><p>Try refreshing the page.</p></div>';
+      } catch (e) {
+        feed.innerHTML = '<div class="empty-state"><h3>Couldn\'t load restaurants</h3><p>Try refreshing the page.</p></div>';
       }
     }
 
-    loadBottles();
+    const lightbox = document.getElementById('lightbox');
+    const lightboxImg = document.getElementById('lightboxImg');
+    window.openLightbox = function(url) {
+      lightboxImg.src = url;
+      lightbox.classList.add('active');
+      document.body.style.overflow = 'hidden';
+    };
+    function closeLightbox() {
+      lightbox.classList.remove('active');
+      document.body.style.overflow = '';
+    }
+    document.getElementById('lightboxClose').addEventListener('click', closeLightbox);
+    lightbox.addEventListener('click', e => {
+      if (e.target === lightbox || e.target === lightboxImg) closeLightbox();
+    });
+    document.addEventListener('keydown', e => {
+      if (e.key === 'Escape' && lightbox.classList.contains('active')) closeLightbox();
+    });
+
+    loadRestaurants();
   </script>
 
 <script src="footer.js"></script>
