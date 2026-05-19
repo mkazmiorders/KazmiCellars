@@ -17,7 +17,12 @@
     .bottle-week{font-size:.65rem;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);margin:0 0 .4rem}
     .bottle-name{font-family:'Cormorant Garamond',serif;font-size:1.7rem;font-weight:500;color:var(--brown-dark);margin:0 0 .3rem;line-height:1.2}
     .bottle-meta{font-size:.75rem;color:var(--text-light);letter-spacing:.08em;margin:0 0 1rem}
-    .bottle-notes{font-size:.9rem;color:var(--text-mid);line-height:1.8;margin:0}
+    .bottle-notes{margin:0;font-family:'Raleway',sans-serif;font-style:normal;font-size:.9rem;line-height:1.75;color:var(--text-dark)}
+    .bottle-notes .excerpt-header{display:block;font-family:'Raleway',sans-serif;font-size:.65rem;letter-spacing:.3em;text-transform:uppercase;color:var(--gold);margin:0 0 .9rem;font-weight:600}
+    .bottle-notes .excerpt-item{margin:0 0 .4rem}
+    .bottle-notes .excerpt-item:last-child{margin-bottom:0}
+    .bottle-notes .excerpt-item strong{color:var(--brown-dark);font-weight:700;margin-right:.35rem}
+    .bottle-notes .excerpt-line{margin:0 0 .4rem;font-family:'Cormorant Garamond',serif;font-style:italic;font-size:1rem;color:var(--text-mid)}
     .loading{text-align:center;padding:4rem 2rem;color:var(--text-light);font-style:italic;font-family:'Cormorant Garamond',serif;font-size:1.1rem}
     .empty-state{text-align:center;padding:5rem 2rem;color:var(--text-light)}
     .empty-state h3{font-family:'Cormorant Garamond',serif;font-size:1.8rem;font-weight:500;color:var(--brown-dark);margin-bottom:.5rem}
@@ -54,6 +59,28 @@
       return d.innerHTML;
     }
 
+    function renderExcerpt(text) {
+      if (!text) return '';
+      text = text.replace(/\r\n/g, '\n');
+      var lines = text.split('\n').map(function(l){ return l.trim(); }).filter(Boolean);
+      if (!lines.length) return '';
+
+      var out = [];
+      for (var i = 0; i < lines.length; i++) {
+        var line = lines[i];
+        var labelMatch = line.match(/^([A-Z][^:?]{0,40}[:?])\s+(.+)$/);
+
+        if (i === 0 && !labelMatch) {
+          out.push('<span class="excerpt-header">' + escapeHtml(line) + '</span>');
+        } else if (labelMatch) {
+          out.push('<div class="excerpt-item"><strong>' + escapeHtml(labelMatch[1]) + '</strong>' + escapeHtml(labelMatch[2]) + '</div>');
+        } else {
+          out.push('<div class="excerpt-line">' + escapeHtml(line) + '</div>');
+        }
+      }
+      return out.join('');
+    }
+
     async function loadBottles() {
       var feed = document.getElementById('bottlesFeed');
       try {
@@ -83,7 +110,7 @@
               (b.week ? '<p class="bottle-week">' + escapeHtml(b.week) + '</p>' : '') +
               '<h2 class="bottle-name">' + escapeHtml(b.name || 'Untitled') + '</h2>' +
               (meta ? '<p class="bottle-meta">' + escapeHtml(meta) + '</p>' : '') +
-              (b.notes ? '<p class="bottle-notes">' + escapeHtml(b.notes) + '</p>' : '') +
+              (b.notes ? '<div class="bottle-notes">' + renderExcerpt(b.notes) + '</div>' : '') +
             '</div>' +
             '</div>';
         }).join('');
