@@ -24,8 +24,12 @@
 
   // Nav structure
   var navItems = [
-    { type: 'link',     href: 'learn-with-us.html', label: 'Learn With Us' },
-    { type: 'dropdown', label: 'Experiences', children: [
+    { type: 'dropdown', activeKey: 'learn', label: 'Learn With Us', children: [
+      { href: 'learn-with-us.html#interactive', label: 'Interactive Tools' },
+      { href: 'learn-with-us.html#reference',   label: 'Reading & Reference' },
+      { href: 'learn-with-us.html#guides',      label: 'Printable Guides' },
+    ]},
+    { type: 'dropdown', activeKey: 'experiences', label: 'Experiences', children: [
       { href: 'wineries.html',    label: 'Wineries' },
       { href: 'regions.html',     label: 'Regions' },
       { href: 'restaurants.html', label: 'Restaurants' },
@@ -44,14 +48,16 @@
       return '<li><a href="' + item.href + '"' + (active ? ' class="active"' : '') + '>' + item.label + '</a></li>';
     }
     if (item.type === 'dropdown') {
-      var groupActive = isExperiencesActive();
+      var groupActive = false;
+      if (item.activeKey === 'experiences') groupActive = isExperiencesActive();
+      if (item.activeKey === 'learn') groupActive = (page === 'learn-with-us' || learnPages[page] === 1);
       var subItems = item.children.map(function(child) {
-        var childSlug = child.href.replace('.html', '');
+        var childSlug = child.href.replace('.html', '').split('#')[0];
         var childActive = page === childSlug;
         return '<li><a href="' + child.href + '"' + (childActive ? ' class="active"' : '') + '>' + child.label + '</a></li>';
       }).join('');
       return '<li class="nav-dropdown' + (groupActive ? ' active' : '') + '">' +
-             '<button class="nav-dropdown-toggle" type="button" aria-label="Toggle Experiences submenu">' +
+             '<button class="nav-dropdown-toggle" type="button" aria-label="Toggle ' + item.label + ' submenu">' +
                '<span>' + item.label + '</span>' +
                '<span class="dropdown-arrow">▾</span>' +
              '</button>' +
