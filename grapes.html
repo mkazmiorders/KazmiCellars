@@ -1,0 +1,713 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Grape Profiles — Kazmi Cellars</title>
+<link rel="stylesheet" href="style.css" />
+<style>
+/* Scoped reset for the grape tool only */
+.gp-hero, .gp-filters, .grid-section, .gp-overlay, .gp-panel, .gp-card { box-sizing: border-box; }
+:root {
+  --gp-cream: #f5f0e8; --gp-dark: #2C1A0E; --gp-mid: #6B4C2A;
+  --gp-tan: #D9C8A8; --gp-burg: #5C1A1A; --gp-gold: #8b6914;
+  --gp-goldL: #FFF4E0; --gp-alt: #F3EDE5;
+  --gp-serif: 'Cormorant Garamond', Georgia, serif;
+  --gp-sans: 'Raleway', Georgia, sans-serif;
+}
+
+/* ── HERO ── */
+.gp-hero { background: var(--gp-burg); padding: 52px 32px 44px; text-align: center; border-bottom: 3px solid var(--gp-gold); }
+.gp-hero-kz { font-style: italic; font-size: 11px; color: var(--gp-gold); letter-spacing: .14em; margin-bottom: 10px; }
+.gp-hero-title { font-family: var(--gp-serif); font-size: clamp(28px,5vw,46px); font-weight: 600; color: #F5ECD8; line-height: 1.05; margin-bottom: 12px; }
+.gp-hero-sub { font-style: italic; font-size: 14px; color: rgba(245,236,216,.7); max-width: 600px; margin: 0 auto; line-height: 1.6; font-family: var(--gp-serif); }
+
+/* ── FILTERS ── */
+.gp-filters { background: var(--gp-alt); border-bottom: 1px solid var(--gp-tan); padding: 14px 32px; display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
+.filter-label { font-size: 10px; font-weight: bold; letter-spacing: .15em; text-transform: uppercase; color: var(--gp-mid); margin-right: 4px; flex-shrink: 0; font-family: var(--gp-sans); }
+.filter-sep { width: 1px; height: 18px; background: var(--gp-tan); margin: 0 4px; }
+.filter-btn { font-family: var(--gp-sans); font-size: 11px; padding: 6px 14px; border: 1px solid var(--gp-tan); background: var(--gp-cream); color: var(--gp-mid); border-radius: 2px; cursor: pointer; transition: all .18s; letter-spacing: .04em; }
+.filter-btn:hover { border-color: var(--gp-gold); color: var(--gp-dark); }
+.filter-btn.active { background: var(--gp-burg); color: white; border-color: var(--gp-burg); }
+.filter-btn.active.white-type { background: #1A3A5C; border-color: #1A3A5C; }
+
+/* ── GRID ── */
+.grid-section { padding: 28px 32px 48px; }
+.grape-count { font-style: italic; font-size: 12px; color: var(--gp-mid); margin-bottom: 18px; font-family: var(--gp-serif); }
+.gp-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px,1fr)); gap: 18px; }
+
+/* ── GRAPE CARD ── */
+.gp-card { background: white; border: 1px solid var(--gp-tan); border-radius: 2px; overflow: hidden; cursor: pointer; transition: transform .2s, box-shadow .2s; }
+.gp-card:hover { transform: translateY(-3px); box-shadow: 0 6px 24px rgba(44,26,14,.12); }
+.card-header { padding: 16px 16px 14px; color: white; position: relative; }
+.card-kz { font-style: italic; font-size: 7.5px; color: rgba(255,255,255,.4); letter-spacing: .1em; }
+.card-name { font-family: var(--gp-serif); font-weight: 600; font-size: 22px; line-height: 1.1; margin: 4px 0 3px; }
+.card-badge { display: inline-block; font-size: 8px; letter-spacing: .15em; text-transform: uppercase; padding: 2px 8px; border: 1px solid rgba(255,255,255,.3); border-radius: 2px; color: rgba(255,255,255,.7); margin-bottom: 4px; font-family: var(--gp-sans); }
+.card-origin { font-style: italic; font-size: 9.5px; color: rgba(255,255,255,.6); font-family: var(--gp-serif); }
+.card-tagline { font-style: italic; font-size: 9px; color: rgba(255,255,255,.5); margin-top: 5px; line-height: 1.4; font-family: var(--gp-serif); }
+.card-swatch { display: flex; height: 12px; }
+.swatch-s { flex: 1; }
+.card-body { padding: 11px 14px 12px; background: var(--gp-cream); }
+.attr-row { display: flex; align-items: center; gap: 8px; margin-bottom: 5px; }
+.attr-lbl { font-size: 8px; font-weight: bold; color: var(--gp-mid); width: 64px; flex-shrink: 0; font-family: var(--gp-sans); }
+.attr-bars { display: flex; gap: 2px; }
+.bar { width: 11px; height: 7px; border-radius: 1px; }
+.attr-note { font-style: italic; font-size: 8px; color: var(--gp-mid); font-family: var(--gp-serif); }
+.card-aromas { display: flex; flex-wrap: wrap; gap: 3px; margin-top: 9px; padding-top: 8px; border-top: 1px solid var(--gp-tan); }
+.a-chip { font-style: italic; font-size: 8px; color: white; padding: 2px 7px; border-radius: 2px; font-family: var(--gp-serif); }
+
+/* ── OVERLAY + PANEL ── */
+.gp-overlay { position: fixed; inset: 0; background: rgba(44,26,14,.45); z-index: 2000; opacity: 0; pointer-events: none; transition: opacity .25s; }
+.gp-overlay.open { opacity: 1; pointer-events: all; }
+.gp-panel { position: fixed; top: 0; right: 0; height: 100vh; width: min(660px, 100vw); background: var(--gp-cream); z-index: 2001; overflow-y: auto; transform: translateX(100%); transition: transform .3s cubic-bezier(.4,0,.2,1); }
+.gp-panel.open { transform: translateX(0); }
+.panel-header { padding: 20px 24px 16px; color: white; position: sticky; top: 0; z-index: 5; }
+.panel-kz { font-style: italic; font-size: 9px; color: var(--gp-gold); }
+.panel-name { font-family: var(--gp-serif); font-weight: 600; font-size: 30px; line-height: 1.05; margin: 6px 0 3px; }
+.panel-origin { font-style: italic; font-size: 12px; color: rgba(255,255,255,.7); font-family: var(--gp-serif); }
+.panel-syn { font-style: italic; font-size: 9.5px; color: rgba(255,255,255,.5); margin-top: 3px; font-family: var(--gp-serif); }
+.panel-tagline { font-style: italic; font-size: 10.5px; color: rgba(255,255,255,.55); margin-top: 6px; line-height: 1.5; font-family: var(--gp-serif); }
+.panel-close { position: absolute; top: 16px; right: 20px; background: rgba(255,255,255,.15); border: none; color: white; width: 32px; height: 32px; border-radius: 50%; cursor: pointer; font-size: 18px; display: flex; align-items: center; justify-content: center; }
+.panel-close:hover { background: rgba(255,255,255,.25); }
+.panel-swatch { display: flex; height: 18px; }
+.ps-seg { flex: 1; display: flex; align-items: center; justify-content: center; font-size: 5.5px; font-style: italic; }
+.panel-body { padding: 0 24px 32px; }
+.p-sec { margin-top: 20px; }
+.p-sec-hdr { font-size: 8px; font-weight: bold; letter-spacing: .2em; text-transform: uppercase; color: white; padding: 5px 10px 4px; margin: 0 -24px 10px; font-family: var(--gp-sans); }
+.p-2col { display: grid; grid-template-columns: 1fr 1fr; }
+.p-fact { padding: 7px 10px; border-bottom: 1px solid var(--gp-tan); }
+.p-fact:nth-child(odd) { background: var(--gp-alt); border-right: 1px solid var(--gp-tan); }
+.p-fact:nth-child(even) { background: var(--gp-cream); }
+.p-lbl { font-size: 8px; font-weight: bold; color: var(--gp-mid); font-family: var(--gp-sans); }
+.p-val { font-size: 10px; color: var(--gp-dark); margin-top: 2px; line-height: 1.4; font-family: var(--gp-sans); }
+.story-text { font-size: 11px; line-height: 1.75; color: var(--gp-dark); text-align: justify; font-family: var(--gp-sans); }
+.chip-grid { display: flex; flex-wrap: wrap; gap: 5px; margin-top: 5px; }
+.p-chip { font-style: italic; font-size: 9.5px; padding: 3px 9px; border-radius: 2px; color: white; font-family: var(--gp-serif); }
+.p-chip.sub { color: var(--gp-dark); background: var(--gp-alt); border: 1px solid var(--gp-tan); }
+.aroma-sec { margin-bottom: 4px; }
+.aroma-tier { font-size: 7.5px; font-weight: bold; letter-spacing: .12em; text-transform: uppercase; color: var(--gp-mid); margin: 8px 0 4px; font-family: var(--gp-sans); }
+.reg-row { display: flex; gap: 8px; align-items: baseline; padding: 5px 10px; border-bottom: 1px solid var(--gp-tan); }
+.reg-row:nth-child(odd) { background: var(--gp-alt); }
+.reg-row:nth-child(even) { background: var(--gp-cream); }
+.reg-name { font-weight: bold; font-size: 9px; color: var(--gp-dark); flex-shrink: 0; font-family: var(--gp-sans); }
+.reg-note { font-style: italic; font-size: 8.5px; color: var(--gp-mid); font-family: var(--gp-serif); }
+.p-quote { font-style: italic; font-size: 12px; line-height: 1.6; color: var(--gp-dark); background: var(--gp-goldL); border-left: 3px solid var(--gp-gold); padding: 12px 16px; margin-top: 20px; font-family: var(--gp-serif); }
+.p-download { display: inline-flex; align-items: center; gap: 7px; margin-top: 16px; padding: 10px 18px; color: white; font-size: 11px; border-radius: 2px; text-decoration: none; transition: opacity .15s; letter-spacing: .04em; font-family: var(--gp-sans); }
+.p-download:hover { opacity: .88; }
+
+@media (max-width: 640px) {
+  .gp-filters, .grid-section { padding-left: 16px; padding-right: 16px; }
+  .gp-hero { padding: 36px 16px 28px; }
+  .panel-body { padding: 0 16px 24px; }
+  .p-sec-hdr { margin-left: -16px; margin-right: -16px; }
+}
+</style>
+</head>
+<body>
+
+<script src="nav.js"></script>
+
+<section class="gp-hero">
+  <div class="gp-hero-kz">Kazmi Cellars · Wine Education</div>
+  <h1 class="gp-hero-title">Grape Profiles</h1>
+  <p class="gp-hero-sub">Every major variety — origin, aromas, palate, structure, regions, and what to pair it with. Click any grape to explore the full profile.</p>
+</section>
+
+<div class="gp-filters" id="filters"></div>
+
+<section class="grid-section">
+  <div class="grape-count" id="grape-count"></div>
+  <div class="gp-grid" id="grape-grid"></div>
+</section>
+
+<div class="gp-overlay" id="overlay" onclick="closePanel()"></div>
+<div class="gp-panel" id="panel">
+  <div class="panel-header" id="panel-header">
+    <button class="panel-close" onclick="closePanel()">✕</button>
+    <div class="panel-kz">Kazmi Cellars · Grape Profile</div>
+    <div class="panel-name" id="ph-name"></div>
+    <div class="panel-origin" id="ph-origin"></div>
+    <div class="panel-syn" id="ph-syn"></div>
+    <div class="panel-tagline" id="ph-tagline"></div>
+  </div>
+  <div class="panel-swatch" id="panel-swatch"></div>
+  <div class="panel-body" id="panel-body"></div>
+</div>
+
+<script>
+const GRAPES = [
+  // ── RED GRAPES ─────────────────────────────────────────────────────────────
+  { name:"Pinot Noir", type:"red", col:"#6B1A3A", origin:"Burgundy, France", flag:"🇫🇷",
+    synonyms:"Spätburgunder (Germany) · Pinot Nero (Italy)",
+    tagline:"The world's most obsessed-over red · Thin-skinned · Terroir-transparent · Ancient",
+    quote:"More than any other grape, Pinot Noir is transparent to its terroir — wines from adjacent Burgundy villages taste worlds apart.",
+    swatch:["#C04878","#A03060","#8C2050","#6B1A3A","#5A1030","#7A2A30"],
+    swatchLabels:["Young","Ruby","Garnet","Aged","Mature","Brick"],
+    radar:[2,2,4,2,5], rl:["Body","Tannin","Acidity","Alcohol","Complexity"],
+    attrs:[["Body",2,"Light · transparent"],["Tannin",2,"Low · silky"],["Acidity",4,"High · energetic"],["Alcohol",2,"Low · 12–13.5%"]],
+    aromas_primary:[["Red Fruit",["Red Cherry","Raspberry","Strawberry","Cranberry"],"#8C2B2B"],["Floral",["Dried Rose","Violet","Lilac"],"#7A1A7A"]],
+    aromas_tertiary:[["Earth",["Forest Floor","Mushroom","Truffle","Wet Leaves"],"#5A3A1A"],["Complex",["Smoke","Leather","Dried Rose (aged)","Tobacco"],"#3A1A30"]],
+    palate1:"Deceptively light in colour and body, Pinot Noir delivers extraordinary complexity through silkiness rather than power. The tannins are low and silky — nothing like the firm grip of Cabernet. The acidity is high and energetic.",
+    palate2:"In youth: bright red fruit, floral notes, fresh acidity. At 5–10 years: the fruit deepens, earthy notes emerge, the texture becomes increasingly silky. At 15–25 years in Grand Cru: truffle, forest floor, dried rose, remarkable complexity.",
+    regions:[["🇫🇷 Côte de Nuits","Burgundy, France","The spiritual home — Gevrey, Chambolle, Vosne"],["🇺🇸 Willamette Valley","Oregon, USA","Most Burgundian New World expression"],["🇺🇸 Russian River Valley","Sonoma, USA","Silky, complex — benchmark California"],["🇺🇸 Sta. Rita Hills","Santa Barbara, USA","Diatomaceous earth · cool coastal · bold & precise"],["🇳🇿 Central Otago","New Zealand","World's southernmost — concentrated, structured"],["🇦🇺 Yarra Valley","Victoria, Australia","Cool, elegant, Burgundy-inspired"]],
+    soils:[["Limestone","#A09070"],["Clay-Limestone","#8A7050"],["Kimmeridgian Clay","#5A6870"],["Granite","#6A6A7A"],["Schist / Slate","#4A5A6A"]],
+    food:[["Roast Duck","#6B3A00"],["Salmon","#8C4A30"],["Chicken","#7A6030"],["Mushroom Risotto","#5A5A3A"],["Wild Mushrooms","#5A5A2A"],["Charcuterie","#5C3A10"],["Brie","#7A7040"],["Coq au Vin","#6B1A3A"]],
+    serve:"14–16 °C · Large Burgundy bowl", age:"3–35+ years", peak:"Village: 3–8y · Grand Cru: 10–25y", decant:"30–45 min",
+    parent:"Ancient Burgundian variety", producers:"DRC · Leroy · Rousseau · Roumier · Drouhin Oregon · Eyrie · Felton Road",
+    file:"kc_pinot_noir_profile.pdf" },
+
+  { name:"Cabernet Sauvignon", type:"red", col:"#4A0A0A", origin:"Bordeaux, France", flag:"🇫🇷",
+    synonyms:"Cab Sauv · Bouchet (historical)",
+    tagline:"World's most planted fine wine grape · Age-worthy · Structured",
+    quote:"The tannins that seem impenetrable at five years integrate into something extraordinary by twenty.",
+    swatch:["#3A0A40","#6B1A1A","#5C1A1A","#4A1A10","#3A1010","#4A2A1A"],
+    swatchLabels:["Deep Purple","Ruby","Garnet","Dark Garnet","Mature","Brick"],
+    radar:[5,5,3,4,4], rl:["Body","Tannin","Acidity","Alcohol","Complexity"],
+    attrs:[["Body",5,"Full · dense"],["Tannin",5,"Very high · grippy"],["Acidity",3,"Medium"],["Alcohol",4,"Medium-high · 13.5–15%"]],
+    aromas_primary:[["Dark Fruit",["Blackcurrant","Cassis","Dark Cherry","Black Plum"],"#4A0A0A"],["Herbal",["Cedar","Tobacco Leaf","Mint","Eucalyptus"],"#1A4A2A"]],
+    aromas_tertiary:[["Aged",["Cigar Box","Leather","Graphite","Pencil Shavings","Dark Chocolate"],"#2A3A5A"]],
+    palate1:"The most structured red in the world. Firm, grippy tannins that feel almost impenetrable when young. High in polyphenols, these tannins bind to fat and protein in food, creating the classic red wine and red meat pairing.",
+    palate2:"After 10–20 years the tannins polymerise into something silky and profound. Cool climates (Bordeaux) show more herb, cedar, and graphite. Warm climates (Napa) show more dark fruit, chocolate, and vanilla.",
+    regions:[["🇫🇷 Pauillac · Margaux","Bordeaux, France","The definitive home — Latour, Mouton, Lafite"],["🇺🇸 Napa Valley (Rutherford · Oakville)","California, USA","New World benchmark — opulent"],["🇺🇸 Santa Barbara Mountain AVAs","California, USA","Structured, cool-influenced expressions"],["🇦🇺 Coonawarra · Margaret River","South Australia","Terra rossa — eucalyptus edge"],["🇨🇱 Maipo Valley","Chile","Dark fruit, cedar, eucalyptus — excellent value"]],
+    soils:[["Deep Gravel","#8C7048"],["Clay-Limestone","#8A7050"],["Terra Rossa","#8C3A20"],["Alluvial","#8A8060"]],
+    food:[["Rack of Lamb","#5C1A1A"],["Beef Ribeye","#6B1A1A"],["Duck Confit","#6B3A00"],["Aged Hard Cheese","#7A6830"],["Steak","#6B1A1A"]],
+    serve:"17–18 °C · Bordeaux glass", age:"15–50+ years", peak:"12–25 years", decant:"2–3 hrs young · 1 hr aged",
+    parent:"Cab Franc × Sauvignon Blanc (DNA confirmed 1997)", producers:"Châteaux Latour · Mouton · Screaming Eagle · Penfolds Bin 707 · Almaviva",
+    file:"kc_cabernet_sauvignon.pdf" },
+
+  { name:"Merlot", type:"red", col:"#6B2A1A", origin:"Bordeaux, France", flag:"🇫🇷",
+    synonyms:"Bigney (historical)",
+    tagline:"World's most planted red · Plush · Approachable · Underrated",
+    quote:"Pétrus — one of the world's most expensive wines — is almost 100% Merlot. The grape is misunderstood, not mediocre.",
+    swatch:["#5C0A50","#8C2A10","#6B3A10","#4A2008","#3A1A08","#6B2A1A"],
+    swatchLabels:["Deep Ruby","Ruby","Warm Garnet","Dark","Mature","Brick"],
+    radar:[4,3,2,3,4], rl:["Body","Tannin","Acidity","Alcohol","Complexity"],
+    attrs:[["Body",4,"Full · generous"],["Tannin",3,"Medium · velvety"],["Acidity",2,"Low-medium · soft"],["Alcohol",3,"Medium · 13–14%"]],
+    aromas_primary:[["Fruit",["Dark Plum","Black Cherry","Blueberry","Red Plum"],"#6B2A1A"],["Savoury",["Bay Leaf","Chocolate","Mocha","Coffee"],"#4A3010"]],
+    aromas_tertiary:[["Aged",["Truffle","Tobacco","Leather","Dark Spice","Vanilla"],"#2A3A5A"]],
+    palate1:"Softer and more immediately approachable than Cabernet Sauvignon due to thinner skins and lower tannin. The texture is plush and generous — what critics describe as 'fleshy'. On clay soils like Pomerol, it develops extraordinary weight.",
+    palate2:"The acidity is naturally lower, contributing to its immediate drinkability. In warm climates it can become jammy — precision in picking time is critical. Great Pomerol Merlot is one of the most hedonistic wines on earth.",
+    regions:[["🇫🇷 Pomerol · Saint-Émilion","Right Bank Bordeaux","The finest expression — Pétrus, Cheval Blanc"],["🇺🇸 Napa · Columbia Valley","USA","Richer, plummier style"],["🇨🇱 Colchagua · Maipo","Chile","Supple, fruit-forward — excellent value"],["🇮🇹 Tuscany","Italy","Key in Super Tuscans"]],
+    soils:[["Iron-rich Clay","#6B2A1A"],["Gravel","#8C7048"],["Limestone","#A09070"],["Alluvial","#8A8060"]],
+    food:[["Beef","#6B1A1A"],["Duck","#6B3A00"],["Pasta Bolognese","#6B3A1A"],["Mushroom Risotto","#5A5A3A"],["Veal","#8A5A2A"],["Charcuterie","#5C3A10"]],
+    serve:"17–18 °C · Bordeaux glass", age:"5–25 years", peak:"8–20 years", decant:"1 hr",
+    parent:"Origin uncertain — Bordeaux regional variety", producers:"Pétrus · Le Pin · Lafleur · L'Evangile · Duckhorn · Leonetti",
+    file:"kc_merlot.pdf" },
+
+  { name:"Syrah / Shiraz", type:"red", col:"#2A1A5C", origin:"Northern Rhône, France", flag:"🇫🇷",
+    synonyms:"Syrah (cool climate) · Shiraz (Australia/warm)",
+    tagline:"One grape · two personalities · Climate defines everything",
+    quote:"Northern Rhône Syrah and Barossa Shiraz are the same grape — but they answer completely different questions about what wine can be.",
+    swatch:["#1A0A4A","#3A1A6A","#5C2A1A","#3A1010","#2A0A0A","#4A1A4A"],
+    swatchLabels:["Inky Purple","Purple","Dark Ruby","Very Dark","Almost Black","Deep"],
+    radar:[5,4,3,4,5], rl:["Body","Tannin","Acidity","Alcohol","Complexity"],
+    attrs:[["Body",5,"Very full · inky"],["Tannin",4,"High · firm"],["Acidity",3,"Medium"],["Alcohol",4,"Medium-high · 13.5–15%"]],
+    aromas_primary:[["Dark Fruit",["Blackberry","Dark Plum","Black Olive","Blueberry"],"#2A1A6B"],["Savoury",["Black Pepper","Smoked Meat","Iron","Olive"],"#3A2A10"]],
+    aromas_tertiary:[["Aged",["Leather","Violet","Licorice","Dark Chocolate","Bacon"],"#4A1A4A"]],
+    palate1:"The most dramatically climate-influenced grape. In cool Hermitage: tight, mineral, almost savage when young, revealing extraordinary complexity after 20 years. In warm Barossa: immediate, generous, chocolate and vanilla.",
+    palate2:"The black pepper character (rotundone) is prominent in cool-climate versions — it appears on both nose and palate and is unmistakable. Warm-climate Shiraz replaces this with dark fruit richness.",
+    regions:[["🇫🇷 Hermitage · Côte-Rôtie","Northern Rhône, France","The definitive home — peppery, iron, elegant"],["🇦🇺 Barossa Valley · McLaren Vale","South Australia","Bold, jammy, chocolate — old vine"],["🇺🇸 Sta. Rita Hills","Santa Barbara, USA","Rivals the Northern Rhône — cool, peppery"],["🇿🇦 Swartland","South Africa","Old vine, natural wine — spicy, earthy"],["🇺🇸 Washington State","USA","Structured, mid-way between styles"]],
+    soils:[["Granite","#6A6A7A"],["Schist / Slate","#4A5A6A"],["Alluvial","#8A8060"],["Basalt","#4A4A5A"]],
+    food:[["Lamb","#5C1A1A"],["Game","#4A2A10"],["BBQ","#6B2A10"],["Smoked Meats","#5A3A1A"],["Hard Aged Cheese","#7A6830"],["Steak","#6B1A1A"]],
+    serve:"17–18 °C · Large Bordeaux glass", age:"10–30+ years (Hermitage)", peak:"8–20 years", decant:"2 hrs young",
+    parent:"Native Rhône variety — confirmed DNA 1999", producers:"Guigal · Paul Jaboulet · Penfolds Grange · Two Hands · Torbreck · Sine Qua Non",
+    file:"kc_syrah__shiraz.pdf" },
+
+  { name:"Grenache", type:"red", col:"#8C3A1A", origin:"Southern France / Aragon, Spain", flag:"🇫🇷",
+    synonyms:"Garnacha (Spain) · Cannonau (Sardinia)",
+    tagline:"World's second most planted red · Mediterranean · Warm · Spiced",
+    quote:"Old-vine Grenache from Priorat or Barossa bush vines is among the most complex and concentrated wine on earth.",
+    swatch:["#C04040","#8C2A20","#6B3A10","#A04030","#8C2810","#7A2A10"],
+    swatchLabels:["Strawberry","Ruby","Garnet","Warm Ruby","Deep","Dark"],
+    radar:[4,2,2,5,4], rl:["Body","Tannin","Acidity","Alcohol","Complexity"],
+    attrs:[["Body",4,"Full · warm"],["Tannin",2,"Low · soft"],["Acidity",2,"Low · round"],["Alcohol",5,"Very high · 14.5–16%"]],
+    aromas_primary:[["Red Fruit",["Red Berry","Strawberry","Kirsch","White Cherry"],"#8C2A20"],["Herbal",["Garrigue","Dried Herbs","Rosemary","Lavender"],"#3A5A2A"]],
+    aromas_tertiary:[["Aged",["Dried Fruit","Leather","Tobacco","White Pepper","Spice"],"#6A3A10"]],
+    palate1:"Low natural tannin and acidity makes Grenache soft and generous from the start. The wine feels warm, almost sweet, because of the naturally high alcohol — often 14.5–16%.",
+    palate2:"The garrigue (wild Mediterranean herb) aroma is characteristic and unmistakable. Old vines produce concentrated wines of remarkable depth. Priorat and Barossa examples from very old vines rival the finest wines for intensity.",
+    regions:[["🇫🇷 Châteauneuf-du-Pape · Gigondas","Southern Rhône, France","The definitive expression — Château Rayas"],["🇪🇸 Priorat","Catalonia, Spain","On black slate — extraordinary concentration"],["🇦🇺 Barossa Valley","South Australia","Old-vine bush vines — 100+ years old"],["🇺🇸 Santa Barbara · Paso Robles","California, USA","Rhône Rangers — growing reputation"]],
+    soils:[["Schist / Slate","#4A5A6A"],["Sandy","#C8A870"],["Gravel","#8C7048"],["Limestone","#A09070"]],
+    food:[["Lamb Tagine","#5C1A1A"],["Charcuterie","#5C3A10"],["Tapas","#7A4A10"],["Spiced Dishes","#6A3A10"],["Pizza","#6B3A1A"]],
+    serve:"17 °C · Large Burgundy or Bordeaux glass", age:"3–15y · Old vine: 15–25y", peak:"5–15 years", decant:"1 hr",
+    parent:"Possibly from Aragon (Spain) or Sardinia", producers:"Château Rayas · Palacios Remondo · Clos des Papes · Two Hands",
+    file:"kc_grenache.pdf" },
+
+  { name:"Tempranillo", type:"red", col:"#5C3A1A", origin:"Rioja, Spain", flag:"🇪🇸",
+    synonyms:"Tinto Fino · Aragonez (Portugal) · Cencibel · Ull de Llebre",
+    tagline:"Spain's flagship red · Oak-loving · Named 'little early one'",
+    quote:"The Rioja aging classification — Crianza, Reserva, Gran Reserva — was built around Tempranillo's natural affinity for oak.",
+    swatch:["#6B1A10","#8C4A20","#A05A30","#6B3A10","#8C3A18","#6B2A0A"],
+    swatchLabels:["Ruby","Garnet","Warm Garnet","Brick Garnet","Deep","Dark"],
+    radar:[3,3,3,3,3], rl:["Body","Tannin","Acidity","Alcohol","Complexity"],
+    attrs:[["Body",3,"Medium · balanced"],["Tannin",3,"Medium · structured"],["Acidity",3,"Medium"],["Alcohol",3,"Medium · 13–14%"]],
+    aromas_primary:[["Fruit",["Dried Cherry","Dark Plum","Red Berry","Tomato"],"#6B2A10"],["Oak",["Vanilla","Dill (American oak)","Cedar","Coconut"],"#5A4020"]],
+    aromas_tertiary:[["Aged",["Leather","Balsamic","Earth","Dried Herbs","Tobacco"],"#3A2A10"]],
+    palate1:"Tempranillo's natural balance makes it immediately approachable but oak aging transforms it into something complex and structured. Moderate tannins, moderate acidity, moderate alcohol — a wine of balance.",
+    palate2:"The distinctive vanilla and dill character of American oak (still used in traditional Rioja) is its most recognizable international signature. Gran Reserva releases are often 10+ years old before reaching the shelf.",
+    regions:[["🇪🇸 Rioja Alta · Alavesa","La Rioja, Spain","The benchmark — Crianza through Gran Reserva"],["🇪🇸 Ribera del Duero","Castile, Spain","Darker, more powerful — Vega Sicilia country"],["🇵🇹 Alentejo (Aragonez)","Portugal","Warm, generous, food-friendly"]],
+    soils:[["Alluvial","#8A8060"],["Clay","#6B3A2A"],["Limestone","#A09070"],["Sandy","#C8A870"]],
+    food:[["Lamb","#5C1A1A"],["Suckling Pig","#7A4A1A"],["Aged Manchego","#7A6428"],["Cured Ibérico","#5A3A10"],["Veal","#8A5A2A"]],
+    serve:"17 °C · Bordeaux glass", age:"Crianza: 3–5y · Gran Reserva: 10–25+y", peak:"8–20 years", decant:"1–2 hrs",
+    parent:"Ancient Spanish variety", producers:"Vega Sicilia · Pingus · La Rioja Alta · CVNE Imperial · Muga",
+    file:"kc_tempranillo.pdf" },
+
+  { name:"Sangiovese", type:"red", col:"#6B1A10", origin:"Tuscany, Italy", flag:"🇮🇹",
+    synonyms:"Brunello · Prugnolo Gentile · Morellino · Nielluccio (Corsica)",
+    tagline:"Italy's most planted red · Born for food · Defines Tuscany",
+    quote:"Sangiovese's defining characteristic is its mouth-watering acidity — it makes the wine salivate-inducing, which is exactly what makes it the world's great food wine.",
+    swatch:["#8C1A10","#6B2010","#C03020","#8C3020","#6B2010","#A03010"],
+    swatchLabels:["Ruby","Garnet","Bright Ruby","Warm Garnet","Deep","Aged"],
+    radar:[3,4,5,3,4], rl:["Body","Tannin","Acidity","Alcohol","Complexity"],
+    attrs:[["Body",3,"Medium · food-driven"],["Tannin",4,"High · drying"],["Acidity",5,"Very high · mouth-watering"],["Alcohol",3,"Medium · 13–14%"]],
+    aromas_primary:[["Fruit",["Sour Cherry","Dried Cherry","Red Plum","Tomato Leaf"],"#8C1A10"],["Earth",["Leather","Tobacco","Dried Herbs","Dried Rose"],"#4A2A10"]],
+    aromas_tertiary:[["Aged",["Balsamic","Truffle","Licorice","Dark Spice","Iron"],"#3A1A10"]],
+    palate1:"The defining sensory characteristic is its mouth-watering, almost aggressive acidity — it makes you salivate, which is exactly what makes it such a perfect food partner. Tannins are firm and drying.",
+    palate2:"Flavours lean savoury rather than fruity — tomato leaf, leather, dried herbs — making it one of the most food-centric grapes. With Bistecca Fiorentina or a rich tomato pasta, the pairing is a revelation.",
+    regions:[["🇮🇹 Chianti Classico DOCG","Tuscany","The heartland — galestro limestone"],["🇮🇹 Brunello di Montalcino DOCG","Tuscany","The pinnacle — 5+ year aging minimum"],["🇮🇹 Vino Nobile di Montepulciano","Tuscany","Complex, structured, Brunello's sibling"]],
+    soils:[["Galestro (schistous limestone)","#8A8060"],["Clay-Limestone","#8A7050"],["Alluvial","#8A8060"],["Sandy","#C8A870"]],
+    food:[["Bistecca Fiorentina","#6B1A1A"],["Pasta al Ragù","#6B3A1A"],["Pizza","#6B3A1A"],["Salumi","#6B3A10"],["Hard Cheese","#7A6830"]],
+    serve:"17–18 °C · Large Bordeaux glass", age:"Chianti: 5–15y · Brunello: 20–40+y", peak:"8–25 years", decant:"1–2 hrs",
+    parent:"Ancient Tuscan variety", producers:"Biondi-Santi · Antinori · Isole e Olena · Felsina · San Felice",
+    file:"kc_sangiovese.pdf" },
+
+  { name:"Nebbiolo", type:"red", col:"#2A1A5C", origin:"Piedmont, Italy", flag:"🇮🇹",
+    synonyms:"Spanna · Chiavennasca (Valtellina) · Picotèner",
+    tagline:"The King of wines · Never open early · Tar and roses",
+    quote:"Tar and roses — the two most contradictory aromas in wine — appear nowhere else on earth in quite this combination.",
+    swatch:["#A02030","#8C1A20","#C04030","#6B1A18","#3A1010","#8C2020"],
+    swatchLabels:["Pale Garnet","Ruby-Garnet","Light Garnet","Brick","Mature","Deep"],
+    radar:[4,5,5,4,5], rl:["Body","Tannin","Acidity","Alcohol","Complexity"],
+    attrs:[["Body",4,"Full but pale-coloured"],["Tannin",5,"Ferocious · formidable"],["Acidity",5,"Very high · long-lived"],["Alcohol",4,"Medium-high · 14–15%"]],
+    aromas_primary:[["Primary",["Dried Cherry","Tar","Dried Rose","Violets"],"#3A1A5C"],["Earth",["Tobacco","Licorice","Leather","Iron"],"#3A2A10"]],
+    aromas_tertiary:[["Aged (10+ yrs)",["Truffle","Camphor","Forest Floor","Anise"],"#2A1A30"]],
+    palate1:"The most demanding wine to appreciate young. The tannins are ferociously astringent, almost drying the mouth completely. The acidity is simultaneously very high. This combination makes young Barolo virtually undrinkable for most people.",
+    palate2:"After 15–20 years, these impenetrable elements integrate into something of extraordinary complexity — silky, layered, with depth that reveals itself slowly. The hallmark 'tar and roses' is unique to this grape.",
+    regions:[["🇮🇹 Barolo DOCG","Piedmont — La Morra, Serralunga","The King of wines — needs 10–20 years"],["🇮🇹 Barbaresco DOCG","Piedmont","More elegant, earlier maturing"],["🇮🇹 Valtellina (Sforzato)","Lombardy","High altitude, Alpine expression"]],
+    soils:[["Limestone","#A09070"],["Clay-Limestone","#8A7050"],["Tufa","#908A70"],["Marlstone","#9A8870"]],
+    food:[["White Truffle","#4A3A2A"],["Braised Beef","#5C1A1A"],["Aged Parmesan","#8A7030"],["Wild Mushrooms","#5A5A2A"],["Game","#4A2A10"]],
+    serve:"18 °C · Large Burgundy glass", age:"Barolo: 15–40+y · Barbaresco: 12–30y", peak:"15–30 years", decant:"3–4 hrs (young wines)",
+    parent:"Ancient Piedmontese variety", producers:"Gaja · Giacomo Conterno · Bruno Giacosa · Roberto Voerzio · Vietti",
+    file:"kc_nebbiolo.pdf" },
+
+  { name:"Malbec", type:"red", col:"#3A1A5C", origin:"Cahors, France", flag:"🇫🇷",
+    synonyms:"Côt (Loire) · Auxerrois (Cahors) · Pressac",
+    tagline:"From French obscurity to Argentina's national grape",
+    quote:"Malbec found its greatest expression not in its French homeland but 12,000km away on the slopes of the Andes at 1,000m altitude.",
+    swatch:["#2A0A3A","#5C1A5A","#6B1A4A","#4A1A30","#3A0A2A","#5C1A3A"],
+    swatchLabels:["Deep Purple","Inky","Purple-Ruby","Dark","Very Dark","Deep"],
+    radar:[4,3,3,4,4], rl:["Body","Tannin","Acidity","Alcohol","Complexity"],
+    attrs:[["Body",4,"Full · dark · dense"],["Tannin",3,"Medium · smooth"],["Acidity",3,"Medium"],["Alcohol",4,"Medium-high · 13.5–15%"]],
+    aromas_primary:[["Fruit",["Dark Plum","Blackberry","Blueberry","Black Cherry"],"#3A1A6B"],["Floral",["Violet","Dark Rose","Lilac"],"#5A2A7A"]],
+    aromas_tertiary:[["Aged",["Chocolate","Tobacco","Leather","Coffee","Dark Spice"],"#3A2A10"]],
+    palate1:"The most distinctive characteristic is the combination of dark, dense colour and relatively smooth tannins. The violet and floral aromatics are one of its most recognizable traits.",
+    palate2:"High altitude amplifies acidity and structure while preserving freshness. Argentine Malbec at its best has genuine complexity and age-worthiness. Most entry-level versions deliver immediate pleasure consistently.",
+    regions:[["🇦🇷 Mendoza (Luján de Cuyo)","Argentina","The adopted home — world-class at every level"],["🇦🇷 Uco Valley (high altitude)","Argentina — 900–1,500m","Most structured, mineral expressions"],["🇫🇷 Cahors AOC","France — original home","Dark, rustic, structured — Auxerrois style"]],
+    soils:[["Alluvial","#8A8060"],["Clay","#6B3A2A"],["Sandy","#C8A870"],["Limestone","#A09070"]],
+    food:[["Beef Asado","#6B1A1A"],["Lamb Chops","#5C1A1A"],["Charcuterie","#5C3A10"],["BBQ","#6B2A10"],["Steak","#6B1A1A"]],
+    serve:"17 °C · Bordeaux glass", age:"3–8y most · premium: 10–20y", peak:"5–15 years", decant:"1 hr",
+    parent:"Ancient Bordeaux variety", producers:"Zuccardi · Achaval Ferrer · Catena Zapata · Clos de los Siete",
+    file:"kc_malbec.pdf" },
+
+  { name:"Cabernet Franc", type:"red", col:"#3A2A1A", origin:"Loire Valley / Bordeaux, France", flag:"🇫🇷",
+    synonyms:"Breton (Loire) · Bouchet (Saint-Émilion) · Carmenet",
+    tagline:"Parent of Cabernet Sauvignon · Loire's great red · Aromatic",
+    quote:"Cheval Blanc — one of the most expensive wines in the world — is predominantly Cabernet Franc. The variety is capable of absolute greatness.",
+    swatch:["#6B1A2A","#8C2A1A","#A03A20","#7A2A10","#5C1A10","#8C3A18"],
+    swatchLabels:["Ruby","Garnet","Medium Ruby","Warm Garnet","Deep","Dark"],
+    radar:[3,3,4,3,4], rl:["Body","Tannin","Acidity","Alcohol","Complexity"],
+    attrs:[["Body",3,"Medium · aromatic"],["Tannin",3,"Medium · approachable"],["Acidity",4,"High · fresh"],["Alcohol",3,"Low-medium · 12–13%"]],
+    aromas_primary:[["Fruit",["Cassis","Raspberry","Black Cherry","Blueberry"],"#4A1A2A"],["Distinctive",["Pencil Shavings","Graphite","Violets","Green Herbs"],"#3A3A1A"]],
+    aromas_tertiary:[["Aged",["Tobacco","Leather","Cedar","Dark Spice","Ink"],"#2A2A10"]],
+    palate1:"More aromatic and lighter than Cabernet Sauvignon, Cab Franc has a characteristic pencil-shavings and graphite note that makes it immediately identifiable. The tannins are gentler and the acidity is higher.",
+    palate2:"In the Loire, it is almost always unblended and expresses a pure, mineral, herb-tinged character. In Bordeaux, it adds aroma and lift to Cabernet Sauvignon blends. Natural elegance and fragrance make it one of the best food-pairing reds.",
+    regions:[["🇫🇷 Chinon · Bourgueil · Saumur","Loire Valley, France","The definitive expression — pure, mineral"],["🇫🇷 Saint-Émilion (Cheval Blanc)","Bordeaux, France","Blending partner with occasional greatness"],["🇮🇹 Friuli-Venezia Giulia","Italy","Aromatic, fresh varietal wines"]],
+    soils:[["Tufa","#908A70"],["Clay-Limestone","#8A7050"],["Gravel","#8C7048"],["Sandy","#C8A870"]],
+    food:[["Duck","#6B3A00"],["Pork","#7A4A1A"],["Mushrooms","#5A5A3A"],["Goat Cheese","#6A6030"],["Salmon","#8C4A30"],["Charcuterie","#5C3A10"]],
+    serve:"16–17 °C · Burgundy glass", age:"Loire: 5–20y · Cheval Blanc: 20–40+y", peak:"5–15 years", decant:"30–45 min",
+    parent:"Parent of Cabernet Sauvignon (× Sauvignon Blanc)", producers:"Cheval Blanc · Charles Joguet · Olga Raffault · Brainerd (NY)",
+    file:"kc_cabernet_franc.pdf" },
+
+  { name:"Mourvèdre", type:"red", col:"#1A2A3A", origin:"Provence / Murcia, France & Spain", flag:"🇫🇷",
+    synonyms:"Monastrell (Spain) · Mataro (Australia/California)",
+    tagline:"The M in GSM · Bandol's soul · Needs serious food",
+    quote:"Bandol Mourvèdre at ten years is one of the most deeply savoury, most gastronomic wines in France — built for the table, not the couch.",
+    swatch:["#1A0A2A","#2A1A3A","#3A1A2A","#2A1010","#1A0A10","#2A1A1A"],
+    swatchLabels:["Purple-Black","Inky","Dark Ruby","Very Dark","Almost Black","Deep"],
+    radar:[5,5,3,4,4], rl:["Body","Tannin","Acidity","Alcohol","Complexity"],
+    attrs:[["Body",5,"Very full · dense"],["Tannin",5,"Very high · formidable"],["Acidity",3,"Medium"],["Alcohol",4,"High · 14–15.5%"]],
+    aromas_primary:[["Fruit",["Blackberry","Black Olive","Dark Plum","Blueberry"],"#1A2A4A"],["Savoury",["Game","Leather","Iron","Garrigue"],"#3A1A10"]],
+    aromas_tertiary:[["Aged",["Truffle","Smoke","Tar","Meat","Dark Spice"],"#2A1A2A"]],
+    palate1:"Bandol Mourvèdre is one of the most gastronomic wines in France — deeply savoury, meaty, structured, built for the long haul. The tannins are formidable when young.",
+    palate2:"After 10–15 years, the harsh edges integrate and the wine becomes complex, profound, and distinctive. In blends, it provides the structure, longevity, and earthy depth that neither Grenache nor Syrah can supply alone.",
+    regions:[["🇫🇷 Bandol AOC","Provence, France","The definitive home — Domaine Tempier"],["🇫🇷 Châteauneuf-du-Pape","Southern Rhône","Essential blending partner"],["🇪🇸 Jumilla · Yecla (Monastrell)","Murcia, Spain","Dense, powerful, dark fruit"],["🇺🇸 Santa Barbara · Paso Robles","California, USA","Rhône Rangers — serious expressions"]],
+    soils:[["Limestone","#A09070"],["Clay","#6B3A2A"],["Schist / Slate","#4A5A6A"],["Sandy","#C8A870"]],
+    food:[["Game","#4A2A10"],["Lamb","#5C1A1A"],["Charcuterie","#5C3A10"],["Hard Cheese","#7A6830"],["BBQ","#6B2A10"]],
+    serve:"17–18 °C · Bordeaux glass", age:"Bandol: 10–25+y", peak:"10–20 years", decant:"2–3 hrs",
+    parent:"Possibly from Murcia, Spain originally", producers:"Domaine Tempier · Château Pibarnon · Château Pradeaux · Bodegas El Nido",
+    file:"kc_mourvedre.pdf" },
+
+  { name:"Gamay", type:"red", col:"#6B1A2A", origin:"Beaujolais, France", flag:"🇫🇷",
+    synonyms:"Gamay Noir à Jus Blanc",
+    tagline:"Wine's most misunderstood grape · Serve chilled · Cru Gamay is serious",
+    quote:"Philip the Bold banned Gamay from Burgundy in 1395. The greatest wine industry decision never reversed.",
+    swatch:["#C04050","#8C1A2A","#A03040","#C05060","#8C2030","#6B1A2A"],
+    swatchLabels:["Bright Ruby","Ruby","Light Ruby","Pale Ruby","Deep Ruby","Dark"],
+    radar:[2,1,4,2,3], rl:["Body","Tannin","Acidity","Alcohol","Complexity"],
+    attrs:[["Body",2,"Light · transparent"],["Tannin",1,"Very low · silky"],["Acidity",4,"High · fresh"],["Alcohol",2,"Low · 11–13%"]],
+    aromas_primary:[["Fruit",["Fresh Cherry","Raspberry","Strawberry","Cranberry"],"#8C1A2A"],["Floral",["Violet","Rose Water","Peony"],"#6A2A5A"]],
+    aromas_tertiary:[["Aged Cru",["Granite Mineral","Earth","Mushroom","Dark Cherry","Iron"],"#4A3010"]],
+    palate1:"The benchmark chillable red. Very low tannin, high freshness, vivid red fruit — Gamay is wine at its most immediately pleasurable. Serve at 14–15°C for best results.",
+    palate2:"Carbonic maceration (the Nouveau technique) produces banana-cherry fruit with zero tannin. The Cru versions, made conventionally, have real structure and age beautifully — Morgon in particular can develop like Burgundy Pinot Noir after 5–10 years.",
+    regions:[["🇫🇷 Beaujolais Crus (Morgon, Fleurie)","France — granite and schist","Serious, mineral, age-worthy"],["🇫🇷 Moulin-à-Vent","Beaujolais, France","Manganese soil — the most Pinot-like Cru"],["🇨🇭 Switzerland","Multiple cantons","Domestic favourite — fresh, mineral"]],
+    soils:[["Granite","#6A6A7A"],["Schist / Slate","#4A5A6A"],["Sandy","#C8A870"],["Basalt","#4A4A5A"]],
+    food:[["Charcuterie","#5C3A10"],["Chicken","#7A6030"],["Light Fish","#2A5A7A"],["Goat Cheese","#6A6030"],["Pizza","#6B3A1A"]],
+    serve:"14–15 °C (chilled) · Burgundy glass", age:"Nouveau: drink now · Crus: 5–15y", peak:"3–10 years (Cru)", decant:"No decanting",
+    parent:"Ancient Burgundian variety", producers:"Marcel Lapierre · Jean Foillard · Louis-Claude Desvignes · Guy Breton",
+    file:"kc_gamay.pdf" },
+
+  // ── WHITE GRAPES ───────────────────────────────────────────────────────────
+  { name:"Chardonnay", type:"white", col:"#1A3A5C", origin:"Burgundy, France", flag:"🇫🇷",
+    synonyms:"White Burgundy · Chablis · Pouilly-Fuissé",
+    tagline:"World's most planted white · The chameleon grape · Oak defines everything",
+    quote:"An unoaked Chablis and a Napa Chardonnay are the same grape — everything different between them is a winemaker's decision.",
+    swatch:["#F5F0D0","#E8D890","#D4C060","#C8A840","#D0B050","#E0C060"],
+    swatchLabels:["Pale Straw","Golden Straw","Deep Gold","Rich Gold","Amber","Oaked"],
+    radar:[4,1,3,3,3], rl:["Body","Sweet Pot.","Acidity","Alcohol","Aroma"],
+    attrs:[["Body",4,"Light to very full"],["Sweet Potential",1,"Virtually always dry"],["Acidity",3,"Low (oaked) to high (unoaked)"],["Alcohol",3,"Medium · 13–14%"]],
+    aromas_primary:[["Cool Climate",["Lemon","Green Apple","Flint","Chalk","Citrus Zest"],"#1A3A6B"],["Warm / Oaked",["Butter","Hazelnut","Tropical Fruit","Peach","Vanilla"],"#6B5A10"]],
+    aromas_tertiary:[["Aged",["Honey","Toasted Nuts","Caramel","Beeswax"],"#5A4A10"]],
+    palate1:"The most versatile white grape. In Chablis: lean, mineral, saline, almost austere. In Meursault: rich, hazelnut-scented, creamy, profound. In Napa: lush, buttery, tropical, immediately rewarding.",
+    palate2:"The oak-aged, MLF-converted version and the naked, unoaked version are essentially different wines from the same grape. Matching the style to the food is the key — oaked Chardonnay with cream dishes, Chablis with oysters.",
+    regions:[["🇫🇷 Chablis · Meursault · Puligny","Burgundy, France","The benchmark — all styles"],["🇺🇸 Santa Barbara County","California, USA","Sta. Rita Hills — elegant, mineral, chalky"],["🇺🇸 Napa · Russian River","California, USA","Rich, oaked, tropical"],["🇦🇺 Yarra · Adelaide Hills","Australia","Elegant, cool-climate, Burgundian"],["🇫🇷 Champagne","France","Blanc de Blancs — finest bubbles"]],
+    soils:[["Kimmeridgian Clay","#5A6870"],["Limestone","#A09070"],["Clay-Limestone","#8A7050"],["Sandy","#C8A870"]],
+    food:[["Lobster","#8C3A10"],["Shellfish","#1A4A6B"],["White Fish","#2A5A7A"],["Chicken","#7A6030"],["Pasta","#6A6A30"],["Soft Cheese","#8A7A50"]],
+    serve:"10–13 °C · White Burgundy glass", age:"Most: 1–5y · Grand Cru: 10–30+y", peak:"3–15 years", decant:"No decanting",
+    parent:"Pinot Noir × Gouais Blanc (DNA confirmed 1999)", producers:"Domaine Leflaive · Coche-Dury · Raveneau (Chablis) · Kistler (CA) · Leeuwin Estate",
+    file:"kc_chardonnay.pdf" },
+
+  { name:"Sauvignon Blanc", type:"white", col:"#1A5A3A", origin:"Loire Valley, France", flag:"🇫🇷",
+    synonyms:"Fumé Blanc (California) · Blanc Fumé (Loire)",
+    tagline:"Electric acidity · The most instantly recognizable white",
+    quote:"Cloudy Bay's 1985 launch single-handedly put New Zealand on the international wine map. The power of one grape, one region, one moment.",
+    swatch:["#F5F5D0","#E8F0A0","#D4E870","#C8D850","#D0E060","#E8F0B0"],
+    swatchLabels:["Pale Green-Yellow","Light Yellow","Vivid Yellow","Green Gold","Fresh","Bright"],
+    radar:[2,1,5,2,4], rl:["Body","Sweet Pot.","Acidity","Alcohol","Aroma"],
+    attrs:[["Body",2,"Light · lean"],["Sweet Potential",1,"Almost always bone dry"],["Acidity",5,"Very high · electric"],["Alcohol",2,"Low · 11.5–13%"]],
+    aromas_primary:[["Cool Climate",["Grapefruit","Cut Grass","Gooseberry","Elderflower","Flint"],"#1A5A3A"],["Tropical",["Passion Fruit","Lime","White Peach","Guava"],"#2A6A10"]],
+    aromas_tertiary:[["Oaked / Aged",["Smoked Flint","Smoke","Honey","Brioche","Lanolin"],"#5A5A20"]],
+    palate1:"The most immediately recognizable white wine style. High acidity creates a wine that tastes electric and refreshing — it almost crackles on the palate. In cool climates, pyrazine compounds (grass, herb) dominate.",
+    palate2:"The finish is always clean and bright. When barrel-fermented and blended with Sémillon (Graves whites), it transforms into something of extraordinary complexity and longevity.",
+    regions:[["🇫🇷 Sancerre · Pouilly-Fumé","Loire, France","Flint, mineral, citrus — the benchmark"],["🇳🇿 Marlborough","New Zealand","Passion fruit, grass, tropical — world-famous"],["🇫🇷 Graves · Pessac-Léognan","Bordeaux, France","Oaked, complex, age-worthy"]],
+    soils:[["Limestone","#A09070"],["Kimmeridgian Clay","#5A6870"],["Gravel","#8C7048"],["Flint (silex)","#6A6A8A"]],
+    food:[["Goat Cheese","#6A6030"],["Oysters","#1A3A5A"],["Asparagus","#3A6A2A"],["Salads","#3A6A30"],["Shellfish","#1A4A6B"],["Sushi","#2A4A6A"]],
+    serve:"8–10 °C · White wine glass", age:"Most: 1–3y · Graves: 10–20y", peak:"1–5 years", decant:"No decanting",
+    parent:"Parent of Cabernet Sauvignon (× Cab Franc)", producers:"Didier Dagueneau · Henri Bourgeois · Cloudy Bay · Greywacke · Haut-Brion Blanc",
+    file:"kc_sauvignon_blanc.pdf" },
+
+  { name:"Riesling", type:"white", col:"#5A3A1A", origin:"Rhine / Mosel, Germany", flag:"🇩🇪",
+    synonyms:"Most misunderstood great grape in the world",
+    tagline:"Dry to lusciously sweet · Petrol with age · Ages magnificently",
+    quote:"Riesling is the world's most misunderstood great grape — most of it is dry, most of it is magnificent, and almost none of it gets the credit it deserves.",
+    swatch:["#F8F5D0","#F0E8A0","#E8D870","#D4C050","#C8B040","#E8D060"],
+    swatchLabels:["Pale Straw","Golden Straw","Gold","Deep Gold","Amber","Rich"],
+    radar:[2,3,5,1,4], rl:["Body","Sweet Pot.","Acidity","Alcohol","Aroma"],
+    attrs:[["Body",2,"Light · delicate"],["Sweet Potential",5,"Bone dry to intensely sweet"],["Acidity",5,"Very high · electric"],["Alcohol",1,"Very low · 7–12%"]],
+    aromas_primary:[["Primary",["Lime","Green Apple","Apricot","White Peach","Lemon"],"#5A3A1A"],["Mineral",["Slate","Flint","Wet Stone","Petrol (TDN aged)"],"#3A4A5A"]],
+    aromas_tertiary:[["Sweet / Aged",["Honey","Orange Blossom","Saffron","Marmalade","Kerosene"],"#7A5A10"]],
+    palate1:"Riesling's defining characteristic is its electric acidity — a spine of freshness that runs through every style from bone dry to lusciously sweet. Low alcohol (often 7–9%) means the wine never feels heavy.",
+    palate2:"The range of styles is unique: Kabinett (delicate, barely sweet) through TBA (concentrated, intensely sweet, with acidity that counterbalances everything). The petrol/kerosene note that develops after 5–10 years is one of wine's great acquired tastes.",
+    regions:[["🇩🇪 Mosel Slate Valleys","Germany","The pinnacle — slate mineral, laser acidity"],["🇫🇷 Alsace Grand Cru","France","Dry, intensely aromatic"],["🇦🇺 Clare Valley · Eden Valley","South Australia","Lime, petrol aged — stunning 20-year wines"],["🇦🇹 Wachau (Smaragd)","Austria","Powerful, mineral — rivals Alsace Grand Cru"]],
+    soils:[["Schist / Slate","#4A5A6A"],["Granite","#6A6A7A"],["Limestone","#A09070"],["Marlstone","#9A8870"]],
+    food:[["Pork","#7A4A1A"],["Spiced Dishes","#6A3A10"],["Thai Cuisine","#3A6A3A"],["Sushi","#2A4A6A"],["Duck","#6B3A00"]],
+    serve:"8–10 °C · White wine glass", age:"Dry: 5–15y · TBA: 30–50+y", peak:"5–20 years", decant:"No decanting",
+    parent:"Ancient Rhine variety", producers:"Egon Müller · J.J. Prüm · Donnhoff · Trimbach · Grosset (Clare Valley)",
+    file:"kc_riesling.pdf" },
+
+  { name:"Viognier", type:"white", col:"#5C4A10", origin:"Condrieu, Northern Rhône, France", flag:"🇫🇷",
+    synonyms:"Condrieu AOC · Château-Grillet",
+    tagline:"Nearly extinct in the 1960s · The most perfumed white · Drink young",
+    quote:"Condrieu at its best is one of the most hedonistic white wines on earth — apricot, honeysuckle, and marzipan in a glass of extraordinary fragrance.",
+    swatch:["#F5F0D0","#E8E0A0","#D8C870","#C8B050","#D0B840","#E8D070"],
+    swatchLabels:["Pale Gold","Light Gold","Gold","Deep Gold","Rich Gold","Oaked"],
+    radar:[4,1,2,3,5], rl:["Body","Sweet Pot.","Acidity","Alcohol","Aroma"],
+    attrs:[["Body",4,"Full · generous"],["Sweet Potential",1,"Virtually always dry"],["Acidity",2,"Low · broad"],["Alcohol",3,"Medium-high · 13.5–14.5%"]],
+    aromas_primary:[["Fruit",["Apricot","White Peach","Mango","Tangerine"],"#6A5010"],["Floral",["Honeysuckle","Jasmine","Orange Blossom","Acacia"],"#5A3A10"]],
+    aromas_tertiary:[["Rich / Aged",["Marzipan","Cream","White Pepper","Blossom Honey"],"#7A5A10"]],
+    palate1:"Viognier's defining quality is its extraordinary aromatic generosity — the nose leaps from the glass with apricot, white blossom, and exotic fruit. Low acidity means the wine feels broad and rich on the palate.",
+    palate2:"This low acid also means it ages relatively quickly — most should be drunk within 3–4 years. Great Condrieu is one of the most hedonistic white wines in the world. Low acid can make it feel flabby in warm vintages.",
+    regions:[["🇫🇷 Condrieu AOC","Northern Rhône, France","The definitive home — only ~160ha"],["🇺🇸 Santa Barbara · Central Coast","California, USA","Rhône Rangers — rich, floral"],["🇦🇺 Eden Valley","South Australia","Structured, complex — one of the best outside Rhône"]],
+    soils:[["Granite","#6A6A7A"],["Sandy","#C8A870"],["Schist / Slate","#4A5A6A"],["Decomposed Granite","#7A6A5A"]],
+    food:[["Lobster","#8C3A10"],["Scallops","#5A6A7A"],["Foie Gras","#7A6010"],["Chicken","#7A6030"],["Soft Cheese","#8A7A50"]],
+    serve:"10–12 °C · White Burgundy glass", age:"Most: 1–4y · Great Condrieu: up to 8y", peak:"2–5 years", decant:"No decanting",
+    parent:"Unknown — possibly native Rhône", producers:"Georges Vernay · Yves Cuilleron · E. Guigal (Condrieu) · Alban (CA)",
+    file:"kc_viognier.pdf" },
+
+  { name:"Chenin Blanc", type:"white", col:"#3A5A1A", origin:"Loire Valley, France", flag:"🇫🇷",
+    synonyms:"Steen (South Africa) · Pineau de la Loire",
+    tagline:"Most versatile white grape · Bone dry to dessert · Ages magnificently",
+    quote:"Savennières at 20 years and Quarts de Chaume at 50 years — the same grape at opposite ends of the spectrum, each extraordinary.",
+    swatch:["#F5F5D0","#E8E8A0","#D4D070","#C8C050","#D0C060","#E8E080"],
+    swatchLabels:["Pale Yellow","Light Gold","Gold","Amber Gold","Rich","Sweet"],
+    radar:[3,3,5,3,3], rl:["Body","Sweet Pot.","Acidity","Alcohol","Aroma"],
+    attrs:[["Body",3,"Light to full"],["Sweet Potential",5,"Dry to intensely sweet"],["Acidity",5,"Very high · laser-like"],["Alcohol",3,"Medium · 12.5–14%"]],
+    aromas_primary:[["Dry",["Quince","Green Apple","Beeswax","Chamomile"],"#3A5A1A"],["Off-Dry",["Pear","Honey","Ginger","White Peach"],"#5A5A10"]],
+    aromas_tertiary:[["Sweet / Aged",["Apricot","Marmalade","Saffron","Lanolin","Dried Apricot"],"#7A5A10"]],
+    palate1:"Chenin Blanc's defining characteristic is its combination of very high acidity with a naturally rich, waxy texture — a paradox that gives it balance and longevity across all sweetness levels.",
+    palate2:"In the great botrytis sweet wines, the combination of honey richness and rapier-like acidity creates wines that can genuinely age a century. Beeswax is the most distinctive aged character.",
+    regions:[["🇫🇷 Vouvray · Savennières","Loire, France","Bone dry to lusciously sweet"],["🇫🇷 Coteaux du Layon","Loire, France","The great botrytis sweet wines"],["🇿🇦 Swartland · Stellenbosch (Steen)","South Africa","Old vine — complex, textured, world-class"]],
+    soils:[["Tufa","#908A70"],["Schist / Slate","#4A5A6A"],["Clay","#6B3A2A"],["Sandy","#C8A870"]],
+    food:[["Roast Chicken","#7A6030"],["Pork","#7A4A1A"],["Smoked Fish","#4A5A6A"],["Brie","#7A7040"],["Goat Cheese","#6A6030"],["Foie Gras","#7A6010"]],
+    serve:"9–12 °C · White Burgundy glass", age:"Dry: 5–20y · Sweet botrytis: 30–50+y", peak:"5–20 years", decant:"No decanting",
+    parent:"Ancient Loire variety — 9th century", producers:"Nicolas Joly (Savennières) · Domaine Huet (Vouvray) · Eben Sadie (SA)",
+    file:"kc_chenin_blanc.pdf" },
+
+  { name:"Albariño", type:"white", col:"#1A5A4A", origin:"Rías Baixas, Galicia, Spain", flag:"🇪🇸",
+    synonyms:"Alvarinho (Vinho Verde, Portugal)",
+    tagline:"Spain's great seafood white · Saline · Atlantic · Born for the ocean",
+    quote:"Albariño with Galician shellfish is one of the world's most intuitive food and wine pairings — the wine tastes of the same sea.",
+    swatch:["#F5F8D0","#E8F0A8","#D4E880","#C0D860","#D0E070","#E0F090"],
+    swatchLabels:["Pale Green-Yellow","Light Yellow","Yellow","Vivid","Fresh","Bright"],
+    radar:[3,1,4,3,3], rl:["Body","Sweet Pot.","Acidity","Alcohol","Aroma"],
+    attrs:[["Body",3,"Medium · structured"],["Sweet Potential",1,"Bone dry"],["Acidity",4,"High · refreshing"],["Alcohol",3,"Medium · 12.5–13.5%"]],
+    aromas_primary:[["Primary",["White Peach","Apricot","Grapefruit","Lemon Zest"],"#1A5A4A"],["Marine",["Sea Brine","Saline Mineral","Sea Spray","White Flowers"],"#1A3A5A"]],
+    aromas_tertiary:[["Aged",["Almonds","Bitter Orange","Brioche","Mineral Depth"],"#3A4A20"]],
+    palate1:"Albariño's defining quality is the combination of citrus freshness, stone fruit richness, and a saline marine quality. The acidity is high and refreshing without being aggressive.",
+    palate2:"The finish has a characteristic slight bitterness that acts like a squeeze of lemon — it lifts the palate and makes you want another sip. In premium versions from the Salnés Valley, there is genuine mineral depth and age-worthiness.",
+    regions:[["🇪🇸 Rías Baixas — Salnés Valley","Galicia, Spain","The definitive home — granite, Atlantic"],["🇵🇹 Vinho Verde (Alvarinho)","Moncão, Portugal","Fuller, more textured premium expressions"]],
+    soils:[["Granite","#6A6A7A"],["Sandy","#C8A870"],["Alluvial","#8A8060"],["Schist / Slate","#4A5A6A"]],
+    food:[["Shellfish","#1A4A6B"],["Oysters","#1A3A5A"],["White Fish","#2A5A7A"],["Sushi","#2A4A6A"],["Ceviche","#1A5A5A"],["Tapas","#7A4A10"]],
+    serve:"8–10 °C · White wine glass", age:"Mostly 1–3y · premium: 5+y", peak:"1–4 years", decant:"No decanting",
+    parent:"Possibly related to Alvarinho — disputed", producers:"Pazo de Señoráns · Do Ferreiro · Mar de Frades · Fillaboa",
+    file:"kc_albarino.pdf" },
+
+  { name:"Grüner Veltliner", type:"white", col:"#1A4A2A", origin:"Wachau, Austria", flag:"🇦🇹",
+    synonyms:"GrüVe · Grüner",
+    tagline:"Austria's soul grape · White pepper fingerprint · Works with asparagus",
+    quote:"Grüner Veltliner is the only wine that handles asparagus — a vegetable that makes almost every other wine taste metallic.",
+    swatch:["#F5F8E0","#E8F0B0","#D0E880","#C0D860","#D0E070","#E0F090"],
+    swatchLabels:["Pale Yellow-Green","Light Yellow","Fresh Yellow","Vivid","Bright","Light"],
+    radar:[3,1,4,3,3], rl:["Body","Sweet Pot.","Acidity","Alcohol","Aroma"],
+    attrs:[["Body",3,"Light to medium"],["Sweet Potential",1,"Almost always dry"],["Acidity",4,"High · precise"],["Alcohol",3,"Medium · 12–14%"]],
+    aromas_primary:[["Defining",["White Pepper","Lime","Citrus Zest","Green Herb"],"#1A4A2A"],["Fruit",["Grapefruit","White Peach","Apple","Lemon"],"#2A5A10"]],
+    aromas_tertiary:[["Aged Smaragd",["Mineral","Almond","Smoke","Honey","White Truffle"],"#3A4A20"]],
+    palate1:"The white pepper note is the defining sensory marker — it appears on both nose and palate and is unmistakable. The acidity is high and refreshing. The wine feels clean and precise.",
+    palate2:"Served with Wiener Schnitzel — the peppery note harmonizes with the crisp golden coating perfectly. Grüner Veltliner is also the only wine that handles asparagus with genuine success.",
+    regions:[["🇦🇹 Wachau (Smaragd tier)","Lower Austria","The finest expression — granite, Danube"],["🇦🇹 Kamptal · Kremstal","Lower Austria","Elegant, mineral, excellent value"],["🇦🇹 Weinviertel DAC","Lower Austria","Lighter, everyday style"]],
+    soils:[["Alluvial","#8A8060"],["Limestone","#A09070"],["Loam","#7A6040"],["Clay","#6B3A2A"],["Loess","#C0A880"]],
+    food:[["Wiener Schnitzel","#7A6030"],["Asparagus","#3A6A2A"],["Sushi","#2A4A6A"],["Vegetables","#2A6A3A"],["White Fish","#2A5A7A"],["Mushrooms","#5A5A3A"]],
+    serve:"9–11 °C · White wine glass", age:"Most: 1–5y · Smaragd: 8–15y", peak:"3–10 years", decant:"No decanting",
+    parent:"Complex ancestry — Traminer and Burgundian varieties", producers:"F.X. Pichler · Emmerich Knoll · Hirsch · Bründlmayer · Loimer",
+    file:"kc_gruner_veltliner.pdf" },
+
+  { name:"Assyrtiko", type:"white", col:"#1A3A5C", origin:"Santorini, Greece", flag:"🇬🇷",
+    synonyms:"Santorini's soul · Asyrtiko",
+    tagline:"Volcanic · Saline · Electric acidity · Ungrafted ancient vines",
+    quote:"Santorini Assyrtiko has never had phylloxera — the volcanic ash soil kills the louse. The vines are some of the oldest ungrafted on earth.",
+    swatch:["#F8F8F0","#F0F5D8","#E8F0C0","#D8E8A0","#E0F0B0","#F0F8D0"],
+    swatchLabels:["Pale Straw","Light Green-Yellow","Yellow-Green","Vivid","Fresh","Bright"],
+    radar:[3,1,5,3,4], rl:["Body","Sweet Pot.","Acidity","Alcohol","Aroma"],
+    attrs:[["Body",3,"Medium · taut"],["Sweet Potential",1,"Bone dry · intense"],["Acidity",5,"Very high · extraordinary"],["Alcohol",3,"Medium · 13–14%"]],
+    aromas_primary:[["Primary",["Lemon","Lime","Citrus Zest","Sea Brine"],"#1A3A6B"],["Mineral",["Volcanic Mineral","Flint","Oyster Shell","Saline","Iodine"],"#2A3A4A"]],
+    aromas_tertiary:[["Aged",["Honey","Smoked Stone","Petrol-like","Dried Citrus"],"#4A4A20"]],
+    palate1:"Assyrtiko's defining quality is its extraordinary combination of intensity and acidity — the acidity is electric, almost startling, yet the fruit intensity and mineral depth more than match it.",
+    palate2:"The volcanic soils give the wine a unique smoky mineral quality with no equivalent elsewhere. It is one of the few Mediterranean whites that can genuinely age — the acidity provides the framework while the mineral depth develops complexity.",
+    regions:[["🇬🇷 Santorini PDO","Greece — volcanic island","The definitive home — basket-trained, ancient"],["🇬🇷 Halkidiki · Macedonia","Northern Greece","Mainland — more accessible, less volcanic"]],
+    soils:[["Volcanic Pumice","#7A7A7A"],["Ash","#6A6A6A"],["Basalt","#4A4A5A"],["Sandy","#C8A870"]],
+    food:[["Grilled Octopus","#3A3A6A"],["Oysters","#1A3A5A"],["Shellfish","#1A4A6B"],["White Fish","#2A5A7A"],["Sushi","#2A4A6A"],["Greek Mezze","#5A5A2A"]],
+    serve:"8–10 °C · White wine glass", age:"3–10y standard · Nychteri: 8–15y", peak:"3–8 years", decant:"No decanting",
+    parent:"Ancient Greek variety — pre-dates recorded viticulture", producers:"Domaine Sigalas · Gai'a · Argyros · Santo Wines · Hatzidakis",
+    file:"kc_assyrtiko.pdf" },
+];
+
+// ── HELPERS ───────────────────────────────────────────────────────────────────
+function radarSVG(scores, labels, color, size=180) {
+  const cx=size/2, cy=size/2, r=size*0.34, n=scores.length;
+  const pt=(i,f)=>{const a=Math.PI/2-i*2*Math.PI/n;return[cx+r*f*Math.cos(a),cy-r*f*Math.sin(a)];};
+  let rings='';
+  [0.25,0.5,0.75,1].forEach(f=>{
+    rings+=`<polygon points="${Array.from({length:n},(_,i)=>pt(i,f).join(',')).join(' ')}" fill="none" stroke="#E0D8CE" stroke-width="0.5"/>`;
+  });
+  let axes='';
+  for(let i=0;i<n;i++){const[x,y]=pt(i,1);axes+=`<line x1="${cx}" y1="${cy}" x2="${x}" y2="${y}" stroke="#C8C0B8" stroke-width="0.4"/>`;}
+  const dp=scores.map((s,i)=>{const f=Math.max(0.07,(s-1)/4*0.9+0.1);return pt(i,f);});
+  const pp=dp.map(p=>p.join(',')).join(' ');
+  const r2=parseInt(color.slice(1,3),16),g2=parseInt(color.slice(3,5),16),b2=parseInt(color.slice(5,7),16);
+  const fill=`rgba(${r2},${g2},${b2},0.18)`;
+  const dots=dp.map(([x,y])=>`<circle cx="${x}" cy="${y}" r="3" fill="${color}"/>`).join('');
+  const lbls=labels.map((l,i)=>{const[x,y]=pt(i,1.3);const a=x<cx-5?'end':x>cx+5?'start':'middle';return`<text x="${x}" y="${y+3}" text-anchor="${a}" font-size="7.5" font-family="Georgia" fill="#6B4C2A" font-weight="bold">${l.toUpperCase()}</text>`;}).join('');
+  return`<svg width="${size}" height="${size}" viewBox="0 0 ${size} ${size}" style="display:block;margin:auto;"><polygon points="${Array.from({length:n},(_,i)=>pt(i,1).join(',')).join(' ')}" fill="#FAF7F2"/>${rings}${axes}<polygon points="${pp}" fill="${fill}" stroke="${color}" stroke-width="1.8"/>${dots}${lbls}</svg>`;
+}
+
+function attrBars(attrs, color) {
+  return attrs.map(([lbl,val,note])=>`
+    <div class="attr-row">
+      <div class="attr-lbl">${lbl}</div>
+      <div class="attr-bars">${Array.from({length:5},(_,i)=>`<div class="bar" style="background:${i<val?color:'#DDD5C8'};"></div>`).join('')}</div>
+      <div class="attr-note">${note}</div>
+    </div>`).join('');
+}
+
+// ── RENDER GRID ───────────────────────────────────────────────────────────────
+let activeType='All', activeCountry='All';
+
+function matchesFilter(g) {
+  const typeOk = activeType==='All' || (activeType==='Red'&&g.type==='red') || (activeType==='White'&&g.type==='white');
+  const countries = { France:'🇫🇷', Italy:'🇮🇹', Spain:'🇪🇸', Germany:'🇩🇪', Austria:'🇦🇹', Greece:'🇬🇷' };
+  const countryOk = activeCountry==='All' || g.flag===countries[activeCountry];
+  return typeOk && countryOk;
+}
+
+function renderGrid() {
+  const grid=document.getElementById('grape-grid');
+  const count=document.getElementById('grape-count');
+  const filtered=GRAPES.filter(matchesFilter);
+  count.textContent=`Showing ${filtered.length} grape${filtered.length!==1?'s':''}`;
+  grid.innerHTML=filtered.map(g=>{
+    const swatchHtml=g.swatch.map((c,i)=>`<div class="swatch-s" style="background:${c};"></div>`).join('');
+    const aromaChips=g.aromas_primary.flatMap(([cat,aromas,col])=>aromas.slice(0,3).map(a=>`<span class="a-chip" style="background:${col};">${a}</span>`)).slice(0,6).join('');
+    const isWhite=g.type==='white';
+    return`<div class="gp-card" onclick="openPanel(${GRAPES.indexOf(g)})">
+      <div class="card-header" style="background:${g.col};">
+        <div class="card-kz">Kazmi Cellars · Grape Profile</div>
+        <div class="card-badge">${isWhite?'White Wine':'Red Wine'}</div>
+        <div class="card-name">${g.name}</div>
+        <div class="card-origin">${g.flag} ${g.origin}</div>
+        <div class="card-tagline">${g.tagline}</div>
+      </div>
+      <div class="card-swatch">${swatchHtml}</div>
+      <div class="card-body">
+        ${attrBars(g.attrs.slice(0,3), g.col)}
+        <div class="card-aromas">${aromaChips}</div>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+// ── FILTERS ───────────────────────────────────────────────────────────────────
+function buildFilters() {
+  const bar=document.getElementById('filters');
+  bar.innerHTML=`<span class="filter-label">Type:</span>`;
+  ['All','Red','White'].forEach(t=>{
+    const btn=document.createElement('button');
+    btn.className='filter-btn'+(t==='All'?' active':'');
+    btn.textContent=t; btn.dataset.filterType='type'; btn.dataset.value=t;
+    btn.onclick=()=>{
+      document.querySelectorAll('[data-filter-type="type"]').forEach(b=>b.classList.remove('active'));
+      btn.classList.add('active'); activeType=t; renderGrid();
+    };
+    bar.appendChild(btn);
+  });
+  const sep=document.createElement('div');
+  sep.className='filter-sep'; bar.appendChild(sep);
+  const cl=document.createElement('span');
+  cl.className='filter-label'; cl.textContent='Origin:'; bar.appendChild(cl);
+  ['All','France','Italy','Spain','Germany','Austria','Greece'].forEach(c=>{
+    const btn=document.createElement('button');
+    btn.className='filter-btn'+(c==='All'?' active':'');
+    btn.textContent=c; btn.dataset.filterType='country'; btn.dataset.value=c;
+    btn.onclick=()=>{
+      document.querySelectorAll('[data-filter-type="country"]').forEach(b=>b.classList.remove('active'));
+      btn.classList.add('active'); activeCountry=c; renderGrid();
+    };
+    bar.appendChild(btn);
+  });
+}
+
+// ── DETAIL PANEL ──────────────────────────────────────────────────────────────
+function openPanel(idx) {
+  const g=GRAPES[idx];
+  document.getElementById('panel-header').style.background=g.col;
+  document.getElementById('ph-name').textContent=g.name;
+  document.getElementById('ph-origin').textContent=`${g.flag} ${g.origin}`;
+  document.getElementById('ph-syn').textContent=`Synonyms: ${g.synonyms}`;
+  document.getElementById('ph-tagline').textContent=g.tagline;
+  document.getElementById('panel-swatch').innerHTML=g.swatch.map((c,i)=>{
+    const br=parseInt(c.slice(1,3),16)*.3+parseInt(c.slice(3,5),16)*.59+parseInt(c.slice(5,7),16)*.11;
+    return`<div class="ps-seg" style="background:${c};color:${br<128?'white':'#2C1A0E'};font-size:5.5px;font-style:italic;">${g.swatchLabels[i]}</div>`;
+  }).join('');
+
+  const soilChips=g.soils.map(([name,col])=>`<span class="p-chip" style="background:${col};">${name}</span>`).join('');
+  const foodChips=g.food.map(([name,col])=>`<span class="p-chip" style="background:${col};">${name}</span>`).join('');
+  const regRows=g.regions.map(([name,country,note],i)=>`<div class="reg-row"><div class="reg-name">${name}</div><div style="display:flex;flex-direction:column;gap:1px;"><div style="font-style:italic;font-size:8px;color:var(--gp-mid);">${country}</div><div class="reg-note">${note}</div></div></div>`).join('');
+  const aromaBlocks=[
+    `<div class="aroma-tier">PRIMARY — from the grape</div>`,
+    ...g.aromas_primary.map(([cat,aromas,col])=>`<div class="aroma-sec"><div style="font-size:8px;font-weight:bold;color:var(--gp-mid);margin-bottom:4px;">${cat}</div><div class="chip-grid">${aromas.map(a=>`<span class="p-chip" style="background:${col};">${a}</span>`).join('')}</div></div>`),
+    `<div class="aroma-tier" style="margin-top:10px;">TERTIARY — with aging in bottle</div>`,
+    ...g.aromas_tertiary.map(([cat,aromas,col])=>`<div class="aroma-sec"><div class="chip-grid">${aromas.map(a=>`<span class="p-chip" style="background:${col};">${a}</span>`).join('')}</div></div>`),
+  ].join('');
+
+  document.getElementById('panel-body').innerHTML=`
+    <div class="p-sec">
+      <div class="p-sec-hdr" style="background:${g.col};">STRUCTURE & ATTRIBUTES</div>
+      <div style="display:flex;gap:16px;align-items:flex-start;">
+        <div style="flex:0 0 auto;">${radarSVG(g.radar,g.rl,g.col,175)}</div>
+        <div style="flex:1;padding-top:8px;">${attrBars(g.attrs,g.col)}<div style="margin-top:12px;padding:8px 10px;background:var(--gp-goldL);border-left:3px solid var(--gp-gold);"><div style="font-size:8px;font-weight:bold;color:var(--gp-mid);">Serve / Age</div><div style="font-size:9px;color:var(--gp-dark);margin-top:3px;">${g.serve}</div><div style="font-size:9px;color:var(--gp-dark);margin-top:2px;">Peak: ${g.peak}</div><div style="font-size:9px;color:var(--gp-dark);margin-top:2px;">Decant: ${g.decant}</div></div></div>
+      </div>
+    </div>
+
+    <div class="p-sec">
+      <div class="p-sec-hdr" style="background:${g.col};">AROMA PROFILE</div>
+      ${aromaBlocks}
+    </div>
+
+    <div class="p-sec">
+      <div class="p-sec-hdr" style="background:${g.col};">PALATE PROFILE</div>
+      <p class="story-text">${g.palate1}</p>
+      <p class="story-text" style="margin-top:10px;">${g.palate2}</p>
+    </div>
+
+    <div class="p-sec">
+      <div class="p-sec-hdr" style="background:${g.col};">KEY REGIONS</div>
+      ${regRows}
+    </div>
+
+    <div class="p-sec">
+      <div class="p-sec-hdr" style="background:${g.col};">SOIL AFFINITY</div>
+      <div class="chip-grid" style="padding:4px 0;">${soilChips}</div>
+    </div>
+
+    <div class="p-sec">
+      <div class="p-sec-hdr" style="background:${g.col};">PAIRS WELL WITH</div>
+      <div class="chip-grid" style="padding:4px 0;">${foodChips}</div>
+    </div>
+
+    <div class="p-sec">
+      <div class="p-sec-hdr" style="background:${g.col};">IN THE CELLAR</div>
+      <div class="p-2col">
+        <div class="p-fact"><div class="p-lbl">Aging Potential</div><div class="p-val">${g.age}</div></div>
+        <div class="p-fact"><div class="p-lbl">Peak Window</div><div class="p-val">${g.peak}</div></div>
+        <div class="p-fact"><div class="p-lbl">Serve At</div><div class="p-val">${g.serve.split('·')[0].trim()}</div></div>
+        <div class="p-fact"><div class="p-lbl">Decanting</div><div class="p-val">${g.decant}</div></div>
+      </div>
+      <div style="padding:8px 10px;background:var(--gp-alt);border-bottom:1px solid var(--gp-tan);">
+        <div class="p-lbl">Famous Producers</div><div class="p-val" style="margin-top:3px;">${g.producers}</div>
+      </div>
+      ${g.parent?`<div style="padding:8px 10px;background:var(--gp-cream);"><div class="p-lbl">Parentage</div><div class="p-val" style="margin-top:3px;font-style:italic;">${g.parent}</div></div>`:''}
+    </div>
+
+    <div class="p-quote">"${g.quote}"</div>
+
+    <a class="p-download" href="documents/${g.file}" target="_blank" rel="noopener" style="background:${g.col};">
+      ↓ Download ${g.name} Full Profile PDF
+    </a>
+  `;
+
+  document.getElementById('overlay').classList.add('open');
+  document.getElementById('panel').classList.add('open');
+  document.body.style.overflow='hidden';
+}
+
+function closePanel() {
+  document.getElementById('overlay').classList.remove('open');
+  document.getElementById('panel').classList.remove('open');
+  document.body.style.overflow='';
+}
+
+document.addEventListener('keydown',e=>{if(e.key==='Escape')closePanel();});
+buildFilters();
+renderGrid();
+</script>
+
+<script src="footer.js"></script>
+</body>
+</html>
