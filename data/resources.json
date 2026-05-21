@@ -127,8 +127,8 @@
       "file": "documents/kc_whats_in_bottle_.pdf"
     },
     {
-      "title": "Guide to Specific Grapes",
-      "description": "All about the major grapes. Your one stop shop!",
+      "title": "Brief: Guide to Specific Grapes",
+      "description": "Breif: All about the major grapes. Your one stop shop!",
       "category": "Useful Tools",
       "file": "/documents/kc_grape_guide_.pdf"
     },
@@ -137,6 +137,12 @@
       "description": "Whats in a Chablis? Breaks down what varietals correlate to specific regions.",
       "category": "Useful Tools",
       "file": "documents/kc_region_grapes_.pdf"
+    },
+    {
+      "title": "In Depth: Guide to Grapes",
+      "description": "Go deeper in to each varietal. Lets geek out on wine!",
+      "category": "Useful tools",
+      "file": "/documents/kc_grape_profiles_complete_.pdf"
     }
   ]
 }
