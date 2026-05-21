@@ -143,6 +143,12 @@
       "description": "Go deeper in to each varietal. Lets geek out on wine!",
       "category": "Useful tools",
       "file": "/documents/kc_grape_profiles_complete_.pdf"
+    },
+    {
+      "title": "In Depth: Guide to Regions",
+      "description": "Lets go deeper in to some of the major regions of the world. Soile, climate, location and so much more!",
+      "category": "Usefull Tools",
+      "file": "/documents/kc_regions_guide_.pdf"
     }
   ]
 }
