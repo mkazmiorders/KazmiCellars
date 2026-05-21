@@ -149,6 +149,12 @@
       "description": "Lets go deeper in to some of the major regions of the world. Soil, climate, location and so much more!",
       "category": "Useful Tools",
       "file": "/documents/kc_regions_guide_.pdf"
+    },
+    {
+      "title": "How Wine Ages in a Barrel",
+      "description": "Ever wonder what happens inside the barrell? Lets find out!",
+      "category": "Wine Education",
+      "file": "/documents/kc_barrel_aging_.pdf"
     }
   ]
 }
