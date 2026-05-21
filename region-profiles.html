@@ -1,0 +1,840 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Wine Regions — Kazmi Cellars</title>
+<link rel="stylesheet" href="style.css" />
+<style>
+.gp-hero, .gp-filters, .grid-section, .gp-overlay, .gp-panel, .gp-card { box-sizing: border-box; }
+:root {
+  --gp-cream: #f5f0e8; --gp-dark: #2C1A0E; --gp-mid: #6B4C2A;
+  --gp-tan: #D9C8A8; --gp-burg: #5C1A1A; --gp-gold: #8b6914;
+  --gp-goldL: #FFF4E0; --gp-alt: #F3EDE5; --gp-white: #faf8f4;
+  --gp-serif: 'Cormorant Garamond', Georgia, serif;
+  --gp-sans: 'Raleway', Georgia, sans-serif;
+}
+
+/* ── HERO ── */
+.gp-hero { background: var(--gp-burg); padding: 52px 32px 44px; text-align: center; border-bottom: 3px solid var(--gp-gold); }
+.gp-hero-kz { font-style: italic; font-size: 11px; color: var(--gp-gold); letter-spacing: .14em; margin-bottom: 10px; }
+.gp-hero-title { font-family: var(--gp-serif); font-size: clamp(28px,5vw,46px); font-weight: 600; color: #F5ECD8; line-height: 1.05; margin-bottom: 12px; }
+.gp-hero-sub { font-style: italic; font-size: 14px; color: rgba(245,236,216,.7); max-width: 580px; margin: 0 auto; line-height: 1.6; font-family: var(--gp-serif); }
+.gp-hero-dl { display: inline-flex; align-items: center; gap: 8px; margin-top: 22px; padding: 11px 24px; background: var(--gp-gold); color: #2C1A0E; font-family: var(--gp-sans); font-size: 12px; font-weight: 600; letter-spacing: .06em; text-transform: uppercase; border-radius: 2px; text-decoration: none; transition: opacity .15s; }
+.gp-hero-dl:hover { opacity: .88; }
+
+/* ── FILTERS ── */
+.gp-filters {
+  background: var(--gp-alt);
+  border-bottom: 1px solid var(--gp-tan);
+  padding: 14px 32px;
+  display: flex; flex-wrap: wrap; gap: 8px; align-items: center;
+}
+.filter-label { font-size: 10px; font-weight: bold; letter-spacing: .15em; text-transform: uppercase; color: var(--gp-mid); margin-right: 4px; font-family: var(--gp-sans); }
+.filter-btn {
+  font-family: var(--gp-sans); font-size: 11px;
+  padding: 6px 14px; border: 1px solid var(--gp-tan);
+  background: var(--gp-cream); color: var(--gp-mid);
+  border-radius: 2px; cursor: pointer; transition: all .18s; letter-spacing: .04em;
+}
+.filter-btn:hover { border-color: var(--gp-gold); color: var(--gp-dark); }
+.filter-btn.active { background: var(--gp-burg); color: var(--gp-white); border-color: var(--gp-burg); }
+
+/* ── GRID ── */
+.grid-section { padding: 28px 32px 48px; }
+.region-count { font-style: italic; font-size: 12px; color: var(--gp-mid); margin-bottom: 18px; font-family: var(--gp-serif); }
+.gp-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 18px; }
+
+/* ── REGION CARD ── */
+.gp-card {
+  background: var(--gp-white);
+  border: 1px solid var(--gp-tan);
+  border-radius: 2px;
+  overflow: hidden;
+  cursor: pointer;
+  transition: transform .2s, box-shadow .2s;
+}
+.gp-card:hover { transform: translateY(-3px); box-shadow: 0 6px 24px rgba(44,26,14,0.12); }
+.card-header {
+  padding: 16px 16px 12px;
+  color: white;
+  position: relative;
+}
+.card-kz { font-style: italic; font-size: 8px; color: rgba(255,255,255,.45); letter-spacing: .1em; }
+.card-name { font-family: var(--gp-serif); font-weight: 600; font-size: 19px; line-height: 1.15; margin: 4px 0 3px; }
+.card-country { font-style: italic; font-size: 10.5px; color: rgba(255,255,255,.7); font-family: var(--gp-serif); }
+.card-tagline { font-style: italic; font-size: 9.5px; color: rgba(255,255,255,.55); margin-top: 6px; line-height: 1.4; font-family: var(--gp-serif); }
+.card-body { padding: 12px 16px; background: var(--gp-cream); }
+.card-facts { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; margin-bottom: 10px; }
+.card-fact { }
+.fact-lbl { font-size: 8px; font-weight: bold; letter-spacing: .12em; text-transform: uppercase; color: var(--gp-mid); font-family: var(--gp-sans); }
+.fact-val { font-size: 10px; color: var(--gp-dark); margin-top: 1px; font-family: var(--gp-sans); }
+.card-climate { display: flex; flex-direction: column; gap: 5px; margin-bottom: 10px; }
+.clim-row { display: flex; align-items: center; gap: 8px; }
+.clim-lbl { font-size: 8.5px; color: var(--gp-mid); width: 52px; flex-shrink: 0; font-style: italic; font-family: var(--gp-serif); }
+.clim-track { flex: 1; height: 7px; background: #E8E0D4; border-radius: 4px; position: relative; overflow: visible; }
+.clim-fill { height: 100%; border-radius: 4px; }
+.clim-dot { width: 12px; height: 12px; border-radius: 50%; border: 2px solid white; position: absolute; top: -2.5px; transform: translateX(-50%); box-shadow: 0 1px 4px rgba(0,0,0,.2); }
+.card-grapes { display: flex; flex-wrap: wrap; gap: 4px; }
+.grape-chip { font-style: italic; font-size: 8.5px; padding: 2px 7px; border-radius: 2px; color: white; font-family: var(--gp-serif); }
+.grape-chip.red { background: #6B1A1A; }
+.grape-chip.white { background: #1A3A5C; }
+
+/* ── DETAIL PANEL ── */
+.gp-overlay {
+  position: fixed; inset: 0; background: rgba(44,26,14,.45);
+  z-index: 2000; opacity: 0; pointer-events: none; transition: opacity .25s;
+}
+.gp-overlay.open { opacity: 1; pointer-events: all; }
+.gp-panel {
+  position: fixed; top: 0; right: 0; height: 100vh;
+  width: min(640px, 100vw);
+  background: var(--gp-cream);
+  z-index: 2001;
+  overflow-y: auto;
+  transform: translateX(100%); transition: transform .3s cubic-bezier(.4,0,.2,1);
+}
+.gp-panel.open { transform: translateX(0); }
+.panel-header { padding: 20px 24px 16px; color: white; position: sticky; top: 0; z-index: 5; }
+.panel-kz { font-style: italic; font-size: 9px; color: var(--gp-gold); }
+.panel-name { font-family: var(--gp-serif); font-weight: 600; font-size: 28px; line-height: 1.1; margin: 6px 0 4px; }
+.panel-country { font-style: italic; font-size: 11.5px; color: rgba(255,255,255,.75); font-family: var(--gp-serif); }
+.panel-tagline { font-style: italic; font-size: 10.5px; color: rgba(255,255,255,.55); margin-top: 6px; line-height: 1.5; font-family: var(--gp-serif); }
+.panel-close {
+  position: absolute; top: 16px; right: 20px;
+  background: rgba(255,255,255,.15); border: none; color: white;
+  width: 32px; height: 32px; border-radius: 50%; cursor: pointer;
+  font-size: 18px; display: flex; align-items: center; justify-content: center;
+}
+.panel-close:hover { background: rgba(255,255,255,.25); }
+
+.panel-body { padding: 0 24px 32px; }
+.panel-swatch { display: flex; height: 14px; margin: 0 -24px; }
+.swatch-seg { flex: 1; display: flex; align-items: center; justify-content: center; font-size: 5px; color: white; font-style: italic; }
+
+/* Panel sections */
+.p-sec { margin-top: 20px; }
+.p-sec-hdr {
+  font-size: 8px; font-weight: bold; letter-spacing: .2em; text-transform: uppercase;
+  color: white; background: var(--gp-burg);
+  padding: 5px 10px 4px; margin: 0 -24px 10px; font-family: var(--gp-sans);
+}
+.p-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0; }
+.p-fact { padding: 7px 10px; border-bottom: 1px solid var(--gp-tan); }
+.p-fact:nth-child(odd) { background: var(--gp-alt); border-right: 1px solid var(--gp-tan); }
+.p-fact:nth-child(even) { background: var(--gp-cream); }
+.p-lbl { font-size: 8px; font-weight: bold; color: var(--gp-mid); font-family: var(--gp-sans); }
+.p-val { font-size: 10px; color: var(--gp-dark); margin-top: 2px; font-family: var(--gp-sans); }
+
+/* Radar chart */
+.radar-climate-row { display: flex; gap: 16px; align-items: flex-start; margin-top: 4px; }
+.radar-wrap { flex: 1; }
+.climate-wrap { flex: 1; }
+.climate-bars { display: flex; flex-direction: column; gap: 12px; margin-top: 8px; }
+.c-bar-row { }
+.c-bar-lbl { display: flex; justify-content: space-between; font-size: 9.5px; color: var(--gp-mid); margin-bottom: 5px; font-family: var(--gp-serif); }
+.c-bar-lbl span { font-style: italic; }
+.c-bar-track { height: 10px; background: #E8E0D4; border-radius: 5px; position: relative; }
+.c-bar-fill { height: 100%; border-radius: 5px; }
+.c-bar-dot { width: 16px; height: 16px; border-radius: 50%; border: 2.5px solid white; position: absolute; top: -3px; transform: translateX(-50%); box-shadow: 0 2px 6px rgba(0,0,0,.2); }
+
+/* Story text */
+.story-text { font-size: 11px; line-height: 1.75; color: var(--gp-dark); text-align: justify; font-family: var(--gp-sans); }
+.story-text + .story-text { margin-top: 10px; }
+
+/* Chip grids */
+.chip-grid { display: flex; flex-wrap: wrap; gap: 5px; margin-top: 6px; }
+.p-chip { font-style: italic; font-size: 9.5px; padding: 3px 9px; border-radius: 2px; color: white; font-family: var(--gp-serif); }
+.p-chip.red { background: #6B1A1A; }
+.p-chip.white { background: #1A3A5C; }
+.soil-chip { font-style: italic; font-size: 9.5px; padding: 3px 9px; border-radius: 2px; color: white; font-family: var(--gp-serif); }
+.sub-chip { font-style: italic; font-size: 9.5px; padding: 3px 9px; border-radius: 2px; color: var(--gp-dark); background: var(--gp-alt); border: 1px solid var(--gp-tan); font-family: var(--gp-serif); }
+
+/* Quote */
+.p-quote {
+  font-style: italic; font-size: 12px; line-height: 1.6;
+  color: var(--gp-dark); background: var(--gp-goldL);
+  border-left: 3px solid var(--gp-gold);
+  padding: 12px 16px; margin-top: 20px; font-family: var(--gp-serif);
+}
+
+@media (max-width: 640px) {
+  .gp-hero { padding: 36px 16px 28px; }
+  .gp-filters { padding: 10px 16px; }
+  .grid-section { padding: 20px 16px 40px; }
+  .panel-body { padding: 0 16px 24px; }
+  .p-sec-hdr { margin: 0 -16px 10px; }
+  .panel-swatch { margin: 0 -16px; }
+  .radar-climate-row { flex-direction: column; }
+}
+</style>
+</head>
+<body>
+
+<script src="nav.js"></script>
+
+<section class="gp-hero">
+  <div class="gp-hero-kz">Kazmi Cellars · Wine Education</div>
+  <h1 class="gp-hero-title">Famous Wine Regions</h1>
+  <p class="gp-hero-sub">What makes each region unique — soil, climate, geography, and the grapes they define. Click any region to explore.</p>
+  <a class="gp-hero-dl" href="documents/kc_regions_guide_.pdf" target="_blank" rel="noopener">↓ Download the Complete Regions Guide PDF</a>
+</section>
+
+<div class="gp-filters" id="filters">
+  <span class="filter-label">Filter:</span>
+</div>
+
+<section class="grid-section">
+  <div class="region-count" id="region-count"></div>
+  <div class="gp-grid" id="region-grid"></div>
+</section>
+
+<!-- Overlay + Detail Panel -->
+<div class="gp-overlay" id="overlay" onclick="closePanel()"></div>
+<div class="gp-panel" id="panel">
+  <div class="panel-header" id="panel-header">
+    <button class="panel-close" onclick="closePanel()">✕</button>
+    <div class="panel-kz">Kazmi Cellars · Wine Region</div>
+    <div class="panel-name" id="ph-name"></div>
+    <div class="panel-country" id="ph-country"></div>
+    <div class="panel-tagline" id="ph-tagline"></div>
+  </div>
+  <div class="panel-swatch" id="panel-swatch"></div>
+  <div class="panel-body" id="panel-body"></div>
+</div>
+
+<script>
+// ── REGION DATA ───────────────────────────────────────────────────────────────
+const REGIONS = [
+  { name:"Bordeaux — Left Bank", country:"France", flag:"🇫🇷", col:"#5C1A1A",
+    climate:"Maritime Temperate", lat:"44–45°N", elev:"0–100m", rainfall:"~900mm/yr",
+    temp:3, rain:4, radar:[5,3,5,5,5], rl:["Body","Acidity","Tannin","Aging","Prestige"],
+    tagline:"The world's most famous wine region · Cabernet country · Built to age",
+    quote:"The Médoc's deep gravel beds were deposited by the ancient Garonne river — the geology of a great wine region written 2 million years ago.",
+    subs:["Médoc","Haut-Médoc","Pauillac","Saint-Julien","Margaux","Graves","Pessac-Léognan"],
+    reds:["Cabernet Sauvignon","Merlot","Cabernet Franc","Petit Verdot"],
+    whites:["Sauvignon Blanc","Sémillon"],
+    soils:[["Deep Gravel","#8C7048"],["Clay-Limestone","#8A7050"],["Sandy Gravel","#B09060"]],
+    story1:"The Left Bank of the Gironde estuary is defined by deep gravel beds deposited by the ancient Garonne river. Cabernet Sauvignon dominates because its thick skin thrives in well-drained, low-fertility gravel — the vine sends roots deep to find water, concentrating flavour. Gravel also reflects heat upward, extending the ripening season.",
+    story2:"The 1855 Classification — still largely in use — ranked 61 châteaux into five growths. Pauillac alone contains three First Growths: Lafite Rothschild, Mouton Rothschild, and Latour. The wines are built for decades of aging — a Premier Cru at release is typically 15–20 years from its peak.",
+    styles:"Cabernet-dominant blends · structured, tannic, cassis-driven · built for 15–50 years",
+    producers:"Châteaux Latour · Lafite Rothschild · Mouton Rothschild · Margaux · Haut-Brion",
+    file:"kc_bordeaux___left_bank.pdf" },
+
+  { name:"Bordeaux — Right Bank", country:"France", flag:"🇫🇷", col:"#6B2A1A",
+    climate:"Maritime Temperate", lat:"44–45°N", elev:"5–120m", rainfall:"~900mm/yr",
+    temp:3, rain:4, radar:[4,3,4,5,5], rl:["Body","Acidity","Tannin","Aging","Prestige"],
+    tagline:"Merlot's spiritual home · Pétrus · Clay over limestone",
+    quote:"Pétrus is almost entirely Merlot grown on blue clay — the most expensive wine in the world from the world's most planted red grape.",
+    subs:["Pomerol","Saint-Émilion","Fronsac","Canon-Fronsac"],
+    reds:["Merlot","Cabernet Franc","Cabernet Sauvignon"],
+    whites:["Sauvignon Blanc","Sémillon"],
+    soils:[["Blue Clay","#4A4A6A"],["Limestone Plateau","#A09070"],["Sandy Gravel","#B09060"]],
+    story1:"Pomerol's blue clay plateau holds moisture and warmth — perfect for Merlot. Saint-Émilion sits on a limestone plateau with clay at its base. The Right Bank wines are generally more approachable younger than Left Bank equivalents.",
+    story2:"Pétrus — arguably the world's most expensive wine — is almost 100% Merlot, the definitive rebuttal to anyone who dismisses it as a lesser grape. The Right Bank's Merlot dominance gives the wines a plush, generous texture.",
+    styles:"Merlot-dominant blends · plush, velvety · earlier-maturing than Left Bank",
+    producers:"Pétrus · Le Pin · Cheval Blanc · Lafleur · L'Angélus · Ausone",
+    file:"kc_bordeaux___right_bank.pdf" },
+
+  { name:"Burgundy — Côte d'Or", country:"France", flag:"🇫🇷", col:"#4A1A5C",
+    climate:"Continental Marginal", lat:"47–47.5°N", elev:"200–400m", rainfall:"~650mm/yr",
+    temp:2, rain:3, radar:[3,5,2,5,5], rl:["Body","Acidity","Elegance","Aging","Prestige"],
+    tagline:"The world's most compelling terroir argument · Pinot Noir + Chardonnay only",
+    quote:"The Côte d'Or's soil changes every few metres — explaining why vineyards separated by a stone wall produce wines that taste worlds apart.",
+    subs:["Gevrey-Chambertin","Chambolle-Musigny","Vosne-Romanée","Pommard","Volnay","Meursault","Puligny-Montrachet"],
+    reds:["Pinot Noir"],
+    whites:["Chardonnay"],
+    soils:[["Limestone","#A09070"],["Marlstone","#9A8870"],["Clay-Limestone","#8A7050"]],
+    story1:"The Côte d'Or is the most expensive agricultural land in the world per hectare. The combination of cool climate, Jurassic limestone, and centuries of viticultural refinement has produced wine's greatest terroir argument. Gevrey-Chambertin and Chambolle-Musigny are adjacent villages producing wines that taste worlds apart.",
+    story2:"Grand Cru vineyards represent less than 2% of Burgundy's production. Domaine de la Romanée-Conti's 1.8-hectare Romanée-Conti produces ~6,000 bottles per year and sells for $15,000–$50,000+ per bottle.",
+    styles:"Red: elegant, silky Pinot Noir · White: rich, complex Chardonnay · Both age magnificently",
+    producers:"DRC · Leroy · Rousseau · Roumier · Leflaive · Coche-Dury · Roulot",
+    file:"kc_burgundy___cote_d'or.pdf" },
+
+  { name:"Champagne", country:"France", flag:"🇫🇷", col:"#2A3A5C",
+    climate:"Cool Continental", lat:"49–50°N", elev:"90–300m", rainfall:"~650mm/yr",
+    temp:1, rain:3, radar:[2,5,1,4,5], rl:["Body","Acidity","Finesse","Aging","Prestige"],
+    tagline:"The world's greatest sparkling wine · Chalk · The northernmost great region",
+    quote:"Champagne's chalk absorbs winter rain and seals it beneath a hard crust in summer — a natural underground reservoir feeding the vine through drought.",
+    subs:["Montagne de Reims","Vallée de la Marne","Côte des Blancs","Côte des Bar"],
+    reds:["Pinot Noir","Pinot Meunier"],
+    whites:["Chardonnay"],
+    soils:[["Chalk","#B0A890"],["Clay over Chalk","#8A7050"]],
+    story1:"Champagne is the most northerly great French wine region — so cold that grapes rarely ripen enough for still wine. This limitation became an asset: high natural acidity and lower alcohol are perfect for the traditional method sparkling process. The chalk provides the caves where wine ages for years.",
+    story2:"The traditional method creates fine, persistent bubbles and autolytic complexity (brioche, toast, cream). The grandes maisons blend dozens of base wines from different villages to create a consistent house style — a feat of blending artistry.",
+    styles:"Non-vintage Brut · Vintage · Blanc de Blancs · Blanc de Noirs · Prestige Cuvée · Rosé",
+    producers:"Krug · Dom Pérignon · Cristal (Roederer) · Bollinger · Salon · Selosse",
+    file:"kc_champagne.pdf" },
+
+  { name:"Northern Rhône", country:"France", flag:"🇫🇷", col:"#2A1A4A",
+    climate:"Continental with Mediterranean influence", lat:"44.5–45.5°N", elev:"100–400m", rainfall:"~650mm/yr",
+    temp:3, rain:2, radar:[5,3,5,5,5], rl:["Body","Acidity","Tannin","Aging","Prestige"],
+    tagline:"Syrah's spiritual home · Granite slopes · Iron and violets",
+    quote:"Hermitage grown on ancient Precambrian granite produces Syrah that rivals any red wine on earth for complexity and longevity.",
+    subs:["Hermitage","Côte-Rôtie","Cornas","Saint-Joseph","Crozes-Hermitage","Condrieu"],
+    reds:["Syrah"],
+    whites:["Viognier","Marsanne","Roussanne"],
+    soils:[["Granite","#6A6A7A"],["Gneiss","#7A7A8A"],["Schist / Slate","#4A5A6A"]],
+    story1:"The Northern Rhône is Syrah's definitive home — the only red grape grown in this narrow granite corridor. The Mistral wind keeps vines dry and disease-free. Côte-Rôtie is divided between Côte Brune (iron schist, structured) and Côte Blonde (granite, perfumed).",
+    story2:"Hermitage — the granite hill above Tain-l'Hermitage — produces some of the most age-worthy wines on earth. Condrieu and Château-Grillet are tiny white wine appellations dedicated entirely to Viognier — the most perfumed white grape.",
+    styles:"Red: iron-mineral, peppery Syrah · White: perfumed Viognier (Condrieu) · Marsanne/Roussanne",
+    producers:"Guigal · Paul Jaboulet Aîné · Jean-Louis Chave · Thierry Allemand · Clape",
+    file:"kc_northern_rhone.pdf" },
+
+  { name:"Southern Rhône", country:"France", flag:"🇫🇷", col:"#7A3A1A",
+    climate:"Mediterranean", lat:"43.5–44.5°N", elev:"50–500m", rainfall:"~650mm/yr",
+    temp:4, rain:2, radar:[4,2,3,3,4], rl:["Body","Acidity","Warmth","Aging","Prestige"],
+    tagline:"GSM blends · Garrigue · Galets Roulés · The sun-drenched south",
+    quote:"The large river stones of Châteauneuf-du-Pape absorb heat all day and radiate it back at night — the vineyard's own central heating system.",
+    subs:["Châteauneuf-du-Pape","Gigondas","Vacqueyras","Lirac","Tavel"],
+    reds:["Grenache","Syrah","Mourvèdre","Cinsault"],
+    whites:["Grenache Blanc","Clairette","Roussanne"],
+    soils:[["Galets Roulés (rounded stones)","#9A8A6A"],["Clay-Sand","#9A8060"],["Limestone","#A09070"]],
+    story1:"The Southern Rhône opens into a wide, sunny Mediterranean landscape. Châteauneuf-du-Pape's galets roulés — large smooth river stones — absorb heat during the day and release it overnight, extending the ripening season and pushing Grenache to very high alcohol (often 15–16%).",
+    story2:"Châteauneuf-du-Pape was the first French AOC (1936) and allows up to 18 permitted grape varieties. Most wines are dominated by Grenache blended with Syrah and Mourvèdre. The distinctive garrigue character — wild Mediterranean herbs — is unmistakable.",
+    styles:"Full-bodied GSM blends · garrigue-scented · high alcohol · Tavel: France's most famous rosé",
+    producers:"Château Rayas · Château Beaucastel · Clos des Papes · Domaine du Vieux Télégraphe",
+    file:"kc_southern_rhone.pdf" },
+
+  { name:"Loire Valley", country:"France", flag:"🇫🇷", col:"#1A5A3A",
+    climate:"Oceanic / Continental", lat:"47–48°N", elev:"20–200m", rainfall:"~700mm/yr",
+    temp:2, rain:3, radar:[2,5,2,4,4], rl:["Body","Acidity","Freshness","Aging","Diversity"],
+    tagline:"France's garden river · Chenin · Sauvignon · Cab Franc · 1000km of variety",
+    quote:"The Loire produces bone-dry mineral Muscadet, off-dry Vouvray, intensely sweet Quarts de Chaume, and elegant Sancerre — all from the same river valley.",
+    subs:["Muscadet","Anjou","Saumur","Vouvray","Chinon","Bourgueil","Sancerre","Pouilly-Fumé"],
+    reds:["Cabernet Franc","Pinot Noir","Gamay"],
+    whites:["Chenin Blanc","Sauvignon Blanc","Melon de Bourgogne"],
+    soils:[["Tufa (tuffeau)","#908A70"],["Schist / Slate","#4A5A6A"],["Flint (silex)","#6A6A8A"],["Granite","#6A6A7A"]],
+    story1:"The Loire is France's most geologically diverse wine river — 1,000km from the Atlantic to central France. The western end (Muscadet) sits on granite giving saline mineral whites. The middle (Vouvray) has tuffeau limestone giving Chenin Blanc extraordinary aging potential. The eastern end (Sancerre) has Kimmeridgian limestone producing the world's most mineral Sauvignon Blanc.",
+    story2:"Chenin Blanc's extreme versatility — bone dry to intensely sweet, still and sparkling — is best expressed here. Savennières is one of France's greatest dry whites; Quarts de Chaume can age 50+ years. Chinon and Bourgueil produce France's most underrated Cabernet Franc.",
+    styles:"Bone-dry mineral whites · off-dry Chenin · elegant Cab Franc reds · Crémant de Loire",
+    producers:"Didier Dagueneau · Nicolas Joly · Domaine Huet · Henri Bourgeois · Charles Joguet",
+    file:"kc_loire_valley.pdf" },
+
+  { name:"Alsace", country:"France", flag:"🇫🇷", col:"#5A2A5C",
+    climate:"Semi-Continental (Vosges protected)", lat:"47.5–48.5°N", elev:"170–400m", rainfall:"~500mm/yr",
+    temp:3, rain:1, radar:[3,4,3,4,4], rl:["Body","Acidity","Aroma","Aging","Diversity"],
+    tagline:"Germany's grapes · France's cuisine · The most aromatic whites in the world",
+    quote:"The Vosges mountains create a dramatic rain shadow — Alsace receives less rainfall than Marseille despite being in northeastern France.",
+    subs:["Bas-Rhin","Haut-Rhin","51 Grand Cru vineyards"],
+    reds:["Pinot Noir (minor)"],
+    whites:["Riesling","Gewurztraminer","Pinot Gris","Muscat","Pinot Blanc"],
+    soils:[["Granite","#6A6A7A"],["Limestone","#A09070"],["Sandstone","#B09060"],["Schist / Slate","#4A5A6A"]],
+    story1:"Alsace is one of the world's most geologically diverse wine regions — 13 distinct soil types across a narrow strip. The Vosges Mountains block Atlantic rainfall, making Alsace paradoxically one of France's driest and sunniest regions despite its northeastern location.",
+    story2:"The 51 Grand Cru vineyards reflect geological diversity — neighbouring Grand Cru sites taste completely different. Vendange Tardive and Sélection de Grains Nobles sweet wine styles are among France's most compelling.",
+    styles:"Full-bodied dry whites · Vendange Tardive (late harvest) · SGN (botrytis sweet) · Crémant",
+    producers:"Trimbach · Hugel · Zind-Humbrecht · Weinbach · Marcel Deiss · Josmeyer",
+    file:"kc_alsace.pdf" },
+
+  { name:"Piedmont", country:"Italy", flag:"🇮🇹", col:"#1A1A5C",
+    climate:"Continental with Fog", lat:"44–45°N", elev:"150–600m", rainfall:"~700mm/yr",
+    temp:2, rain:3, radar:[4,5,5,5,5], rl:["Body","Acidity","Tannin","Aging","Prestige"],
+    tagline:"Barolo · Barbaresco · Nebbiolo · The King and Queen of Italian wine",
+    quote:"Nebbiolo's tar and roses — the two most contradictory aromas in wine — appear nowhere else on earth in quite this combination.",
+    subs:["Barolo DOCG","Barbaresco DOCG","Barbera d'Asti","Langhe","Roero"],
+    reds:["Nebbiolo","Barbera","Dolcetto"],
+    whites:["Moscato (Asti)","Arneis","Cortese (Gavi)"],
+    soils:[["Tortonian Clay-Limestone","#7A6A50"],["Tufa (tuffeau)","#908A70"],["Marlstone","#9A8870"]],
+    story1:"Piedmont is Italy's greatest red wine region, dominated by Nebbiolo, which produces Barolo (the King) and Barbaresco (the Queen). The region takes its name from Piedmont (foot of the mountains) — the Alps to the north create a rain shadow while autumn fog (nebbia) is characteristic of the Langhe hills.",
+    story2:"The soil debate within Barolo is one of wine's great terroir arguments. Tortonian soils (older, compact, calcareous clay) of Serralunga produce the most tannic, long-lived wines. Helvetian soils (sandier) of La Morra produce more aromatic, earlier-drinking wines.",
+    styles:"Barolo: tar, roses, structured tannin, 15–40+ yr aging · Barbaresco: more elegant · Barbera: food-friendly",
+    producers:"Gaja · Giacomo Conterno · Bruno Giacosa · Roberto Voerzio · Vietti · Bartolo Mascarello",
+    file:"kc_piedmont.pdf" },
+
+  { name:"Tuscany", country:"Italy", flag:"🇮🇹", col:"#5C1A1A",
+    climate:"Mediterranean Continental", lat:"42.5–44°N", elev:"250–600m", rainfall:"~700mm/yr",
+    temp:3, rain:2, radar:[3,5,4,5,5], rl:["Body","Acidity","Tannin","Aging","Prestige"],
+    tagline:"Sangiovese · Brunello · Chianti · Super Tuscans · Italy's wine heartland",
+    quote:"Brunello di Montalcino needs minimum 5 years aging before release — and can improve for 40 more. Patience is the price of entry.",
+    subs:["Chianti Classico DOCG","Brunello di Montalcino DOCG","Bolgheri","Vino Nobile di Montepulciano"],
+    reds:["Sangiovese","Cabernet Sauvignon","Merlot","Syrah"],
+    whites:["Vermentino","Vernaccia di San Gimignano"],
+    soils:[["Galestro (schistous limestone)","#8A8060"],["Clay-Limestone","#8A7050"],["Alluvial","#8A8060"]],
+    story1:"Tuscany is Italy's most internationally recognisable wine region and the heartland of Sangiovese. Chianti Classico is defined by the crumbly galestro limestone that keeps vines lean and stressed, producing high-acid, sour cherry, leather-tinged wines that are among Italy's most food-friendly.",
+    story2:"Bolgheri, on the Tuscan coast, is where the Super Tuscan revolution began — Sassicaia (a Cabernet-dominant blend) proved Bordeaux varieties could thrive in Tuscany. The region now hosts some of Italy's most expensive wines.",
+    styles:"Chianti Classico: food-centric · Brunello: powerful, age-worthy · Super Tuscans: international",
+    producers:"Biondi-Santi · Sassicaia · Ornellaia · Antinori · Isole e Olena · Felsina · Montevertine",
+    file:"kc_tuscany.pdf" },
+
+  { name:"Veneto & Amarone", country:"Italy", flag:"🇮🇹", col:"#3A1A5C",
+    climate:"Continental with Lake influence", lat:"45–46°N", elev:"50–500m", rainfall:"~800mm/yr",
+    temp:3, rain:3, radar:[5,3,4,5,4], rl:["Body","Acidity","Richness","Aging","Prestige"],
+    tagline:"Amarone · Valpolicella · Italy's appassimento masters",
+    quote:"Amarone is made from grapes deliberately dried for 90–120 days — concentrating sugar, flavour and complexity before fermentation even begins.",
+    subs:["Valpolicella","Amarone della Valpolicella DOCG","Soave DOC","Bardolino"],
+    reds:["Corvina","Corvinone","Rondinella"],
+    whites:["Garganega (Soave)","Pinot Grigio"],
+    soils:[["Limestone","#A09070"],["Volcanic Basalt","#4A4A5A"],["Clay-Limestone","#8A7050"]],
+    story1:"The Veneto's finest wines come from the Valpolicella hills. The appassimento process — drying grapes on bamboo racks for 90–120 days — concentrates sugars, acids and flavours beyond what fresh-picked grapes can achieve.",
+    story2:"Amarone typically reaches 15–17% alcohol with enormous concentration and aging potential. Soave from the same region produces Italy's most under-appreciated dry white from Garganega grapes on volcanic soils.",
+    styles:"Amarone: dried-grape intensity · Valpolicella Ripasso: medium-bodied · Soave: mineral white",
+    producers:"Dal Forno Romano · Quintarelli · Allegrini · Masi · Pieropan (Soave)",
+    file:"kc_veneto_amarone.pdf" },
+
+  { name:"Rioja", country:"Spain", flag:"🇪🇸", col:"#5C2A10",
+    climate:"Continental with Atlantic & Mediterranean", lat:"42–42.5°N", elev:"400–800m", rainfall:"~450mm/yr",
+    temp:3, rain:2, radar:[3,3,3,5,4], rl:["Body","Acidity","Oak","Aging","Prestige"],
+    tagline:"Spain's most famous red · American oak · Tempranillo · Crianza to Gran Reserva",
+    quote:"The Gran Reserva aging system built around Tempranillo and American oak created one of wine's great flavour signatures — vanilla, dill, and dried cherry.",
+    subs:["Rioja Alta","Rioja Alavesa","Rioja Oriental"],
+    reds:["Tempranillo","Garnacha","Graciano","Mazuelo"],
+    whites:["Viura (Macabeo)","Malvasía"],
+    soils:[["Calcareous Clay","#8A7050"],["Limestone","#A09070"],["Alluvial","#8A8060"]],
+    story1:"Rioja is Spain's most internationally recognised wine region with an elaborate aging classification. Rioja Alta and Alavesa in the west (cooler, calcareous soils) produce the most elegant wines. Rioja Oriental in the east is warmer and fuller-bodied.",
+    story2:"Traditional American oak aging (still used by many producers) creates Rioja's signature vanilla and dill character. Modern producers use French oak for a fresher, fruit-forward style. Both can be excellent.",
+    styles:"Joven · Crianza (2yr) · Reserva (3yr) · Gran Reserva (5yr) — the most celebrated",
+    producers:"Vega Sicilia · La Rioja Alta · CVNE Imperial · Muga · Roda · López de Heredia",
+    file:"kc_rioja.pdf" },
+
+  { name:"Ribera del Duero", country:"Spain", flag:"🇪🇸", col:"#2A1A4A",
+    climate:"Continental Extreme", lat:"41.5–42°N", elev:"700–900m", rainfall:"~400mm/yr",
+    temp:3, rain:1, radar:[4,4,4,5,5], rl:["Body","Acidity","Structure","Aging","Prestige"],
+    tagline:"Spain's highest plateau · Extreme diurnal range · Vega Sicilia country",
+    quote:"At 850m altitude with temperature swings of 20°C between day and night, Ribera del Duero produces Spain's most structured and complex Tempranillo.",
+    subs:["Pesquera","Peñafiel","Roa","Aranda de Duero"],
+    reds:["Tempranillo (Tinto Fino)","Cabernet Sauvignon","Merlot"],
+    whites:["Albillo Mayor (minor)"],
+    soils:[["Limestone","#A09070"],["Sandy Clay","#B09870"],["Alluvial Gravel","#A08858"]],
+    story1:"The Duero river valley at 700–900m altitude produces Spain's most powerful Tempranillo. Extreme continental climate (20°C day-night swings) preserves natural acidity despite warm, sunny days. Wines are darker and more structured than Rioja.",
+    story2:"Vega Sicilia — Spain's most revered wine estate — produces Único aged up to 12 years before release. Pingus, from a 4-hectare parcel of old vines, has become one of Europe's most sought-after wines.",
+    styles:"Powerful, dark, structured Tempranillo · more blackberry and graphite than Rioja",
+    producers:"Vega Sicilia · Pingus · Dominio de Atauta · Pago de los Capellanes · Emilio Moro",
+    file:"kc_ribera_del_duero.pdf" },
+
+  { name:"Priorat", country:"Spain", flag:"🇪🇸", col:"#4A1A2A",
+    climate:"Mediterranean Continental Extreme", lat:"41°N", elev:"100–800m", rainfall:"~500mm/yr",
+    temp:4, rain:1, radar:[5,3,4,5,5], rl:["Body","Acidity","Concentration","Aging","Prestige"],
+    tagline:"Llicorella slate · Tiny yields · Spain's most dramatic landscape",
+    quote:"Priorat's llicorella slate has almost zero fertility — vines send roots metres deep through fractured rock, producing tiny yields of ferocious intensity.",
+    subs:["Gratallops","El Lloar","Porrera","Bellmunt del Priorat"],
+    reds:["Grenache (Garnacha)","Carignan (Cariñena)","Cabernet Sauvignon","Syrah"],
+    whites:["Grenache Blanc","Macabeo"],
+    soils:[["Llicorella (Slate-Quartz mix)","#5A6A7A"],["Schist / Slate","#4A5A6A"]],
+    story1:"Priorat was virtually abandoned in the 1970s. A group of producers including Álvaro Palacios revived the region in the late 1980s, and it is now one of Spain's two DOCa regions alongside Rioja. The llicorella slate — a unique Silurian-Devonian slate-quartz mix — gives wines a distinctive iron-graphite mineral edge.",
+    story2:"Near-zero fertility forces vines deep through fractured rock to find water, producing tiny yields of 1–2 kg per vine. Old Garnacha and Cariñena vines (some 100+ years old) produce wines of remarkable complexity and longevity.",
+    styles:"Full-bodied, concentrated Garnacha blends · iron-graphite mineral edge · 15–30+ year aging",
+    producers:"Álvaro Palacios · Clos Mogador · Clos de l'Obac · Mas Doix · Terroir al Límit",
+    file:"kc_priorat.pdf" },
+
+  { name:"Rías Baixas", country:"Spain", flag:"🇪🇸", col:"#1A4A3A",
+    climate:"Oceanic Atlantic", lat:"42–42.5°N", elev:"0–400m", rainfall:"~1,700mm/yr",
+    temp:2, rain:5, radar:[3,4,3,2,4], rl:["Body","Acidity","Freshness","Aging","Prestige"],
+    tagline:"Albariño · Atlantic winds · The greenest corner of Spain · Seafood country",
+    quote:"Rías Baixas receives 1,700mm of rain annually — more than Bordeaux — and produces some of Spain's most vibrant, marine-fresh whites.",
+    subs:["Salnés Valley","O Rosal","Condado do Tea","Ribeira do Ulla"],
+    reds:["Caiño Tinto (minor)"],
+    whites:["Albariño","Loureira","Treixadura"],
+    soils:[["Granite","#6A6A7A"],["Sandy Alluvial","#C0A870"],["Schist / Slate","#4A5A6A"]],
+    story1:"Spain's greenest, rainiest wine region sits at the far northwest corner of the Iberian Peninsula. The Atlantic rías (estuaries) create a unique marine microclimate and granite soils give Albariño its characteristic saline, mineral quality.",
+    story2:"The classic local pairing — Albariño with Galicia's extraordinary seafood — is one of the world's most intuitive regional food and wine matches. The wine literally tastes of the same Atlantic that produces the seafood.",
+    styles:"Crisp, saline, citrus and white peach Albariño · best drunk young · emerging skin-contact styles",
+    producers:"Pazo de Señoráns · Do Ferreiro · Mar de Frades · Zárate · Fillaboa",
+    file:"kc_rias_baixas.pdf" },
+
+  { name:"Mosel", country:"Germany", flag:"🇩🇪", col:"#2A4A1A",
+    climate:"Cool Continental (river moderated)", lat:"49.5–50.5°N", elev:"80–350m", rainfall:"~700mm/yr",
+    temp:1, rain:3, radar:[2,5,1,5,5], rl:["Body","Acidity","Delicacy","Aging","Prestige"],
+    tagline:"World's finest Riesling · Blue Devonian slate · Impossibly steep slopes",
+    quote:"Mosel Riesling grows on slate formed 400 million years ago — before dinosaurs existed. When you drink it, you are tasting deep geological time.",
+    subs:["Bernkastel","Wehlen","Graach","Ürzig","Piesport","Brauneberg"],
+    reds:["Pinot Noir (minor)"],
+    whites:["Riesling","Elbling"],
+    soils:[["Blue Devonian Slate (Graywacke)","#4A5A6A"],["Red Slate (Rotschiefer)","#6A3A3A"]],
+    story1:"The Mosel is wine's most dramatic landscape — vineyards at up to 65° gradient carved into ancient Devonian slate beside the meandering river. Dark slate absorbs heat during the day and radiates it back at night — essential for ripening grapes at 50°N latitude.",
+    story2:"Mosel Riesling at its finest has no equal in white wine for the combination of sweetness, acidity, aromatic complexity, and longevity. The TDN compound ('petrol') develops after 5–10 years and is considered a mark of greatness.",
+    styles:"Kabinett · Spätlese · Auslese · Beerenauslese · TBA (intensely sweet) · Sekt (sparkling)",
+    producers:"Egon Müller · J.J. Prüm · Fritz Haag · Reinhold Haart · Selbach-Oster · Clemens Busch",
+    file:"kc_mosel.pdf" },
+
+  { name:"Wachau & Kamptal", country:"Austria", flag:"🇦🇹", col:"#1A3A5C",
+    climate:"Cool Continental (Danube moderated)", lat:"48–48.5°N", elev:"200–500m", rainfall:"~500mm/yr",
+    temp:2, rain:2, radar:[3,5,2,4,5], rl:["Body","Acidity","Mineral","Aging","Prestige"],
+    tagline:"Europe's oldest rocks · Danube carved · Grüner Veltliner + Riesling",
+    quote:"The Wachau sits on some of Europe's oldest exposed rocks — ancient gneiss and granite terraces carved by the Danube over millions of years.",
+    subs:["Wachau DAC (Steinfeder · Federspiel · Smaragd)","Kamptal DAC","Kremstal DAC"],
+    reds:["Blaufränkisch (minor)","Zweigelt"],
+    whites:["Grüner Veltliner","Riesling"],
+    soils:[["Gneiss","#7A7A8A"],["Granite","#6A6A7A"],["Loess","#C0A880"]],
+    story1:"The Wachau is Austria's most prestigious wine region — a dramatic 35km stretch of the Danube carved through ancient crystalline rock. The terraced vineyards of gneiss and granite date back to Roman times.",
+    story2:"Austrian Riesling — particularly from the Wachau — is arguably more powerful and mineral than its German equivalent. Grüner Veltliner's distinctive white pepper note from the rotundone compound is unmistakable.",
+    styles:"Grüner Veltliner: white pepper, mineral · Riesling: powerful, structured · Smaragd: finest designation",
+    producers:"F.X. Pichler · Emmerich Knoll · Hirsch · Bründlmayer · Rudi Pichler · Prager",
+    file:"kc_wachau_kamptal.pdf" },
+
+  { name:"Napa Valley", country:"USA", flag:"🇺🇸", col:"#4A1A0A",
+    climate:"Mediterranean (warm)", lat:"38–38.8°N", elev:"0–600m", rainfall:"~750mm/yr",
+    temp:4, rain:2, radar:[5,3,4,4,5], rl:["Body","Acidity","Richness","Aging","Prestige"],
+    tagline:"California's most famous valley · Cabernet King · 1976 Judgment of Paris",
+    quote:"The 1976 Judgment of Paris — when California wines beat France's best in a blind tasting — put Napa Valley on the world wine map overnight.",
+    subs:["Rutherford","Oakville","Stags Leap District","Howell Mountain","Mount Veeder","Spring Mountain"],
+    reds:["Cabernet Sauvignon","Merlot","Cabernet Franc","Zinfandel"],
+    whites:["Chardonnay","Sauvignon Blanc"],
+    soils:[["Alluvial Gravel","#A08858"],["Volcanic (mountain)","#4A4A5A"],["Clay-Loam","#7A6040"]],
+    story1:"Napa Valley runs 50km north-south between the Mayacamas and Vaca mountain ranges. The thermal diversity — cool morning fog from San Pablo Bay, warm afternoons — is ideal for Cabernet Sauvignon. The 1976 Judgment of Paris changed the world's perception of New World wine permanently.",
+    story2:"The valley floor's deep alluvial soils produce Cabernet's rich, opulent style. Mountain AVAs sit on volcanic and rocky soils — producing more structured, tannic, age-worthy wines with better natural acidity.",
+    styles:"Full-bodied, opulent Cabernet Sauvignon · rich Chardonnay · 'cult' Cabernets from small producers",
+    producers:"Screaming Eagle · Harlan Estate · Opus One · Stag's Leap · Caymus · Diamond Creek · Dunn",
+    file:"kc_napa_valley.pdf" },
+
+  { name:"Santa Barbara County", country:"USA", flag:"🇺🇸", col:"#1A3A5C",
+    climate:"Cool Mediterranean (transverse valleys)", lat:"34.5–34.8°N", elev:"60–600m", rainfall:"~350mm/yr",
+    temp:2, rain:1, radar:[3,5,3,4,4], rl:["Body","Acidity","Finesse","Aging","Prestige"],
+    tagline:"Transverse valleys · Pacific direct access · California's coolest south · Burgundian soul",
+    quote:"Santa Barbara's east-west mountain valleys funnel Pacific cold air directly inland — making it one of California's coolest regions despite being at 34°N latitude.",
+    subs:["Sta. Rita Hills AVA","Sta. Ynez Valley AVA","Los Olivos District","Ballard Canyon","Happy Canyon"],
+    reds:["Pinot Noir","Syrah","Grenache","Mourvèdre","Cabernet Sauvignon"],
+    whites:["Chardonnay","Sauvignon Blanc","Viognier","Roussanne"],
+    soils:[["Diatomaceous Earth (Sta. Rita Hills)","#A09878"],["Sandy Loam","#C8A870"],["Clay-Shale","#7A6050"]],
+    story1:"Santa Barbara County's defining geographical feature is unique in California: its mountain ranges run east-west (transverse) rather than north-south. This creates a wind tunnel channeling cold Pacific air directly inland — making the Sta. Rita Hills dramatically cooler than their southern latitude would suggest.",
+    story2:"The diatomaceous earth of the Sta. Rita Hills — compressed ancient marine algae — gives Pinot Noir and Chardonnay a distinctive chalky mineral texture unlike anything else in California. Santa Barbara Syrah can rival the Northern Rhône in its peppery, iron-mineral character.",
+    styles:"Elegant Burgundian Pinot Noir and Chardonnay · Northern Rhône-influenced Syrah · Rhône blends",
+    producers:"Foxen · Hitching Post · Melville · Sanford · Brewer-Clifton · Au Bon Climat · Sine Qua Non",
+    file:"kc_santa_barbara_county.pdf" },
+
+  { name:"Willamette Valley", country:"USA", flag:"🇺🇸", col:"#2A3A1A",
+    climate:"Cool Maritime / Continental", lat:"44.5–45.5°N", elev:"60–300m", rainfall:"~1,100mm/yr",
+    temp:2, rain:4, radar:[3,5,2,4,4], rl:["Body","Acidity","Elegance","Aging","Prestige"],
+    tagline:"Oregon's great Pinot Noir · Jory volcanic soil · America's Burgundy",
+    quote:"The Willamette Valley sits at the same latitude as Burgundy — and produces America's most Burgundian Pinot Noir on ancient volcanic soils.",
+    subs:["Dundee Hills","Chehalem Mountains","Ribbon Ridge","Yamhill-Carlton","Eola-Amity Hills"],
+    reds:["Pinot Noir"],
+    whites:["Chardonnay","Pinot Gris","Riesling"],
+    soils:[["Jory (Volcanic Basalt)","#6A5A7A"],["Willakenzie (Marine Sediment)","#8A7A6A"],["Loess","#C0A880"]],
+    story1:"Oregon's signature wine region sits at 45°N — the same latitude as Burgundy. Willamette Valley Pinot Noir is more Burgundian than any other New World expression: earthy, mineral, silky, with high natural acidity and restrained fruit.",
+    story2:"Jory soil — deep, well-draining red volcanic clay from ancient Columbia River Basalt flows — is Oregon's signature. The cooler Eola-Amity Hills, influenced by the Van Duzer Corridor, produce the most elegant and age-worthy wines.",
+    styles:"Elegant, earthy Pinot Noir · mineral Chardonnay · fresh Pinot Gris · some of America's finest Riesling",
+    producers:"Domaine Drouhin Oregon · Eyrie Vineyards · Ponzi · Adelsheim · Beaux Frères · Cristom",
+    file:"kc_willamette_valley.pdf" },
+
+  { name:"Barossa Valley", country:"Australia", flag:"🇦🇺", col:"#5C2A10",
+    climate:"Warm to Hot Continental", lat:"34.5°S", elev:"270–500m", rainfall:"~450mm/yr",
+    temp:5, rain:1, radar:[5,2,4,5,4], rl:["Body","Acidity","Richness","Aging","Prestige"],
+    tagline:"World's oldest vines · Barossa Shiraz · 150-year-old ungrafted bush vines",
+    quote:"Phylloxera cannot survive in Barossa's sandy soils — the world's oldest ungrafted Shiraz vines have grown uninterrupted since the 1840s.",
+    subs:["Barossa Valley floor","Eden Valley (elevated, cooler)","Marananga","Ebenezer"],
+    reds:["Shiraz","Grenache","Mourvèdre (Mataro)","Cabernet Sauvignon"],
+    whites:["Riesling (Eden Valley)","Semillon","Viognier"],
+    soils:[["Sandy Loam","#C8A870"],["Red-Brown Earth","#7A4A2A"],["Ancient Clay Subsoil","#6A5040"]],
+    story1:"The Barossa Valley is home to some of the world's oldest ungrafted vines — Shiraz planted in the 1840s by German Lutheran settlers still producing extraordinary wine. Phylloxera cannot survive in Barossa's sandy soils, so vines were never replanted on grafted rootstock.",
+    story2:"Penfolds Grange — created by Max Schubert in the 1950s as a response to great Bordeaux — proved Barossa Shiraz could age magnificently and established the region's international reputation. Ancient clay subsoils retain water through dry summers.",
+    styles:"Full-bodied, chocolate Shiraz · GSM blends · Eden Valley: elegant Riesling",
+    producers:"Penfolds · Henschke · Torbreck · Two Hands · Yalumba · Elderton · Rockford",
+    file:"kc_barossa_valley.pdf" },
+
+  { name:"Margaret River", country:"Australia", flag:"🇦🇺", col:"#1A4A2A",
+    climate:"Maritime Mediterranean", lat:"33.5–34.5°S", elev:"50–100m", rainfall:"~1,150mm/yr",
+    temp:3, rain:4, radar:[4,4,4,5,5], rl:["Body","Acidity","Structure","Aging","Prestige"],
+    tagline:"Western Australia's finest · Cabernet-Merlot · Indian Ocean influence",
+    quote:"Margaret River produces less than 3% of Australia's wine but accounts for over 20% of its premium wine sales — a remarkable concentration of quality.",
+    subs:["Wilyabrup","Yallingup","Karridale","Wallcliffe"],
+    reds:["Cabernet Sauvignon","Merlot","Shiraz"],
+    whites:["Chardonnay","Sauvignon Blanc","Sémillon"],
+    soils:[["Gravelly Sandy Loam","#B0986A"],["Laterite","#8C4A30"],["Red Loam over Clay","#7A4A30"]],
+    story1:"Margaret River was identified as a wine region in 1967 by a medical researcher who noted its climate similarity to Bordeaux. The Indian Ocean moderates temperatures significantly — one of the smallest diurnal temperature ranges in the world, meaning grapes ripen slowly and evenly.",
+    story2:"Margaret River produces less than 3% of Australia's wine but over 20% of premium wine sales — a remarkable concentration of quality. Cabernet Sauvignon and Chardonnay are the flagship varieties, with a style more restrained and Bordeaux-like than other Australian regions.",
+    styles:"Structured, elegant Cabernet-Merlot blends · rich Chardonnay · distinctive Sémillon-Sauvignon",
+    producers:"Vasse Felix · Cullen · Leeuwin Estate · Moss Wood · Cape Mentelle · Voyager Estate",
+    file:"kc_margaret_river.pdf" },
+
+  { name:"Marlborough", country:"New Zealand", flag:"🇳🇿", col:"#1A5A2A",
+    climate:"Cool Maritime", lat:"41.5°S", elev:"10–100m", rainfall:"~650mm/yr",
+    temp:2, rain:2, radar:[2,5,1,2,4], rl:["Body","Acidity","Aromatic","Aging","Prestige"],
+    tagline:"Sauvignon Blanc capital of the world · Cloudy Bay · UV intensity",
+    quote:"Cloudy Bay's 1985 launch single-handedly put New Zealand on the international wine map. One wine from one region changed everything.",
+    subs:["Wairau Valley","Awatere Valley","Southern Valleys","Rapaura"],
+    reds:["Pinot Noir"],
+    whites:["Sauvignon Blanc","Riesling","Chardonnay","Pinot Gris"],
+    soils:[["Alluvial Gravel","#A08858"],["River Silt","#B09878"],["Sandy Loam","#C8A870"]],
+    story1:"Marlborough is the reason New Zealand wine exists internationally. Before Cloudy Bay's first vintage in 1985, New Zealand was a non-entity in global wine. The combination of high UV radiation, cool temperatures, and free-draining alluvial gravels creates conditions that amplify thiol compounds in Sauvignon Blanc.",
+    story2:"Free-draining river gravels over impermeable clay stress the vines just enough. The Awatere Valley to the south is cooler and produces more intense, herb-driven Sauvignon Blanc. Pinot Noir has emerged as a serious secondary variety.",
+    styles:"Explosive, aromatic Sauvignon Blanc · fresh Pinot Gris · emerging Pinot Noir · Riesling",
+    producers:"Cloudy Bay · Greywacke · Dog Point · Seresin · Clos Henri · Fromm · Villa Maria",
+    file:"kc_marlborough.pdf" },
+
+  { name:"Mendoza — Uco Valley", country:"Argentina", flag:"🇦🇷", col:"#3A1A5C",
+    climate:"Warm Continental with Altitude Cooling", lat:"33–35°S", elev:"900–1,500m", rainfall:"~250mm/yr",
+    temp:3, rain:1, radar:[4,4,4,4,4], rl:["Body","Acidity","Freshness","Aging","Prestige"],
+    tagline:"High altitude Malbec · Andes snowmelt · UV intensity at 1,000m+",
+    quote:"At 1,000m altitude, UV radiation is 30% more intense than at sea level — producing thick-skinned grapes with deep colour and natural richness.",
+    subs:["Luján de Cuyo (classic Malbec)","Uco Valley (premium altitude)","Tupungato","San Carlos"],
+    reds:["Malbec","Cabernet Sauvignon","Bonarda","Cabernet Franc"],
+    whites:["Torrontés","Chardonnay","Viognier"],
+    soils:[["Rocky Alluvial (Andean glacial deposits)","#8A7A60"],["Sandy-Clay","#B09870"],["Limestone","#A09070"]],
+    story1:"The Uco Valley at 900–1,500m altitude is Argentina's current wine excitement centre. Intense UV radiation produces thick-skinned grapes with deep colour and richness impossible at lower elevations. Cold nights (20°C drops from day to night) preserve natural acidity despite the warm, sunny days.",
+    story2:"Zuccardi Valle de Uco was named World's Best Winery three consecutive years. The Andean glacial melt provides irrigation — without the snowmelt, viticulture would be impossible in this near-desert climate.",
+    styles:"Violet-scented, dark-fruited Malbec · structured Cabernet · aromatic Torrontés · high-altitude freshness",
+    producers:"Zuccardi · Achaval Ferrer · Catena Zapata · Cheval des Andes · Clos de los Siete · Viña Cobos",
+    file:"kc_mendoza___uco_valley.pdf" },
+
+  { name:"Santorini", country:"Greece", flag:"🇬🇷", col:"#1A3A5C",
+    climate:"Hot Arid Mediterranean (volcanic)", lat:"36.3°N", elev:"0–500m", rainfall:"~370mm/yr",
+    temp:4, rain:1, radar:[3,5,2,3,4], rl:["Body","Acidity","Mineral","Aging","Prestige"],
+    tagline:"Volcanic island · Basket-trained vines · Phylloxera-free · Ancient ungrafted vines",
+    quote:"Santorini has never had phylloxera — the volcanic ash soil kills the louse. The vines are some of the oldest ungrafted vines on earth.",
+    subs:["Pyrgos","Megalochori","Akrotiri","Finikia","Oia"],
+    reds:["Mandilaria","Mavrotragano"],
+    whites:["Assyrtiko","Athiri","Aidani"],
+    soils:[["Volcanic Pumice","#7A7A7A"],["Ash","#6A6A6A"],["Basalt","#4A4A5A"]],
+    story1:"Santorini is one of the world's most dramatic wine landscapes — volcanic island vines trained in basket shapes (kouloura) to protect from fierce Aegean winds, growing in lunar-looking volcanic ash. The island has never needed pesticides (volcanic sulphur protects naturally) and phylloxera cannot survive in the ash soil.",
+    story2:"Despite the hot, dry, sunny climate, Santorini produces wines of extraordinary acidity — the Aegean winds and volcanic soil's moisture retention create a temperature moderation impossible elsewhere at this latitude. Assyrtiko is one of the world's great white grapes.",
+    styles:"Electric, saline, mineral Assyrtiko · Nychteri (oaked) · Vinsanto (sun-dried sweet wine)",
+    producers:"Domaine Sigalas · Gai'a · Argyros · Santo Wines · Hatzidakis",
+    file:"kc_santorini.pdf" },
+
+  { name:"Douro Valley", country:"Portugal", flag:"🇵🇹", col:"#5C3A10",
+    climate:"Continental Extreme (rain shadow)", lat:"41°N", elev:"100–700m", rainfall:"~400–800mm/yr",
+    temp:4, rain:2, radar:[5,3,5,5,4], rl:["Body","Acidity","Tannin","Aging","Prestige"],
+    tagline:"Port's birthplace · Ancient schist terraces · Some of the world's oldest wine culture",
+    quote:"Douro schist is so hard that vine roots must fracture the rock to survive — some reach 20 metres deep. The geological violence makes Port irreplaceable.",
+    subs:["Baixo Corgo (west, cooler)","Cima Corgo (central, classic Port)","Douro Superior (east, hottest)"],
+    reds:["Touriga Nacional","Touriga Franca","Tinta Roriz","Tinta Barroca"],
+    whites:["Viosinho","Rabigato","Gouveio"],
+    soils:[["Schist (Xisto)","#4A5A6A"],["Granite","#6A6A7A"],["Alluvial","#8A8060"]],
+    story1:"The Douro Valley is one of wine's most ancient and dramatic regions — steep terraced hillsides of purple-grey schist carved by the Douro River, baking in summer temperatures that regularly exceed 40°C. The schist is so hard that vines must fracture it to find water — roots reaching 20m deep.",
+    story2:"Port wine (fortified to halt fermentation, leaving residual sugar) has defined the region for centuries. Unfortified Douro reds — pioneered by Barca Velha and more recently by wines like Chryseia — are emerging as world-class.",
+    styles:"Vintage Port (20–50yr aging) · LBV · Tawny (oxidative, nutty) · Colheita · Douro DOC table wines",
+    producers:"Quinta do Crasto · Niepoort · Quinta do Vesuvio · Symington · Ramos Pinto · Vale Meão",
+    file:"kc_douro_valley.pdf" },
+];
+
+const SOIL_COLORS = {
+  "Deep Gravel":"#8C7048","Clay-Limestone":"#8A7050","Sandy Gravel":"#B09060",
+  "Blue Clay":"#4A4A6A","Limestone Plateau":"#A09070","Limestone":"#A09070",
+  "Chalk":"#B0A890","Granite":"#6A6A7A","Schist / Slate":"#4A5A6A",
+  "Tufa (tuffeau)":"#908A70","Galestro (schistous limestone)":"#8A8060",
+  "Alluvial":"#8A8060","Volcanic Basalt":"#4A4A5A","Jory (Volcanic Basalt)":"#6A5A7A",
+  "Galets Roulés (rounded stones)":"#9A8A6A","Gneiss":"#7A7A8A","Loess":"#C0A880",
+  "Marlstone":"#9A8870","Sandstone":"#B09060","Tortonian Clay-Limestone":"#7A6A50",
+  "Calcareous Clay":"#8A7050","Sandy Clay":"#B09870","Sandy Loam":"#C8A870",
+  "Volcanic Pumice":"#7A7A7A","Ash":"#6A6A6A","Basalt":"#4A4A5A",
+  "Llicorella (Slate-Quartz mix)":"#5A6A7A","Schist (Xisto)":"#4A5A6A",
+  "Diatomaceous Earth (Sta. Rita Hills)":"#A09878","Laterite":"#8C4A30",
+  "Alluvial Gravel":"#A08858","Rocky Alluvial (Andean glacial deposits)":"#8A7A60",
+  "Red-Brown Earth":"#7A4A2A","Ancient Clay Subsoil":"#6A5040",
+  "Blue Devonian Slate (Graywacke)":"#4A5A6A","Red Slate (Rotschiefer)":"#6A3A3A",
+  "Willakenzie (Marine Sediment)":"#8A7A6A","Clay-Sand":"#9A8060",
+  "Gravelly Sandy Loam":"#B0986A","Red Loam over Clay":"#7A4A30",
+  "River Silt":"#B09878","Alluvial (Andean glacial deposits)":"#8A7A60",
+  "Flint (silex)":"#6A6A8A","Marl":"#9A8870",
+};
+
+// ── UTILS ─────────────────────────────────────────────────────────────────────
+const countries = [...new Set(REGIONS.map(r => r.country))];
+
+function climateBar(score, fillColor, label, endLabel) {
+  const pct = (score / 5) * 100;
+  return `<div class="c-bar-row">
+    <div class="c-bar-lbl"><span>${label}</span><span>${endLabel}</span></div>
+    <div class="c-bar-track">
+      <div class="c-bar-fill" style="width:${pct}%;background:${fillColor};"></div>
+      <div class="c-bar-dot" style="left:${pct}%;background:${fillColor};"></div>
+    </div>
+  </div>`;
+}
+
+function radarSVG(scores, labels, color, size=180) {
+  const cx = size/2, cy = size/2, r = size*0.36;
+  const n = scores.length;
+  const toXY = (i, frac) => {
+    const a = Math.PI/2 - i * 2*Math.PI/n;
+    return [cx + r*frac*Math.cos(a), cy - r*frac*Math.sin(a)];
+  };
+  let rings = '';
+  [0.25,0.5,0.75,1.0].forEach(f => {
+    const pts = Array.from({length:n},(_,i)=>toXY(i,f).join(',')).join(' ');
+    rings += `<polygon points="${pts}" fill="none" stroke="#E0D8CE" stroke-width="0.5"/>`;
+  });
+  let axes = '';
+  for(let i=0;i<n;i++){
+    const [x,y]=toXY(i,1);
+    axes += `<line x1="${cx}" y1="${cy}" x2="${x}" y2="${y}" stroke="#C8C0B8" stroke-width="0.4"/>`;
+  }
+  const dataPts = scores.map((s,i) => {
+    const frac = Math.max(0.07,(s-1)/4*0.9+0.1);
+    return toXY(i,frac);
+  });
+  const polyPts = dataPts.map(p=>p.join(',')).join(' ');
+  const hex = color;
+  const r2 = parseInt(hex.slice(1,3),16), g2 = parseInt(hex.slice(3,5),16), b2 = parseInt(hex.slice(5,7),16);
+  const fillCol = `rgba(${r2},${g2},${b2},0.18)`;
+  let dots = dataPts.map(([x,y])=>`<circle cx="${x}" cy="${y}" r="3" fill="${color}"/>`).join('');
+  let lbls = '';
+  for(let i=0;i<n;i++){
+    const [x,y]=toXY(i,1.28);
+    const anchor = x<cx-5?'end':x>cx+5?'start':'middle';
+    lbls += `<text x="${x}" y="${y+3}" text-anchor="${anchor}" font-size="7.5" font-family="Georgia" fill="#6B4C2A" font-weight="bold">${labels[i].toUpperCase()}</text>`;
+  }
+  return `<svg width="${size}" height="${size}" viewBox="0 0 ${size} ${size}" style="display:block;margin:auto;">
+    <polygon points="${Array.from({length:n},(_,i)=>toXY(i,1).join(',')).join(' ')}" fill="#FAF7F2"/>
+    ${rings}${axes}
+    <polygon points="${polyPts}" fill="${fillCol}" stroke="${color}" stroke-width="1.8"/>
+    ${dots}${lbls}
+  </svg>`;
+}
+
+// ── RENDER GRID ───────────────────────────────────────────────────────────────
+let activeFilter = 'All';
+
+function renderGrid(filter) {
+  const grid = document.getElementById('region-grid');
+  const count = document.getElementById('region-count');
+  const filtered = filter === 'All' ? REGIONS : REGIONS.filter(r => r.country === filter);
+  count.textContent = `Showing ${filtered.length} region${filtered.length!==1?'s':''}`;
+
+  grid.innerHTML = filtered.map(r => {
+    const tempPct = (r.temp/5)*100;
+    const rainPct = (r.rain/5)*100;
+    const tempCol = r.temp >= 4 ? '#8C3A1A' : '#3A5A8C';
+    const rainCol = '#1A5A8C';
+    const redChips = r.reds.slice(0,3).map(g=>`<span class="grape-chip red">${g}</span>`).join('');
+    const whtChips = r.whites.slice(0,2).map(g=>`<span class="grape-chip white">${g}</span>`).join('');
+    return `<div class="gp-card" onclick="openPanel(${REGIONS.indexOf(r)})">
+      <div class="card-header" style="background:${r.col};">
+        <div class="card-kz">Kazmi Cellars · Wine Region</div>
+        <div class="card-name">${r.flag} ${r.name}</div>
+        <div class="card-country">${r.country} · ${r.climate}</div>
+        <div class="card-tagline">${r.tagline}</div>
+      </div>
+      <div class="card-body">
+        <div class="card-facts">
+          <div class="card-fact"><div class="fact-lbl">Latitude</div><div class="fact-val">${r.lat}</div></div>
+          <div class="card-fact"><div class="fact-lbl">Elevation</div><div class="fact-val">${r.elev}</div></div>
+          <div class="card-fact"><div class="fact-lbl">Rainfall</div><div class="fact-val">${r.rainfall}</div></div>
+          <div class="card-fact"><div class="fact-lbl">Climate</div><div class="fact-val">${r.climate.split(' ')[0]}</div></div>
+        </div>
+        <div class="card-climate">
+          <div class="clim-row">
+            <div class="clim-lbl">Temperature</div>
+            <div class="clim-track"><div class="clim-fill" style="width:${tempPct}%;background:${tempCol};"></div><div class="clim-dot" style="left:${tempPct}%;background:${tempCol};"></div></div>
+          </div>
+          <div class="clim-row">
+            <div class="clim-lbl">Rainfall</div>
+            <div class="clim-track"><div class="clim-fill" style="width:${rainPct}%;background:${rainCol};"></div><div class="clim-dot" style="left:${rainPct}%;background:${rainCol};"></div></div>
+          </div>
+        </div>
+        <div class="card-grapes">${redChips}${whtChips}</div>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+// ── FILTERS ───────────────────────────────────────────────────────────────────
+function buildFilters() {
+  const bar = document.getElementById('filters');
+  ['All', ...countries].forEach(c => {
+    const btn = document.createElement('button');
+    btn.className = 'filter-btn' + (c === 'All' ? ' active' : '');
+    btn.textContent = c;
+    btn.onclick = () => {
+      document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      activeFilter = c;
+      renderGrid(c);
+    };
+    bar.appendChild(btn);
+  });
+}
+
+// ── DETAIL PANEL ──────────────────────────────────────────────────────────────
+function openPanel(idx) {
+  const r = REGIONS[idx];
+  document.getElementById('panel-header').style.background = r.col;
+  document.getElementById('ph-name').textContent = `${r.flag} ${r.name}`;
+  document.getElementById('ph-country').textContent = `${r.country} · ${r.climate}`;
+  document.getElementById('ph-tagline').textContent = r.tagline;
+
+  // Swatch
+  const swatchColors = ['#FAF7F2','#F3EDE5','#E8E0D4','#D9C8A8'];
+  document.getElementById('panel-swatch').innerHTML = swatchColors.map((c,i)=>
+    `<div class="swatch-seg" style="background:${c};"></div>`).join('');
+
+  const body = document.getElementById('panel-body');
+  const tempCol = r.temp >= 4 ? '#8C3A1A' : '#3A5A8C';
+  const rainCol = '#1A5A8C';
+  const soilChips = r.soils.map(([name,col])=>
+    `<span class="soil-chip" style="background:${col};">${name}</span>`).join('');
+  const subChips = r.subs.map(s=>`<span class="sub-chip">${s}</span>`).join('');
+  const redChips = r.reds.map(g=>`<span class="p-chip red">${g}</span>`).join('');
+  const whtChips = r.whites.map(g=>`<span class="p-chip white">${g}</span>`).join('');
+
+  body.innerHTML = `
+    <div class="p-sec">
+      <div class="p-sec-hdr" style="background:${r.col};">KEY FACTS</div>
+      <div class="p-grid">
+        <div class="p-fact"><div class="p-lbl">Latitude</div><div class="p-val">${r.lat}</div></div>
+        <div class="p-fact"><div class="p-lbl">Elevation</div><div class="p-val">${r.elev}</div></div>
+        <div class="p-fact"><div class="p-lbl">Rainfall</div><div class="p-val">${r.rainfall}</div></div>
+        <div class="p-fact"><div class="p-lbl">Climate Type</div><div class="p-val">${r.climate}</div></div>
+      </div>
+    </div>
+
+    <div class="p-sec">
+      <div class="p-sec-hdr" style="background:${r.col};">CLIMATE & STRUCTURE</div>
+      <div class="radar-climate-row">
+        <div class="radar-wrap">${radarSVG(r.radar, r.rl, r.col, 180)}</div>
+        <div class="climate-wrap">
+          <div style="font-size:9px;font-weight:bold;color:var(--gp-mid);margin-bottom:10px;">Climate Profile</div>
+          <div class="climate-bars">
+            ${climateBar(r.temp, tempCol, '❄️ Cool', 'Warm 🌞')}
+            ${climateBar(r.rain, rainCol, '☀️ Dry', 'Wet 💧')}
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="p-sec">
+      <div class="p-sec-hdr" style="background:${r.col};">WHAT MAKES IT UNIQUE</div>
+      <p class="story-text">${r.story1}</p>
+      <p class="story-text" style="margin-top:10px;">${r.story2}</p>
+    </div>
+
+    <div class="p-sec">
+      <div class="p-sec-hdr" style="background:${r.col};">SUB-REGIONS & APPELLATIONS</div>
+      <div class="chip-grid">${subChips}</div>
+    </div>
+
+    <div class="p-sec">
+      <div class="p-sec-hdr" style="background:${r.col};">GRAPES GROWN</div>
+      ${r.reds.length ? `<div style="font-size:8px;font-weight:bold;color:var(--gp-mid);margin:6px 0 4px;">RED VARIETIES</div><div class="chip-grid">${redChips}</div>` : ''}
+      ${r.whites.length ? `<div style="font-size:8px;font-weight:bold;color:var(--gp-mid);margin:8px 0 4px;">WHITE VARIETIES</div><div class="chip-grid">${whtChips}</div>` : ''}
+    </div>
+
+    <div class="p-sec">
+      <div class="p-sec-hdr" style="background:${r.col};">SOILS</div>
+      <div class="chip-grid">${soilChips}</div>
+    </div>
+
+    <div class="p-sec">
+      <div class="p-sec-hdr" style="background:${r.col};">WINE STYLES & PRODUCERS</div>
+      <div class="p-fact" style="background:var(--gp-alt);padding:8px 10px;border-bottom:1px solid var(--gp-tan);">
+        <div class="p-lbl">Key Styles</div><div class="p-val" style="margin-top:3px;">${r.styles}</div>
+      </div>
+      <div class="p-fact" style="padding:8px 10px;">
+        <div class="p-lbl">Famous Producers</div><div class="p-val" style="margin-top:3px;">${r.producers}</div>
+      </div>
+    </div>
+
+    <div class="p-quote">"${r.quote}"</div>
+  `;
+
+  document.getElementById('overlay').classList.add('open');
+  document.getElementById('panel').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+function closePanel() {
+  document.getElementById('overlay').classList.remove('open');
+  document.getElementById('panel').classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+document.addEventListener('keydown', e => { if(e.key === 'Escape') closePanel(); });
+
+// ── INIT ──────────────────────────────────────────────────────────────────────
+buildFilters();
+renderGrid('All');
+</script>
+
+<script src="footer.js"></script>
+</body>
+</html>
