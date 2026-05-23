@@ -21,7 +21,7 @@
     {
       "title": "Blend Cheat Sheet",
       "description": "Whats in all these blends? Hopefully this helps! Just remember its not always the same blend, but this a good start for what would be typical!",
-      "category": "Useful Tools",
+      "category": "Useful tools",
       "file": "/documents/kc_blends_.pdf"
     },
     {
@@ -37,8 +37,8 @@
       "file": "/documents/kc_vine_to_bottle_.pdf"
     },
     {
-      "title": "Wine Glossary",
-      "description": "Everyday Wine Glossary terms at  your fingertips!",
+      "title": "Wine Glorssary",
+      "description": "Everyday Wine Glorssary terms at  your fingertips!",
       "category": "Wine Education",
       "file": "/documents/kc_glossary_.pdf"
     },
@@ -46,7 +46,7 @@
       "title": "Wine Descriptors",
       "description": "So many terms to describe wine. Here are some of the most common ones!",
       "category": "Wine Education",
-      "file": "/documents/kc_descriptors.pdf"
+      "file": "/documents/kc_descriptors_.pdf"
     },
     {
       "title": "Wine Making Terms",
@@ -64,13 +64,13 @@
       "title": "Wine and Food Pairing",
       "description": "Check out the interactive guide on our website but if you just wanted a printed cheat sheet; here you go!",
       "category": "Useful Tools",
-      "file": "/documents/kc_pairing_guide_.pdf"
+      "file": "documents/kc_pairing_guide_.pdf"
     },
     {
       "title": "Serving Wine Tips",
       "description": "General tips on temparature, order of serving wine and much more!",
       "category": "Useful Tools",
-      "file": "/documents/kc_serving_.pdf"
+      "file": "/documents/kc_region_grapes_.pdf"
     },
     {
       "title": "How to Taste Wine",
@@ -82,10 +82,10 @@
       "title": "Wine Making Philosophy",
       "description": "What is Natural, Organic, Biodynamic or just the conventional method? Here is a glimpse. Just know just because its conventional doesnt mean they are not practicing organic methods; particulalry now a days.",
       "category": "Useful Tools",
-      "file": "/documents/kc_winemaking_philosophy_.pdf"
+      "file": "documents/kc_winemaking_philosophy_.pdf"
     },
     {
-      "title": "Vintage Guide",
+      "title": "Vintage  Guide",
       "description": "This is always a tough one. Whats a great vintage? Someone winemakers can make a great wine in a poor vintage and some a poor wine in a great vintage. Use this as a general guide.",
       "category": "Useful Tools",
       "file": "/documents/kc_vintage_.pdf"
@@ -124,7 +124,7 @@
       "title": "What Varietal is in the Bottle?",
       "description": "Knowing what varietal (grape) is in bottles from other countries and regions is hard! What is a Sancerre? The bottle sadly doesnt tell you so hopefully this ittle cheat sheet will help. Btw...its Sauvignon Blanc!",
       "category": "Useful Tools",
-      "file": "/documents/kc_whats_in_bottle_.pdf"
+      "file": "documents/kc_whats_in_bottle_.pdf"
     },
     {
       "title": "Brief: Guide to Specific Grapes",
@@ -136,12 +136,12 @@
       "title": "Region to Grape",
       "description": "Whats in a Chablis? Breaks down what varietals correlate to specific regions.",
       "category": "Useful Tools",
-      "file": "/documents/kc_region_grapes_.pdf"
+      "file": "documents/kc_region_grapes_.pdf"
     },
     {
       "title": "In Depth: Guide to Grapes",
       "description": "Go deeper in to each varietal. Lets geek out on wine!",
-      "category": "Useful Tools",
+      "category": "Useful tools",
       "file": "/documents/kc_grape_profiles_complete_.pdf"
     },
     {
