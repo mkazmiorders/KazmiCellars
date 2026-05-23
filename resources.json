@@ -1,0 +1,152 @@
+{
+  "resources": [
+    {
+      "title": "How to Taste",
+      "description": "The simple framework — look, swirl, smell, sip, savor — for getting more out of every glass.",
+      "category": "Start Here",
+      "file": "/documents/kc_tasting_.pdf"
+    },
+    {
+      "title": "Serving Wine",
+      "description": "Temperatures, glassware, decanting, and timing so every bottle shows its best.",
+      "category": "Start Here",
+      "file": "/documents/kc_serving_.pdf"
+    },
+    {
+      "title": "Pairing Guide",
+      "description": "Easy principles for matching wine and food, plus go-to pairings that always work.",
+      "category": "Start Here",
+      "file": "/documents/kc_pairing_guide_.pdf"
+    },
+    {
+      "title": "Glossary",
+      "description": "Plain-language definitions for the wine terms you'll actually run into.",
+      "category": "Start Here",
+      "file": "/documents/kc_glossary_.pdf"
+    },
+
+    {
+      "title": "Aromas Explained",
+      "description": "A guide to identifying and understanding the aromas you'll encounter when tasting wine.",
+      "category": "Aroma & Palate",
+      "file": "/documents/kc_aromas_explained_.pdf"
+    },
+    {
+      "title": "Wine Aroma Guide",
+      "description": "A broader aroma reference — the families and notes that show up across styles.",
+      "category": "Aroma & Palate",
+      "file": "/documents/kc_wine_aroma_guide_.pdf"
+    },
+    {
+      "title": "Grape Aromas",
+      "description": "The signature aromas tied to specific grape varieties.",
+      "category": "Aroma & Palate",
+      "file": "/documents/kc_grape_aromas_.pdf"
+    },
+    {
+      "title": "Palate & Structure",
+      "description": "Body, tannin, acidity, alcohol — how the building blocks of a wine fit together.",
+      "category": "Aroma & Palate",
+      "file": "/documents/kc_palate_structure_.pdf"
+    },
+
+    {
+      "title": "Grape Guide",
+      "description": "A quick reference to the major grape varieties and what defines each.",
+      "category": "Grapes & Regions",
+      "file": "/documents/kc_grape_guide_.pdf"
+    },
+    {
+      "title": "Complete Grape Profiles",
+      "description": "The full deep-dive companion to our interactive Grape Profiles — 21 varieties in detail.",
+      "category": "Grapes & Regions",
+      "file": "/documents/kc_grape_profiles_complete_.pdf"
+    },
+    {
+      "title": "Regions Guide",
+      "description": "The full companion to our interactive Wine Regions — soil, climate, and the wines they shape.",
+      "category": "Grapes & Regions",
+      "file": "/documents/kc_regions_guide_.pdf"
+    },
+    {
+      "title": "Region Soils",
+      "description": "How different soils — slate, gravel, limestone, volcanic — shape the wine in your glass.",
+      "category": "Grapes & Regions",
+      "file": "/documents/kc_regions_soils_.pdf"
+    },
+    {
+      "title": "Regional Grapes",
+      "description": "Which grapes belong to which regions, and why they ended up there.",
+      "category": "Grapes & Regions",
+      "file": "/documents/kc_region_grapes_.pdf"
+    },
+
+    {
+      "title": "French Labels",
+      "description": "How to decode a French wine label — appellations, classifications, and what they tell you.",
+      "category": "Reading the Label",
+      "file": "/documents/kc_french_labels_.pdf"
+    },
+    {
+      "title": "Italian Labels",
+      "description": "Decoding Italian labels — DOC, DOCG, and the regional clues that matter.",
+      "category": "Reading the Label",
+      "file": "/documents/kc_italy_labels_.pdf"
+    },
+    {
+      "title": "Spanish Labels",
+      "description": "Reading Spanish labels — Crianza, Reserva, Gran Reserva, and the regions behind them.",
+      "category": "Reading the Label",
+      "file": "/documents/kc_spain_labels_.pdf"
+    },
+    {
+      "title": "Pronunciation Guide",
+      "description": "How to say the grapes, regions, and producers — without the guesswork.",
+      "category": "Reading the Label",
+      "file": "/documents/kc_pronunciation_guide_.pdf"
+    },
+
+    {
+      "title": "Winemaking Philosophy",
+      "description": "Our take on how thoughtful winemaking shapes what ends up in the bottle.",
+      "category": "How Wine Is Made",
+      "file": "/documents/kc_winemaking_philosophy_.pdf"
+    },
+    {
+      "title": "From Vine to Bottle",
+      "description": "The full journey — from grape on the vine to the wine you pour.",
+      "category": "How Wine Is Made",
+      "file": "/documents/kc_vine_to_bottle_.pdf"
+    },
+    {
+      "title": "Life of a Vine",
+      "description": "How a grapevine grows and changes through the seasons and the years.",
+      "category": "How Wine Is Made",
+      "file": "/documents/kc_vine_life-1.pdf"
+    },
+    {
+      "title": "Barrel Aging",
+      "description": "What oak does to wine — flavor, texture, and time.",
+      "category": "How Wine Is Made",
+      "file": "/documents/kc_barrel_aging_.pdf"
+    },
+    {
+      "title": "Understanding Blends",
+      "description": "Why winemakers blend, and how different grapes add up to something greater.",
+      "category": "How Wine Is Made",
+      "file": "/documents/kc_blends_.pdf"
+    },
+    {
+      "title": "What's in the Bottle",
+      "description": "What's actually in wine beyond grapes — and what those components do.",
+      "category": "How Wine Is Made",
+      "file": "/documents/kc_whats_in_bottle_.pdf"
+    },
+    {
+      "title": "Vintage & Aging",
+      "description": "Why the year matters, and which wines are worth waiting on.",
+      "category": "How Wine Is Made",
+      "file": "/documents/kc_vintage_.pdf"
+    }
+  ]
+}
