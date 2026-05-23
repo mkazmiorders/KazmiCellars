@@ -164,5 +164,5 @@ collections:
             fields:
               - {label: "Title", name: "title", widget: "string"}
               - {label: "Description", name: "description", widget: "text", required: false}
-              - {label: "Category", name: "category", widget: "string", hint: "e.g. Aromas, Grapes, Food Pairing, Tasting"}
+              - {label: "Category", name: "category", widget: "select", options: ["Aromas", "Useful Tools", "Wine Growing", "Wine Education", "Wine Labels"]}
               - {label: "PDF Path", name: "file", widget: "string", hint: "Upload PDF to /documents/ in GitHub, then enter path e.g. /documents/filename.pdf"}
