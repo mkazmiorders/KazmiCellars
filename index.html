@@ -374,7 +374,7 @@
           var col = CT_WINE[p.t] || '#666';
           return '<div class="ct-wine"><span class="ct-dot" style="background:' + col + '"></span><span class="ct-wine-name">' + p.w + '</span></div>';
         }).join('');
-        return '<a href="cuisine-pairings.html" class="ct-card">' +
+        return '<a href="cuisine-pairings.html?cuisine=' + encodeURIComponent(ctActive) + '&dish=' + encodeURIComponent(d.n) + '" class="ct-card">' +
           '<div class="ct-head"><span class="ct-emoji">' + (d.e || '') + '</span><span class="ct-name">' + d.n + '</span></div>' +
           '<div class="ct-desc">' + (d.d || '') + '</div>' +
           '<div class="ct-wines">' + wines + '</div>' +

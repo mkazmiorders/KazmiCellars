@@ -334,7 +334,7 @@ function buildNav(){
   const nav=document.getElementById("cuisine-nav");
   CUISINES.forEach((c,i)=>{
     const b=document.createElement("button");
-    b.className="cuis-tab"+(i===0?" active":"");
+    b.className="cuis-tab"+(i===aC?" active":"");
     b.textContent=c.flag+" "+c.name;
     b.onclick=()=>{document.querySelectorAll(".cuis-tab").forEach(x=>x.classList.remove("active"));b.classList.add("active");aC=i;renderGrid();};
     nav.appendChild(b);
@@ -420,7 +420,7 @@ function closePanel(){
   document.body.style.overflow="";
 }
 document.addEventListener("keydown",e=>{if(e.key==="Escape")closePanel();});
-try{buildNav();buildFilters();renderGrid();}catch(err){var g=document.getElementById("dish-grid");if(g){g.innerHTML='<p style="padding:2rem;color:#722F37;font-family:Raleway,sans-serif;font-size:.95rem;line-height:1.6">Tool failed to load: '+(err&&err.message?err.message:err)+'</p>';}console.error(err);}
+try{(function(){try{var q=new URLSearchParams(window.location.search);var cn=q.get("cuisine");if(cn){var ci=CUISINES.findIndex(function(c){return c.name.toLowerCase()===cn.toLowerCase();});if(ci>=0)aC=ci;}}catch(e){}})();buildNav();buildFilters();renderGrid();(function(){try{var q=new URLSearchParams(window.location.search);var dn=q.get("dish");if(dn){var di=CUISINES[aC].dishes.findIndex(function(d){return d.n.toLowerCase()===dn.toLowerCase();});if(di>=0)openPanel(aC,di);}}catch(e){}})();}catch(err){var g=document.getElementById("dish-grid");if(g){g.innerHTML='<p style="padding:2rem;color:#722F37;font-family:Raleway,sans-serif;font-size:.95rem;line-height:1.6">Tool failed to load: '+(err&&err.message?err.message:err)+'</p>';}console.error(err);}
 </script>
 </body>
 </html>
