@@ -36,12 +36,12 @@
 /* ── GRAPE CARD ── */
 .gp-card { background: white; border: 1px solid var(--gp-tan); border-radius: 2px; overflow: hidden; cursor: pointer; transition: transform .2s, box-shadow .2s; }
 .gp-card:hover { transform: translateY(-3px); box-shadow: 0 6px 24px rgba(44,26,14,.12); }
-.card-header { padding: 16px 16px 14px; color: white; position: relative; }
-.card-kz { font-style: italic; font-size: 7.5px; color: rgba(255,255,255,.4); letter-spacing: .1em; }
+.card-header { padding: 16px 16px 14px; color: var(--gp-dark); position: relative; }
+.card-kz { font-style: italic; font-size: 7.5px; color: var(--gp-gold); letter-spacing: .1em; }
 .card-name { font-family: var(--gp-serif); font-weight: 600; font-size: 22px; line-height: 1.1; margin: 4px 0 3px; }
-.card-badge { display: inline-block; font-size: 8px; letter-spacing: .15em; text-transform: uppercase; padding: 2px 8px; border: 1px solid rgba(255,255,255,.3); border-radius: 2px; color: rgba(255,255,255,.7); margin-bottom: 4px; font-family: var(--gp-sans); }
-.card-origin { font-style: italic; font-size: 9.5px; color: rgba(255,255,255,.6); font-family: var(--gp-serif); }
-.card-tagline { font-style: italic; font-size: 9px; color: rgba(255,255,255,.5); margin-top: 5px; line-height: 1.4; font-family: var(--gp-serif); }
+.card-badge { display: inline-block; font-size: 8px; letter-spacing: .15em; text-transform: uppercase; padding: 2px 8px; border: 1px solid var(--gp-tan); border-radius: 2px; color: var(--gp-mid); margin-bottom: 4px; font-family: var(--gp-sans); }
+.card-origin { font-style: italic; font-size: 9.5px; color: var(--gp-mid); font-family: var(--gp-serif); }
+.card-tagline { font-style: italic; font-size: 9px; color: var(--gp-mid); margin-top: 5px; line-height: 1.4; font-family: var(--gp-serif); }
 .card-swatch { display: flex; height: 12px; }
 .swatch-s { flex: 1; }
 .card-body { padding: 11px 14px 12px; background: var(--gp-cream); }
@@ -58,19 +58,19 @@
 .gp-overlay.open { opacity: 1; pointer-events: all; }
 .gp-panel { position: fixed; top: 0; right: 0; height: 100vh; width: min(660px, 100vw); background: var(--gp-cream); z-index: 2001; overflow-y: auto; transform: translateX(100%); transition: transform .3s cubic-bezier(.4,0,.2,1); }
 .gp-panel.open { transform: translateX(0); }
-.panel-header { padding: 20px 24px 16px; color: white; position: sticky; top: 0; z-index: 5; }
+.panel-header { padding: 20px 24px 16px; color: var(--gp-dark); position: sticky; top: 0; z-index: 5; background: var(--gp-alt); border-bottom: 1px solid var(--gp-tan); }
 .panel-kz { font-style: italic; font-size: 9px; color: var(--gp-gold); }
 .panel-name { font-family: var(--gp-serif); font-weight: 600; font-size: 30px; line-height: 1.05; margin: 6px 0 3px; }
-.panel-origin { font-style: italic; font-size: 12px; color: rgba(255,255,255,.7); font-family: var(--gp-serif); }
-.panel-syn { font-style: italic; font-size: 9.5px; color: rgba(255,255,255,.5); margin-top: 3px; font-family: var(--gp-serif); }
-.panel-tagline { font-style: italic; font-size: 10.5px; color: rgba(255,255,255,.55); margin-top: 6px; line-height: 1.5; font-family: var(--gp-serif); }
-.panel-close { position: absolute; top: 16px; right: 20px; background: rgba(255,255,255,.15); border: none; color: white; width: 32px; height: 32px; border-radius: 50%; cursor: pointer; font-size: 18px; display: flex; align-items: center; justify-content: center; }
-.panel-close:hover { background: rgba(255,255,255,.25); }
+.panel-origin { font-style: italic; font-size: 12px; color: var(--gp-mid); font-family: var(--gp-serif); }
+.panel-syn { font-style: italic; font-size: 9.5px; color: var(--gp-mid); margin-top: 3px; font-family: var(--gp-serif); }
+.panel-tagline { font-style: italic; font-size: 10.5px; color: var(--gp-mid); margin-top: 6px; line-height: 1.5; font-family: var(--gp-serif); }
+.panel-close { position: absolute; top: 16px; right: 20px; background: rgba(0,0,0,.06); border: none; color: var(--gp-dark); width: 32px; height: 32px; border-radius: 50%; cursor: pointer; font-size: 18px; display: flex; align-items: center; justify-content: center; }
+.panel-close:hover { background: rgba(0,0,0,.12); }
 .panel-swatch { display: flex; height: 18px; }
 .ps-seg { flex: 1; display: flex; align-items: center; justify-content: center; font-size: 5.5px; font-style: italic; }
 .panel-body { padding: 0 24px 32px; }
 .p-sec { margin-top: 20px; }
-.p-sec-hdr { font-size: 8px; font-weight: bold; letter-spacing: .2em; text-transform: uppercase; color: white; padding: 5px 10px 4px; margin: 0 -24px 10px; font-family: var(--gp-sans); }
+.p-sec-hdr { font-size: 8px; font-weight: bold; letter-spacing: .2em; text-transform: uppercase; color: var(--gp-gold); padding: 0 0 5px; margin: 0 0 10px; border-bottom: 1px solid var(--gp-tan); font-family: var(--gp-sans); }
 .p-2col { display: grid; grid-template-columns: 1fr 1fr; }
 .p-fact { padding: 7px 10px; border-bottom: 1px solid var(--gp-tan); }
 .p-fact:nth-child(odd) { background: var(--gp-alt); border-right: 1px solid var(--gp-tan); }
@@ -95,7 +95,6 @@
 @media (max-width: 640px) {
   .gp-filters, .grid-section { padding-left: 16px; padding-right: 16px; }
   .panel-body { padding: 0 16px 24px; }
-  .p-sec-hdr { margin-left: -16px; margin-right: -16px; }
 }
 </style>
 </head>
@@ -565,7 +564,7 @@ function renderGrid() {
     const aromaChips=g.aromas_primary.flatMap(([cat,aromas,col])=>aromas.slice(0,3).map(a=>`<span class="a-chip" style="background:${col};">${a}</span>`)).slice(0,6).join('');
     const isWhite=g.type==='white';
     return`<div class="gp-card" onclick="openPanel(${GRAPES.indexOf(g)})">
-      <div class="card-header" style="background:${g.col};">
+      <div class="card-header">
         <div class="card-kz">Kazmi Cellars · Grape Profile</div>
         <div class="card-badge">${isWhite?'White Wine':'Red Wine'}</div>
         <div class="card-name">${g.name}</div>
@@ -614,7 +613,6 @@ function buildFilters() {
 // ── DETAIL PANEL ──────────────────────────────────────────────────────────────
 function openPanel(idx) {
   const g=GRAPES[idx];
-  document.getElementById('panel-header').style.background=g.col;
   document.getElementById('ph-name').textContent=g.name;
   document.getElementById('ph-origin').textContent=`${g.flag} ${g.origin}`;
   document.getElementById('ph-syn').textContent=`Synonyms: ${g.synonyms}`;
@@ -636,7 +634,7 @@ function openPanel(idx) {
 
   document.getElementById('panel-body').innerHTML=`
     <div class="p-sec">
-      <div class="p-sec-hdr" style="background:${g.col};">STRUCTURE & ATTRIBUTES</div>
+      <div class="p-sec-hdr">STRUCTURE & ATTRIBUTES</div>
       <div style="display:flex;gap:16px;align-items:flex-start;">
         <div style="flex:0 0 auto;">${radarSVG(g.radar,g.rl,g.col,175)}</div>
         <div style="flex:1;padding-top:8px;">${attrBars(g.attrs,g.col)}<div style="margin-top:12px;padding:8px 10px;background:var(--gp-goldL);border-left:3px solid var(--gp-gold);"><div style="font-size:8px;font-weight:bold;color:var(--gp-mid);">Serve / Age</div><div style="font-size:9px;color:var(--gp-dark);margin-top:3px;">${g.serve}</div><div style="font-size:9px;color:var(--gp-dark);margin-top:2px;">Peak: ${g.peak}</div><div style="font-size:9px;color:var(--gp-dark);margin-top:2px;">Decant: ${g.decant}</div></div></div>
@@ -644,33 +642,33 @@ function openPanel(idx) {
     </div>
 
     <div class="p-sec">
-      <div class="p-sec-hdr" style="background:${g.col};">AROMA PROFILE</div>
+      <div class="p-sec-hdr">AROMA PROFILE</div>
       ${aromaBlocks}
     </div>
 
     <div class="p-sec">
-      <div class="p-sec-hdr" style="background:${g.col};">PALATE PROFILE</div>
+      <div class="p-sec-hdr">PALATE PROFILE</div>
       <p class="story-text">${g.palate1}</p>
       <p class="story-text" style="margin-top:10px;">${g.palate2}</p>
     </div>
 
     <div class="p-sec">
-      <div class="p-sec-hdr" style="background:${g.col};">KEY REGIONS</div>
+      <div class="p-sec-hdr">KEY REGIONS</div>
       ${regRows}
     </div>
 
     <div class="p-sec">
-      <div class="p-sec-hdr" style="background:${g.col};">SOIL AFFINITY</div>
+      <div class="p-sec-hdr">SOIL AFFINITY</div>
       <div class="chip-grid" style="padding:4px 0;">${soilChips}</div>
     </div>
 
     <div class="p-sec">
-      <div class="p-sec-hdr" style="background:${g.col};">PAIRS WELL WITH</div>
+      <div class="p-sec-hdr">PAIRS WELL WITH</div>
       <div class="chip-grid" style="padding:4px 0;">${foodChips}</div>
     </div>
 
     <div class="p-sec">
-      <div class="p-sec-hdr" style="background:${g.col};">IN THE CELLAR</div>
+      <div class="p-sec-hdr">IN THE CELLAR</div>
       <div class="p-2col">
         <div class="p-fact"><div class="p-lbl">Aging Potential</div><div class="p-val">${g.age}</div></div>
         <div class="p-fact"><div class="p-lbl">Peak Window</div><div class="p-val">${g.peak}</div></div>
