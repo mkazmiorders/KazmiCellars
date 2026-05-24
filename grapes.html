@@ -9,18 +9,15 @@
 /* Scoped reset for the grape tool only */
 .gp-hero, .gp-filters, .grid-section, .gp-overlay, .gp-panel, .gp-card { box-sizing: border-box; }
 :root {
-  --gp-cream: #f5f0e8; --gp-dark: #2C1A0E; --gp-mid: #6B4C2A;
-  --gp-tan: #D9C8A8; --gp-burg: #5C1A1A; --gp-gold: #8b6914;
-  --gp-goldL: #FFF4E0; --gp-alt: #F3EDE5;
+  --gp-cream: #f5f0e8; --gp-dark: #2c1810; --gp-mid: #6b3f26;
+  --gp-tan: #d4c4a8; --gp-burg: #722F37; --gp-gold: #8b6914;
+  --gp-goldL: #ede8dc; --gp-alt: #ede8dc;
   --gp-serif: 'Cormorant Garamond', Georgia, serif;
   --gp-sans: 'Raleway', Georgia, sans-serif;
 }
 
-/* ── HERO ── */
-.gp-hero { background: var(--gp-burg); padding: 52px 32px 44px; text-align: center; border-bottom: 3px solid var(--gp-gold); }
-.gp-hero-kz { font-style: italic; font-size: 11px; color: var(--gp-gold); letter-spacing: .14em; margin-bottom: 10px; }
-.gp-hero-title { font-family: var(--gp-serif); font-size: clamp(28px,5vw,46px); font-weight: 600; color: #F5ECD8; line-height: 1.05; margin-bottom: 12px; }
-.gp-hero-sub { font-style: italic; font-size: 14px; color: rgba(245,236,216,.7); max-width: 600px; margin: 0 auto; line-height: 1.6; font-family: var(--gp-serif); }
+/* ── PAGE HEADER (matches site) ── */
+.gp-intro { font-size: .95rem; color: var(--text-mid); line-height: 1.8; max-width: 600px; margin: 1rem auto 0; text-align: center; font-family: 'Raleway', sans-serif; }
 
 /* ── FILTERS ── */
 .gp-filters { background: var(--gp-alt); border-bottom: 1px solid var(--gp-tan); padding: 14px 32px; display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
@@ -97,7 +94,6 @@
 
 @media (max-width: 640px) {
   .gp-filters, .grid-section { padding-left: 16px; padding-right: 16px; }
-  .gp-hero { padding: 36px 16px 28px; }
   .panel-body { padding: 0 16px 24px; }
   .p-sec-hdr { margin-left: -16px; margin-right: -16px; }
 }
@@ -107,11 +103,13 @@
 
 <script src="nav.js"></script>
 
-<section class="gp-hero">
-  <div class="gp-hero-kz">Kazmi Cellars · Wine Education</div>
-  <h1 class="gp-hero-title">Grape Profiles</h1>
-  <p class="gp-hero-sub">Every major variety — origin, aromas, palate, structure, regions, and what to pair it with. Click any grape to explore the full profile.</p>
-</section>
+<div class="page-header">
+  <div style="max-width:780px;margin:0 auto;text-align:center;">
+    <p class="section-label">Wine Education</p>
+    <h1 class="section-title">Grape <em>Profiles</em></h1>
+    <p class="gp-intro">Every major variety — origin, aromas, palate, structure, regions, and what to pair it with. Click any grape to explore the full profile.</p>
+  </div>
+</div>
 
 <div class="gp-filters" id="filters"></div>
 
