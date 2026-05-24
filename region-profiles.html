@@ -8,19 +8,16 @@
 <style>
 .gp-hero, .gp-filters, .grid-section, .gp-overlay, .gp-panel, .gp-card { box-sizing: border-box; }
 :root {
-  --gp-cream: #f5f0e8; --gp-dark: #2C1A0E; --gp-mid: #6B4C2A;
-  --gp-tan: #D9C8A8; --gp-burg: #5C1A1A; --gp-gold: #8b6914;
-  --gp-goldL: #FFF4E0; --gp-alt: #F3EDE5; --gp-white: #faf8f4;
+  --gp-cream: #f5f0e8; --gp-dark: #2c1810; --gp-mid: #6b3f26;
+  --gp-tan: #d4c4a8; --gp-burg: #722F37; --gp-gold: #8b6914;
+  --gp-goldL: #ede8dc; --gp-alt: #ede8dc; --gp-white: #faf8f4;
   --gp-serif: 'Cormorant Garamond', Georgia, serif;
   --gp-sans: 'Raleway', Georgia, sans-serif;
 }
 
-/* ── HERO ── */
-.gp-hero { background: var(--gp-burg); padding: 52px 32px 44px; text-align: center; border-bottom: 3px solid var(--gp-gold); }
-.gp-hero-kz { font-style: italic; font-size: 11px; color: var(--gp-gold); letter-spacing: .14em; margin-bottom: 10px; }
-.gp-hero-title { font-family: var(--gp-serif); font-size: clamp(28px,5vw,46px); font-weight: 600; color: #F5ECD8; line-height: 1.05; margin-bottom: 12px; }
-.gp-hero-sub { font-style: italic; font-size: 14px; color: rgba(245,236,216,.7); max-width: 580px; margin: 0 auto; line-height: 1.6; font-family: var(--gp-serif); }
-.gp-hero-dl { display: inline-flex; align-items: center; gap: 8px; margin-top: 22px; padding: 11px 24px; background: var(--gp-gold); color: #2C1A0E; font-family: var(--gp-sans); font-size: 12px; font-weight: 600; letter-spacing: .06em; text-transform: uppercase; border-radius: 2px; text-decoration: none; transition: opacity .15s; }
+/* ── PAGE HEADER (matches site) ── */
+.gp-intro { font-size: .95rem; color: var(--text-mid); line-height: 1.8; max-width: 580px; margin: 1rem auto 0; text-align: center; font-family: 'Raleway', sans-serif; }
+.gp-hero-dl { display: inline-flex; align-items: center; gap: 8px; margin-top: 1.4rem; padding: 11px 24px; background: var(--gp-gold); color: #fff; font-family: var(--gp-sans); font-size: 12px; font-weight: 600; letter-spacing: .06em; text-transform: uppercase; border-radius: 2px; text-decoration: none; transition: opacity .15s; }
 .gp-hero-dl:hover { opacity: .88; }
 
 /* ── FILTERS ── */
@@ -57,13 +54,13 @@
 .gp-card:hover { transform: translateY(-3px); box-shadow: 0 6px 24px rgba(44,26,14,0.12); }
 .card-header {
   padding: 16px 16px 12px;
-  color: white;
+  color: var(--gp-dark);
   position: relative;
 }
-.card-kz { font-style: italic; font-size: 8px; color: rgba(255,255,255,.45); letter-spacing: .1em; }
+.card-kz { font-style: italic; font-size: 8px; color: var(--gp-gold); letter-spacing: .1em; }
 .card-name { font-family: var(--gp-serif); font-weight: 600; font-size: 19px; line-height: 1.15; margin: 4px 0 3px; }
-.card-country { font-style: italic; font-size: 10.5px; color: rgba(255,255,255,.7); font-family: var(--gp-serif); }
-.card-tagline { font-style: italic; font-size: 9.5px; color: rgba(255,255,255,.55); margin-top: 6px; line-height: 1.4; font-family: var(--gp-serif); }
+.card-country { font-style: italic; font-size: 10.5px; color: var(--gp-mid); font-family: var(--gp-serif); }
+.card-tagline { font-style: italic; font-size: 9.5px; color: var(--gp-mid); margin-top: 6px; line-height: 1.4; font-family: var(--gp-serif); }
 .card-body { padding: 12px 16px; background: var(--gp-cream); }
 .card-facts { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; margin-bottom: 10px; }
 .card-fact { }
@@ -95,18 +92,18 @@
   transform: translateX(100%); transition: transform .3s cubic-bezier(.4,0,.2,1);
 }
 .gp-panel.open { transform: translateX(0); }
-.panel-header { padding: 20px 24px 16px; color: white; position: sticky; top: 0; z-index: 5; }
+.panel-header { padding: 20px 24px 16px; color: var(--gp-dark); position: sticky; top: 0; z-index: 5; background: var(--gp-alt); border-bottom: 1px solid var(--gp-tan); }
 .panel-kz { font-style: italic; font-size: 9px; color: var(--gp-gold); }
 .panel-name { font-family: var(--gp-serif); font-weight: 600; font-size: 28px; line-height: 1.1; margin: 6px 0 4px; }
-.panel-country { font-style: italic; font-size: 11.5px; color: rgba(255,255,255,.75); font-family: var(--gp-serif); }
-.panel-tagline { font-style: italic; font-size: 10.5px; color: rgba(255,255,255,.55); margin-top: 6px; line-height: 1.5; font-family: var(--gp-serif); }
+.panel-country { font-style: italic; font-size: 11.5px; color: var(--gp-mid); font-family: var(--gp-serif); }
+.panel-tagline { font-style: italic; font-size: 10.5px; color: var(--gp-mid); margin-top: 6px; line-height: 1.5; font-family: var(--gp-serif); }
 .panel-close {
   position: absolute; top: 16px; right: 20px;
-  background: rgba(255,255,255,.15); border: none; color: white;
+  background: rgba(0,0,0,.06); border: none; color: var(--gp-dark);
   width: 32px; height: 32px; border-radius: 50%; cursor: pointer;
   font-size: 18px; display: flex; align-items: center; justify-content: center;
 }
-.panel-close:hover { background: rgba(255,255,255,.25); }
+.panel-close:hover { background: rgba(0,0,0,.12); }
 
 .panel-body { padding: 0 24px 32px; }
 .panel-swatch { display: flex; height: 14px; margin: 0 -24px; }
@@ -116,8 +113,8 @@
 .p-sec { margin-top: 20px; }
 .p-sec-hdr {
   font-size: 8px; font-weight: bold; letter-spacing: .2em; text-transform: uppercase;
-  color: white; background: var(--gp-burg);
-  padding: 5px 10px 4px; margin: 0 -24px 10px; font-family: var(--gp-sans);
+  color: var(--gp-gold); background: transparent;
+  padding: 0 0 5px; margin: 0 0 10px; border-bottom: 1px solid var(--gp-tan); font-family: var(--gp-sans);
 }
 .p-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0; }
 .p-fact { padding: 7px 10px; border-bottom: 1px solid var(--gp-tan); }
@@ -159,11 +156,9 @@
 }
 
 @media (max-width: 640px) {
-  .gp-hero { padding: 36px 16px 28px; }
   .gp-filters { padding: 10px 16px; }
   .grid-section { padding: 20px 16px 40px; }
   .panel-body { padding: 0 16px 24px; }
-  .p-sec-hdr { margin: 0 -16px 10px; }
   .panel-swatch { margin: 0 -16px; }
   .radar-climate-row { flex-direction: column; }
 }
@@ -173,12 +168,14 @@
 
 <script src="nav.js"></script>
 
-<section class="gp-hero">
-  <div class="gp-hero-kz">Kazmi Cellars · Wine Education</div>
-  <h1 class="gp-hero-title">Famous Wine Regions</h1>
-  <p class="gp-hero-sub">What makes each region unique — soil, climate, geography, and the grapes they define. Click any region to explore.</p>
-  <a class="gp-hero-dl" href="documents/kc_regions_guide_.pdf" target="_blank" rel="noopener">↓ Download the Complete Regions Guide PDF</a>
-</section>
+<div class="page-header">
+  <div style="max-width:780px;margin:0 auto;text-align:center;">
+    <p class="section-label">Wine Education</p>
+    <h1 class="section-title">Famous Wine <em>Regions</em></h1>
+    <p class="gp-intro">What makes each region unique — soil, climate, geography, and the grapes they define. Click any region to explore.</p>
+    <a class="gp-hero-dl" href="documents/kc_regions_guide_.pdf" target="_blank" rel="noopener">↓ Download the Complete Regions Guide PDF</a>
+  </div>
+</div>
 
 <div class="gp-filters" id="filters">
   <span class="filter-label">Filter:</span>
@@ -689,7 +686,7 @@ function renderGrid(filter) {
     const redChips = r.reds.slice(0,3).map(g=>`<span class="grape-chip red">${g}</span>`).join('');
     const whtChips = r.whites.slice(0,2).map(g=>`<span class="grape-chip white">${g}</span>`).join('');
     return `<div class="gp-card" onclick="openPanel(${REGIONS.indexOf(r)})">
-      <div class="card-header" style="background:${r.col};">
+      <div class="card-header">
         <div class="card-kz">Kazmi Cellars · Wine Region</div>
         <div class="card-name">${r.flag} ${r.name}</div>
         <div class="card-country">${r.country} · ${r.climate}</div>
@@ -738,7 +735,6 @@ function buildFilters() {
 // ── DETAIL PANEL ──────────────────────────────────────────────────────────────
 function openPanel(idx) {
   const r = REGIONS[idx];
-  document.getElementById('panel-header').style.background = r.col;
   document.getElementById('ph-name').textContent = `${r.flag} ${r.name}`;
   document.getElementById('ph-country').textContent = `${r.country} · ${r.climate}`;
   document.getElementById('ph-tagline').textContent = r.tagline;
@@ -759,7 +755,7 @@ function openPanel(idx) {
 
   body.innerHTML = `
     <div class="p-sec">
-      <div class="p-sec-hdr" style="background:${r.col};">KEY FACTS</div>
+      <div class="p-sec-hdr">KEY FACTS</div>
       <div class="p-grid">
         <div class="p-fact"><div class="p-lbl">Latitude</div><div class="p-val">${r.lat}</div></div>
         <div class="p-fact"><div class="p-lbl">Elevation</div><div class="p-val">${r.elev}</div></div>
@@ -769,7 +765,7 @@ function openPanel(idx) {
     </div>
 
     <div class="p-sec">
-      <div class="p-sec-hdr" style="background:${r.col};">CLIMATE & STRUCTURE</div>
+      <div class="p-sec-hdr">CLIMATE & STRUCTURE</div>
       <div class="radar-climate-row">
         <div class="radar-wrap">${radarSVG(r.radar, r.rl, r.col, 180)}</div>
         <div class="climate-wrap">
@@ -783,29 +779,29 @@ function openPanel(idx) {
     </div>
 
     <div class="p-sec">
-      <div class="p-sec-hdr" style="background:${r.col};">WHAT MAKES IT UNIQUE</div>
+      <div class="p-sec-hdr">WHAT MAKES IT UNIQUE</div>
       <p class="story-text">${r.story1}</p>
       <p class="story-text" style="margin-top:10px;">${r.story2}</p>
     </div>
 
     <div class="p-sec">
-      <div class="p-sec-hdr" style="background:${r.col};">SUB-REGIONS & APPELLATIONS</div>
+      <div class="p-sec-hdr">SUB-REGIONS & APPELLATIONS</div>
       <div class="chip-grid">${subChips}</div>
     </div>
 
     <div class="p-sec">
-      <div class="p-sec-hdr" style="background:${r.col};">GRAPES GROWN</div>
+      <div class="p-sec-hdr">GRAPES GROWN</div>
       ${r.reds.length ? `<div style="font-size:8px;font-weight:bold;color:var(--gp-mid);margin:6px 0 4px;">RED VARIETIES</div><div class="chip-grid">${redChips}</div>` : ''}
       ${r.whites.length ? `<div style="font-size:8px;font-weight:bold;color:var(--gp-mid);margin:8px 0 4px;">WHITE VARIETIES</div><div class="chip-grid">${whtChips}</div>` : ''}
     </div>
 
     <div class="p-sec">
-      <div class="p-sec-hdr" style="background:${r.col};">SOILS</div>
+      <div class="p-sec-hdr">SOILS</div>
       <div class="chip-grid">${soilChips}</div>
     </div>
 
     <div class="p-sec">
-      <div class="p-sec-hdr" style="background:${r.col};">WINE STYLES & PRODUCERS</div>
+      <div class="p-sec-hdr">WINE STYLES & PRODUCERS</div>
       <div class="p-fact" style="background:var(--gp-alt);padding:8px 10px;border-bottom:1px solid var(--gp-tan);">
         <div class="p-lbl">Key Styles</div><div class="p-val" style="margin-top:3px;">${r.styles}</div>
       </div>
