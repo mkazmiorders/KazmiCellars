@@ -64,13 +64,13 @@
       "title": "Wine and Food Pairing",
       "description": "Check out the interactive guide on our website but if you just wanted a printed cheat sheet; here you go!",
       "category": "Useful Tools",
-      "file": "documents/kc_pairing_guide_.pdf"
+      "file": "/documents/kc_pairing_guide_.pdf"
     },
     {
       "title": "Serving Wine Tips",
       "description": "General tips on temparature, order of serving wine and much more!",
       "category": "Useful Tools",
-      "file": "/documents/kc_region_grapes_.pdf"
+      "file": "documents/kc_serving_.pdf"
     },
     {
       "title": "How to Taste Wine",
