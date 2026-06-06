@@ -3,7 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Grape Profiles — Kazmi Cellars</title>
+<title>Wine Grape Profiles: 20 Major Varieties Explained | Kazmi Cellars</title>
+<meta name="description" content="Detailed profiles of 20 major wine grapes — Pinot Noir, Cabernet, Syrah, Chardonnay, Riesling and more. Origin, aromas, palate, regions and food pairings.">
 <link rel="stylesheet" href="style.css" />
 <style>
 /* Scoped reset for the grape tool only */
@@ -101,6 +102,7 @@
 <body>
 
 <script src="nav.js"></script>
+<script src="search.js"></script>
 
 <div class="page-header">
   <div style="max-width:780px;margin:0 auto;text-align:center;">
@@ -702,6 +704,16 @@ function closePanel() {
 document.addEventListener('keydown',e=>{if(e.key==='Escape')closePanel();});
 buildFilters();
 renderGrid();
+
+// === Deep-link from search.js: open a grape panel via ?open=<slug> ===
+(function () {
+  const params = new URLSearchParams(window.location.search);
+  const openSlug = params.get('open');
+  if (!openSlug) return;
+  function slug(s) { return s.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, ''); }
+  const idx = GRAPES.findIndex(g => slug(g.name) === openSlug);
+  if (idx >= 0) setTimeout(() => openPanel(idx), 50);
+})();
 </script>
 
 <script src="footer.js"></script>

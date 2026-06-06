@@ -3,7 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Wine Regions — Kazmi Cellars</title>
+<title>Famous Wine Regions: Bordeaux, Burgundy, Napa & 23 More | Kazmi Cellars</title>
+<meta name="description" content="Explore 26 of the world's great wine regions — Bordeaux, Burgundy, Napa, Tuscany, Rioja and more. Soil, climate, grapes and what defines each.">
 <link rel="stylesheet" href="style.css" />
 <style>
 .gp-hero, .gp-filters, .grid-section, .gp-overlay, .gp-panel, .gp-card { box-sizing: border-box; }
@@ -167,6 +168,7 @@
 <body>
 
 <script src="nav.js"></script>
+<script src="search.js"></script>
 
 <div class="page-header">
   <div style="max-width:780px;margin:0 auto;text-align:center;">
@@ -829,6 +831,16 @@ document.addEventListener('keydown', e => { if(e.key === 'Escape') closePanel();
 // ── INIT ──────────────────────────────────────────────────────────────────────
 buildFilters();
 renderGrid('All');
+
+// === Deep-link from search.js: open a region panel via ?open=<slug> ===
+(function () {
+  const params = new URLSearchParams(window.location.search);
+  const openSlug = params.get('open');
+  if (!openSlug) return;
+  function slug(s) { return s.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, ''); }
+  const idx = REGIONS.findIndex(r => slug(r.name) === openSlug);
+  if (idx >= 0) setTimeout(() => openPanel(idx), 50);
+})();
 </script>
 
 <script src="footer.js"></script>
