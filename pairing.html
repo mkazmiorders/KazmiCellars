@@ -31,7 +31,7 @@
   <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
 
   <script type="text/babel">
-    const { useState, useMemo } = React;
+    const { useState, useMemo, useEffect } = React;
 
     const C = {
       red:       { bg:"#FAF0ED", badge:"#8C2B2B", badgeText:"#fff", accent:"#8C2B2B" },
@@ -791,7 +791,20 @@
       const [search, setSearch]               = useState("");
       const [typeFilter, setTypeFilter]       = useState("All");
       const [proteinFilter, setProteinFilter] = useState("All");
-      const [expanded, setExpanded]           = useState(null);
+      const [expanded, setExpanded]           = useState(() => {
+        const p = new URLSearchParams(window.location.search);
+        return p.get('open') || null;
+      });
+
+      // Deep-link: scroll to expanded card on mount
+      useEffect(() => {
+        if (expanded) {
+          setTimeout(() => {
+            const el = document.querySelector('[data-grape-id="' + expanded + '"]');
+            if (el) el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+          }, 150);
+        }
+      }, []);
       const [activeTab, setActiveTab]         = useState({});
 
       const filtered = useMemo(() => GRAPES.filter(g => {
@@ -832,7 +845,7 @@
             const isOpen = expanded === g.id;
             const tab    = activeTab[g.id] || "proteins";
             return (
-              <div key={g.id} style={{...st.card, background: col.bg}}>
+              <div key={g.id} data-grape-id={g.id} style={{...st.card, background: col.bg}}>
                 <div style={st.cardTop} onClick={() => toggle(g.id)}>
                   <div>
                     <div style={st.cardName}>{g.name}</div>
