@@ -151,4 +151,11 @@
       header.classList.remove('menu-open');
     }
   });
+
+  // Auto-load site search on every page
+  if (!document.querySelector('script[src="search.js"]')) {
+    var searchScript = document.createElement('script');
+    searchScript.src = 'search.js';
+    document.head.appendChild(searchScript);
+  }
 })();
