@@ -504,14 +504,30 @@
   }
 
   const CSS = `
-    .kc-search-btn { position: fixed; top: 14px; right: 14px; z-index: 9000;
+    .kc-search-li { list-style: none; display: inline-block; }
+    .kc-search-btn {
+      background: none; border: none; cursor: pointer; font: inherit;
+      color: var(--text-dark, #2c1810);
+      font-size: .65rem; letter-spacing: .18em; text-transform: uppercase; font-weight: 600;
+      padding: .3rem 0; display: inline-flex; align-items: center; gap: .3rem;
+      font-family: 'Raleway', sans-serif; line-height: 1.5;
+    }
+    .kc-search-btn:hover { color: var(--gold, #8b6914); }
+    .kc-search-btn svg { width: 13px; height: 13px; }
+    /* Fixed-position fallback (only used if nav not present) */
+    .kc-search-btn-floating { position: fixed; top: 14px; right: 14px; z-index: 9000;
       width: 38px; height: 38px; border-radius: 50%;
       background: #f5f0e8; border: 1px solid #d4c4a8; color: #722F37;
       cursor: pointer; display: flex; align-items: center; justify-content: center;
-      transition: all .18s; box-shadow: 0 2px 8px rgba(44,26,14,.08); }
-    .kc-search-btn:hover { background: #722F37; color: #fff; border-color: #722F37; }
-    .kc-search-btn svg { width: 18px; height: 18px; }
-    @media (max-width: 760px) { .kc-search-btn { top: 10px; right: 10px; width: 34px; height: 34px; } }
+      transition: all .18s; box-shadow: 0 2px 8px rgba(44,26,14,.08); padding: 0; }
+    .kc-search-btn-floating:hover { background: #722F37; color: #fff; border-color: #722F37; }
+    .kc-search-btn-floating svg { width: 18px; height: 18px; }
+    @media (max-width: 760px) {
+      .kc-search-li { width: 100%; border-bottom: 1px solid var(--border, #d4c4a8); padding: 0; list-style: none; }
+      .kc-search-btn { width: 100%; padding: 1rem 1.5rem; justify-content: center; font-size: .75rem; letter-spacing: .2em; gap: .5rem; }
+      .kc-search-btn svg { width: 14px; height: 14px; }
+      .kc-search-btn-floating { top: 10px; right: 10px; width: 34px; height: 34px; }
+    }
 
     .kc-overlay { position: fixed; inset: 0; background: rgba(44,26,14,.55); z-index: 10000;
       display: none; align-items: flex-start; justify-content: center; padding: 60px 16px 16px; }
@@ -551,12 +567,24 @@
     style.textContent = CSS;
     document.head.appendChild(style);
 
+    const navList = document.querySelector('.nav-links');
     const btn = document.createElement('button');
-    btn.className = 'kc-search-btn';
     btn.setAttribute('aria-label', 'Search');
-    btn.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>';
     btn.onclick = openOverlay;
-    document.body.appendChild(btn);
+    if (navList) {
+      // Insert as a nav item alongside Posts / Wine Ink / etc.
+      btn.className = 'kc-search-btn';
+      btn.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg><span>Search</span>';
+      const li = document.createElement('li');
+      li.className = 'kc-search-li';
+      li.appendChild(btn);
+      navList.appendChild(li);
+    } else {
+      // Fallback: floating button in top-right corner
+      btn.className = 'kc-search-btn-floating';
+      btn.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>';
+      document.body.appendChild(btn);
+    }
 
     overlayEl = document.createElement('div');
     overlayEl.className = 'kc-overlay';
