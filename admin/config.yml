@@ -83,7 +83,6 @@ collections:
             name: "bottles"
             widget: "list"
             fields:
-              - {label: "Week", name: "week", widget: "string"}
               - {label: "Wine Name", name: "name", widget: "string"}
               - {label: "Vintage", name: "vintage", widget: "string"}
               - {label: "Region", name: "region", widget: "string"}
